@@ -76,9 +76,9 @@ flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 
 man: 	${PACKAGE}.1
 
-check:	tests/check.sh
-	cd tests
-	./check.sh
+check:	tests/check.sh all-am 
+	[ -x ccide ] || chmod a+x ccide
+	cd tests; ./check.sh
 
 html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 
