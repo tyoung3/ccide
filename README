@@ -1,7 +1,6 @@
-
 /* ------------------------------------------------------ legal stuff ------ */
 /*         ccide - C Language Decision Table Code Generator                  */
-/* Copyright (C) 2002-2010 Thomas W. Young, e-mail:  ccide@twyoung.com       */
+/* Copyright (C) 2002-2012 Thomas W. Young, e-mail:  ccide@twyoung.com       */
 /* This program is free software; you can redistribute it and/or modify      */
 /* it under the terms of the GNU General Public License as published by      */
 /* the Free Software Foundation.                                             */
@@ -19,8 +18,11 @@
 
 See the accompanying file, COPYING for terms of use.  
 
-ccide generates C code from a file containing C code and one or more 
-decision tables.  See the man page for a complete description or
-visit http://ccide.sourceforge.com/ for more information.
+Ccide generates C code from a file containing C code and one or more 
+decision tables.  Using the m4 preprocessor, Ccide can generate code in a number
+of other languages from language files which contain commented decision tables.
+ 
+See the man page for a complete description or visit 
+http://ccide.sourceforge.com/ for more information.
 
 
