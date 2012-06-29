@@ -13,7 +13,7 @@ Packager: The CCIDE Project <ccide@twyoung.com>
 
 #Requires: gcc m4
 Source: ftp://ftp.twyoung.com/pub/linux/ccide/ccide-%{version}-%{release}.tar.gz
-BuildRoot: /var/tmp/%{name}-%{version} 
+BuildRoot: /var/tmp/%{name}-%{version}-{release} 
 Vendor:  The CCIDE Project
 %description 
 This package contains ccide, the Decision Table code generator.
@@ -51,6 +51,7 @@ install -m 644 ccide-CC.m4 $RPM_BUILD_ROOT/usr/share/ccide/ccide-CC.m4
 install -m 644 ccide-C++.m4 $RPM_BUILD_ROOT/usr/share/ccide/ccide-C++.m4
 install -m 644 ccide-CS.m4 $RPM_BUILD_ROOT/usr/share/ccide/ccide-CS.m4
 install -m 644 ccide-JAVA.m4 $RPM_BUILD_ROOT/usr/share/ccide/ccide-JAVA.m4
+install -m 644 ccide-EX.m4 $RPM_BUILD_ROOT/usr/share/ccide/ccide-EX.m4
 install -m 644 ccide.1 $RPM_BUILD_ROOT/usr/man/man1/ccide.1
 install -m 644 COPYING $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/COPYING
 install -m 644 ChangeLog $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/ChangeLog
@@ -72,6 +73,7 @@ echo Consider doing: "rm -rf $RPM_BUILD_ROOT"
 @prefix@/share/ccide/ccide-VB.m4
 @prefix@/share/ccide/ccide-QB.m4
 @prefix@/share/ccide/ccide-JAVA.m4
+@prefix@/share/ccide/ccide-EX.m4
 # @prefix@/include/ccide.h
 # @prefix@/lib/libccide.so
 #@prefix@/lib/libccide.so.0

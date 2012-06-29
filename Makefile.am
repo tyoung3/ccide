@@ -44,15 +44,15 @@ RUNX=${PACKAGE}runx
 INLINE=${PACKAGE}inline
 PRIST=/home/tyoung3/ftp/pub/linux/${PACKAGE}
 CCIDE_DIR=$(distdir)
-TARBALL= $(distdir)-${RELEASE}.tar.gz
-CYGWIN_TARBALL= $(distdir)-${RELEASE}.tar.bz2
-CYGWIN_SOURCE_TARBALL= $(distdir)-${RELEASE}-src.tar.bz2
+TARBALL= $(distdir).tar.gz
+CYGWIN_TARBALL= $(distdir).tar.bz2
+CYGWIN_SOURCE_TARBALL= $(distdir)-src.tar.bz2
 
 ##automake standard names:
 bin_PROGRAMS = ccidew
 bin_SCRIPTS = ccide
 dist_pkgdata_DATA = 	ccide-C.m4  ccide-CC.m4 ccide-C++.m4  ccide-BASH.m4 ccide-BASIC.m4 	\
-			ccide-QB.m4 ccide-VB.m4 ccide-JAVA.m4 ccide-CS.m4   ccide.EX.m4
+			ccide-QB.m4 ccide-VB.m4 ccide-JAVA.m4 ccide-CS.m4   ccide-EX.m4
  
 dejatest     = ./tests/ccide.test
 
@@ -99,13 +99,13 @@ html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 	cp ChangeLog /home/httpd/${PACKAGE}/html/inc
 	chown tyoung3.www /home/httpd/${PACKAGE}/html/ChangeLog /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 
-sources: ${RH}/SOURCES/./${PACKAGE}-${VERSION}-${RELEASE}.tar.gz ${RH}/SPECS/ccide.spec
+sources: ${RH}/SOURCES/./ccide-${VERSION}.tar.gz ${RH}/SPECS/ccide.spec
 
 ${RH}/SPECS/ccide.spec: 
 	cp `pwd`/ccide.spec ${RH}/SPECS/ccide.spec
 
-${RH}/SOURCES/./${PACKAGE}-${VERSION}-${RELEASE}.tar.gz:  ${TARBALL} ${RH}/BUILD
-	${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}-${RELEASE}.tar.gz
+${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz:  ${TARBALL} ${RH}/BUILD
+	${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz
 
 #  Build cygwin stuff:
 
@@ -120,13 +120,13 @@ rpm:    dist ${PACKAGE}.1 /home/tyoung3/.pgp/secring.skr sources ${RH}/BUILD
 #	PGPRING=/home/tyoung3/.pgp/secring.skr
 #	GPGPPATH=/home/tyoung3/.pgp/
 	GPGPPATH=/home/tyoung3/.gnupg/
-	/usr/bin/rpmbuild  -ba --sign ${RH}/SPECS/${PACKAGE}.spec
+	sudo /usr/bin/rpmbuild  -ba --sign ${RH}/SPECS/${PACKAGE}.spec
 
 install_rpm: rpm
 #	RPMDIR=/mnt/u1/up2date
 	RPMDIR=/home/ftp/pub/linux
-	cp /usr/src/redhat/RPMS/i386/${PACKAGE}-${VERSION}-${RELEASE}.i386.rpm $RPMDIR/${PACKAGE}/
-	cp /usr/src/redhat/SRPMS/${PACKAGE}-${VERSION}-${RELEASE}.src.rpm $RPMDIR/${PACKAGE}
+	cp /usr/src/redhat/RPMS/i386/${PACKAGE}-${VERSION}.i386.rpm $RPMDIR/${PACKAGE}/
+	cp /usr/src/redhat/SRPMS/${PACKAGE}-${VERSION}.src.rpm $RPMDIR/${PACKAGE}
 
 ${RH}/BUILD:   ~/.rpmmacros
 	mkdir -p --verbose ${RH}/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
@@ -137,7 +137,7 @@ ${RH}/BUILD:   ~/.rpmmacros
 
 ${PACKAGE}.1:	${PACKAGE}.pod
 	/usr/bin/pod2man --section=1				\
-			--release="${PACKAGE}-${VERSION}-${RELEASE}"	\
+			--release="${PACKAGE}-${VERSION}"	\
 			--center="DecisionTableProcessor(${PACKAGE}) Man Page"	 \
 		  ${PACKAGE}.pod > ${PACKAGE}.1
 
