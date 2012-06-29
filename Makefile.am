@@ -23,7 +23,7 @@
 ##    A cygwin source tarball is the same as the normal tarball, except
 ##    for the -RELEASE.bz2 suffix. 
 
-AUTOMAKE_OPTIONS = dejagnu
+AUTOMAKE_OPTIONS=
 RUNTESTDEFAULTFLAGS = --tool ccide CCIDE=`pwd`/ccide --outdir /tmp --srcdir ./tests
 
 ## noinst_DATA = ${PACKAGE}.sum ${PACKAGE}.log
@@ -54,24 +54,9 @@ bin_SCRIPTS = ccide
 dist_pkgdata_DATA = 	ccide-C.m4  ccide-CC.m4 ccide-C++.m4  ccide-BASH.m4 ccide-BASIC.m4 	\
 			ccide-QB.m4 ccide-VB.m4 ccide-JAVA.m4 ccide-CS.m4   ccide-EX.m4
  
-dejatest     = ./tests/ccide.test
-
-deja_sources = ./tests/config/unix.exp ${dejatest}/threeway.in   \
-${dejatest}/fourway.in   ${dejatest}/ccidetime.exp ${dejatest}/elev.right \
-${dejatest}/hcond.exp    ${dejatest}/huge2.right   ${dejatest}/simple.in  \
-${dejatest}/ccidetime.in ${dejatest}/expand.sed    ${dejatest}/hcond.in    \
-${dejatest}/huge.exp     ${dejatest}/simple.right  ${dejatest}/ccidetime.right\
-${dejatest}/fourway.exp  ${dejatest}/hcond.right   ${dejatest}/huge.in  \
-${dejatest}/bin2dec.exp  ${dejatest}/bin2dec.right ${dejatest}/bin2dec.in  \
-${dejatest}/threeway.exp ${dejatest}/elev.exp      ${dejatest}/fourway.in\
-${dejatest}/huge2.exp    ${dejatest}/huge.right    ${dejatest}/threeway.in\
-${dejatest}/elev.in      ${dejatest}/fourway.right ${dejatest}/huge2.in\
-${dejatest}/simple.exp   ${dejatest}/threeway.right                     
-
 ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h
 EXTRA_SUBDIRS = 
-deja_lib = ./lib/ccide.exp
-EXTRA_DIST =  ${deja_sources} ${deja_lib} $(man_MANS) ccide.spec ccidemain.h ccide.h ccideparse.h parse.h ChangeLog CYGWIN-PATCHES/setup.hint.in ccide.in
+EXTRA_DIST =  $(man_MANS) ccide.spec ccidemain.h ccide.h ccideparse.h parse.h ChangeLog CYGWIN-PATCHES/setup.hint.in ccide.in
 
 #Bison Flags  ( -y added by autoconf )
 AM_YFLAGS = -d -l -v
@@ -90,6 +75,10 @@ AM_YFLAGS = -d -l -v
 flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 
 man: 	${PACKAGE}.1
+
+check:	tests/check.sh
+	cd tests
+	./check.sh
 
 html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 
@@ -114,7 +103,7 @@ ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz:  ${TARBALL} ${RH}/BUILD
 
 cygwin:  dist > ${CYGWIN_SOURCE_TARBALL}
 
-CYGWIN_SOURCE_TARBALL: ${TARBALL} 
+CYGWIN_SOURCE_TARB-amALL: ${TARBALL} 
 	  GZIP=$(GZIP_ENV) gunzip  <${TARBALL} 	\
 	| GZIP2=$(GZIP2_ENV) gzip2 -c >${CYGWIN_SOURCE_TARBALL} 
 

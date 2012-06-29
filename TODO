@@ -4,5 +4,7 @@ TODO:
 		. ./build && make check && make rpm
 		. Send rpm to GitHub ? release file
 	. Fix 'make check'
+
+DONE:
 	. Fix 'make rpm'
 		. Fix Error in tarball 
