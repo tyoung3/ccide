@@ -1,0 +1,35 @@
+/*CCIDE_INLINE_CODE:*/
+int a1() {}
+int a2() {}
+int a3() {}
+main() {
+	int c2=2,c3=2,c4;
+	int swvar[3][3]={{2,3,4},{3,4,2},{4,3,0}};
+
+
+		/* N.B.: abort() is never executed.*/
+	/*DECISION_TABLE:				*/
+        /*  2 3 4 | swvar[c2][c3] == $$			*/
+        /*  - - - | abort()				*/
+        /*  _____ | _______             		*/
+        /*  - - - | abort()				*/
+        /*  - - X | a1();				*/
+        /*  1 2 3 | printf("Rule: %i\n", $$ );		*/
+        /*  - X X | a2();				*/
+        /*  X X - |NEWGROUP  	Must be last row	*/
+        /*END_TABLE:					*/
+
+	//DECISION_TABLE:
+	//yny|c4
+	//-ny|c2
+	//ny-|c3
+	//---|--
+	//--x|a3();
+	//x-x|a1();
+	//xx-|a2();
+	//END_TABLE:
+
+
+
+	return 0;
+}
