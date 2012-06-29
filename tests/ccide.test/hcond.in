@@ -1,0 +1,24 @@
+int Doit() {}
+int DontDoit() {}
+//CCIDE_INLINE_CODE:
+main(){
+	int S,T,U,V,B,C,D,E;
+
+	/* 32 conditions and 32 actions. */
+//DECISION_TABLE:
+// 1 2 3 4 5 6 7 8  | S==$$
+// 1 2 3 4 5 6 7 8  | T==$$
+// 1 2 3 4 5 6 7 8  | U==$$
+// 1 2 3 4 5 6 7 8  | V==$$
+//-----------------
+// - - - - - x - -  | Doit(); 
+// - - - x - - - -  | DontDoit(); 
+// 2 1 0 9 8 2 3 -  | B=$$;
+// 1 2 3 4 5 6 7 8  | C=$$;
+// 1 2 3 4 5 6 7 8  | D=$$;
+// 1 2 3 4 5 6 7 8  | E=$$;
+//END_TABLE:
+
+	exit(0);
+}
+	/* End program */
