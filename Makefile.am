@@ -97,15 +97,18 @@ html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 	man2html ${PACKAGE}.1 > /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 	${ECHO} Edit /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig and drop "'.orig'".
 	cp ChangeLog /home/httpd/${PACKAGE}/html/inc
-	chown tyoung3.www /home/httpd/${PACKAGE}/html/ChangeLog /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
+	sudo chown tyoung3.www /home/httpd/${PACKAGE}/html/ChangeLog /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 
-sources: ${RH}/SOURCES/./ccide-${VERSION}.tar.gz ${RH}/SPECS/ccide.spec
+${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz:  ${RH}/SOURCES/./ccide-${VERSION}.tar.gz
+	sudo ln -sf  $< $@
+
+sources: ${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz ${RH}/SPECS/ccide.spec
 
 ${RH}/SPECS/ccide.spec: 
-	cp `pwd`/ccide.spec ${RH}/SPECS/ccide.spec
+	sudo cp `pwd`/ccide.spec ${RH}/SPECS/ccide.spec
 
 ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz:  ${TARBALL} ${RH}/BUILD
-	${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz
+	sudo ${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz
 
 #  Build cygwin stuff:
 
