@@ -1,0 +1,98 @@
+#! /bin/sh
+
+# build:  bootstrap like.  See:
+#	http://sources.redhat.com/autobook/autobook/autobook_43.html#SEC43
+#
+# N.B.:  try ./configure first.  
+
+aclocal 			\
+&&autoconf			\
+&&autoheader 			\
+&&libtoolize --automake		\
+&& automake --add-missing 	\
+&& ./configure
+exit $?
+
+# && automake --gnu --add-missing \
+
+# Quickstart:
+cd /tmp
+tar -xzf tar...ccide*tar.gz
+cd ccide*
+./configure
+make 
+make check
+echo As root
+make install
+
+# For builders:
+./configure --enable-maintainer-mode
+echo make dist
+echo make distcheck
+
+Become root:
+echo make install
+
+Become root on ftp host;
+echo make rpm
+echo make html
+
+exit $?
+
+cat << EOF
+	SourceForge Compile Farm -- Notes
+Servers:
+    A. [x86] Linux 2.4 (Debian 2.2)                     x86-linux1:
+    B. [x86] Linux 2.4 (Redhat 9.0)                     x86-linux2:
+    C. [x86] FreeBSD (4.8)                              x86-freebsd1:
+    D. [x86] NetBSD (1.6.1)     (Cannot log on).
+    E. [AMD64] Linux 2.4 (SuSE 8 ES on AMD64 Opteron)   amd64-linux1:
+    G. [Alpha] Linux 2.2 (Debian 3.0)                   usf-cf-alpha-linux-1:
+    H. [PPC - G4] MacOS X 10.1 SERVER Edition           ppc-osx1:
+    I. [PPC - G4] MacOS X 10.2 SERVER Edition           ppc-osx2:
+    M. [Sparc - R220] Sun Solaris (9) #1                sparc-solaris1:
+    N. [Sparc - R220] Sun Solaris (9) #2                sparc-solaris2:
+    O. [x86] OpenBSD 3.4                                x86-openbsd1:
+    P. [x86] Solaris 9                                  x86-solaris1:
+    Z. CompileFarm ShellServer                          shell:
+				v
+		
+		      * * *   Build Status   * * * 
+        Server:                 A B C D E G H I M N O P Z
+tar -czf ... OK                 Y Y Y - Y Y Y Y N N Y N Y
+build warnings?                 N N Y - N N Y - N N N N -
+make       OK?                  Y Y Y - Y Y Y Y Y Y Y Y -
+make check OK?                  Y N N - N Y N - N - - - -
+DejaGnu?                        Y N N - N Y N N N N N N -
+ccide-0.0.7 OK?			Y Y Y - - Y Y Y Y Y Y Y - 
+rpm  ?                          Y Y N - Y Y N - - - - N Y
+rsync?                          Y Y Y - Y Y Y - - - - N Y
+scp?                            Y Y Y - Y Y Y - Y Y Y Y Y  use cf-shell.sour...
+nano?                           N N Y - N Y Y - - N - - Y
+gunzip ;tar -xvf  ...  OK       - - - - - - - - Y Y - Y -
+receive e-mail &
+schedule cron jobs              N N N N N N N N N N N N Y
+pod2man errors?                 - - - - - - - N N N N - - 
+logon OK?                       Y Y Y N N Y Y Y Y Y Y Y Y
+                                A B C D E G H I M N O P Z
+ccide -- Segmentation Fault     - - - - - - - - - - - Y -
+ld.so.1: gdb: fatal:            - - - - - - - N - - - Y -
+libiconv.so.2: open failed:
+No such file or directory
+                                A B C D E G H I M N O P Z
+
+  				 v
+
+
+	Solaris 9
+x86-solaris1:~/develop/P/ccide-0.0.7/tests/ccide.test$ !..
+../../ccide <$F.in >$F.c
+Segmentation Fault (core dumped)
+x86-solaris1:~/develop/P/ccide-0.0.7/tests/ccide.test$ gdb
+ld.so.1: gdb: fatal: libiconv.so.2: open failed: No such file or directory
+
+				v
+
+
+EOF
+
