@@ -1,0 +1,8 @@
+TODO: 
+	. Build procedure: 
+		. Clone repo
+		. ./build && make check && make rpm
+		. Send rpm to GitHub ? release file
+	. Fix 'make check'
+	. Fix 'make rpm'
+		. Fix Error in tarball 

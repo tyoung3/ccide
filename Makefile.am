@@ -51,7 +51,9 @@ CYGWIN_SOURCE_TARBALL= $(distdir)-${RELEASE}-src.tar.bz2
 ##automake standard names:
 bin_PROGRAMS = ccidew
 bin_SCRIPTS = ccide
-dist_pkgdata_DATA = ccide-C.m4 ccide-CC.m4 ccide-C++.m4 ccide-BASH.m4 ccide-BASIC.m4 ccide-QB.m4 ccide-VB.m4 ccide-JAVA.m4
+dist_pkgdata_DATA = 	ccide-C.m4  ccide-CC.m4 ccide-C++.m4  ccide-BASH.m4 ccide-BASIC.m4 	\
+			ccide-QB.m4 ccide-VB.m4 ccide-JAVA.m4 ccide-CS.m4   ccide.EX.m4
+ 
 dejatest     = ./tests/ccide.test
 
 deja_sources = ./tests/config/unix.exp ${dejatest}/threeway.in   \
