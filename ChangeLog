@@ -1,0 +1,208 @@
+2012-06-29
+	0.5.0-1  Moved to GitHub/ccide. Should equal 0.4.0-1
+
+2010-10-08
+	0.4.0-1  Updated the man page. 
+		 Fixed Java support with changes to ccidew and ccide-JAVA.m4
+
+2010-07-13
+	0.3.0-1  Added CH(interpreted C) support. Ex. ( ccide -L ch < elev.chd > elev.c; ch elev.c )
+		 Changed wrapper script, 'ccide', to show supported languages when -L ? is specified.
+		 Changed ccide to show ccide help instead of ccidew help when --help is specified.
+		 Changed ccidew help to show 'ccidew' instead of 'ccide'.
+
+2010-05-11
+	0.2.3-2  Added euphoria support. Ex. ccide -L ex < ex2.exd > ex2.ex 
+
+2010-04-11 
+	0.2.2.1  Fixed incorrect error message when condition stub contains '!=' (not equal).
+		 Make inline findrule functions and the ccide group variable static. 
+
+2010-03-27 0.2.1.1
+	* Added C# support.  Ex. ccide -L cs < ex1.csd > ex1.cs
+
+2004-10-22
+	* Fixed errors in generating skeleton code.
+
+2004-09-29
+	* Added JAVA support.
+	* Set maximum command line argument size to 40 characters.
+	* Enhanced security in ccidemain.c code.
+
+2004-09-20
+	* Numerous fixes to BASH script generation. 
+	* Added CC comment recognition:  if //DECISION_TABLE: is encountered
+	  in a C program, use "//" for generated comments instead of
+	  /* .... */.     
+	* Fixed standard C comment recognition and generation. 
+	* Added environment variable, CCIDEW, to ccide script, to
+	  facillitate testing.  If CCIDEW is empty, the ccide script will
+	  attempt to find the ccidew program and set the CCIDEW variable 
+	  equal to its location; otherwise, the script will attempt to use
+	  the program at the CCIDEW location.
+	* Changed C program output from C++ style comments(//) to C style
+	  comments(/*...*/) to enhance portability.
+	* Added logic to suppress unnecessary condition evaluation (e.g.
+	  if there are only "Don't Care"  entries in the condition statement).
+	* Added -p PREFIX option to substitute PREFIX for CCIDE in generated code.
+	* Added NEWGROUP in condition stub to replace ccide_group == $$.
+	* Eliminated unused case labels to reduce compiler warnings.
+	* Made some security enhancements. 
+	* Replaced the typedef, CCIDE-BIT, with unsigned long.
+	* Added new target (make flaws) to Makefile for systems with flawfinder
+	  installed. 
+
+2004-09-11
+	* Made 'ccide' a wrapper script for 'ccidew', the decision table
+	  code generator. 
+
+2004-09-06
+	* Allowed for multiple $$ substitutions in one action or condition stub.
+	* Implemented -m4 option and m4 macros to create language independent
+	  output and conversion to C, C++, or BASH.
+
+2004-08-28
+	* Added optional size parameter to the -s(skeleton) option, for
+	  generating skeleton programs of a specified size.
+	* Increased the maximum number of actions from 32 to 1024.
+	* Increased the maximum number of rules from 32 to 256.
+	* Added optimization such that fewer actions are generated when
+	  trailing actions are equal for non-adjacent rules.
+	* Added [-c COLWIDTH] option to specify the number of characters
+	  in each action or condition entry.
+	* Increased the maximum size of an integer entry from 99
+	  to 99999.
+	* Added [-L LANG] option.  LANG = C|CC|BASH.  LANG defaults to C. 
+	
+2004-08-26 
+	*ccideparse.y: Added [-a] option to allow duplicate actions. 
+	*ccidemain.c: Changed to generate conditional code for
+	              the single rule special case.     
+	*ccidemain.c: Changed design assumption such that ccide assumes
+		      that actions always involve side effects and that
+		      conditions never involve side effects.  Later,
+		      a '[CONDITIONS WITH] SIDE EFFECTS' option
+		      will be available in the '//DECISION_TABLE:' statement.
+		      This change does not require changes to existing
+	              programs. 
+
+2004-08-24 Tom Young <ccide@twyoung.com>
+	*ccidemain.c: Replaced strdup with Strdup and added 
+		      memory checking error message.
+		      Reduced the number of global variables.
+	*ccideinline.c: Added code to make skeleton program complile 
+			cleanly.
+
+2004-08-21 Tom Young <ccide@twyoung.com>
+	* Changed test file comments from .d to .in.
+
+2004-08-20 Tom Young <ccide@twyoung.com>
+	*ccidemain.c: Fixed qsort invocation and seq functions. 
+		      Added dummy guard int to CCIDEABLE struct for Solaris 9.
+	*ccidemain.h: Added DISPLAY macro to print a string if yydebug set.
+	*ccideparse.y: Eliminated some warning messages.
+	*configure.in: Began to synchronize versions to CVS.  0.0.7 = 
+		       CVS 7.0. 
+
+2004-08-19 Tom Young <ccide@twyoung.com>
+	*ccidelex.l:  Replace '//ACTIONS:' statement with the more 
+	              readable '//_______'... statement.  
+			
+2004-08-18 Tom Young <ccide@twyoung.com>
+	*ccideparse.y: Replaced option checking logic with a decision table.
+	               Moved Usage and copyright functions to ccideinline.c.
+	*ccidemain.c:  Added [-l] local time option for timestamps.
+	*ccidemain.c:  Added code to check for a lonely '=' in a 
+	               condition expression (a common C error).  Also
+		       added -e option to bypass this check. 
+	*ccidemain.h:  In ERROR3 function, added 'RC=1' so ccide return
+	               code is 1 if any ERROR3 occurs.
+
+2004-08-17 Tom Young <ccide@twyoung.com>
+	* New 'State Machine' functionality
+	  In the special case where a single condition row containing
+	  integers is specified and the condition stub is in the form of:
+
+        	... | EXPRESSION == $$
+
+	  ccide will generate 'state machine' code, replacing the
+	  CcideFindRule.. function with a switch(EXPRESSION) statement, and 
+	  using the row integers in a case statement.
+
+	* Updated copyright messages.
+	* Added [-s] option to produce a skeleton(example) program.
+	* Added [-u](undo) option to strip out generated code without
+	  generating new code. 
+	* Added [-b] option to bypass timestamping output.
+
+2004-08-16 Tom Young <ccide@twyoung.com>
+	* ccideparse.l: Changed yywrap to be a static function.
+	* ccidemain.c:  Added commentary.  Bypassed unused code. 
+
+2004-08-15 Tom Young <ccide@twyoung.com>
+	* Fixed problems with 32 conditions. 
+	* Changed 'make check' to compile and run
+	  all test cases.
+	* Updated test case appropriately.
+	* ccidemain.h: CCIDE_NCOND restored to 32.
+	* cciderunx.c: INT-MAX replaced with UINT-MAX.
+
+2004-08-13 Tom Young <twysf@twyoung.com>
+	* ccidemain.h: CCIDE_NCOND reduced from 32 to 31.  
+	* ccideparse.l:  Decision table statements can now be preceded
+		by whitespace.
+
+2004-08-10 Tom Young <twysf@twyoung.com>
+	* change to 0.0.4
+	* Makefile.am: made 'html:' target depend on ChangeLog 
+
+2004-08-09 Tom Young <twysf@twyoung.com>
+	* configure.in, ccide.spec:  changed to 0.0.3
+	* ccideinline.c:  Fixed bug in CCideFindRule causing endless loop. 
+	* ccideinline.c:  Changed to prevent generating CcideFindRule...
+	  functions more than once.
+	* Added extra //CCIDE_INLINE_CODE: statement to threeway.c.
+	* ccide.pod: updated man page source.
+	* NEWS:  showed change from dtc to ccide.
+	* Fixed .../expand.sed so ccide version changes ignored. 
+	  Rebuilt test cases w/mkright.
+
+2004-08-08 Tom Young <twysf@twyoung.com>
+	* Makefile.am, et al:  Created dejagnu regression testing environment.
+	* ccideparse.y:  added [-n], correcting usage statement.
+
+	* ccideinline.c and cciderunx.c:  simplified CCideFindRule and
+	  CCideFindRuleYes functions. 
+
+	* created tests/ccide.test/mkright script to rebuild test cases.
+	* Added assertions to tests/ccide.test/threeway.in 
+	* Fixed lib/ccide.exp concatenate file sequence.
+	* Removed 'Wtraditional' CFLAG 
+
+2004-08-06 Tom Young <twysf@twyoung.com>
+	* configure.in, *am, etc.: Fixed 'make rpm'
+	* removed unneeded ccideconfig.h.in file (built by autoheader).
+	* Added -Wtraditional to CFLAGS (MY_CFLAGS in configure.in).
+	* configure.in: Added -Wtraditional to CFLAGS.
+	* ccideinline.c:  Fixed up string literal continuations.
+	* ccideparse.y:	  Eliminated deprecated string continuations.
+	* ccidemain.c:	  Fixed conversion warning message.
+	* parse.h:	  Fixed illegal #endif comment
+	* ccidelex.l:	  Fixed string literal continuation.
+
+2004-08-03 Tom Young <twysf@twyoung.com> 2004-08-03 Tom Young <twysf@twyoung.com>
+	* configure.in, *am, etc.:   Temporarily removed libccide.so from build.
+	  Fixed 'distcheck'.  
+
+2004-08-01  Tom Young  <twysf@twyoung.com>
+
+        * build, configure.in, Makfile.am:   Modernize autoconf process.
+	  Change to 'bootstrap' mode.  Add AM_MAINTAINER_MODE.
+	  Added 'libtoolize' to 'build'.
+	  added -target-cpu.target.os to VERSION.
+
+	* ccide.pod:  Corrected e-mail addresses.
+
+	* tests/Makefile.in:  Fixed elev.c.  Fixed ccide invocation. 
+
+	* Makefile.am:  CFLAGS to AM_CFLAGS.  YFLAGS to AM-YFLAGS.

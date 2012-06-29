@@ -1,5 +1,5 @@
+/* cciderun.c  run time decision tables                                      */
 
-/* ------------------------------------------------------ legal stuff ------ */
 /*         ccide - C Language Decision Table Code Generator                  */
 /* Copyright (C) 2002-2010 Thomas W. Young, e-mail:  ccide@twyoung.com       */
 /* This program is free software; you can redistribute it and/or modify      */
@@ -16,11 +16,50 @@
 /* Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 */
 /* ----------------------------------------------- end of legal stuff ------ */
  
+#include "ccide.h"
+#include <stdlib.h>
 
-See the accompanying file, COPYING for terms of use.  
-
-ccide generates C code from a file containing C code and one or more 
-decision tables.  See the man page for a complete description or
-visit http://ccide.sourceforge.com/ for more information.
+#ifndef UINT_MAX
+#include <limits.h>
+#endif
 
 
+#include "ccideparse.h"
+#include "parse.h"
+
+int ccide_group=1;
+
+int CCIDEFindRule(               /* Return rule number */
+	int nbrrules,
+	unsigned long ccide_table, 
+	unsigned long yes[], 
+	unsigned long no[]) 
+{
+	int r=0;
+	CCIDE_BIT nstate;
+	
+	nstate = UINT_MAX ^ ccide_table;
+
+        while (	
+		( (yes[r] & nstate) || (no[r]  & ccide_table) )
+		       &&
+		 ( ++r < nbrrules )  
+	) {};
+
+	return r;
+}
+
+int CCIDEFindRuleYes(		/* Return rule number */
+	int nbrrules,
+        unsigned long ccide_table,
+	unsigned long yes[] )
+{
+	int r=0;
+	CCIDE_BIT nstate;
+	
+	nstate = UINT_MAX ^ ccide_table;
+        while ( ( yes[r] & nstate)  && ( ++r < nbrrules ) ) {};
+	return r;
+}
+
+/* End of cciderun.c */

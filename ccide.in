@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# ccide: wrapper for ccidew.  
+
+CCIDELANG=C
+BINDIR="@prefix@@bindir@"
+DATADIR="@prefix@@datadir@"
+PKGDATADIR="${DATADIR}/@PACKAGE@"
+LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB"
+
+Usage() {
+	cat <<- EOF
+	USAGE:
+	   ccide -s [SKELETONSIZE] 
+     	| ccide -V 
+       	| ccide --help 
+       	| ccide [-a] [-b] [-c COLUMNSIZE] [-d STUBSTRING1 STUBSTRING2] [-e] [-l]  
+              	[-L LANG|?] [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] 
+               	[-s SKELSIZE][-t] [-u] [-x] < STDIN > STDOUT 
+
+	
+EOF
+}
+
+if [ -z "$CCIDEW" ]; then
+	if [ -f ./ccidew ]; then
+		CCIDEW=`pwd`/@PACKAGE@w
+	else
+		CCIDEW="$BINDIR//@PACKAGE@w"
+	fi
+fi
+
+if [ ! -f $CCIDEW ]; then
+	@ECHO@ "$CCIDEW not found"
+	exit 1 
+fi
+
+while [[ $# > 0 ]]; do
+	if [[ ("$1" == "-L") ]]; then
+                CCIDELANG=`echo $2|tr [:lower:] [:upper:]`
+		shift
+		# @ECHO@ "LANG=$CCIDELANG"
+	elif [[ ("$1" == "-m4") ]] ; then
+		CCIDE_M4="yes"
+	elif [[ ("$1" == "--help") ]] ; then
+		Usage
+		exit 1
+	elif [[ ("$1" == "-V") ]] ; then
+		echo "	ccide-@VERSION@-@RELEASE@"
+		WC="$WC $1"
+	else
+		WC="$WC $1"
+	fi
+	shift
+done
+
+if [ "$CCIDE_M4" == "yes"  ]; then
+	$CCIDEW -m4 $WC
+	exit $?
+fi
+
+if [ "$CCIDELANG" == "C" ];  then
+	$CCIDEW $WC 
+	exit $?
+fi
+
+if [ "$CCIDELANG" == "?" ];  then
+	echo "Ccide supported languages are: $LANGSX"
+	exit 2
+fi
+
+
+if [ "$CCIDELANG" == "CH" ];  then
+	$CCIDEW $WC 
+	exit $?
+fi
+
+
+if [ "$CCIDELANG" == "BASH" ];  then
+	      DELIM="-d '[[' ']]'" 
+fi
+
+if [ ! -f "$PKGDATADIR/ccide-$CCIDELANG.m4" ]; then
+	@ECHO@ "$PKGDATADIR/ccide-$CCIDELANG.m4 not found"
+	exit 1 
+fi
+
+if [ "$CCIDELANG" == "EX" ];  then
+	$CCIDEW -L $CCIDELANG $WC	\
+	| @M4@ "$PKGDATADIR/ccide-$CCIDELANG.m4" "-"
+	exit $?
+fi
+
+$CCIDEW -m4 $DELIM -L $CCIDELANG $WC 	\
+	| @M4@ "$PKGDATADIR/ccide-$CCIDELANG.m4" "-"
+
+exit $?

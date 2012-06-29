@@ -1,0 +1,42 @@
+To Create Dependency Graph:
+	/usr/local/bin/yaccviso *.y  (creates depgraph.gif)
+	rm depgraph.vcg
+	dot -Tgif  depgraph.dot > depgraph.gif
+	rm depgraph.dot
+	gimp depgraph.gif
+		. Select:by color
+		. Click on bg color
+		. Edit:Clear
+		. Save image.
+
+See: http://www.gnu.org/software/dejagnu/manual/x199.html
+
+[acinclude.m4] 		>	(aclocal) 	> aclocal.m4
+
+aclocal.m4 	        >	(autoheader) 	> ./config.h.in
+acsite.m4		>	(autoheader)
+acconfig.h		>	(autoheader)
+config.h.top		>       (autoheader)
+config.h.bot            >       (autoheader)
+
+configure.in 		>  	(autoconf) 	> ./configure
+Makefile.am 		>  	(automake --add-missing) > Makefile.in
+				(automake --add-missing) > [Any missing files]
+Makefile and source files > 	(autoscan) 	> configure.scan
+configure.scan 		>	(Manually edit) > configure.in
+
+Makefile.in > (./configure)   > Makefile
+config.h.in > (./configure) [ > C header file ] 	> config.h
+              (./configure) [ > configure.status ]
+              (./configure)   > configure.cache
+              (./configure)   > configure.log
+              (./configure)   > ccide.spec
+
+
+
+Cases:
+	. See http://www.google.com/url?sa=t&source=web&cd=13&ved=0CCkQFjACOAo&url=http%3A%2F%2Fwww.lexjansen.com%2Fpharmasug%2F2004%2Fcoderscorner%2Fcc18.pdf&ei=s-VrTP-oFMOB8gaz5JygCw&usg=AFQjCNF2vc2TonbUGpD_LtpL0mYx6JkKeA&sig2=O9BSCNGruTFc4gptUqGaDw
+
+	  for interesting, convoluted decision table approach. 
+
+
