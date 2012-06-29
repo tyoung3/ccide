@@ -1,0 +1,69 @@
+/* elev.d twy 5/9/2002 
+**
+**  ELEV serves no purpose other than as an example of 
+**  decision table processing -- including substition and NEWGROUP.
+**
+**
+**  Copyright (c) 2002, Thomas W. Young, The CCIDE Project.
+**  47 Mitchell Street
+**  Stamford, CT 06902
+**  All rights reserved.
+**
+**       ccide@twyoung.com
+*/
+
+#include <stdlib.h>
+#include <assert.h>
+#ifdef CCIDE_LIB
+#include <ccide.h>
+#else
+//CCIDE_INLINE_CODE:
+#endif
+
+static int Idle, Moving, AnybodyRiding;
+static char c;
+static int b;
+ 
+static int AnybodyWaiting( char c ) {
+	return 0;
+}
+
+void AdvanceClock() {}
+void GoToFloor() {}
+void Load() {}
+void UnLoad(int x) {}
+void DefaultRule() {}
+void TestInt(int i) {}
+
+void Act(int a, int b) {c=a+b;}
+int Q1(int a) {b=a; return 0;}
+
+int main(int argc, char **argv) {
+	int a,b,c;
+        char *strg[5] = {"a","b","c","d","e"};
+        char *stri={"d"};
+
+//DECISION_TABLE:
+//  1  2 2 2 2 - 3    | NEWGROUP
+//  0  - 2 - - 1 4    |strcmp(strg[$$],stri) == 0
+//  0  - 2 - - 1 40000 |b == $$
+//  Y  Y Y - y N -    |Idle
+//  -  - - N - Y -    |Moving
+//  N  - N - N - -    |AnybodyWaiting(c)
+//  N  Y y - Y - -    |AnybodyRiding
+//-----------------
+//  -  x - - - - -    |GoToFloor();
+//  x  - - - - - -    |AdvanceClock();
+// 11 12 8 - - - 12345  |a=$$;
+//  1  1 2 3 2 - -    |Act($$,$$);
+//  -  - x - x x -    |{ int x=2;  
+//  -  - x - x x -    | UnLoad(x); printf("`date` 'abcd'\n"); 
+//  -  - x - x x -    | Load(); }
+//  -  - - - - - x    |assert(1==0); 
+//  -  - - x - - -    |DefaultRule();
+//  -  - - x - - -    |goto $@;
+//  1  2 3 - 3 3 -    |NEWGROUP
+//END_TABLE:
+
+	return 0;
+}
