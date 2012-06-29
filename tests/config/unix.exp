@@ -1,0 +1,4 @@
+proc ccide_exit {} {}
+proc ccide_version {} {}
+
+

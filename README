@@ -27,7 +27,7 @@ http://ccide.sourceforge.com/ for more information.
 
 Install Note:
 	To rebuild from scratch, run the 'build' script in the installation
-directory(contains Makefile.am, etc..
+	directory(contains Makefile.am, etc.).
 
 
 
