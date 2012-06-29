@@ -1,0 +1,5 @@
+set test_prefix "huge2"
+set test_parms "-c 4"
+set this_dir "ccide.test"
+
+ccide_run "$test_prefix"
