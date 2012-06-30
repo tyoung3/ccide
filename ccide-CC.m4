@@ -1,5 +1,5 @@
 ifelse(
-  File ccide.m4
+  File ccide-CC.m4
 dnl  	ccide - C Language Decision Table Code Generator 
 dnl	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
 dnl
