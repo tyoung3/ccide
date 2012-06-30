@@ -1,31 +1,38 @@
-/* ------------------------------------------------------ legal stuff ------ */
-/*         ccide - C Language Decision Table Code Generator                  */
-/* Copyright (C) 2002-2012 Thomas W. Young, e-mail:  ccide@twyoung.com       */
-/* This program is free software; you can redistribute it and/or modify      */
-/* it under the terms of the GNU General Public License as published by      */
-/* the Free Software Foundation.                                             */
-/*                                                                           */
-/* This program is distributed in the hope that it will be useful,           */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of            */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
-/* GNU General Public License for more details.                              */
-/*                                                                           */
-/* You should have received a copy of the GNU General Public License         */
-/* along with this program; if not, write to the Free Software               */
-/* Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 */
-/* ----------------------------------------------- end of legal stuff ------ */
+
+	  	ccide - C Language Decision Table Code Generator 
+
+	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+
+    	This file is part of ccide, the C Language Decision Table Code Generator.
+
+   	Ccide is free software: you can redistribute it and/or modify
+   	it under the terms of the GNU General Public License as published by
+    	the Free Software Foundation, either version 3 of the License, or
+   	(at your option) any later version.
+
+    	Ccide is distributed in the hope that it will be useful,
+    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    	GNU General Public License for more details.
+
+    	You should have received a copy of the GNU General Public License
+    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+    	Fifth Floor, Boston, MA 02110-1301 USA.
  
 
-See the accompanying file, COPYING for terms of use.  
+See the accompanying file, COPYING, for terms of use.  
 
 Ccide generates C code from a file containing C code and one or more 
 decision tables.  Using the m4 preprocessor, Ccide can generate code in a number
 of other languages from language files which contain commented decision tables.
-Embedded decision tables make programs easier to read, thereby helping to
-prevent logic errors.
+
+Embedded decision tables make programs with if-then-else logic easier to read, 
+thereby helping to prevent logic errors.
  
 See the man page for a complete description or visit 
-http://ccide.sourceforge.com/ for more information.
+https://github.com/tyoung3/ccide
+or https://ccide.sourceforge.com/ for more information.
 
 Install Note:
 	To rebuild from scratch, run the 'build' script in the installation
