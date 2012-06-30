@@ -1,5 +1,25 @@
 ifelse(
-  File ccide.m4
+  File ccide-EX.m4
+dnl  	ccide - C Language Decision Table Code Generator 
+dnl	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+dnl
+dnl   	This file is part of ccide, the C Language Decision Table Code Generator.
+dnl
+dnl   	Ccide is free software: you can redistribute it and/or modify
+dnl   	it under the terms of the GNU General Public License as published by
+dnl    	the Free Software Foundation, either version 3 of the License, or
+dnl   	(at your option) any later version.
+dnl
+dnl    	Ccide is distributed in the hope that it will be useful,
+dnl    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl    	GNU General Public License for more details.
+dnl
+dnl    	You should have received a copy of the GNU General Public License
+dnl    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+dnl    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+dnl    	Fifth Floor, Boston, MA 02110-1301 USA.
+
   Convert text w/embedded macros to euphoria(.ex) output.
   
   USAGE:
