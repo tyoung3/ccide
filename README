@@ -31,7 +31,8 @@ Install Note:
 	To rebuild from scratch, run the 'build' script in the installation
 	directory(contains Makefile.am, etc.) and run 'make'. Run 'make check'
 	to verify your build. 
-	You can install from rpm by running 'make rpm' or 'make install'. 
+	Running 'make install', as root, will install ccide without package management.
+	Or, you can build an rpm by running 'make rpm', as root, then installing the rpm.     
 
 
 
