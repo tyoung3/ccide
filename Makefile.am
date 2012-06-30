@@ -96,9 +96,8 @@ ${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz:  ${RH}/SOURCES/./ccide-${VER
 
 sources: ${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz ${RH}/SPECS/ccide.spec
 
-${RH}/SPECS/ccide.spec: 
-	sudo rm ${RH}/SPECS/ccide.spec
-	sudo cp `pwd`/ccide.spec ${RH}/SPECS/ccide.spec
+${RH}/SPECS/ccide.spec: ccide.spec
+	sudo cp ccide.spec ${RH}/SPECS/ccide.spec
 
 ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz:  ${TARBALL} ${RH}/BUILD
 	sudo ${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz
