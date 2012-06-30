@@ -1,11 +1,12 @@
 2012-06-29
-	0.5.0-2  Moved to GitHub/ccide. Ccidew should be about the same as 0.4.0-1
+	0.5.0-3  Moved to GitHub/ccide. Ccidew should work the same as 0.4.0-1
 		 Updated README
 		 Fixed automake files
 		 Created new TODO file
 		 Included ccide-CS.m4 in RPM BUILD
 		 Fixed link to tarball for RPM build.
 		 Replaced dejagnu check with tests/check.sh script.
+		 Upgraded to GPL-v3. 
 
 2010-10-08
 	0.4.0-1  Updated the man page. 

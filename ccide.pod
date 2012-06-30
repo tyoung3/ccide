@@ -1,3 +1,25 @@
+/*  	ccide - C Language Decision Table Code Generator 
+	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+
+    	This file is part of ccide, the C Language Decision Table Code Generator.
+
+   	Ccide is free software: you can redistribute it and/or modify
+   	it under the terms of the GNU General Public License as published by
+    	the Free Software Foundation, either version 3 of the License, or
+   	(at your option) any later version.
+
+    	Ccide is distributed in the hope that it will be useful,
+    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    	GNU General Public License for more details.
+
+    	You should have received a copy of the GNU General Public License
+    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+    	Fifth Floor, Boston, MA 02110-1301 USA.
+
+*/
+
 # ccide.pod
 
 =head1 NAME
@@ -410,9 +432,9 @@ as this would raise some new portability issues.
 
 =over
 
-=item ccide may not work correctly for some non-C languages. It is believed to
-work correctly for C and some of the non-C languages.
-
+=item There are no known bugs, but ccide may not work correctly for some non-C languages, as C language
+code has been tested most extensively.  No bugs have ever been reported, however.
+ 
 =item The output with the 'undo' option may not be exactly the
 same as the original input -- some whitespace may be added or deleted.
 
@@ -434,16 +456,12 @@ Neither does Ccide impose any limit on the number of statements in a program.
 
 =item Globalize.
 
-=item Make Ccide work with Java tables. 
-
 =item Port to more platforms. 
 
-=item Fix the bugs mentioned above.
-
-=item Create a C++ test program.
+=item Improve the documentation.
 
 =item Write the inverse program, 'edicc', to create decision tables from
-C source. 
+C source (or from any source language). 
 
 =back
  
@@ -458,7 +476,7 @@ Thomas W. Young, ccide@twyoung.com
 
 ==head1 COPYRIGHT 
 
-Copyright © 2002-2010, The CCIDE Project, ccide@twyoung.com.
+Copyright © 2002-2012, Thomas W. Young, The CCIDE Project, ccide@twyoung.com.
 This is free software under the GNU Public License, GPL; 
 see the accompanying COPYING file for copying conditions. 
 
@@ -475,7 +493,10 @@ spelled out in the accompanying COPYING file.
 
 '\<!--#include virtual="/inc/sfinfo.shtml"--\>'
 
-It can be downloaded from SourceForge at
+Ccide is a public Github project at https://github.com/tyoung3/ccide
+The latest version can be found at Github.
+
+Older versions are available from SourceForge at
 	http://www.sourceforge.net/projects/ccide
 
 =cut

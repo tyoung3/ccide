@@ -1,3 +1,5 @@
 TODO: 
 	. Send rpm to GitHub ? release file
 	. Create additional checks.
+	. Fix web site demo
+	. Make valgrind clean
