@@ -37,7 +37,6 @@ Check() {
 	pushd ccide.test >/dev/null || Die Cannot cd ccide.test
 		for TIN in *.in ; do
 			T=`basename $TIN .in`
-			# echo BASE=$T
 			DESC=$T
 			. $T.opt 2>/dev/null || OPT="-b -c 2"
 			$PGM $OPT < $T.in 2> $T.err > $T.c   
@@ -45,6 +44,15 @@ Check() {
 		done
 	popd >/dev/null
 
+}
+
+ShowEm() {
+	pushd ccide.test >/dev/null || Die Cannot cd ccide.test
+		for TIN in *.in ; do
+			T=`basename $TIN .in`
+			( echo Testing $T; diff $T.c $T.right) |less    
+		done
+	popd >/dev/null
 }
 
 Nullo() {
@@ -65,5 +73,9 @@ Nullo() {
 [ -x $PGM ] || Die $PGM is missing
 [ -x $CCIDEW ] || Die $CCIDEW is missing
 
-Check
-Summarize
+case $1 in
+	show)shift; ShowEm;; 
+	*)
+	Check
+	Summarize;;
+esac
