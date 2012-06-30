@@ -21,13 +21,17 @@ See the accompanying file, COPYING for terms of use.
 Ccide generates C code from a file containing C code and one or more 
 decision tables.  Using the m4 preprocessor, Ccide can generate code in a number
 of other languages from language files which contain commented decision tables.
+Embedded decision tables make programs easier to read, thereby helping to
+prevent logic errors.
  
 See the man page for a complete description or visit 
 http://ccide.sourceforge.com/ for more information.
 
 Install Note:
 	To rebuild from scratch, run the 'build' script in the installation
-	directory(contains Makefile.am, etc.).
+	directory(contains Makefile.am, etc.) and run 'make'. Run 'make check'
+	to verify your build. 
+	You can install from rpm by running 'make rpm' or 'make install'. 
 
 
 
