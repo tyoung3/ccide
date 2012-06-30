@@ -10,12 +10,7 @@
  verify w/dec2bin function.
 
 **
-**  Copyright (c) 2004, Thomas W. Young, The CCIDE Project.
-**  47 Mitchell Street
-**  Stamford, CT 06902
-**  All rights reserved.
-**
-**       ccide@twyoung.com
+**  Copyright (c) 2002-2004,2010,2012 Thomas W. Young, The CCIDE Project, e-mail ccide@twyoung.com
 */
 
 #include <stdlib.h>

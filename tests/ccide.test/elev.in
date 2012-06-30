@@ -25,12 +25,7 @@
 **  decision table processing -- including substition and NEWGROUP.
 **
 **
-**  Copyright (c) 2002, Thomas W. Young, The CCIDE Project.
-**  47 Mitchell Street
-**  Stamford, CT 06902
-**  All rights reserved.
-**
-**       ccide@twyoung.com
+**  Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com.
 */
 
 #include <stdlib.h>
