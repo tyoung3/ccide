@@ -274,7 +274,7 @@ J("	          [-s SKELSIZE][-t] [-u] [-x] < STDIN > STDOUT")
 
 void ShowCopyright() {
 
-printf("    ccidew version %s-%s, Copyright (C) 2002-2010 Thomas W. Young\n",
+printf("    ccidew version %s-%s, Copyright (C) 2002-2004,2010,2012 Thomas W. Young, e-mail ccide@twyoung.com\n",
 	VERSION,RELEASE);
 
 printf("    %s comes with ABSOLUTELY NO WARRANTY.", PACKAGE);
