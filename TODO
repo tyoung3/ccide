@@ -1,6 +1,11 @@
 TODO: 
-	. Send rpm to GitHub ? release file
-	. Create additional checks.
+	. Create configure.ac 
+	. Additional program checks.
 	. Fix web site demo
 	. Make valgrind clean
 	. Fix problem with old 'spec file.
+
+DONE:
+	. Fixed problem with spec file.
+	. Sent rpm to GitHub 'Downloads'
+	
