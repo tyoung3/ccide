@@ -55,19 +55,15 @@ ShowEm() {
 	popd >/dev/null
 }
 
-Nullo() {
-        TestHello > /tmp/check.out 2>/tmp/check.err && ShowBal >/tmp/ShowBal.out 2>/tmp/ShowBal.err && echo $* TestHello checks OK! &
-        for  NDL in test*.ndl; do
-                echo -n Testing ${NDL}: 
-                ../dfd -g0 <$NDL 2>/dev/null >/dev/null && Success $NDL || Fail $NDL
-        done
-        for  NDL in fail*.ndl; do
-                echo -n Testing ${NDL}: 
-                ../dfd -g0 <$NDL 2>/dev/null >/dev/null && Fail $NDL || Success $NDL
-        done
-        
-        Summarize
-        
+Reset() {
+	MASTER=/mnt/sda7/git/ccide
+	pushd ccide.test >/dev/null || Die Cannot cd ccide.test
+		for TIN in *.in ; do
+			T=`basename $TIN .in`
+			mv $T.c  $MASTER/tests/ccide.test/$T.right || Die Cannot mv $T.c to $MASTER/tests/ccide.test/$T.right
+		done
+	popd >/dev/null
+
 }
 
 [ -x $PGM ] || Die $PGM is missing
@@ -75,6 +71,7 @@ Nullo() {
 
 case $1 in
 	show)shift; ShowEm;; 
+	reset)shift;Reset;;
 	*)
 	Check
 	Summarize;;

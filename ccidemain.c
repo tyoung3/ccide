@@ -455,7 +455,6 @@ void SaveLeadingWhiteSpace(char *s1) {
 	s=s1;	
 	ccide.dummy_guard[0]=19;
 	while( (*s == ' ') || (*s == '\t') ) {
-		//*(s++);
 		(s++);
 	}
 
@@ -470,13 +469,14 @@ void SaveLeadingWhiteSpace(char *s1) {
 	}
 
 	free(lws);
-	// lws = strndup(s1,s-s1);    7/2/2012 twy replace strndup. Some distr.(Mingw) do not implement strndup.  Why not!!!? 
-	{ register int i=s-s1;
-		lws = (char *) malloc (i + 1);
+	// lws = strndup(s1,s-s1);   // 7/2/2012 twy replace strndup. Some distr.(Mingw) do not implement strndup.  Why not!!!? 
+	{ 	register int i=s-s1;
+		if( (lws = (char *) malloc (i + 1)) == NULL) {
+			perror("Allocating leading white space");
+		};
+		memcpy(lws, s1, i);
 		lws[i] = '\0';
-		memcpy(lws, s, i);
 	}      
-
 }
 
 	/* Clear ccide table */
