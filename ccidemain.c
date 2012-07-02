@@ -469,7 +469,6 @@ void SaveLeadingWhiteSpace(char *s1) {
 	}
 
 	free(lws);
-	// lws = strndup(s1,s-s1);   // 7/2/2012 twy replace strndup. Some distr.(Mingw) do not implement strndup.  Why not!!!? 
 	{ 	register int i=s-s1;
 		if( (lws = (char *) malloc (i + 1)) == NULL) {
 			perror("Allocating leading white space");
