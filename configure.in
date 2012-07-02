@@ -99,7 +99,7 @@ dnl AC_CHECK_LIB(ccide, main)
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(malloc.h unistd.h limits.h string.h assert.h time.h alloca.h)
+AC_CHECK_HEADERS(malloc.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -107,8 +107,16 @@ AC_STRUCT_TM
 
 dnl Checks for library functions.
 AC_FUNC_STRFTIME
-AC_CHECK_FUNCS(strdup memcpy)
+AC_FUNC_ALLOCA
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
+
+AC_CHECK_FUNCS(strdup memcpy strstr)
 AC_CHECK_FUNCS(malloc)
+
+AC_PROG_RANLIB
+AC_TYPE_SIZE_T
+AC_C_INLINE
 
 AC_MSG_CHECKING([whether to turn on debugging in build])
 AC_ARG_ENABLE(debug,
