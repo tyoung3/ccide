@@ -34,7 +34,7 @@ AM_INIT_AUTOMAKE(ccide, 0.5.0)
 AM_MAINTAINER_MODE(TRUE)
 
 dnl Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=6
+RELEASE=7
 
 LIBVER=0
 LIBCCIDE=libccide
