@@ -1,3 +1,6 @@
+2012-07-02
+	0.5.0-6  Replaced strndup function with malloc..., memcpy for Mingw Compatibility
+
 2012-06-29
 	0.5.0-5  Moved to GitHub/ccide. Ccidew should work the same as 0.4.0-1
 		 Updated README
