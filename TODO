@@ -1,11 +1,13 @@
 TODO: 
-	. Create configure.ac 
+	. Create ccide[.BAT] file for Windows.
+		. Test Windows/mingw/cygwin.
 	. Additional program checks.
 	. Fix web site demo
+		. Update on-line man page 
 	. Make valgrind clean
-	. Fix problem with old 'spec file.
 
 DONE:
+	. Fixed autoscan problems in configure.in
 	. Fixed problem with spec file.
 	. Sent rpm to GitHub 'Downloads'
 	

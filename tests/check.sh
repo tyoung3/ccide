@@ -40,7 +40,7 @@ Check() {
 			DESC=$T
 			. $T.opt 2>/dev/null || OPT="-b -c 2"
 			$PGM $OPT < $T.in 2> $T.err > $T.c   
-			diff $T.c $T.right >/dev/null   && Success $DESC || Fail $DESC
+			( diff $T.c $T.right >/dev/null && make $T)    && Success $DESC || Fail $DESC
 		done
 	popd >/dev/null
 
@@ -60,7 +60,8 @@ Reset() {
 	pushd ccide.test >/dev/null || Die Cannot cd ccide.test
 		for TIN in *.in ; do
 			T=`basename $TIN .in`
-			mv $T.c  $MASTER/tests/ccide.test/$T.right || Die Cannot mv $T.c to $MASTER/tests/ccide.test/$T.right
+			cp $T.c $T.right || Die Cannot cp $T.c $T.right
+			cp $T.c  $MASTER/tests/ccide.test/$T.right || Die Cannot mv $T.c to $MASTER/tests/ccide.test/$T.right
 		done
 	popd >/dev/null
 

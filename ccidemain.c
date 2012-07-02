@@ -1102,6 +1102,8 @@ void GenerateCases( int nactions, int nrules) {
 
 	if( lang==EX)
        		 printf("%s CCIDE_BEGIN_BLOCK() label \"%s_TABLE_%i\"\n%s ",lws, pPrefix, nbrtables,lws);
+	else if(lang==C) 
+		printf("%s { %s_TABLE_%i:",lws, pPrefix, nbrtables);
 	else
 	        printf("%s CCIDE_BEGIN_BLOCK() %s_TABLE_%i:",lws, pPrefix, nbrtables);
 
@@ -1127,7 +1129,10 @@ void GenerateCases( int nactions, int nrules) {
                 PerformActions(r, rm, rulemap[r+1], nrules);
         };
 
- 	printf("%s CCIDE_END_SWITCH() \n", lws ); 
+	if( lang==C)
+		printf("%s }\n", lws);
+	else
+	 	printf("%s CCIDE_END_SWITCH() \n", lws ); 
 	GenEnd();
 }
 
