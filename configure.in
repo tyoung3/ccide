@@ -34,7 +34,7 @@ AM_INIT_AUTOMAKE(ccide, 0.5.0)
 AM_MAINTAINER_MODE(TRUE)
 
 dnl Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=5
+RELEASE=6
 
 LIBVER=0
 LIBCCIDE=libccide
@@ -107,7 +107,7 @@ AC_STRUCT_TM
 
 dnl Checks for library functions.
 AC_FUNC_STRFTIME
-AC_CHECK_FUNCS(strdup)
+AC_CHECK_FUNCS(strdup memcpy)
 AC_CHECK_FUNCS(malloc)
 
 AC_MSG_CHECKING([whether to turn on debugging in build])

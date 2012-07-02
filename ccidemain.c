@@ -470,7 +470,12 @@ void SaveLeadingWhiteSpace(char *s1) {
 	}
 
 	free(lws);
-	lws = strndup(s1,s-s1);       
+	// lws = strndup(s1,s-s1);    7/2/2012 twy replace strndup. Some distr.(Mingw) do not implement strndup.  Why not!!!? 
+	{ register int i=s-s1;
+		lws = (char *) malloc (i + 1);
+		lws[i] = '\0';
+		memcpy(lws, s, i);
+	}      
 
 }
 
