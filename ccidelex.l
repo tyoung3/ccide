@@ -372,7 +372,7 @@ void yyerror(const char *s) {
 	static int count=0;
 
         fprintf(stderr, 
-		"%s: Error in line %d: %s near '%s'. State=%d\n",
+		"%s: Error in line %d: %s near '%s'. Start State=%d\n",
 		PGMNAME, lineno, s, yytext, yy_start);
 
 	if( count++ > 9 ) {

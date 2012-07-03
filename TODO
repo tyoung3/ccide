@@ -1,12 +1,16 @@
 TODO: 
-	. Document/improve release workflow.
-		. ZIP file for Windows.  -- 'make dist-zip'
+	. Release -8
+		. Name from Ccide to Ccidew in error messages. w/version.
+		. Document/improve release workflow.
+			. ZIP file for Windows.  -- 'make dist-zip'
 	. Publicize.
 		. README.md for GitHub
 	. Create ccide[.BAT] file for Windows.
 		. Test Windows/mingw/cygwin.
 	. Include test cases in RPM Source.
 	. Additional program checks.  Increase testing coverage.
+
+
 	. Fix web site demo
 		. Update on-line man page 
 	. Make valgrind clean
