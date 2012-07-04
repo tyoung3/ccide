@@ -24,7 +24,7 @@ dnl
 dnl Process this file with autoconf0 to produce a configure script.
 dnl See 'build' script for complete build process.
 AC_INIT([ccide], [0.6.0], [ccide@twyoung.com])
-AC_CONFIG_SRCDIR(./srcs)
+AC_CONFIG_SRCDIR(./src)
 
 # Checks for system type. Defines target_cpu, etc.
 AC_CANONICAL_SYSTEM
