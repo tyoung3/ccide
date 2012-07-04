@@ -54,8 +54,6 @@ CYGWIN_SOURCE_TARBALL= $(distdir)-src.tar.bz2
 ##automake standard names:
 bin_PROGRAMS = ccidew
 bin_SCRIPTS = ccide
-dist_pkgdata_DATA = 	ccide-C.m4  ccide-CC.m4 ccide-C++.m4  ccide-BASH.m4 ccide-BASIC.m4 	\
-			ccide-QB.m4 ccide-VB.m4 ccide-JAVA.m4 ccide-CS.m4   ccide-EX.m4
  
 ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h
 EXTRA_SUBDIRS = 
