@@ -1,3 +1,4 @@
+dnl     _____________________________________________________________________________________
 dnl  	ccide - C Language Decision Table Code Generator 
 dnl	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
 dnl
@@ -17,13 +18,14 @@ dnl    	You should have received a copy of the GNU General Public License
 dnl    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
 dnl    	write to the Free Software Foundation, Inc., 51 Franklin St, 
 dnl    	Fifth Floor, Boston, MA 02110-1301 USA.
-
-
-dnl Process this file with autoconf to produce a configure script.
+dnl     _____________________________________________________________________________________
+dnl
+dnl
+dnl Process this file with autoconf0 to produce a configure script.
 dnl See 'build' script for complete build process.
-AC_INIT(ccidemain.c)
+AC_INIT(ccidemain.c, 0.5.0, ccide@twyoung.com)
 
-# Checks for system type. Definest target_cpu, etc.
+# Checks for system type. Defines target_cpu, etc.
 AC_CANONICAL_SYSTEM
 TARGET=$target_cpu-$target_os
 
