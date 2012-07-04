@@ -23,22 +23,21 @@ dnl
 dnl
 dnl Process this file with autoconf0 to produce a configure script.
 dnl See 'build' script for complete build process.
-AC_INIT(ccidemain.c, 0.5.0, ccide@twyoung.com)
+AC_INIT([ccide], [0.6.0], [ccide@twyoung.com])
 AC_CONFIG_SRCDIR(./srcs)
-
 
 # Checks for system type. Defines target_cpu, etc.
 AC_CANONICAL_SYSTEM
 TARGET=$target_cpu-$target_os
 
 AM_CONFIG_HEADER(ccideconfig.h)
-AM_INIT_AUTOMAKE(ccide, 0.5.0)
+AM_INIT_AUTOMAKE([ccide], [0.6.0])
 # For bootstrap system.  See:
 #  	http://sources.redhat.com/autobook/autobook/autobook_43.html#SEC43
 AM_MAINTAINER_MODE(TRUE)
 
 dnl Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=8
+RELEASE=1
 
 LIBVER=0
 LIBCCIDE=libccide
