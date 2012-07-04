@@ -38,8 +38,6 @@ CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub
 DEBUG =   
 AM_CFLAGS=@MY_CFLAGS@
 ELEV=elev
-#  (fails) RH=~/rpms
-RH=/usr/src/rpm
 CCIDE=${PACKAGE}
 PARSE=${PACKAGE}parse
 MAIN=${PACKAGE}main
@@ -56,16 +54,9 @@ bin_PROGRAMS = ccidew
 bin_SCRIPTS = ccide
  
 ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h
-EXTRA_SUBDIRS = 
-EXTRA_DIST =  $(man_MANS) ccide.spec ccidemain.h ccide.h ccideparse.h parse.h ChangeLog CYGWIN-PATCHES/setup.hint.in ccide.in
 
 #Bison Flags  ( -y added by autoconf )
 AM_YFLAGS = -d -l -v
-
-## SUFFIXES = .y .l $(OBJEXT) .c .d .h
-
-##$(OBJEXT):	$*.o   @LIBCCIDE@.@LIBVER@
-##	${LINK} $(LDFLAGS) $(AM_CFLAGS) $*.$(OBJEXT) -o $*
 
 .c$(OBJEXT):	$*.c
 	${COMPILE}   -c $*.c -o $*$(OBJEXT)
@@ -77,50 +68,6 @@ flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 
 man: 	${PACKAGE}.1
 
-check:	tests/check.sh all-am 
-	[ -x ccide ] || chmod a+x ccide
-	cd tests; ./check.sh
-
-html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
-
-/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig: ${PACKAGE}.1 ChangeLog
-	man2html ${PACKAGE}.1 > /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
-	${ECHO} Edit /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig and drop "'.orig'".
-	cp ChangeLog /home/httpd/${PACKAGE}/html/inc
-	sudo chown tyoung3.www /home/httpd/${PACKAGE}/html/ChangeLog /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
-
-${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz:  ${RH}/SOURCES/./ccide-${VERSION}.tar.gz
-	sudo ln -sf  $< $@
-
-sources: ${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz ${RH}/SPECS/ccide.spec
-
-${RH}/SPECS/ccide.spec: ccide.spec
-	sudo cp ccide.spec ${RH}/SPECS/ccide.spec
-
-${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz:  ${TARBALL} ${RH}/BUILD
-	sudo ${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz
-
-#  Build cygwin stuff:
-
-cygwin:  dist > ${CYGWIN_SOURCE_TARBALL}
-
-CYGWIN_SOURCE_TARB-amALL: ${TARBALL} 
-	  GZIP=$(GZIP_ENV) gunzip  <${TARBALL} 	\
-	| GZIP2=$(GZIP2_ENV) gzip2 -c >${CYGWIN_SOURCE_TARBALL} 
-
-
-install_rpm: rpm
-#	RPMDIR=/mnt/u1/up2date
-	RPMDIR=/home/ftp/pub/linux
-	cp /usr/src/redhat/RPMS/i386/${PACKAGE}-${VERSION}.i386.rpm $RPMDIR/${PACKAGE}/
-	cp /usr/src/redhat/SRPMS/${PACKAGE}-${VERSION}.src.rpm $RPMDIR/${PACKAGE}
-
-${RH}/BUILD:   ~/.rpmmacros
-	mkdir -p --verbose ${RH}/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-	mkdir -p --verbose ${RH}/RPMS/{athlon,i386,i486,i586,i686,noarch}
-
-~/.rpmmacros:
-	echo "%_topdir /usr/src/redhat" > ~/.rpmmacros
 
 ${PACKAGE}.1:	${PACKAGE}.pod
 	/usr/bin/pod2man --section=1				\
@@ -128,11 +75,6 @@ ${PACKAGE}.1:	${PACKAGE}.pod
 			--center="DecisionTableProcessor(${PACKAGE}) Man Page"	 \
 		  ${PACKAGE}.pod > ${PACKAGE}.1
 
-##lib_LIBRARIES = ${LIBCCIDE}.a
-##${LIBCCIDE}_a_sources = cciderunx.c
-
-##${LIBCCIDE}.${LIBVER}: ${RUNX}.o 
-##	${LINK} -shared -O3 -Wall -Wl,-soname,${LIBCCIDE}.${LIBVER} -o${LIBCCIDE}.${LIBVER} ${RUNX}.o -lc 
 
 ${MAIN}$(OBJEXT):  ${MAIN}.h ${MAIN}.c ${PARSE}.h ${RUNX}.o config.h
 
