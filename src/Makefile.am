@@ -108,12 +108,6 @@ CYGWIN_SOURCE_TARB-amALL: ${TARBALL}
 	  GZIP=$(GZIP_ENV) gunzip  <${TARBALL} 	\
 	| GZIP2=$(GZIP2_ENV) gzip2 -c >${CYGWIN_SOURCE_TARBALL} 
 
-#  Build rpm 
-rpm:    dist ${PACKAGE}.1 /home/tyoung3/.pgp/secring.skr sources ${RH}/BUILD 
-#	PGPRING=/home/tyoung3/.pgp/secring.skr
-#	GPGPPATH=/home/tyoung3/.pgp/
-	GPGPPATH=/home/tyoung3/.gnupg/
-	sudo /usr/bin/rpmbuild  -ba --sign ${RH}/SPECS/${PACKAGE}.spec
 
 install_rpm: rpm
 #	RPMDIR=/mnt/u1/up2date
