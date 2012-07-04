@@ -21,6 +21,9 @@
 
 /* hcond.in */
 
+#include <stdlib.h>
+#include <stdio.h>
+
 int Doit() {}
 int DontDoit() {}
 //CCIDE_INLINE_CODE:
