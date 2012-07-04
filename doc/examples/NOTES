@@ -1,0 +1,14 @@
+Optimizations:
+	. If the first action is always taken, generate immediately, 
+	  remove from the table, and repeat.
+	. If the last action is always taken, push on queue, 
+	  remove from the table, and repeat.  When the table is finished,
+	  pop off all the saved actions.
+	. Decomposition:
+		. Pick the best discriminator condition (Cx) and 
+		  create two subtables wo/Cx:
+		    generate if(Cx) then 
+		    		    Expanded(Cx == Y);
+		             else 
+				    Expanded(Cx == N); 
+		   The best discriminator has the fewest 'dont cares'.
