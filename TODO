@@ -3,14 +3,24 @@ TODO:
 		. Name from Ccide to Ccidew in error messages. w/version.
 		. Document/improve release workflow.
 			. ZIP file for Windows.  -- 'make dist-zip'
+				. Ensure unix2dos run on all text files.
+	. Fix configure.in to verify functions like strncpy and sprintf.
 	. Publicize.
 		. README.md for GitHub
 	. Create ccide[.BAT] file for Windows.
 		. Test Windows/mingw/cygwin.
 	. Include test cases in RPM Source.
 	. Additional program checks.  Increase testing coverage.
-
-
+		. Check threeway expansion, compilation, and execution.
+		. If the corresponding compiler is present
+			. Check C++ thru execution.
+			. Check Java thru execution.
+		   otherwise issue a compiler missing warning.
+        . Change ccide script to accept multiple file names and if the -L language option is ommitted,
+		    convert according to suffixes: (using an intermediate file if the output file name 
+		    would duplicate the input filename).
+		. Ex.  'ccide foobar.LANG.d' will execute ccide -L LANG < foobar.LANG.d > foobar.LANG
+			where LANG=cpp, qb, java, etc.
 	. Fix web site demo
 		. Update on-line man page 
 	. Make valgrind clean

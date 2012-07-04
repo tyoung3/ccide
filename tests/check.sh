@@ -40,7 +40,7 @@ Check() {
 			DESC=$T
 			. $T.opt 2>/dev/null || OPT="-b -c 2"
 			$PGM $OPT < $T.in 2> $T.err > $T.c   
-			( diff $T.c $T.right >/dev/null && make $T)    && Success $DESC || Fail $DESC
+			( diff $T.c $T.right >/dev/null && make $T >/dev/null)    && Success $DESC || Fail $DESC
 		done
 	popd >/dev/null
 
