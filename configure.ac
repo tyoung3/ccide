@@ -24,6 +24,8 @@ dnl
 dnl Process this file with autoconf0 to produce a configure script.
 dnl See 'build' script for complete build process.
 AC_INIT(ccidemain.c, 0.5.0, ccide@twyoung.com)
+AC_CONFIG_SRCDIR(./srcs)
+
 
 # Checks for system type. Defines target_cpu, etc.
 AC_CANONICAL_SYSTEM
@@ -92,7 +94,7 @@ AM_PROG_LIBTOOL
 
 dnl Checks for libraries.
 dnl Replace `main' with a function in -lc:
-AC_CHECK_LIB(c, main)
+AC_CHECK_LIB(c, sprintf)
 dnl Replace `main' with a function in -lccide:
 dnl AC_CHECK_LIB(ccide, main)
 
@@ -101,7 +103,7 @@ dnl AC_CHECK_LIB(ccide, main)
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(malloc.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h)
+AC_CHECK_HEADERS(malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h time.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
