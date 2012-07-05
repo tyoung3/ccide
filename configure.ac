@@ -102,9 +102,6 @@ AC_PATH_PROG(M4, m4)
 AM_PROG_LEX
 AM_PROG_LIBTOOL 
 
-# Checks for libraries.
-# Replace `main' with a function in -lc:
-AC_CHECK_LIB(c, sprintf)
 # Replace `main' with a function in -lccide:
 # AC_CHECK_LIB(ccide, main)
 
@@ -113,7 +110,7 @@ AC_CHECK_LIB(c, sprintf)
 # Checks for header files.
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h time.h)
+AC_CHECK_HEADERS(malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -142,6 +139,4 @@ AC_ARG_ENABLE(debug,
        AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
   esac],[CFLAGS="${CFLAGS:=-O}" ; AC_MSG_RESULT([no])])
 
-
-#AC_OUTPUT(Makefile ccide.spec CYGWIN-PATCHES/setup.hint ccide )
-AC_OUTPUT( src/ccide ccide.spec CYGWIN-PATCHES/setup.hint )
+AC_OUTPUT( src/ccide src/ccideconfig.h ccide.spec CYGWIN-PATCHES/setup.hint )
