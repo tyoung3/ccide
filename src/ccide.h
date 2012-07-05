@@ -22,8 +22,6 @@
 #ifndef _CCIDE__H		/* ccide.h */
 #define _CCIDE__H
 
- 
-/* #include <config.h> */
 #include "ccideconfig.h"
 
 typedef unsigned int CCIDE_BIT; 
@@ -31,4 +29,3 @@ extern int ccide_group;
 extern int CCIDEFindRule(int nbrrules, unsigned long, unsigned long yes[], unsigned long no[]);
 extern int CCIDEFindRuleYes(int nbrrules, unsigned long, unsigned long yes[]);
 #endif  /* ifndef _CCIDE__H  */
-

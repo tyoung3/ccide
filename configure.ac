@@ -26,7 +26,7 @@
 AC_PREREQ(2.59)
 AC_INIT([ccide], [0.6.0], [ccide@twyoung.com])
 AC_CONFIG_SRCDIR([src/ccidemain.c])
-AM_CONFIG_HEADER(ccideconfig.h)
+AM_CONFIG_HEADER(src/ccideconfig.h)
 AC_CONFIG_FILES([Makefile src/Makefile ])
 
 AC_PROG_CXX
@@ -139,4 +139,4 @@ AC_ARG_ENABLE(debug,
        AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
   esac],[CFLAGS="${CFLAGS:=-O}" ; AC_MSG_RESULT([no])])
 
-AC_OUTPUT( src/ccide src/ccideconfig.h ccide.spec CYGWIN-PATCHES/setup.hint )
+AC_OUTPUT( ccide ccide.spec CYGWIN-PATCHES/setup.hint )

@@ -1,0 +1,502 @@
+/*  	ccide - C Language Decision Table Code Generator 
+	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+
+    	This file is part of ccide, the C Language Decision Table Code Generator.
+
+   	Ccide is free software: you can redistribute it and/or modify
+   	it under the terms of the GNU General Public License as published by
+    	the Free Software Foundation, either version 3 of the License, or
+   	(at your option) any later version.
+
+    	Ccide is distributed in the hope that it will be useful,
+    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    	GNU General Public License for more details.
+
+    	You should have received a copy of the GNU General Public License
+    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+    	Fifth Floor, Boston, MA 02110-1301 USA.
+
+*/
+
+# ccide.pod
+
+=head1 NAME
+
+ccide - Decision Table Code Generator
+
+Expand embedded decision tables and copy supporting code to generate
+compilable or interpretable code.
+
+=head1 SYNOPSIS
+
+B<ccide> [ -a] [-b] [-c COLSIZE] [-d SUBSTITUTE_STRING1 SUBSTITUTE_STRING2 ] [-e] [-l] [-L C|CC|CH|CS|BASH|BASIC|EX|JAVA|VB|QB] 
+		 [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] [-s SKELSIZE] [-t] 
+ 		 [-u] [-x] < FILEIN > FILEOUT  
+
+B<ccide> [-V]  		
+
+B<ccide> [-s [nnn] ]  		
+
+B<ccide> [--help] 	
+
+=head1 DESCRIPTION
+
+ccide reads a source file of C source code containing embedded decision tables 
+from STDIN, analyzes, and expands the tables. 
+
+The output from ccide can be modified (or not) then used as input to ccide
+subsequently.   In other words if ccide is run as follows:
+	ccide -b < foobar.d | tee foobar.c | ccide -b > foobar.t
+then foobar.c will be identical to foobar.t.  (The -b option suppresses
+the timestamps that would otherwise cause differences.)
+
+All statements not within a decision table are copied unchanged to
+STDOUT.  Decision tables are analyzed and written to STDOUT.  Generated
+code is written to STDOUT, surrounded by the statements:
+'//GENERATED_CODE:' and '//END_GENERATED_CODE:'.
+
+If the two '//...GENERATED_CODE:' statements appear in the input file,
+ccide ignores them and all the statements in between.
+
+If the statement '//CCIDE_INLINE_CODE:' is encountered, ccide generates
+definitions of CcideFindRule... functions.  This code follows
+the '//CCIDE_INLINE_CODE:' statement and is surrounded by
+'//...GENERATED_CODE:' statements.  If the input contains multiple/P
+'//CCIDE_INLINE_CODE:' statements, only the first will be expanded.
+
+A decision table takes the following general form:
+
+ //DECISION_TABLE:
+ // c0,0 c0,1 c0,2 ... c0,r | e0
+ // c1,0 c1,1 c1,2 ... c1,r | e1
+ //	...
+ // cn,0 cn,1 cn,2 ... cn,r | en
+ //------------------------ | --
+ // r0,0 r0,1 r0,2 ... r0,r | a0
+ // r1,0 r1,1 r1,2 ... r1,r | a0
+ //	...
+ // rm,0 rm,1 rm,2 ... rm,r | a0
+ //END_TABLE:
+
+ The '//-----------------------------' statement is required.  There may
+be any number of spaces hyphens(-) and underscores(_), but no other
+characters except for a single, optional, fence, '|'.  The current
+parser allows multiple fences, but this is not guaranteed. 
+
+ where 	c0,0 ... cn,r   (condition entries) can be Y(yes), N(no), -(don't 
+			care), or a decimal integer from 0 to 99; 
+
+	r 		is the number of rules; a rule is defined by a 
+			vertical column of conditions and actions through 
+			a table;
+
+	n 		is the number of condition rows;
+
+	| 		is a 'fence' which divides the rule entries (left 
+			side) from the  condition stub or action stub on 
+			the right side;
+
+        e0 ... en 	are conditional expressions;
+
+ 	r0,0 ... rm,r   (action entries) can be X(act), -(don't care), or 
+			a decimal number from 0 to 99;  '#' and '/' characters
+			will be ignored, by the current parser.
+
+	a0 ... am 	are action stubs -- program language dependent code;
+
+	m 		is the number of action rows. 
+
+Decision table statements may be preceded with whitespace(blanks and
+tab characters).   The generated output will duplicate the whitespace
+preceding the '//DECISION_TABLE:' statement.
+
+There is no provision for commentary within a table, except as
+comments may appear in stub entries. However, if all entries are
+"don't care" entries, then the statement is effectively a comment. 
+
+Ccide analyzes the table, copies the table to STDOUT, followd by generated
+code.  Every conditional expression is evaluated just once and
+in the order of appearance in the table.  In case all the condition
+entries are "Don't care", the condition is not evaluated, since the
+condition cannot affect the logical outcome.  
+
+When analyzing the table, ccide reorders the rules, placing the more 
+specific rules in front of less specific rules.   You can safely assume 
+that the order of rules in the table has no effect on the resulting 
+program and accordingly you should enter rules in whatever order is most 
+convenient(readable).  
+
+If integers appear as condition or action entries, a '$$' in the row stub
+will be replaced by the entry integer.  A separate row is generated, in
+effect, for each unique digit that appears as a rule entry in the original
+row.   
+
+If NEWGROUP appears as a condition stub, ccide will generate
+code to test the group variable against the integers supplied in
+the condition entries.  Effectively, ccide will replace "NEWGROUP"
+with "ccide_group == $$".
+ 
+If 'NEWGROUP' appears as the last action stub, the integer variable,
+'ccide_group' (initially = 1), will be assigned the integer value specified
+in the appropriate rule and the table will be re-entered from the
+beginning.  This has the effect of combining two, or more, smaller tables
+into one larger table. There should be a corresponding condition stub
+which checks for the ccide_group value.  Like this:
+
+	1 2 2 2 2 3 | NEWGROUP
+		  ....
+	-----------------------
+		  ....
+	2 2 2 2 3 - | NEWGROUP
+
+In the preceding example, the decision table will be left(not
+re-entered) when rule 6 finally takes effect. 
+
+If '$@' appears in an action stub, ccide will replace the $@ with
+the name of the decision table entry point.  This is mainly useful when
+NEWGROUP is not used in an action stub -- something like this:
+
+	X - | goto $@; 
+
+Note that the substitution delimiters("$$" and "$@" may be replaced by
+invoking the '-d' option on the command line.
+
+Ccide employs one of two functions, CcideFindRule or CcideFindRuleYes, in a
+'switch' statement to select actions to be taken.  The numbers in the
+generated 'case' statements do not correspond to the decision table rule 
+numbers, so a comment is appended to the case statement giving the 
+number of the applicable rule, starting with rule 1 at the leftmost column.   
+
+Ccide optimizes case output sequence by reordering cases so as to
+minimize action stub generation redundancy.  
+
+All cases are labeled with a string showing the table number and the case
+number.  This allows ccide to use goto's to reduce the amount of output in
+some situations.
+
+Ccide reduces the amount of generated code by combining cases wherever
+appropriate.  I.e., if two cases specify the same set of actions, the
+actions are generated only once, preceded by the two case statements. 
+
+Regardless of any other reordering, ccide always evaluates conditions in
+the sequence given in the decision table.  Actions(when taken) are also
+performed in the order given.  This strategy helps avoid problems with
+side effects. 
+
+The function, CcideFindRuleYes, is employed when there are no 'N'
+condition entries in the table.  Performance will be somewhat improved
+in this case. There is no corresponding, CcideFindRuleNo, function.  In
+the highly unusual situation where there are no 'Y' condition entries,
+ccide performance can be improved slightly by reversing the logic of all the
+condition stubs and replacing all the 'N' condition entries with 'Y'
+entries.
+
+In the special case where a single condition row containing integers(and
+no '-'s(don't care) is specified and the condition stub is in the form
+of:
+	... | EXPRESSION == $$ 
+
+ccide will generate more efficient 'state machine' code replacing the
+CcideFindRule.. function with a switch(EXPRESSION) statement, and using
+the row integers in a case statement.  NEWGROUP may be specified as the
+last action, and will cause a 'goto' back to the switch statement. 
+However, the ccide-group variable will not be set.  Highly complex state
+machines depending on N variables can be efficiently defined by using an
+N dimensioned array to contain the state values for N variables. 
+
+See ccidemain.c or one of the '.in' suffix files for examples of decision
+tables.   
+
+Alphabetic entries (Y,N, and X) may be upper or lower case.   Generated 
+entries will be upper case. 
+
+Ccide is a wrapper script for, ccidew, the actual decision table processing
+engine.   For C language tables, ccidew generates all the output.  For
+other languages, ccidew generates M4 output which is processed by the m4 macro
+processor.  There is no guarantee that this arrangement will continue in 
+future releases.  In other words, use 'ccide' not 'ccidew' in your projects. 
+
+=head1 OPTIONS
+
+B<-a>	Normally, ccide considers duplicate action stubs to be
+	an error.  Code is generated OK, but error messages are issued
+	and the return code is set to 1.
+	The B<-a> options allows duplicate actions and bypasses all the
+	error messages.
+
+B<-b>	The B<-b>(blanktime) option causes ccide to bypass
+	timestamping output.
+
+B<-c>	The B<-c>(colum size) option sets the number of characters that ccide
+	assigns to each output rule.
+
+B<-d>	The B<-d>(CCIDE Delimiter) option repaces the two stub substitution
+	strings ("$$" and "$@") with SUBSTITUTE_STRING1 and SUBSTITUTE_STRING2, respectively.
+	SUBSTITUTE_STRING1 and SUBSTITUTE_STRING2 may be any reasonable size, but may not be NULL, nor
+	may SUBSTITUTE_STRING1 equal SUBSTITUTE_STRING2.  Neither string may contain a single
+	quote "'" nor a back quote "`".   These two quote characters are used
+	as delimiters by m4.  In case of multiple -d options the last one
+	remains in effect.  
+
+	If -L BASH is specified, "$$" and "$@" are replaced with "/::" and "@@/".
+	These can be replaced using the B<-d> option after the <-L> option.
+	If, for instance, ccide -L BASH -d "/!!!" "&&&/"  is specified, 
+	the delimiters "/!!!" and "&&&/" will be used.  It is almost always a good
+	idea to avoid quotes('`"), brackets([]), braces({}), semicolons(;),
+	number signs(#), dollar signs($), hyphens(-), backslashes(\), 
+	and underscores(_) in bash delimiters. 
+
+B<-e>	ccide normally checks condition stub expressions for 
+	a single equal sign '=' (double equal sign '==' is OK), and 
+	issues an error message if one is found.   The
+	B<-e> option bypasses this check.    This option is automatic
+	for euphoria programs (lang=ex). 
+
+	If the -m4 output option is in effect, single quotes ("'") and	
+	backquotes("`") are not allowed in condition or action stubs.  
+	For BASH scripts use the, "$(command)",	form of command substitution 
+	instead of the back quote form, "`command`".  Use functions, as 
+	necessary, to avoid syntax problems with quotes.
+
+B<-l>	The B<-l>(localtime) option causes ccide to use local time
+	instead of UTC on timestamps.
+
+B<-L>	The B<-L>(language) option determines the output programming language
+	for ccide.  In case of multiple -L options, the last one 
+	remains in effect.  '-L ?' will cause ccide to display a list of supported languages and exit with return code 2.
+
+B<-m4>	Produce m4 output instead of C code.  The m4 output can be
+	used to create language independent decision table code.
+	This option is useful when working with an unsupported
+	language as with a domain specific language.  
+
+B<-n>	The B<-n> option causes ccide to suppress the generation
+	of inline code when the "//CCIDE_INLINE_CODE:" statement 
+	is encountered.  This is useful when multiple source files
+	contain the "//CCIDE_INLINE_CODE:" statement.
+
+B<-p>   The B<-p> STRING option changes the "CCIDE" prefix in generated code
+	to the supplied STRING.  STRING can contain only alphanumeric
+	characters and the underscore('_').   
+ 
+B<-q>   The B<-q>(m4 quote) option changes the characters ccide uses
+	in output m4 macros from the default "`" and "'" to the supplied
+	LEFTQUOTE and RIGHTQUOTE strings, which must differ from each other
+	and from the ccide delimiters.  
+
+	In case -L BASH has been specified, "^^^" and "%%%" replace the
+	LEFTQUOTE and RIGHTQUOTE strings, "`" and "'", in order to 
+	reduce the possibility of ambiguous m4 input.  It is not a good
+	idea to replace these strings later in the command line, since the
+	supplied BASH m4 macro file depends on these.   
+ 
+B<-s>	The B<-s [n]> option causes ccide to produce an example, skeleton,
+	program on STDOUT, then terminate with return code 0.  
+	The B<-s> option can be followed by an optional integer(default 4)
+	defining the size of the table.  You can test ccide this way, 
+	'ccide -s 10 | ccide ',  without having a decision table of your own. 
+
+B<-t>	The B<-t>(trace) option causes ccide to set the parser 
+	yydebug parameter.  This will cause the parser to issue
+	a flood of debugging messages on STDERR.
+
+B<-u>	The B<-u>(undo) option causes ccide to not generate
+	any code, effectively recreating its original input.
+
+B<-V>	The B<-V> option causes ccide to display the software version
+and a copyright notice on STDERR, and terminate with return code 0.
+
+B<-x>	The B<-x> option causes ccide add a "don't care" rule to every
+	decision table.   Multiple B<-x> options cause multiple rules
+	to be added.  This option is intended to save clerical effort
+	when adding rules to tables.  A don't care rule can also serve
+	to complete a table (an incomplete table does not account for
+	all condition permutations).  Ccide does not check to ensure that
+	tables are complete, as most real world tables are incomplete 
+	and it would become annoying to keep pointing them out.
+
+B<--help> 
+	The B<--help>  option causes ccide to display a ccide usage
+	synopsis on STDOUT and terminate with return code 0.
+
+=head1 RETURN VALUE
+
+Ccide normally returns 0.  1 is returned if an error is found in
+a decision table.
+
+=head1 ERRORS
+
+The message "Rule x conflicts with rule y"  is written to STDERR, when two
+rules conflict.  The message is also copied to STDOUT.  The program
+continues, but the return code is changed to 1.
+
+The message "Rules x and  y overlap." is issued when a rule
+cannot take effect.   The program is not terminated and the 
+return code is not set -- will be 0, unless other errors are detected.
+
+A usage message is issued when the '--help' option is supplied or if an
+option is not recognizable. 
+
+The message "Error in line ...: Inconsistent number of rules. near ''. State=7"
+is written to STDERR and a more informative message is written to 
+STDOUT when a row is found with the wrong number of rule entries.
+
+Error messages are issued and the return code is set to 1, if a condition
+stub or action stub exactly matches a preceding condition or action stub,
+respectively.  The B<-a> option allows duplicate actions without any errors.
+
+Unless the B<-e> option is specified, ccide will issue an error message
+when a single equal sign(=) is encountered in a condition stub 
+expression.   (A single equal sign is almost always a logic error -- in C programs, anyway.)
+
+
+=head1 INSTALLING and CONFIGURING
+
+See the accompanying INSTALL and README files.   
+Ccide does not consult any configuration or rc files. 
+
+=head1 EXAMPLE
+
+	/*  The beginning of the program. */
+  #ifdef CCIDE_LIB
+  #include <ccide.h>
+  #else
+  //CCIDE_INLINE_CODE:
+  #endif
+
+	/* Supporting code */
+  //DECISION_TABLE:
+  //  1 3 2 2 | light == $$   /* 1=red, 2= yellow, 3=green. */
+  //  N - - - | speed == STOPPED
+  //  - - Y - | speed == SLOW
+  //  - N - Y | speed == FAST
+  // _________________________
+  //  X - X - | Stop();
+  //  - - - X | SlowDown();
+  //  - X - - | SpeedUp();
+  //END_TABLE:
+    /*  End of the program. */
+
+Explanation:
+	The //CCIDE_INLINE_CODE: statement causes ccide to
+	generate the CcideFindRule... functions in source form. 
+	To avoid linkedit clashes, only one module in a 
+	multi-module program should contain these functions.
+
+	The #ifdef CCIDE_LIB ... logic gives the
+	compiler a chance to eliminate the generated functions;
+	to link the program with a separately compiled
+	module later on.   In this case, the ccide.h file provides
+	prototypes for the CcideFindRule... functions.  
+
+	Rule 1 states that if the light is red and your car is moving,
+	then stop.
+
+=head1 ENVIRONMENT
+
+The ccide script uses one environment variable, CCIDEW; to locate the
+ccidew program.   Ordinarily, the script will locate the ccidew program
+correctly and set the variable, so the user need not do so.  In some
+testing situations, however, where there is ambiguity as to which version
+of ccidew should be invoked, it is useful to set the CCIDEW variable to
+the full path of the correct executable. 
+
+=head1 FILES
+
+Ccide reads STDIN and writes to STDOUT and STDERR.  There is an 'ccide-LANG.m4'
+file for each language other than C, where LANG = CC,C++,CS,BASH,BASIC,EX,QB,VB, or JAVA. 
+These m4 files are normally in the /usr/share/ccide directory. 
+
+=head1 PORTABILITY
+
+It is intended for ccide to be distributed as widely as possible and be portable
+to all systems capable of compliling C code.  To this end ccidew, relies
+strictly on the C compiler,  preprocessor,  standard C library, and linker.  
+The ccide wrapper script is relatively straight forward and not 
+strictly required for C programs.
+ 
+M4 is required only for processing other than C language input.  Anyway,
+m4 is itself widely distributed. 
+
+It is intended that future versions of ccide will be backward compatible, i.e.
+if this version of ccide produces correct, compilable output, any future 
+version will also. 
+
+The current scheme of using a wrapper script, ccide, and separate executable will
+continue unless a new ccide program replaces them both -- a very unlikely event,
+as this would raise some new portability issues. 
+
+=head1 BUGS
+
+=over
+
+=item There are no known bugs, but ccide may not work correctly for some non-C languages, as C language
+code has been tested most extensively.  No bugs have ever been reported, however.
+ 
+=item The output with the 'undo' option may not be exactly the
+same as the original input -- some whitespace may be added or deleted.
+
+=item There is no provision for continuing a row onto the next line.  
+
+=item  The documentation needs improving. 
+
+=head1 RESTRICTIONS
+
+There can no more than 32 condition rows or 32 action rows or 32 rules
+in a single decision table.  Make smaller tables out of large tables for more understandable programs. 
+
+Ccide imposes no limit on the number of decision tables in a single module or program. 
+Neither does Ccide impose any limit on the number of statements in a program.
+
+=head1 TODO
+
+=over 4
+
+=item Globalize.
+
+=item Port to more platforms. 
+
+=item Improve the documentation.
+
+=item Write the inverse program, 'edicc', to create decision tables from
+C source (or from any source language). 
+
+=back
+ 
+=head1 REPORTING BUGS
+
+Please e-mail ccide@twyoung.com, with 'ccide' in the subject,
+if you have a bug (or other comment, request, etc ) to report.
+
+=head1 AUTHOR
+
+Thomas W. Young, ccide@twyoung.com
+
+==head1 COPYRIGHT 
+
+Copyright © 2002-2012, Thomas W. Young, The CCIDE Project, ccide@twyoung.com.
+This is free software under the GNU Public License, GPL; 
+see the accompanying COPYING file for copying conditions. 
+
+Please note that the GPL imposes no license or distribution restrictions
+on programs which are developed using ccide.
+ 
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+=head1 AVAILABILITY
+
+This software is freely available under the GPL license agreement terms
+spelled out in the accompanying COPYING file.  
+
+'\<!--#include virtual="/inc/sfinfo.shtml"--\>'
+
+Ccide is a public Github project at https://github.com/tyoung3/ccide
+The latest version can be found at Github.
+
+Older versions are available from SourceForge at
+	http://www.sourceforge.net/projects/ccide
+
+=cut
