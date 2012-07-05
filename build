@@ -106,15 +106,6 @@ No such file or directory
   				 v
 
 
-	Solaris 9
-x86-solaris1:~/develop/P/ccide-0.0.7/tests/ccide.test$ !..
-../../ccide <$F.in >$F.c
-Segmentation Fault (core dumped)
-x86-solaris1:~/develop/P/ccide-0.0.7/tests/ccide.test$ gdb
-ld.so.1: gdb: fatal: libiconv.so.2: open failed: No such file or directory
-
-				v
-
 
 EOF
 

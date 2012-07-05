@@ -23,7 +23,7 @@ SUBDIRS = src
 
 RH=/usr/src/rpm
 EXTRA_SUBDIRS = 
-EXTRA_DIST =  $(man_MANS) ccide.spec ccidemain.h ccide.h ccideparse.h parse.h ChangeLog CYGWIN-PATCHES/setup.hint.in ccide.in
+EXTRA_DIST =  $(man_MANS) ccide.spec ccide.spec.in ccidemain.h ccide.h ccideparse.h parse.h ChangeLog CYGWIN-PATCHES/setup.hint.in ccide.in
 
 dist_pkgdata_DATA = 	m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4  m4/ccide-BASH.m4 m4/ccide-BASIC.m4 	\
 			m4/ccide-QB.m4 m4/ccide-VB.m4 m4/ccide-JAVA.m4 m4/ccide-CS.m4   m4/ccide-EX.m4

@@ -38,7 +38,7 @@ BuildRoot: /var/tmp/%{name}-%{version}-{release}
 Vendor:  The CCIDE Project
 %description 
 This package contains ccide, the Decision Table code generator.
-ccide reads a file containing source code (in one of several languages)
+Ccide reads a file containing source code (in one of several languages)
 with embedded decision tables and creates a compilable program or an interpretable script.
 %define ccidev ccide-%{version}
 #CHANGE LOG:
@@ -54,13 +54,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/{bin,lib,include,man,share}
 mkdir -p $RPM_BUILD_ROOT/usr/share/doc
 mkdir -p $RPM_BUILD_ROOT/usr/share/ccide
 mkdir -p $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}
-#mkdir -p $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/tests
-#mkdir -p $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/tests/config
-#mkdir -p $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/tests/ccide.test
 
-##install -s -m 755 libccide.so.0 $RPM_BUILD_ROOT/usr/lib/libccide.so.0
-##ln -s /usr/lib/libccide.so.0 $RPM_BUILD_ROOT/usr/lib/libccide.so
-##install -s -m 755 ccide.h $RPM_BUILD_ROOT/usr/include
 install -m 755 ccide $RPM_BUILD_ROOT/usr/bin/ccide
 install -s -m 755 ccidew $RPM_BUILD_ROOT/usr/bin/ccidew
 install -m 644 ccide-BASH.m4 $RPM_BUILD_ROOT/usr/share/ccide/ccide-BASH.m4
@@ -79,7 +73,6 @@ install -m 644 ChangeLog $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/ChangeLog
 install -m 644 README $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/README
 
 %clean
-##  ? advisability rm -rf $RPM_BUILD_ROOT
 echo Consider doing: "rm -rf $RPM_BUILD_ROOT"
 
 %files
@@ -95,9 +88,6 @@ echo Consider doing: "rm -rf $RPM_BUILD_ROOT"
 @prefix@/share/ccide/ccide-QB.m4
 @prefix@/share/ccide/ccide-JAVA.m4
 @prefix@/share/ccide/ccide-EX.m4
-# @prefix@/include/ccide.h
-# @prefix@/lib/libccide.so
-#@prefix@/lib/libccide.so.0
 
 %ghost
 

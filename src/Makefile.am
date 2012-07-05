@@ -29,9 +29,7 @@
 AUTOMAKE_OPTIONS=
 RUNTESTDEFAULTFLAGS = --tool ccide CCIDE=`pwd`/ccide --outdir /tmp --srcdir ./tests
 
-## noinst_DATA = ${PACKAGE}.sum ${PACKAGE}.log
 man_MANS = ccide.1
-##SUBDIRS=tests
 
 CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub 
 
