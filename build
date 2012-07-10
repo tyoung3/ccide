@@ -28,11 +28,12 @@
 # N.B.:  try ./configure first.  
 
 aclocal 			\
+&&./scripts/check.sh mkam	\
 &&autoconf			\
 &&autoheader 			\
 &&libtoolize --automake		\
 && automake --add-missing 	\
-&& ./configure
+&& ./configure			
 exit $?
 
 # && automake --gnu --add-missing \

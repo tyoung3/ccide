@@ -1,3 +1,16 @@
+2012-07-09
+	0.6.0-2	Added environment variable, CCIDE_M4LIB to ccide script.
+		Added tryit.cpp to test suite.
+		Ccide searches multiple places for its .M4 files.
+			Updated ccide man page.
+		Reorganized directories
+		 	eliminated examples/ and tests/ccide.test
+			move test cases to tests/
+			Makefile in tests/
+			added tryit.cpp case to tests/
+			move ccide options and run options to tests/*.opt files 
+		 Fixed 'make check' problems. Uses CCIDE_M4LIB
+
 2012-07-03
 	0.5.0-8	 Added threeway.d to examples/.
 		 Changed lexer msg from ...State=n... to ...Start State=n...

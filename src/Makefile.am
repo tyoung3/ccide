@@ -1,3 +1,5 @@
+# src/Makefile
+
 #  	ccide - C Language Decision Table Code Generator 
 #	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
@@ -43,15 +45,12 @@ RUNX=${PACKAGE}runx
 INLINE=${PACKAGE}inline
 PRIST=/home/tyoung3/ftp/pub/linux/${PACKAGE}
 CCIDE_DIR=$(distdir)
-TARBALL= $(distdir).tar.gz
-CYGWIN_TARBALL= $(distdir).tar.bz2
-CYGWIN_SOURCE_TARBALL= $(distdir)-src.tar.bz2
 
 ##automake standard names:
 bin_PROGRAMS = ccidew
-bin_SCRIPTS = ccide
+#bin_SCRIPTS = ccide
  
-ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h
+ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h parse.h
 
 #Bison Flags  ( -y added by autoconf )
 AM_YFLAGS = -d -l -v
@@ -66,11 +65,16 @@ flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 
 man: 	${PACKAGE}.1
 
+clean-local:    
+	rm -f *~  *.log *.output ccide.1 ccidelex.c ccideparse.c 	\
+	*.output ccideparse.c ccidelex.c ccide.1 
 
+gitclean: clean-local
+	
 ${PACKAGE}.1:	${PACKAGE}.pod
-	/usr/bin/pod2man --section=1				\
-			--release="${PACKAGE}-${VERSION}"	\
-			--center="DecisionTableProcessor(${PACKAGE}) Man Page"	 \
+	/usr/bin/pod2man --section=1						\
+			--release="${PACKAGE}-${VERSION}-${RELEASE}"		\
+			--center="DecisionTableProcessor(${PACKAGE}) Man Page"	\
 		  ${PACKAGE}.pod > ${PACKAGE}.1
 
 
@@ -89,4 +93,4 @@ ${CCIDE}lex.c: ${PARSE}.h ${MAIN}.h ${CCIDE}lex.l
 ${CCIDE}lex.o: ${PARSE}.h ${MAIN}.h ${CCIDE}lex.c ${CCIDE}.h 
 
 installcheck-local:
-	echo `ccide -V` 
+	echo `ccidew -V` 

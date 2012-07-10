@@ -25,18 +25,18 @@
 # See 'build' script for complete build process.
 AC_PREREQ(2.59)
 AC_INIT([ccide], [0.6.0], [ccide@twyoung.com])
+#AUTOMAKE_OPTIONS foreign|gnu
 
-AC_PROG_CXX
-AC_PROG_CC
-AC_PROG_CPP
 AC_PROG_INSTALL
+AC_PROG_CXX
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_YACC
-
-
 AM_PROG_LEX
+
+# Build shared libs only
+AC_DISABLE_STATIC
 AM_PROG_LIBTOOL 
 
 # Checks for system type. Defines target_cpu, etc.
@@ -48,7 +48,7 @@ AM_INIT_AUTOMAKE([ccide], [0.6.0])
 AM_MAINTAINER_MODE(TRUE)
 
 # Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=1
+RELEASE=3
 LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"
@@ -79,8 +79,6 @@ AC_PREFIX_PROGRAM(m4)
 # ALL_LINGUAS="de fr es ko nl no pl pt sl sv"
 # ALL_LINGUAS=""
 
-# Build shared libs only
-AC_DISABLE_STATIC
 
 #  Do compilation tests using `CC' and `CPP' and use extension `.c'
 AC_LANG_C
@@ -126,7 +124,7 @@ AC_ARG_ENABLE(debug,
        AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
   esac],[CFLAGS="${CFLAGS:=-O}" ; AC_MSG_RESULT([no])])
 
-AC_CONFIG_SRCDIR([src/ccidemain.h)
+AC_CONFIG_SRCDIR([src/ccidemain.h])
 AM_CONFIG_HEADER(src/ccideconfig.h)
-AC_CONFIG_FILES([Makefile src/Makefile ])
-AC_OUTPUT( ccide ccide.spec CYGWIN-PATCHES/setup.hint )
+AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile src/ccide.pod scripts/Makefile])
+AC_OUTPUT( scripts/ccide ccide.spec CYGWIN-PATCHES/setup.hint)

@@ -387,33 +387,33 @@ static void SetColumn(char *s) {
 static int DelimitEq(char *s1, char *s2) {
 
 	if( (s1==NULL) || (s2==NULL) ) {
-		fprintf(stderr,"NULL Delimiter"); 
+		fprintf(stderr,"NULL Delimiter\n"); 
 		return 1;
 	}
 
 	if( strcmp(s1,s2) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal."); 
+		fprintf(stderr,"Delimiters cannot be equal.\n"); 
 		return 1;
 	}
 
 
 	if( strcmp(s1,qt1) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal."); 
+		fprintf(stderr,"Delimiters cannot be equal.\n"); 
 		return 1;
 	}
 
 	if( strcmp(s2,qt2) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal."); 
+		fprintf(stderr,"Delimiters cannot be equal.\n"); 
 		return 1;
 	}
 
 	if( strcmp(s1,svar1) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal."); 
+		fprintf(stderr,"Delimiters cannot be equal.\n"); 
 		return 1;
 	}
 
 	if( strcmp(s2,svar2) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal."); 
+		fprintf(stderr,"Delimiters cannot be equal.\n"); 
 		return 1;
 	}
 

@@ -1,3 +1,5 @@
+# ccide Toplevel Makefile
+
 #  	ccide - C Language Decision Table Code Generator 
 #	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
@@ -18,28 +20,39 @@
 #    	write to the Free Software Foundation, Inc., 51 Franklin St, 
 #    	Fifth Floor, Boston, MA 02110-1301 USA.
 # ----------------------------------------------- end of legal stuff ---------------------- #
-# DIST_SUBDIRS = lib src tests examples CYGWIN-PATCHES 
-SUBDIRS = src 
 
 RH=/usr/src/rpm
-EXTRA_SUBDIRS = 
-EXTRA_DIST =  $(man_MANS) ccide.spec ccide.spec.in ccidemain.h ccide.h ccideparse.h parse.h ChangeLog CYGWIN-PATCHES/setup.hint.in ccide.in
+TARBALL= $(distdir).tar.gz
+CYGWIN_TARBALL= $(distdir).tar.bz2
+CYGWIN_SOURCE_TARBALL= $(distdir)-src.tar.bz2
 
-dist_pkgdata_DATA = 	m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4  m4/ccide-BASH.m4 m4/ccide-BASIC.m4 	\
-			m4/ccide-QB.m4 m4/ccide-VB.m4 m4/ccide-JAVA.m4 m4/ccide-CS.m4   m4/ccide-EX.m4
+# DIST_SUBDIRS = lib src tests examples CYGWIN-PATCHES 
+SUBDIRS = src tests scripts
 
+# Required for 'make clean', etc.: 
+#DIST_SUBDIRS = src tests examples CYGWIN-PATCHES
+#DIST_SUBDIRS = src examples CYGWIN-PATCHES
 
-check:	tests/check.sh all-am 
-	[ -x ccide ] || chmod a+x ccide
-	cd tests; ./check.sh
+bin_SCRIPTS = scripts/ccide scripts/check.sh
 
-~/.rpmmacros:
-	echo "%_topdir /usr/src/redhat" > ~/.rpmmacros
+EXTRA_SUBDIRS = tests tests/ccide.test
+include extra_dist.mk
+include disp_pkg.mk
+
+zip: dist-gzip
+
+clean-local:
+	rm -f *~  *.spec *.log  ccide-${VERSION}.tar.gz *.scan    configure *.mk m4/*~  
+	rm -rf autom4te.cache
+	
+
+extra_dist.mk: scripts/check.sh
+	./scripts/check.sh mkam
 
 #  Build rpm 
-rpm:    dist ${PACKAGE}.1 /home/tyoung3/.pgp/secring.skr sources ${RH}/BUILD 
+rpm:     dist src/${PACKAGE}.1 /home/tyoung3/.pgp/secring.skr sources ${RH}/BUILD 
 	GPGPPATH=/home/tyoung3/.gnupg/
-	sudo /usr/bin/rpmbuild  -ba --sign ${RH}/SPECS/${PACKAGE}.spec
+	/usr/bin/rpmbuild  -ba --sign ${RH}/SPECS/${PACKAGE}.spec
 
 install_rpm: rpm
 #	RPMDIR=/mnt/u1/up2date
@@ -52,25 +65,16 @@ ${RH}/BUILD:   ~/.rpmmacros
 	mkdir -p --verbose ${RH}/RPMS/{athlon,i386,i486,i586,i686,noarch}
 
 
+${RH}/SOURCES/${PACKAGE}-${VERSION}-${RELEASE}.tar.gz:  ${TARBALL} ${RH}/BUILD
+	cp -avp ${PACKAGE}-${VERSION}.tar.gz ${RH}/SOURCES/${PACKAGE}-${VERSION}-${RELEASE}.tar.gz
 
-html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
-
-/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig: ${PACKAGE}.1 ChangeLog
-	man2html ${PACKAGE}.1 > /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
-	${ECHO} Edit /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig and drop "'.orig'".
-	cp ChangeLog /home/httpd/${PACKAGE}/html/inc
-	sudo chown tyoung3.www /home/httpd/${PACKAGE}/html/ChangeLog /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
-
-${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz:  ${RH}/SOURCES/./ccide-${VERSION}.tar.gz
-	sudo ln -sf  $< $@
-
-sources: ${RH}/SOURCES/./ccide-${VERSION}-${RELEASE}.tar.gz ${RH}/SPECS/ccide.spec
+sources: ${RH}/SOURCES/ccide-${VERSION}-${RELEASE}.tar.gz ${RH}/SPECS/ccide.spec 
 
 ${RH}/SPECS/ccide.spec: ccide.spec
-	sudo cp ccide.spec ${RH}/SPECS/ccide.spec
+	cp ccide.spec ${RH}/SPECS/ccide.spec
 
-${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz:  ${TARBALL} ${RH}/BUILD
-	sudo ${LN_S} -f `pwd`/${TARBALL} ${RH}/SOURCES/./${PACKAGE}-${VERSION}.tar.gz
+~/.rpmmacros:
+	echo "%_topdir /usr/src/redhat" > ~/.rpmmacros
 
 #  Build cygwin stuff:
 
@@ -80,7 +84,13 @@ CYGWIN_SOURCE_TARB-amALL: ${TARBALL}
 	  GZIP=$(GZIP_ENV) gunzip  <${TARBALL} 	\
 	| GZIP2=$(GZIP2_ENV) gzip2 -c >${CYGWIN_SOURCE_TARBALL} 
 
+html:	/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 
+/home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig: ${PACKAGE}.1 ChangeLog
+	man2html ${PACKAGE}.1 > /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
+	${ECHO} Edit /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig and drop "'.orig'".
+	cp ChangeLog /home/httpd/${PACKAGE}/html/inc
+	sudo chown tyoung3.www /home/httpd/${PACKAGE}/html/ChangeLog /home/httpd/${PACKAGE}/html/${PACKAGE}_man.html.orig
 
 # This works with GNU tar and gives cleaner package than normal 'make dist'.
 #mydist_???:
