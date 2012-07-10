@@ -1,0 +1,5 @@
+# OPT defines ccide options for generating fourway.c.  
+# TOPT defines fourway execution parameters
+
+OPT="-b -c 4"
+TOPT="f1 f2 f3 f4"

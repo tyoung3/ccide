@@ -1,0 +1,136 @@
+#!/bin/bash
+
+#  	ccide - C Language Decision Table Code Generator 
+#	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+
+#    	This file is part of ccide, the C Language Decision Table Code Generator.
+
+#   	Ccide is free software: you can redistribute it and/or modify
+#   	it under the terms of the GNU General Public License as published by
+#    	the Free Software Foundation, either version 3 of the License, or
+#   	(at your option) any later version.
+
+#    	Ccide is distributed in the hope that it will be useful,
+#    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    	GNU General Public License for more details.
+
+#    	You should have received a copy of the GNU General Public License
+#    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+#    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+#    	Fifth Floor, Boston, MA 02110-1301 USA.
+# ----------------------------------------------- end of legal stuff ---------------------- #
+
+# ccide: wrapper for ccidew.  
+
+CCIDELANG=C
+BINDIR="@prefix@/bin"
+DATADIR="@prefix@@datadir@"
+DATADIR="@prefix@/share"
+PKGDATADIR="${DATADIR}/@PACKAGE@"
+LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB"
+DELIM="-q \` '  " 
+
+Die() {
+	echo "$0/DIE: $*"
+	exit 1
+}
+
+Usage() {
+	cat <<- EOF
+	USAGE:
+	   ccide -s [SKELETONSIZE] 
+     	| ccide -V 
+       	| ccide --help 
+       	| ccide [-a] [-b] [-c COLUMNSIZE] [-d STUBSTRING1 STUBSTRING2] [-e] [-l]  
+              	[-L LANG|?] [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] 
+               	[-s SKELSIZE][-t] [-u] [-x] < STDIN > STDOUT 
+
+	
+EOF
+}
+
+if [ -z "$CCIDEW" ]; then
+	if [ -f ./ccidew ]; then
+		CCIDEW=`pwd`/@PACKAGE@w
+	else
+		CCIDEW="$BINDIR//@PACKAGE@w"
+	fi
+fi
+
+if [ ! -f $CCIDEW ]; then
+	@ECHO@ "$CCIDEW not found"
+	exit 1 
+fi
+
+if [ -z "$CCIDE_M4DIR" ]; then
+		CCIDE_M4DIR="$PKGDATADIR"
+fi
+
+M4DIR=$CCIDE_M4DIR
+[ -f $M4DIR/ccide-C++.m4 ] 			\
+	|| ( W=`find ./ -name ccide-CC.m4`; 	\
+	M4DIR=`dirname $W` && echo W=$W		\
+	&& [ -f $M4DIR/ccide-C++.m4 ] 		\
+	|| Die Cannot find $M4DIR/ccide-C++.m4)
+
+while [[ $# > 0 ]]; do
+	if [[ ("$1" == "-L") ]]; then
+                CCIDELANG=`echo $2|tr [:lower:] [:upper:]`
+		shift
+		# @ECHO@ "LANG=$CCIDELANG"
+	elif [[ ("$1" == "-m4") ]] ; then
+		CCIDE_M4="yes"
+	elif [[ ("$1" == "--help") ]] ; then
+		Usage
+		exit 1
+	elif [[ ("$1" == "-V") ]] ; then
+		echo "	ccide-@VERSION@-@RELEASE@"
+		WC="$WC $1"
+	else
+		WC="$WC $1"
+	fi
+	shift
+done
+
+if [ "$CCIDE_M4" == "yes"  ]; then
+	$CCIDEW -m4 $WC
+	exit $?
+fi
+
+if [ "$CCIDELANG" == "C" ];  then
+	$CCIDEW $WC 
+	exit $?
+fi
+
+if [ "$CCIDELANG" == "?" ];  then
+	echo "Ccide supported languages are: $LANGSX"
+	exit 2
+fi
+
+
+if [ "$CCIDELANG" == "CH" ];  then
+	$CCIDEW $WC 
+	exit $?
+fi
+
+
+if [ "$CCIDELANG" == "BASH" ];  then
+	      DELIM="-d '[[' ']]'" 
+fi
+
+if [ ! -f "$M4DIR/ccide-$CCIDELANG.m4" ]; then
+	@ECHO@ "$M4DIR/ccide-$CCIDELANG.m4 not found"
+	exit 1 
+fi
+
+if [ "$CCIDELANG" == "EX" ];  then
+	$CCIDEW -L $CCIDELANG $WC	\
+	| @M4@ "$M4DIR/ccide-$CCIDELANG.m4" "-"
+	exit $?
+fi
+
+$CCIDEW -m4 $DELIM -L $CCIDELANG $WC 	\
+	| @M4@ "$M4DIR/ccide-$CCIDELANG.m4" "-"
+
+exit $?

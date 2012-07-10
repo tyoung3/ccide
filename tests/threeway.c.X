@@ -1,0 +1,11 @@
+abc
+abcd
+abcde
+bc
+da
+def
+dz
+jkl
+mno
+qrs
+z
