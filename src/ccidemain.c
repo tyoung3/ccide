@@ -1076,11 +1076,11 @@ char *FindCaseValue( int nrule) {
 
 void GenEnd() {
 	if(m4out)
-		printf("%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s %s",
-			lws, pComment,  nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment);
+		printf("%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s %s%s",
+			lws, pComment, qt1, nbrtables, VERSION, RELEASE, GetTimeStamp(),qt2,pEcomment);
 	else
 		printf("%s}\n%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s %s",
-			lws, lws, pComment,  nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment);
+			lws, lws, pComment, nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment);
 }
 
 	/* Generate code when there is just one condition stub. */
@@ -1334,8 +1334,8 @@ void GenerateSingleRule( int nconds, int nactions ) {
 	}
 
 	if(m4out) 
-		printf("%s%s_ENDIF()\n%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s%s",
-			lws, pPrefix, lws, pComment,  nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment);
+		printf("%s%s_ENDIF()\n%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s%s%s",
+			lws, pPrefix, lws, pComment, qt1,  nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment,qt2);
 	else
 	 	GenEnd();
 }
@@ -1356,10 +1356,17 @@ void Generate( int nconds, int nactions, int nrules ) {
 	FixNulls(nrules);
 	CcideCheckRules();
 	Reorder(nrules);
-	printf("%s%sGENERATED_CODE: FOR TABLE_%i.", 
-		lws, pComment, nbrtables);
-	printf("\t%i Rules, %i conditions, and %i actions.%s\n",
-		nrules, nconds, nactions,pEcomment);
+
+	if(m4out) { 	printf("%s%s%sGENERATED_CODE: FOR TABLE_%i.", 
+				lws, pComment, qt1, nbrtables); 	
+			printf("\t%i Rules, %i conditions, and %i actions.%s%s\n",
+				nrules, nconds, nactions,qt2, pEcomment);
+	} else{		printf("%s%sGENERATED_CODE: FOR TABLE_%i.", 
+				lws, pComment, nbrtables);	 
+			printf("\t%i Rules, %i conditions, and %i actions.%s\n",
+				nrules, nconds, nactions, pEcomment);
+	}
+
 
 
 	/*DECISION_TABLE:					*/

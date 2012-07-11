@@ -383,6 +383,16 @@ static void SetColumn(char *s) {
 		columnsize = 4;
 }
 
+
+int DelimitCheck(char *s1, char *s2) {
+	if( strcmp(s1,s2) == 0 ) {
+		fprintf(stderr,"CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,%s) \n",
+			s1,qt1,qt2,svar1,svar2); 
+		return 1;
+	}
+	return 0;
+}
+
 	/* Check delimiters */
 static int DelimitEq(char *s1, char *s2) {
 
@@ -391,31 +401,14 @@ static int DelimitEq(char *s1, char *s2) {
 		return 1;
 	}
 
-	if( strcmp(s1,s2) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal.\n"); 
-		return 1;
-	}
-
-
-	if( strcmp(s1,qt1) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal.\n"); 
-		return 1;
-	}
-
-	if( strcmp(s2,qt2) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal.\n"); 
-		return 1;
-	}
-
-	if( strcmp(s1,svar1) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal.\n"); 
-		return 1;
-	}
-
-	if( strcmp(s2,svar2) == 0 ) {
-		fprintf(stderr,"Delimiters cannot be equal.\n"); 
-		return 1;
-	}
+	if (
+		DelimitCheck(s1,s2)
+		|| DelimitCheck(s1,svar1)
+		|| DelimitCheck(s2,svar2)
+		|| DelimitCheck(s1,qt1)
+		|| DelimitCheck(s2,qt2)
+	)
+ 		return 1;
 
 	return 0;
 }
@@ -471,8 +464,8 @@ static void SetLang(char *s) {
         //  - - - - - - - - X - - - | lang=BASIC; 
         //  - - - - - - - - - - X - | lang=JAVA; 
         //  - - - - - - - - - - - X | lang=CS;  
-        //  - - - - - - - X - - X X | SetQdelimit("`","\'");     
-        //  X - X X X X X X X - X - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+        //  X - - - - - - X - - X X | SetQdelimit("`","\'");     
+        //  X - X X X X X X X - X - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         //END_TABLE:
         //GENERATED_CODE: FOR TABLE_1.	12 Rules, 12 conditions, and 10 actions.
          {	unsigned long CCIDE_table1_yes[12]={2048UL,1024UL, 512UL, 256UL, 128UL,  64UL,  32UL,  16UL,   8UL,   1UL,   0UL,   0UL};
@@ -495,27 +488,30 @@ static void SetLang(char *s) {
         		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
         	case 2:	//	Rule 11 
         	    lang=JAVA;
-        	    SetQdelimit("`","\'");
         	    goto CCIDE_case1_11;
         	case 0:	//	Rule 8 
         	    lang=EX;	 // euphoria
+        	CCIDE_case1_11: case 11:	//	Rule 1 
         	    SetQdelimit("`","\'");
-        	    goto CCIDE_case1_11;
+        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    break;
         	case 9:	//	Rule 9 
         	    lang=BASIC;
-        	    goto CCIDE_case1_11;
+        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    break;
         	case 1:	//	Rule 7 
         	    lang=VB;
-        	    goto CCIDE_case1_11;
+        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    break;
         	case 4:	//	Rule 6 
         	case 5:	//	Rule 5 
         	    lang=QB;
-        	    goto CCIDE_case1_11;
+        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    break;
         	case 6:	//	Rule 4 
         	case 7:	//	Rule 3 
         	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        	CCIDE_case1_11: case 11:	//	Rule 1 
-        	    m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
         	case 3:	//	Rule 12 
         	    lang=CS;
@@ -528,7 +524,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.4.0-1 Thu Sep 30 06:41:56 2010 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.0-3 Wed Jul 11 17:32:06 2012 
 
 }
 
@@ -574,7 +570,7 @@ static void PrintC(char c) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.4.0-1 Thu Sep 30 06:41:56 2010 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.0-3 Wed Jul 11 17:32:06 2012 
 
 
 
@@ -634,7 +630,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.4.0-1 Thu Sep 30 06:41:56 2010 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.0-3 Wed Jul 11 17:32:06 2012 
 
 
 
@@ -781,7 +777,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.4.0-1 Thu Sep 30 06:41:56 2010 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.0-3 Wed Jul 11 17:32:06 2012 
 
 
 

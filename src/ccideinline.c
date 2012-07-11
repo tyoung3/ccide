@@ -42,10 +42,8 @@ void GenInLineCode(char *s) {
 		printf("%s_INLINECODE\()\n", pPrefix);
 		if(changequote) {
 			printf("%sGENERATED_CODE: %s\n",pComment,pEcomment);
-			printf("CCIDE_COMMENT\() Substitution strings are: %s and %s\n", 
-				svar1, svar2); 
-			// printf("CCIDE_COMMENT\() changequote\(%s, %s)\n", 
-			// 	qt1, qt2);
+			printf("CCIDE_COMMENT\(%s Substitution strings are: %s and %s%s)\n", 
+				qt1, svar1, svar2,qt2); 
 			printf("%sEND_GENERATED_CODE: %s\n",pComment,pEcomment);
 		}
 		return;

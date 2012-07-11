@@ -53,8 +53,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/man/man1
 mkdir -p $RPM_BUILD_ROOT/usr/{bin,lib,include,man,share}
 mkdir -p $RPM_BUILD_ROOT/usr/share/doc
 mkdir -p $RPM_BUILD_ROOT/usr/share/ccide
-mkdir -p $RPM_BUILD_ROOT/usr/share/ccide/tests
-mkdir -p $RPM_BUILD_ROOT/usr/share/ccide/scripts
 mkdir -p $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}
 
 install -m 755 scripts/ccide $RPM_BUILD_ROOT/usr/bin/ccide
@@ -73,11 +71,6 @@ install -m 644 src/ccide.1 $RPM_BUILD_ROOT/usr/man/man1/ccide.1
 install -m 644 COPYING $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/COPYING
 install -m 644 ChangeLog $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/ChangeLog
 install -m 644 README $RPM_BUILD_ROOT/usr/share/doc/%{ccidev}/README
-install -m 644 tests/Makefile.in $RPM_BUILD_ROOT/usr/share/ccide/tests/Makefile.in
-install -m 644 scripts/Makefile.in $RPM_BUILD_ROOT/usr/share/ccide/scripts/Makefile.in
-install -m 644 tests/threeway.c.d $RPM_BUILD_ROOT/usr/share/ccide/tests/threeway.c.d
-install -m 644 tests/tryit.cpp.d $RPM_BUILD_ROOT/usr/share/ccide/tests/tryit.cpp.d
-
 %clean
 echo Consider doing: "rm -rf $RPM_BUILD_ROOT"
 
@@ -95,11 +88,6 @@ echo Consider doing: "rm -rf $RPM_BUILD_ROOT"
 @prefix@/share/ccide/ccide-QB.m4
 @prefix@/share/ccide/ccide-JAVA.m4
 @prefix@/share/ccide/ccide-EX.m4
-@prefix@/share/ccide/tests/threeway.c.d
-@prefix@/share/ccide/tests/tryit.cpp.d
-@prefix@/share/ccide/tests/Makefile.in
-@prefix@/share/ccide/scripts/Makefile.in
-
 %ghost
 
 %doc

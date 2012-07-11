@@ -92,7 +92,7 @@ define(`CCIDE_COPYING',
 */
 ')dnl
 define(`CCIDE_INLINECODE',
-`//GENERATED_CODE:
+`/*GENERATED_CODE:*/
 
 /*
 ccide-C.m4
@@ -137,7 +137,7 @@ class CCIDE {
         return r;
     }
 }
-//END_GENERATED_CODE:')dnl
+/*END_GENERATED_CODE:*/')dnl
 divert(-1)dnl
 divert(0)dnl
 dnl

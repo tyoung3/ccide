@@ -36,6 +36,7 @@ MakeIt() {
 	[ "$2" == "cpp" ]  && ( make -B $X 	|| return 1 )
 	[ "$2" == "c++" ]  && ( make -B $X 	|| return 1 )
 	[ "$2" == "bash" ] && ( cp -avp $T $X  && chmod a+x $X	|| return 1 )
+	[ "$2" == "java" ] && ( make -B $X	|| return 1 )
 	return 0
 }
 

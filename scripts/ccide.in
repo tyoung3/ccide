@@ -29,7 +29,7 @@ DATADIR="@prefix@@datadir@"
 DATADIR="@prefix@/share"
 PKGDATADIR="${DATADIR}/@PACKAGE@"
 LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB"
-DELIM="-q \` '  " 
+#DELIM="-q \` '  " 
 
 Die() {
 	echo "$0/DIE: $*"

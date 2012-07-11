@@ -24,16 +24,25 @@
 # Process this file with autoconf0 to produce a configure script.
 # See 'build' script for complete build process.
 AC_PREREQ(2.59)
-AC_INIT([ccide], [0.6.0], [ccide@twyoung.com])
-#AUTOMAKE_OPTIONS foreign|gnu
+AC_INIT([ccide], [0.6.1], [ccide@twyoung.com])
+#AUTOMAKE_OPTIONS foreign|gnu  
 
 AC_PROG_INSTALL
-AC_PROG_CXX
-AC_PROG_LN_S
+AC_PROG_CC
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
+
+# Required to build parser and lexer C files initially.  
 AC_PROG_YACC
 AM_PROG_LEX
+
+# Not sure if these are really needed.
+AC_PROG_LN_S
+AC_PROG_RANLIB
+
+# For compiling and testing C++ sample programs.  Not required for ccide itself.
+AC_PROG_CXX
+# For compiling and testing Java sample programs.  Not required for ccide itself.
+AM_PROG_GCJ
 
 # Build shared libs only
 AC_DISABLE_STATIC
@@ -43,12 +52,12 @@ AM_PROG_LIBTOOL
 AC_CANONICAL_SYSTEM
 TARGET=$target_cpu-$target_os
 
-AM_INIT_AUTOMAKE([ccide], [0.6.0])
+AM_INIT_AUTOMAKE([ccide], [0.6.1])
 # For bootstrap system.  See: http://sources.redhat.com/autobook/autobook/autobook_43.html#SEC43
 AM_MAINTAINER_MODE(TRUE)
 
 # Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=3
+RELEASE=1
 LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"
