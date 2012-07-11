@@ -40,3 +40,5 @@ distclean: clean
 clean:
 	rm -f *~ 
 
+.PHONY: check distdir distclean test 
+
