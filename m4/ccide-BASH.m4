@@ -19,14 +19,11 @@ dnl    	You should have received a copy of the GNU General Public License
 dnl    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
 dnl    	write to the Free Software Foundation, Inc., 51 Franklin St, 
 dnl    	Fifth Floor, Boston, MA 02110-1301 USA.
-
   Convert text w/embedded macros to BASH script output.
-  
   USAGE:
 	m4 ccide-BASH.m4 ba.sh.m4 > ba.sh
-
 )dnl
-changequote(^^^, %%%)
+changequote(^^^, %%%)dnl
 define(^^^CCIDE_SWITCH%%%, ^^^$2
 	CcideFindRule $1 $CCIDE;	case $CCIDE in%%%)dnl
 define(^^^CCIDE_SWITCH_YES%%%, ^^^$2

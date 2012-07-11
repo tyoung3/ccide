@@ -1,5 +1,8 @@
 2012-07-11
-	0.6.1.1 Remove  ./tests/ and ./scripts/ from RPM distribution.
+	0.6.1-1 Remove  ./tests/ and ./scripts/ from RPM distribution.
+		Fixed JAVA and BASH decision table expansion.
+		Fixed m4 comments in ccideparse.y and ccidemain.c
+		Fixed spurious, initial blank line in BASH output.
 
 2012-07-09
 	0.6.0-2	Added environment variable, CCIDE_M4LIB to ccide script.
