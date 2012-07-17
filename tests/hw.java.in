@@ -109,7 +109,7 @@ class hw {
 			    System.out.println("Got A!");
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_1, by $CCIDE_VERSION  
+		//END_GENERATED_CODE: FOR TABLE_1, by ccide-$CCIDE_VERSION  
 	}
 
 	for (int i = 0; i < args.length; i++) {
@@ -141,7 +141,7 @@ class hw {
 			    System.out.println("B: Got A!");
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_2, by $CCIDE_VERSION  
+		//END_GENERATED_CODE: FOR TABLE_2, by ccide-$CCIDE_VERSION  
 	}
 
 	for (int i = 0; i < args.length; i++) {
@@ -156,7 +156,7 @@ class hw {
 		if(E.compareTo(args[i]) == 0) {
 		   System.out.println("C: Got E!");
 		}
-		//END_GENERATED_CODE: FOR TABLE_3, by $CCIDE_VERSION 
+		//END_GENERATED_CODE: FOR TABLE_3, by ccide-$CCIDE_VERSION 
 	}
 	   while(state<4) {
 		//DECISION_TABLE:
@@ -184,7 +184,7 @@ class hw {
 			    state = 1;
 			    break;
 		 } } /* End Switch*/ 
-		//END_GENERATED_CODE: FOR TABLE_4, by $CCIDE_VERSION  
+		//END_GENERATED_CODE: FOR TABLE_4, by ccide-$CCIDE_VERSION  
 	   }  // End while state<4
 
 	   for (int j = 0; j < args.length; j++) {
@@ -218,7 +218,7 @@ class hw {
 			    state = 1;
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_5, by $CCIDE_VERSION  
+		//END_GENERATED_CODE: FOR TABLE_5, by ccide-$CCIDE_VERSION  
 	   }  // End for j=...	
     }		
 }

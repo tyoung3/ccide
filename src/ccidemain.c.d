@@ -265,47 +265,6 @@ int TableEqual( int rindex, int nawords, CCIDE_BIT utbl[] ) {
 //   -  -  -  -  X  -  - | return rulemap[ri];
 //   -  -  -  -  -  -  X | return -1;   
 //END_TABLE:
-//GENERATED_CODE: FOR TABLE_1.	7 Rules, 7 conditions, and 12 actions.
- {	unsigned long CCIDE_table1_yes[7]={  68UL,  58UL,  26UL,   9UL,   4UL,   2UL,   0UL};
-	unsigned long CCIDE_table1_no[7]= {   0UL,   0UL,  32UL,   0UL,  64UL,  16UL,   8UL};
-
-CCIDE_TABLE_1:
-	switch(CCIDEFindRule(7,
-		  (state==0)
-		| (state==1)<<1
-		| (state==2)<<2
-		| (ri > rindex+1)<<3
-		| (j< nawords)<<4
-		| (utbl[j] == ccide.act[lastrule][j])<<5
-		| (gotit)<<6
-		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
-	case  6:	//	Rule  7 
-	    return -1;
-	    break;
-	case  0:	//	Rule  5 
-	    return rulemap[ri];
-	    break;
-	case  4:	//	Rule  6 
-	    state=0;
-	    ri--;
-	    goto CCIDE_TABLE_1 ;
-	case  1:	//	Rule  3 
-	    j++;
-	    goto CCIDE_TABLE_1 ;
-	case  3:	//	Rule  1 
-	    gotit=1;
-	    lastrule=rulemap[ri];
-	    state=1;
-	    j=0;
-	    goto CCIDE_TABLE_1 ;
-	case  2:	//	Rule  2 
-	    gotit=0;
-	case  5:	//	Rule  4 
-	    state=2;
-	    goto CCIDE_TABLE_1 ;
-	} // End Switch
-}
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 
 }
 
 	/* See if the remaining actions = the actions in the next rule.*/
@@ -1007,58 +966,6 @@ void GenConds( int nconds, int nrules, int notable ) {
 	//   -  -  -  -  -  -  -  X |printf( "%s_table%i_yes", pPrefix, nbrtables); 	 
 	//   -  -  -  X  -  -  -  X |printf(")) {\n");
 	//END_TABLE:
-	//GENERATED_CODE: FOR TABLE_2.	8 Rules, 4 conditions, and 19 actions.
-	 {	unsigned long CCIDE_table2_yes[8]={   9UL,   8UL,   5UL,   4UL,   3UL,   2UL,   1UL,   0UL};
-		unsigned long CCIDE_table2_no[8]= {   6UL,   7UL,   0UL,   1UL,   0UL,   1UL,   0UL,   1UL};
-
-
-		switch(CCIDEFindRule(8,
-			  (notable)
-			| (lang==EX)<<1
-			| (lang==JAVA)<<2
-			| (m4out)<<3
-			  ,CCIDE_table2_yes, CCIDE_table2_no)) {
-		case  7:	//	Rule  8 
-		    printf( "\n%s\tswitch\(%sFindRuleYes\(%i,%s,",
-		    lws, pPrefix, nrules, condbfr);
-		    printf( "%s_table%i_yes", pPrefix, nbrtables);
-		    printf(")) {\n");
-		    break;
-		case  6:	//	Rule  4 
-		    printf( "\n%s\tswitch\(%sFindRule\(%i,%s,", lws, pPrefix, nrules, condbfr);
-		    printf(   "%s_table%i_yes", pPrefix, nbrtables);
-		    printf( ", %s_table%i_no", pPrefix, nbrtables);
-		    printf(")) {\n");
-		    break;
-		case  1:	//	Rule  7 
-		    printf( "\n%s\t%s_SWITCH_YES(%i,%s,%i)\n",
-		    lws, pPrefix, nrules,condbfr, nbrtables);
-		    break;
-		case  2:	//	Rule  2 
-		    printf( "\n%s\t%s_SWITCH(%i,%s,\n",
-		    lws, pPrefix, nrules, java_cond_seq(nconds) );
-		    printf( "%s\t\t `%i\') { \n", lws,  nbrtables );
-		    break;
-		case  3:	//	Rule  6 
-		    printf( "\n%s\t%s_SWITCH_YES(%i,%s,\n",
-		    lws, pPrefix, nrules, java_cond_seq(nconds) );
-		    printf( "%s\t\t `%i\') { \n", lws,  nbrtables );
-		    break;
-		case  5:	//	Rule  5 
-		    printf( "\n%s\t%s_SWITCH_YES(%i,%s,%s)\n",
-		    lws, pPrefix, nrules, cond_seq(nconds), yes_tbl(nrules));
-		    break;
-		case  0:	//	Rule  3 
-		    printf( "\n%s\t%s_SWITCH(%i,%s%s%s,%i)\n",
-		    lws, pPrefix, nrules, qt1, condbfr, qt2,nbrtables);
-		    break;
-		case  4:	//	Rule  1 
-		    printf( "\n%s\t%s_SWITCH(%i,%s,%s,%s)\n",
-		    lws, pPrefix, nrules, cond_seq(nconds),yes_tbl(nrules), no_tbl(nrules));
-		    break;
-		} // End Switch
-	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 
 
 	SetRuleMap(nrules);
         for(r=0;r<nrules;r++) {
@@ -1473,30 +1380,6 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
 	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules);*/
 	/*END_TABLE:						*/
-	/*GENERATED_CODE: FOR TABLE_3.	3 Rules, 5 conditions, and 3 actions.*/
-	 {	unsigned long CCIDE_table3_yes[3]={  23UL,  16UL,   8UL};
-		unsigned long CCIDE_table3_no[3]= {   8UL,   8UL,   0UL};
-
-
-		switch(CCIDEFindRule(3,
-			  (nbrcstubs==1)
-			| (nconds!=nrules)<<1
-			| (CanDoSwitch())<<2
-			| (nrules==1)<<3
-			| (nrules>0)<<4
-			  ,CCIDE_table3_yes, CCIDE_table3_no)) {
-		case  1:	/*	Rule  3 */
-		    GenerateFindRule(nconds,nactions,nrules);
-		    break;
-		case  2:	/*	Rule  2 */
-		    GenerateSingleRule(nconds,nactions);
-		    break;
-		case  0:	/*	Rule  1 */
-		    GenerateCases(nactions, nrules);
-		    break;
-		} /* End Switch*/
-	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 */
 #else
 	/*DECISION_TABLE:					*/
 	/*   Y  -  - | nbrcstubs==1				*/
@@ -1509,30 +1392,6 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
 	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules);*/
 	/*END_TABLE:						*/
-	/*GENERATED_CODE: FOR TABLE_4.	3 Rules, 5 conditions, and 3 actions.*/
-	 {	unsigned long CCIDE_table4_yes[3]={  23UL,  16UL,   8UL};
-		unsigned long CCIDE_table4_no[3]= {   8UL,   8UL,   0UL};
-
-
-		switch(CCIDEFindRule(3,
-			  (nbrcstubs==1)
-			| (nconds==nrules)<<1
-			| (CanDoSwitch())<<2
-			| (nrules==1)<<3
-			| (nrules>0)<<4
-			  ,CCIDE_table4_yes, CCIDE_table4_no)) {
-		case  1:	/*	Rule  3 */
-		    GenerateFindRule(nconds,nactions,nrules);
-		    break;
-		case  2:	/*	Rule  2 */
-		    GenerateSingleRule(nconds,nactions);
-		    break;
-		case  0:	/*	Rule  1 */
-		    GenerateCases(nactions, nrules);
-		    break;
-		} /* End Switch*/
-	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 */
 #endif
 	logLabel=FALSE;
 }

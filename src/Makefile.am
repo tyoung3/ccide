@@ -61,6 +61,12 @@ AM_YFLAGS = -d -l -v
 .c.flaws:
 	flawfinder -c -C $*.c $*.flaws > $*.flaws
 
+%.c : %.c.d 
+	ccide -c 3 < $< > $@
+
+%.y : %.y.d 
+	ccide -c 3 < $< > $@
+
 flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 
 man: 	${PACKAGE}.1

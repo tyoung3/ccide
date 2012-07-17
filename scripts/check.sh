@@ -46,14 +46,20 @@ TestIt() {
 
 }
 
+
 Check() {
+	echo check.sh/Check: Under construction: $*
+}
+
+Check_UC() {
 	DESC="Version Check"
         $PGM -V  && Success $DESC || Fail $DESC
-	for TINPUT in *.d ; do
-		if [ "$TINPUT" != "*.d" ]; then 
-			T=`basename $TINPUT .d`
+	for TINPUT in *.in ; do
+		if [ "$TINPUT" != "*.in" ]; then 
+			T=`basename $TINPUT in`
 			SFX=`echo $T |cut -f2 -d.`    	
 			DESC=$T; TOPT=;TOUT=;TIN=; OPT="-b -c 2"
+			echo $TINPUT $SFX $DESC
 			[ -f $T.opt ] && . $T.opt 2>/dev/null  
 			case $SFX in
 				sh|bash|SH|BASH)$PGM 	$OPT -L BASH 	< $T.d 2> $T.err > $T;;

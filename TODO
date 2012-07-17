@@ -1,6 +1,22 @@
 TODO: 
-	. 0.6.0-2
-		. Fix Java
+	. Optimizations:
+		. Use switch/case and default for '// 1 2 3 - |state==$'.
+		. Use If-Then-Else when only one // Y N condition row.
+		. Eliminate a goto to another goto action.
+	. Allow for symbols instead of numbers in condition entries.   Ex. // RED YELLOW GREEN | color==$$
+	. Option to reorganize rules -- i.e.  move decision table colums around.
+	. Option to delete a rule. Can be multiples.
+	. Fix number of spaces for -x option. 
+	. Additional languages
+		. Tutorial on adding a new language
+			. Language requirements
+			. M4 requirements
+			. Creating test case(s).
+		. Javascript
+		. Ruby
+		. PHP
+		. Perl
+		. Python
 	. Release 0.5.0-8
 		. Name from Ccide to Ccidew in error messages. w/version.
 		. Document/improve release workflow.
@@ -28,6 +44,8 @@ TODO:
 	. Make valgrind clean
 
 DONE:
+	. 0.6.0-2
+		. Fix Java
 	. ZIP file for Windows.  -- 'make dist-zip'
 	. Fixed autoscan problems in configure.in
 	. Fixed problem with spec file.

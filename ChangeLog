@@ -1,3 +1,13 @@
+2012-07-17
+	0.6.2-1
+		Renamed huge test files to be huge1 test files.
+		Created if2rpn -- an infix to RPN converter using
+		state machine logic embedded in Ccide decision tables.
+		Converted some ccide logic to be decision tables.
+		Changed ccide build to use ccidemain.c.d and 
+		ccideparse.y.d files as source for ccidemain.c 
+		and ccideparse.y files.
+
 2012-07-11
 	0.6.1-1 Remove  ./tests/ and ./scripts/ from RPM distribution.
 		Fixed JAVA and BASH decision table expansion.

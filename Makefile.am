@@ -42,7 +42,7 @@ include disp_pkg.mk
 zip: dist-gzip
 
 clean-local:
-	rm -f *~  *.spec *.log  ccide-${VERSION}.tar.gz *.scan    configure *.mk m4/*~  
+	rm -f *~  *.spec *.log  ccide-${VERSION}.tar.gz *.scan   m4/*~  
 	rm -rf autom4te.cache
 	
 

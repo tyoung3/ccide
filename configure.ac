@@ -24,7 +24,7 @@
 # Process this file with autoconf0 to produce a configure script.
 # See 'build' script for complete build process.
 AC_PREREQ(2.59)
-AC_INIT([ccide], [0.6.1], [ccide@twyoung.com])
+AC_INIT([ccide], [0.6.2], [ccide@twyoung.com])
 #AUTOMAKE_OPTIONS foreign|gnu  
 
 AC_PROG_INSTALL
@@ -52,7 +52,7 @@ AM_PROG_LIBTOOL
 AC_CANONICAL_SYSTEM
 TARGET=$target_cpu-$target_os
 
-AM_INIT_AUTOMAKE([ccide], [0.6.1])
+AM_INIT_AUTOMAKE([ccide], [0.6.2])
 # For bootstrap system.  See: http://sources.redhat.com/autobook/autobook/autobook_43.html#SEC43
 AM_MAINTAINER_MODE(TRUE)
 

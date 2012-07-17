@@ -26,7 +26,7 @@ An() {}
 //CCIDE_INLINE_CODE:
 main() {
 	int Q1,Q2,Q3,Q4,Q5,Q6;
-// . . . . 5 . . . .10 . . . .15 . . . .20 . . . .25 . . . .30 . .            (Rule Number)  (15 & 16 overlap?)
+//  . . . . 5 . . . .10 . . . .15 . . . .20 . . . .25 . . . .30 . .            (Rule Number)  (15 & 16 overlap?)
 //DECISION_TABLE:
 // Y N Y N Y N Y N Y N Y N Y N Y - Y N Y N Y N Y N Y N Y N Y N Y N |Q1
 // N N N N N N N N N N N N N N N - N N N N N N N N N N N N N N N N |Q2

@@ -35,16 +35,33 @@ TEST_CASES = 	\
        hcond	\
        huge	\
        huge2	\
+       if2rpn	\
        simple	\
        threeway	\
        hw	\
        tryit	 
 
 %: %.cpp 
-	${CXX} $(CXXFLAGS) $< -o $@ 
+	${CXX} -g $(CXXFLAGS) $< -o $@ 
 
-%: %.c 
-	${CC} $(CFLAGS) $< -o $@ 
+%.o: %.c 
+	${CC} -g $(CFLAGS) $<  -o $@  
+
+%.c: %.c.d 
+	ccide -c 3 < $<  2>$@.err  > $@ 
+
+%.cpp: %.cpp.d 
+	ccide -c 3 < $< > $@ 
+
+%.java: %.java.d 
+	ccide -L JAVA -c 3 < $< > $@ 
+
+%.bash: %.bash.d 
+	ccide -L BASH -c 3 < $< > $@ 
+
+%: %.bash
+	ln -sf $< $@
+	chmod a+x $@ 
 
 %: %.java 
 	${GCJ} --main=$@ $(GCJFLAGS) $< -o $@ 
@@ -60,12 +77,18 @@ testcases:   threeway.c.in
 	../scripts/check.sh mkright ccide-@PACKAGE_VERSION@-@RELEASE@
 	touch $@
 
+if2rpn: if2rpn.c  if2rpnq.c if2rpntok.c
+	cc  -g    if2rpn.c if2rpnq.c if2rpntok.c  -o if2rpn
+
 distdir:
 
 testhuge2:	huge2
 	. huge2.c.opt; ./huge2 $TOPT  
 
-check:	 testcases
+check:
+	./testrun all
+
+check_old:	 testcases
 	[ -x ../scripts/ccide ] || chmod a+x ../scripts/ccide
 	../scripts/check.sh 
 
@@ -74,6 +97,6 @@ test: check
 distclean: clean
 
 clean:
-	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp *.right testcases hw.java 
+	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp *.right testcases hw.java  
 
 # .PHONY:	testcases
