@@ -19,7 +19,7 @@
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/*  threeway
+/*  THISIS: threeway.c.d 
 ** 	Decision table program example. 
 **
 **  Usage: threeway fn1 fn2 fn3

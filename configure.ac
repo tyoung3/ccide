@@ -35,6 +35,11 @@ AC_PROG_MAKE_SET
 AC_PROG_YACC
 AM_PROG_LEX
 
+#Build ccide wrapper script 
+# See: http://www.gnu.org/software/automake/manual/html_node/Scripts.html
+AC_CONFIG_FILES([scripts/ccide], [chmod +x scripts/ccide])
+AC_CONFIG_FILES([autogen.sh], [chmod +x autogen.sh])
+
 # Not sure if these are really needed.
 AC_PROG_LN_S
 AC_PROG_RANLIB
@@ -57,7 +62,7 @@ AM_INIT_AUTOMAKE([ccide], [0.6.2])
 AM_MAINTAINER_MODE(TRUE)
 
 # Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=1
+RELEASE=3	
 LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"
@@ -70,8 +75,12 @@ are avoided by evaluating all condition expressions exactly once and by\
 performing all evaluations and actions in the original sequence."
 
 # MY_CFLAGS='-g -Wall -Wtraditional -DRELEASE=\"${RELEASE}\"'
-MY_CFLAGS='-O3 -Wall -DRELEASE=\"${RELEASE}\"'
+# MY_CFLAGS='-O3 -Wall -DRELEASE=\"${RELEASE}\"'
 
+# -std   gnu89=gnu90  is default.
+# CFLAGS='-O0 -g --pedantic -std=c99 `-std=gnu99 -Wall -DRELEASE=\"${RELEASE}\"'
+# CFLAGS='-O3 -g  `-std=gnu99 -D_POSIX_C_SOURCE=200112L -Werror -Wall -DRELEASE=\"${RELEASE}\"'
+CFLAGS='-O3 -g   -Werror  -DRELEASE=\"${RELEASE}\"'
 AC_SUBST(RELEASE)
 AC_SUBST(LIBVER)
 AC_SUBST(LIBCCIDE)
@@ -136,4 +145,4 @@ AC_ARG_ENABLE(debug,
 AC_CONFIG_SRCDIR([src/ccidemain.h])
 AM_CONFIG_HEADER(src/ccideconfig.h)
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile src/ccide.pod scripts/Makefile])
-AC_OUTPUT( scripts/ccide ccide.spec CYGWIN-PATCHES/setup.hint)
+AC_OUTPUT( ccide.spec CYGWIN-PATCHES/setup.hint)

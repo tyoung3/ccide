@@ -33,20 +33,23 @@ SUBDIRS = src tests scripts
 #DIST_SUBDIRS = src tests examples CYGWIN-PATCHES
 #DIST_SUBDIRS = src examples CYGWIN-PATCHES
 
-bin_SCRIPTS = scripts/ccide scripts/check.sh
+bin_SCRIPTS = scripts/ccide 
+dist_bin_SCRIPTS = scripts/ccide
+check_SCRIPTS = scripts/check.sh
 
 EXTRA_SUBDIRS = tests tests/ccide.test
 include extra_dist.mk
 include disp_pkg.mk
 
 zip: dist-gzip
+CLEANFILES = $(bin_SCRIPTS)
 
 clean-local:
 	rm -f *~  *.spec *.log  ccide-${VERSION}.tar.gz *.scan   m4/*~  
 	rm -rf autom4te.cache
 	
 
-extra_dist.mk: scripts/check.sh
+extra_dist.mk: scripts/check.sh 
 	./scripts/check.sh mkam
 
 #  Build rpm 

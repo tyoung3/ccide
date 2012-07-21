@@ -36,7 +36,7 @@ man_MANS = ccide.1
 CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub 
 
 DEBUG =   
-AM_CFLAGS=@MY_CFLAGS@
+#AM_CFLAGS=@MY_CFLAGS@
 ELEV=elev
 CCIDE=${PACKAGE}
 PARSE=${PACKAGE}parse

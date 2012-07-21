@@ -58,6 +58,7 @@ void SetTable() {
 	/*  %option perf-report
 	** %option never-interactive
 	*/
+%option nounput
 /* %option nounput
 **  %array default is %pointer 
 */

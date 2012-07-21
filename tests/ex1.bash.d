@@ -23,6 +23,8 @@
 #    	Fifth Floor, Boston, MA 02110-1301 USA.
 # ----------------------------------------------- end of legal stuff ---------------------- #
 
+# THISIS: ex1.bash.d 
+
 Copyright() { 
 	cat << EOF
         ccide - C Language Decision Table Code Generator 

@@ -39,10 +39,10 @@ void GenInLineCode(char *s) {
 	noinline=1;
 
 	if(m4out) {
-		printf("%s_INLINECODE\()\n", pPrefix);
+		printf("%s_INLINECODE()\n", pPrefix);
 		if(changequote) {
 			printf("%sGENERATED_CODE: %s\n",pComment,pEcomment);
-			printf("CCIDE_COMMENT\(%s Substitution strings are: %s and %s%s)\n", 
+			printf("CCIDE_COMMENT(%s Substitution strings are: %s and %s%s)\n", 
 				qt1, svar1, svar2,qt2); 
 			printf("%sEND_GENERATED_CODE: %s\n",pComment,pEcomment);
 		}
@@ -67,7 +67,7 @@ J("#include \"limits.h\"")
 J("#endif ")
 J("")
 J("		/* Return rule number */")
-printf("static int %sFindRule\(\n", pPrefix);
+printf("static int %sFindRule(\n", pPrefix);
 printf("	int nbrrules,  unsigned long ccide_table, unsigned long yes[], unsigned long no[])");
 J("{")
 J("        int r=0;")
@@ -75,22 +75,22 @@ J("        unsigned long nstate;")
 J("")
 J("        nstate = UINT_MAX ^ ccide_table;")
 J("")
-J("        while \(")
-J("		\( \(yes[r] & nstate) || \(no[r]  & ccide_table) )")
-J("		 && \( ++r < nbrrules ) ")
+J("        while (")
+J("		( (yes[r] & nstate) || (no[r]  & ccide_table) )")
+J("		 && ( ++r < nbrrules ) ")
 J("	) {};")
 J("")
 J("        return r;")
 J("}")
 J("")
-printf("static int %sFindRuleYes\(             /* Return rule number */\n", pPrefix);
+printf("static int %sFindRuleYes(             /* Return rule number */\n", pPrefix);
 J("	int nbrrules, unsigned long ccide_table, unsigned long yes[])")
 J("{")
 J("        int r=0;")
 printf("        unsigned long nstate;\n");
 J("")
 J("        nstate = UINT_MAX ^ ccide_table;")
-J("        while \( \(yes[r] & nstate) && \( ++r < nbrrules ) ) {};")
+J("        while ( (yes[r] & nstate) && ( ++r < nbrrules ) ) {};")
 J("        return r;")
 J("}")
 printf("#endif /* End ifndef  __%s_INLINE_C  */\n", pPrefix);
@@ -145,7 +145,7 @@ printf("%s %s_INLINE_CODE:%s\n", pComment, pPrefix, pEcomment);
 printf("#endif %s End #ifdef %s_LIB %s", pComment, pPrefix, pEcomment);
 J("\nstatic void A(int n) {")
 
-printf("\tprintf\((const char*)\"%s\\n\",n);\n","%i");
+printf("\tprintf((const char*)\"%s\\n\",n);\n","%i");
 
 J("}\n")
 

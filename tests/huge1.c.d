@@ -18,7 +18,7 @@
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
-/* huge:  8/13/2004  twy
+/* THISIS: huge:  8/13/2004  twy
         Test ccide
 */
 #include "stdlib.h"

@@ -26,7 +26,7 @@
 
 
         /* ********************  Includes *********************/
-#define _GNU_SOURCE
+// #define _GNU_SOURCE
 
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
@@ -48,16 +48,19 @@
 # endif
 #endif
 
+
+#ifdef HAVE_STRING_H
+#include <string.h>
+#else
+#pragma message "string.h not available"
+#endif
+
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "ccidemain.h"
 #include "ccideparse.h"
 #include "parse.h"
-
-// #ifdef HAVE_STRING_H
-#include <string.h>
-// #endif
-
 typedef int STATE;
 
         /* ******************** Local Defines *********************/
@@ -107,7 +110,7 @@ static int numbers[CCIDE_NRULE];
 static int rulemap[CCIDE_NRULE+1];
 static int isagoto[CCIDE_NRULE+1];  /* 1 to generate case label */
 static int remap[CCIDE_NRULE];
-static int save4goto[CCIDE_NRULE+1]={};
+static int save4goto[CCIDE_NRULE+1];
 
 static int nunique=0;
 static int nbractions=0;  /* Number of actions */
@@ -116,7 +119,7 @@ static int nbrrule=0;     /* Number of rules */
 static int ncwords;	  /* ncwords = (nbrcond-1)/INTBITS + 1; */
 static int nawords;	  /* nawords = (nactions-1)/INTBITS + 1; */
 
-static char nullact[]={"\{};"};
+static char nullact[]={"{};"};
 char bufs[BFRSIZE];
 static char bash_cases[BFRSIZE];
 static char bash_rules[BFRSIZE];
@@ -134,7 +137,7 @@ static void turnbitson( CCIDE_BIT b[], int n ) {
 }
 	
 	/* Sorting rule for qsort */
-int mapseq(const void *a, const void *b) {
+static int mapseq(const void *a, const void *b) {
 
 	if(  ccide.act[*(int*)a][0] < ccide.act[*(int*)b][0] )
 		return 1;
@@ -162,7 +165,7 @@ static void SetRuleMap(int nrules) {
 }
 
 	/* Qsort rule sequencing function */
-int RuleSeq(const void *a, const void *b) {
+static int RuleSeq(const void *a, const void *b) {
 
 	if( ccide.yes[*(int*)a][0] > ccide.yes[*(int*)b][0] ) 
 		return -1;
@@ -178,6 +181,34 @@ int RuleSeq(const void *a, const void *b) {
  
 	return 0;
 }
+
+#ifndef NODROP_EMPTY
+	/* Delete rules with no conditions and no actions.  */
+static int DropEmpty(int nrules) { 
+	int i,ndrop=0;
+
+	i=nrules;
+
+	do {
+		i--;
+		if( 
+			(ccide.act[i][0] == 0)
+			&& (ccide.yes[i] == 0)
+			&& (ccide.no[i]  == 0)
+		  ) {
+			ndrop++;	// N.B.: Cannot change nrules, so pass back number to drop.
+			fprintf(stderr,"//Dropping rule %i;\n",i);
+		} else {
+			return ndrop;
+		}
+	} while( i>0);
+
+	return ndrop;
+	
+}
+#else 
+#define DropEmpty(X) 
+#endif
 
 	/* Sequence rules with most specific first.  */
 static void Reorder(int nrules) {  
@@ -241,7 +272,7 @@ int MoreActions(CCIDE_BIT tbl[], int naword) {
 
 	/* see if the remaining actions = the actions in some subsequent rule.*/
 int TableEqual( int rindex, int nawords, CCIDE_BIT utbl[] ) {
-	int ri, lastrule, j, gotit;
+	int ri, lastrule=0, j=0, gotit=1;
 	STATE state=0;
 
 		/* Find the Last rule index */
@@ -305,7 +336,12 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 
+
+#ifndef NOTSTRICT
+// Needed for -Werror compiler option
+	return -1;
+#endif 
 }
 
 	/* See if the remaining actions = the actions in the next rule.*/
@@ -384,7 +420,7 @@ static void PerformActions(int rindex, int rule, int nextrule, int nbrrules) {
                 if( tbl[0] & 1 ) {
                         if( ccide.actiontable[i] != NULL ) {
 				if(m4out)
-	                                printf("%s\t    CCIDE_ACTION\(%s%s%s)\n",
+	                                printf("%s\t    CCIDE_ACTION(%s%s%s)\n",
 						lws, 
 						qt1,  
         	                                ccide.actiontable[i], 
@@ -486,17 +522,18 @@ void SetNo( int nrule, int ncond ) {
 	/* Local version of strdup() function 
 	-- checks for memory.
 	*/
-char *Strdup(const char* s) {
-	char *s1;
+char *Strdup (const char *s) {
+    char *s1 = malloc (strlen (s) + 1);   // Space for length plus null
 
-	s1 = strdup(s);
-	if( s1 != NULL )
-		return s1;
+    if (s1 == NULL) {	
+    	perror("Strdup");
+	exit(1); 
+    }
+	
+    strcpy (s1,s);                        // Copy the characters
+    return s1;                            // Return the new string
 
-	perror("Strdup");
-	exit(1);
 }
-
 	/*  Save lws from decision table statement for code generation.
 	*/
 void SaveLeadingWhiteSpace(char *s1) {
@@ -795,7 +832,7 @@ int SetCSTUBscan( int ncond, char *c1 ) {
 	static char bufs[BFRSIZE];
 
 	if( (s1 = strstr(c1,svar1) ) == NULL) {
-		SetCSTUB(ncond, strdup(c1));
+		SetCSTUB(ncond, Strdup(c1));
 		return 1;
 	}
 
@@ -818,7 +855,7 @@ int SetCSTUBscan( int ncond, char *c1 ) {
 			s1 = strstr(s3,svar1);
 		}
 		strncpy(s2, s3, sizeof(bufs)-strlen(s2)-strlen(s3) );
-		SetCSTUB(a+ncond,strdup(bufs));
+		SetCSTUB(a+ncond,Strdup(bufs));
 	}
 
 	UnSetNumbers();
@@ -964,7 +1001,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		pwr2=pwr2<<1;
 		if(lang==BASH) 
 			snprintf( condbfr+l, CBFRSIZE - l,
-				"\n%s%s[[ %s ]]%s && CCIDE=$\(\(CCIDE+=%i)) ", 
+				"\n%s%s[[ %s ]]%s && CCIDE=$((CCIDE+=%i)) ", 
 				   lws, qt1, ccide.conccideable[c], qt2, pwr2); 
 		else if(lang==VB)
 			snprintf( condbfr+l, CBFRSIZE - l,
@@ -989,14 +1026,14 @@ void GenConds( int nconds, int nrules, int notable ) {
 	// ____________________________________
 	//   X  -  -  -  -  -  -  - |printf( "\n%s\t%s_SWITCH(%i,%s,%s,%s)\n",   
 	//   -  -  X  -  -  -  -  - |printf( "\n%s\t%s_SWITCH(%i,%s%s%s,%i)\n",
-	//   -  -  -  X  -  -  -  - |printf( "\n%s\tswitch\(%sFindRule\(%i,%s,", lws, pPrefix, nrules, condbfr);
+	//   -  -  -  X  -  -  -  - |printf( "\n%s\tswitch(%sFindRule(%i,%s,", lws, pPrefix, nrules, condbfr);
 	//   -  -  -  X  -  -  -  - |printf(   "%s_table%i_yes", pPrefix, nbrtables); 
 	//   -  -  -  X  -  -  -  - |printf( ", %s_table%i_no", pPrefix, nbrtables); 
 	//   -  -  -  -  X  -  -  - |printf( "\n%s\t%s_SWITCH_YES(%i,%s,%s)\n",
 	//   -  -  -  -  -  X  -  - |printf( "\n%s\t%s_SWITCH_YES(%i,%s,\n",
 	//   -  X  -  -  -  -  -  - |printf( "\n%s\t%s_SWITCH(%i,%s,\n",           
 	//   -  -  -  -  -  -  X  - |printf( "\n%s\t%s_SWITCH_YES(%i,%s,%i)\n",
-	//   -  -  -  -  -  -  -  X |printf( "\n%s\tswitch\(%sFindRuleYes\(%i,%s,",
+	//   -  -  -  -  -  -  -  X |printf( "\n%s\tswitch(%sFindRuleYes(%i,%s,",
 	//   -  -  -  -  -  -  -  X |lws, pPrefix, nrules, condbfr);
 	//   X  -  -  -  -  -  -  - |lws, pPrefix, nrules, cond_seq(nconds),yes_tbl(nrules), no_tbl(nrules));
 	//   -  -  X  -  -  -  -  - |lws, pPrefix, nrules, qt1, condbfr, qt2,nbrtables);
@@ -1019,13 +1056,13 @@ void GenConds( int nconds, int nrules, int notable ) {
 			| (m4out)<<3
 			  ,CCIDE_table2_yes, CCIDE_table2_no)) {
 		case  7:	//	Rule  8 
-		    printf( "\n%s\tswitch\(%sFindRuleYes\(%i,%s,",
+		    printf( "\n%s\tswitch(%sFindRuleYes(%i,%s,",
 		    lws, pPrefix, nrules, condbfr);
 		    printf( "%s_table%i_yes", pPrefix, nbrtables);
 		    printf(")) {\n");
 		    break;
 		case  6:	//	Rule  4 
-		    printf( "\n%s\tswitch\(%sFindRule\(%i,%s,", lws, pPrefix, nrules, condbfr);
+		    printf( "\n%s\tswitch(%sFindRule(%i,%s,", lws, pPrefix, nrules, condbfr);
 		    printf(   "%s_table%i_yes", pPrefix, nbrtables);
 		    printf( ", %s_table%i_no", pPrefix, nbrtables);
 		    printf(")) {\n");
@@ -1058,7 +1095,8 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 
+
 
 	SetRuleMap(nrules);
         for(r=0;r<nrules;r++) {
@@ -1240,7 +1278,7 @@ void GenerateFindRule(int nconds, int nactions, int nrules) {
 		else
 		 	printf("%s CCIDE_BEGIN_BLOCK()\t", lws ); 
  	else
-		printf("%s \{\t", lws ); 
+		printf("%s {\t", lws ); 
 	
 	notable=0;
 	for( r=0;r<nrules;r++) {
@@ -1272,7 +1310,7 @@ void GenerateFindRule(int nconds, int nactions, int nrules) {
 			printf(")\n");
 		}
 	} else {
-		printf("unsigned long %s_table%i_yes[%i]=\{", 
+		printf("unsigned long %s_table%i_yes[%i]={", 
 			pPrefix, nbrtables, nrules);
 		NotFirst=0;
 		for( r=0;r<nrules;r++) {
@@ -1313,7 +1351,7 @@ void GenerateFindRule(int nconds, int nactions, int nrules) {
 	                printf(")\n");
 		}
 	   } else {
-		printf("%s\tunsigned long %s_table%i_no[%i]= \{", 
+		printf("%s\tunsigned long %s_table%i_no[%i]= {", 
 			lws, pPrefix, nbrtables, nrules);
 		NotFirst=0;
 		for( r=0;r<nrules;r++) {
@@ -1338,7 +1376,7 @@ void GenerateFindRule(int nconds, int nactions, int nrules) {
 
 	if(logLabel) {
 		if(m4out)
-		        printf("\n%s%s_LABEL\(%s_TABLE_%i)",
+		        printf("\n%s%s_LABEL(%s_TABLE_%i)",
 				lws, pPrefix, pPrefix, nbrtables);
 		else
         		printf("\n%s%s_TABLE_%i:",
@@ -1435,7 +1473,7 @@ void GenerateSingleRule( int nconds, int nactions ) {
 
 	/* Print the generated C code from the ccide table. */
 void Generate( int nconds, int nactions, int nrules ) {
-	int i;
+	int i, ndrop;
 
 	for(i=0;i<=CCIDE_NRULE;) isagoto[i++]=0; 
 	assert(ccide.dummy_guard[0]==19);
@@ -1449,29 +1487,30 @@ void Generate( int nconds, int nactions, int nrules ) {
 	FixNulls(nrules);
 	CcideCheckRules();
 	Reorder(nrules);
+	ndrop = DropEmpty(nrules);  /* number rules(at end) to drop */
 
 	if(m4out) { 	printf("%s%s%sGENERATED_CODE: FOR TABLE_%i.", 
 				lws, pComment, qt1, nbrtables); 	
 			printf("\t%i Rules, %i conditions, and %i actions.%s%s\n",
-				nrules, nconds, nactions,qt2, pEcomment);
+				nrules-ndrop, nconds, nactions,qt2, pEcomment);
 	} else{		printf("%s%sGENERATED_CODE: FOR TABLE_%i.", 
 				lws, pComment, nbrtables);	 
 			printf("\t%i Rules, %i conditions, and %i actions.%s\n",
-				nrules, nconds, nactions, pEcomment);
+				nrules-ndrop, nconds, nactions, pEcomment);
 	}
 
 
 #ifdef ThisProgramCanHandleDefaultCases
 	/*DECISION_TABLE:					*/
 	/*   Y  -  - | nbrcstubs==1				*/
-	/*   Y  -  - | nconds<=nrules				*/
+	/*   Y  -  - | nconds<=(nrules-ndrop)			*/
 	/*   Y  -  - | CanDoSwitch()				*/
-	/*   N  Y  N | nrules==1				*/
-	/*   Y  -  Y | nrules>0					*/
+	/*   N  Y  N | (nrules-ndrop)==1			*/
+	/*   Y  -  Y | (nrules-ndrop)>0				*/
 	/* ---------------------				*/
-	/*   X  -  - | GenerateCases(nactions, nrules);		*/
+	/*   X  -  - | GenerateCases(nactions, nrules-ndrop);		*/
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
-	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules);*/
+	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
 	/*GENERATED_CODE: FOR TABLE_3.	3 Rules, 5 conditions, and 3 actions.*/
 	 {	unsigned long CCIDE_table3_yes[3]={  23UL,  16UL,   8UL};
@@ -1480,34 +1519,35 @@ void Generate( int nconds, int nactions, int nrules ) {
 
 		switch(CCIDEFindRule(3,
 			  (nbrcstubs==1)
-			| (nconds!=nrules)<<1
+			| (nconds!=(nrules-ndrop))<<1
 			| (CanDoSwitch())<<2
-			| (nrules==1)<<3
-			| (nrules>0)<<4
+			| ((nrules-ndrop)==1)<<3
+			| ((nrules-ndrop)>0)<<4
 			  ,CCIDE_table3_yes, CCIDE_table3_no)) {
 		case  1:	/*	Rule  3 */
-		    GenerateFindRule(nconds,nactions,nrules);
+		    GenerateFindRule(nconds,nactions,nrules-ndrop);
 		    break;
 		case  2:	/*	Rule  2 */
 		    GenerateSingleRule(nconds,nactions);
 		    break;
 		case  0:	/*	Rule  1 */
-		    GenerateCases(nactions, nrules);
+		    GenerateCases(nactions, nrules-ndrop);
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 */
+
 #else
 	/*DECISION_TABLE:					*/
 	/*   Y  -  - | nbrcstubs==1				*/
-	/*   Y  -  - | nconds==nrules				*/
+	/*   Y  -  - | nconds==(nrules-ndrop)			*/
 	/*   Y  -  - | CanDoSwitch()				*/
-	/*   N  Y  N | nrules==1				*/
-	/*   Y  -  Y | nrules>0					*/
+	/*   N  Y  N | (nrules-ndrop)==1			*/
+	/*   Y  -  Y | (nrules-ndrop)>0				*/
 	/* ---------------------				*/
-	/*   X  -  - | GenerateCases(nactions, nrules);		*/
+	/*   X  -  - | GenerateCases(nactions, nrules-ndrop);		*/
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
-	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules);*/
+	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
 	/*GENERATED_CODE: FOR TABLE_4.	3 Rules, 5 conditions, and 3 actions.*/
 	 {	unsigned long CCIDE_table4_yes[3]={  23UL,  16UL,   8UL};
@@ -1516,23 +1556,24 @@ void Generate( int nconds, int nactions, int nrules ) {
 
 		switch(CCIDEFindRule(3,
 			  (nbrcstubs==1)
-			| (nconds==nrules)<<1
+			| (nconds==(nrules-ndrop))<<1
 			| (CanDoSwitch())<<2
-			| (nrules==1)<<3
-			| (nrules>0)<<4
+			| ((nrules-ndrop)==1)<<3
+			| ((nrules-ndrop)>0)<<4
 			  ,CCIDE_table4_yes, CCIDE_table4_no)) {
 		case  1:	/*	Rule  3 */
-		    GenerateFindRule(nconds,nactions,nrules);
+		    GenerateFindRule(nconds,nactions,nrules-ndrop);
 		    break;
 		case  2:	/*	Rule  2 */
 		    GenerateSingleRule(nconds,nactions);
 		    break;
 		case  0:	/*	Rule  1 */
-		    GenerateCases(nactions, nrules);
+		    GenerateCases(nactions, nrules-ndrop);
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Mon Jul 16 19:37:51 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 */
+
 #endif
 	logLabel=FALSE;
 }

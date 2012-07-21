@@ -1,3 +1,26 @@
+/*  	ccide - C Language Decision Table Code Generator 
+	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+
+    	This file is part of ccide, the C Language Decision Table Code Generator.
+
+   	Ccide is free software: you can redistribute it and/or modify
+   	it under the terms of the GNU General Public License as published by
+    	the Free Software Foundation, either version 3 of the License, or
+   	(at your option) any later version.
+
+    	Ccide is distributed in the hope that it will be useful,
+    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    	GNU General Public License for more details.
+
+    	You should have received a copy of the GNU General Public License
+    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+    	Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* THISIS: if2rpn.c.d 7/19/2012 */
+
 /*  Convert infix to RPN: A Decision table version of Dijkstra's Shunting-yard_algorithm:  
 
 		http://en.wikipedia.org/wiki/Shunting-yard_algorithm
@@ -131,6 +154,7 @@ static void ParseInput() {
 	    //DECISION_TABLE:    	/* No more input tokens */
 	    // - 1 2 5 7 8 9 10 11 |TOS==$$    
 	    // ____________________|____________
+	    // x x x x x x x  x  x | // Test comment
 	    // - x - x - - -  -  - | MisMatch();        
 	    // - - x - x x x  x  x | PopToQueue();
 	    // - x x x x x x  x  x | goto $@;  

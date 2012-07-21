@@ -1,8 +1,20 @@
 TODO: 
+	. Make clean should not remove scripts/ccide. ? I think.
+	. Test Windows/mingw/cygwin.
+	? Fix ccide for mingw
+		. autogen.sh/configure WARNING: scripts/ccide.in ignores --datarootdir setting.
+		. ? if C99 compatibility library, libmingwex, is installed. mingw-get ? to install? 
+		. Run unix2dos for test files.
+		    CFLAGS = --pedantic -Wall -std=c99 -O2 in src/Makefile?
+		. execute ccidew in ccide script.
+		. Fix 'make install'
+		. Use ncurses??
+		??? Create ccide[.BAT] file for Windows.
 	. Optimizations:
 		. Use switch/case and default for '// 1 2 3 - |state==$'.
 		. Use If-Then-Else when only one // Y N condition row.
-		. Eliminate a goto to another goto action.
+		. Eliminate a goto to another goto action; just goto the second goto target.
+		. Drop a rule with no conditions and no actions.
 	. Allow for symbols instead of numbers in condition entries.   Ex. // RED YELLOW GREEN | color==$$
 	. Option to reorganize rules -- i.e.  move decision table colums around.
 	. Option to delete a rule. Can be multiples.
@@ -25,11 +37,8 @@ TODO:
 	. Fix configure.in to verify functions like strncpy and sprintf.
 	. Publicize.
 		. README.md for GitHub
-	. Create ccide[.BAT] file for Windows.
-		. Test Windows/mingw/cygwin.
 	. Include test cases in RPM Source.
 	. Additional program checks.  Increase testing coverage.
-		. Check threeway expansion, compilation, and execution.
 		. If the corresponding compiler is present
 			. Check C++ thru execution.
 			. Check Java thru execution.
@@ -44,6 +53,10 @@ TODO:
 	. Make valgrind clean
 
 DONE:
+	. Using -Werror compiler option.
+	. ccidelex.c:2361: warning: implicit declaration of function ‘fileno’
+	. cideparse.c:1912: warning: implicit declaration of function ‘strdup’ Use Strdup instead.
+	. Check threeway.c.d expansion, compilation, and execution.
 	. 0.6.0-2
 		. Fix Java
 	. ZIP file for Windows.  -- 'make dist-zip'

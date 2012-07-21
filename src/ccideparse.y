@@ -99,7 +99,7 @@ void warning2( char *s, char *t);
 
 void fatal(char *s);
 static int columnsize=2;
-static int skelsize=1; 		/* Size of skeleton decision table */
+// static int skelsize=1; 		/* Size of skeleton decision table */
 static void SetNbrRules(int n);
 static void PrintC(char c);
 static inline long int max( long int a, long int b);
@@ -367,7 +367,7 @@ static void SetPrefix(char *s) {
 	}
 
 	pPrefix = s;
-	pPrefixLc = s1 = strdup(s);
+	pPrefixLc = s1 = Strdup(s);
 	
 	while(*s1) {	
 		*s1 = tolower(*s1);
@@ -486,45 +486,46 @@ static void SetLang(char *s) {
         		| (strcmp(s,"VB")==0   || strcmp(s,"vb")==0)<<10
         		| ((strcmp(s,"EX")==0) || (strcmp(s,"ex")==0))<<11
         		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
-        	case 2:	//	Rule 11 
+        	case  2:	//	Rule 11 
         	    lang=JAVA;
         	    goto CCIDE_case1_11;
-        	case 0:	//	Rule 8 
+        	case  0:	//	Rule  8 
         	    lang=EX;	 // euphoria
-        	CCIDE_case1_11: case 11:	//	Rule 1 
+        	CCIDE_case1_11: case 11:	//	Rule  1 
         	    SetQdelimit("`","\'");
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case 9:	//	Rule 9 
+        	case  9:	//	Rule  9 
         	    lang=BASIC;
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case 1:	//	Rule 7 
+        	case  1:	//	Rule  7 
         	    lang=VB;
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case 4:	//	Rule 6 
-        	case 5:	//	Rule 5 
+        	case  4:	//	Rule  6 
+        	case  5:	//	Rule  5 
         	    lang=QB;
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case 6:	//	Rule 4 
-        	case 7:	//	Rule 3 
+        	case  6:	//	Rule  4 
+        	case  7:	//	Rule  3 
         	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case 3:	//	Rule 12 
+        	case  3:	//	Rule 12 
         	    lang=CS;
         	    SetQdelimit("`","\'");
         	    break;
-        	case 10:	//	Rule 2 
+        	case 10:	//	Rule  2 
         	    printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
         	    break;
-        	case 8:	//	Rule 10 
+        	case  8:	//	Rule 10 
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Sun Jul 15 11:11:33 2012 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+
 
 }
 
@@ -550,27 +551,28 @@ static void PrintC(char c) {
 			| (columnsize==5)<<3
 			| (columnsize==6)<<4
 			  ,CCIDE_table2_yes)) {
-		case 0:	//	Rule 5 
+		case  0:	//	Rule  5 
 		    printf("     %c",c);
 		    break;
-		case 1:	//	Rule 4 
+		case  1:	//	Rule  4 
 		    printf("    %c",c);
 		    break;
-		case 2:	//	Rule 3 
+		case  2:	//	Rule  3 
 		    printf("   %c",c);
 		    break;
-		case 3:	//	Rule 2 
+		case  3:	//	Rule  2 
 		    printf("  %c",c);
 		    break;
-		case 5:	//	Rule 6 
+		case  5:	//	Rule  6 
 		    printf(" %c",c);
 		    break;
-		case 4:	//	Rule 1 
+		case  4:	//	Rule  1 
 		    printf("%c",c);
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Sun Jul 15 11:11:33 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+
 
 
 
@@ -609,28 +611,29 @@ static void PrintNum(long n) {
 			| (n<1000)<<6
 			| (n<10000)<<7
 			  ,CCIDE_table3_yes, CCIDE_table3_no)) {
-		case 8:	//	Rule 9 
+		case  8:	//	Rule  9 
 		    printf("%6li", n);
 		    break;
-		case 0:	//	Rule 4 
-		case 1:	//	Rule 8 
+		case  0:	//	Rule  4 
+		case  1:	//	Rule  8 
 		    printf("%5li", n);
 		    break;
-		case 2:	//	Rule 3 
-		case 3:	//	Rule 7 
+		case  2:	//	Rule  3 
+		case  3:	//	Rule  7 
 		    printf("%4li", n);
 		    break;
-		case 4:	//	Rule 2 
-		case 5:	//	Rule 6 
+		case  4:	//	Rule  2 
+		case  5:	//	Rule  6 
 		    printf("%3li", n);
 		    break;
-		case 6:	//	Rule 1 
-		case 7:	//	Rule 5 
+		case  6:	//	Rule  1 
+		case  7:	//	Rule  5 
 		    printf("%2li", n);
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Sun Jul 15 11:11:33 2012 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+
 
 
 
@@ -720,28 +723,28 @@ int main( int argc, char **argv) {
   			| (Argis(-V))<<14
   			| (Argis(-x))<<15
   			  ,CCIDE_table4_yes)) {
-  		case 16:	//	Rule 8 
+  		case 16:	//	Rule  8 
   		    Usage();
   		    exit(0);
   		    break;
-  		case 1:	//	Rule 7 
+  		case  1:	//	Rule  7 
   		    ShowCopyright();
   		    exit(0);
   		    break;
-  		case 4:	//	Rule 4 
+  		case  4:	//	Rule  4 
   		    if(GenSkeleton(argv[narg+1])) narg++;
   		    exit(0);
   		    break;
-  		case 6:	//	Rule 17 
+  		case  6:	//	Rule 17 
   		    SetPrefix(argv[narg+1]); narg++;
   		    break;
-  		case 5:	//	Rule 16 
+  		case  5:	//	Rule 16 
   		    SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   		    break;
   		case 12:	//	Rule 15 
   		    SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   		    break;
-  		case 8:	//	Rule 14 
+  		case  8:	//	Rule 14 
   		    m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
   		    break;
   		case 13:	//	Rule 13 
@@ -753,31 +756,32 @@ int main( int argc, char **argv) {
   		case 15:	//	Rule 11 
   		    DupeActionIsAnError=0;
   		    break;
-  		case 0:	//	Rule 10 
+  		case  0:	//	Rule 10 
   		    strcat(xstring, "- ");
   		    break;
-  		case 9:	//	Rule 9 
+  		case  9:	//	Rule  9 
   		    checkequal=0;     // Do Not check for '='.
   		    break;
-  		case 2:	//	Rule 6 
+  		case  2:	//	Rule  6 
   		    noinline=1;
   		    donotgenerate=1;
   		    break;
-  		case 3:	//	Rule 5 
+  		case  3:	//	Rule  5 
   		    yydebug=1;
   		    break;
-  		case 7:	//	Rule 3 
+  		case  7:	//	Rule  3 
   		    noinline=1;
   		    break;
-  		case 11:	//	Rule 2 
+  		case 11:	//	Rule  2 
   		    uselocaltime=1;
   		    break;
-  		case 14:	//	Rule 1 
+  		case 14:	//	Rule  1 
   		    notimestamp=1;
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Sun Jul 15 11:11:33 2012 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+
 
 
 

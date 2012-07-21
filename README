@@ -35,7 +35,7 @@ See the man page for a complete description or visit
 https://github.com/tyoung3/ccide or https://ccide.sourceforge.com/ for more information.
 
 Install Note:
-	To rebuild from scratch, run the './build' script in the installation
+	To rebuild from scratch, run the './autogen.sh' script in the installation
 	directory(contains Makefile.am, etc.) and run 'make'. Run 'make check'
 	to verify your build. 
 	Running 'make install', as root, will install ccide without package management.

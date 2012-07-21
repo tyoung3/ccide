@@ -35,7 +35,8 @@ check:
 
 test:  ccide
 
-distclean: clean
+distclean: clean 
+	rm ccide
 
 clean:
 	rm -f *~ 

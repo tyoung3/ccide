@@ -19,7 +19,7 @@
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/* elev.in twy 5/9/2002 
+/* THISIS: elev.c.d twy 5/9/2002 
 **
 **  ELEV serves no purpose other than as an example of 
 **  decision table processing -- including substition and NEWGROUP.

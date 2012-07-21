@@ -21,6 +21,7 @@
 #    	Fifth Floor, Boston, MA 02110-1301 USA.
 # ----------------------------------------------- end of legal stuff ---------------------- #
 GCJ = gcj
+CCIDE = ../scripts/ccide
 GCJDEPMODE = depmode=gcc3
 GCJFLAGS = -g -O2
 am__fastdepGCJ_FALSE = #
@@ -48,16 +49,16 @@ TEST_CASES = 	\
 	${CC} -g $(CFLAGS) $<  -o $@  
 
 %.c: %.c.d 
-	ccide -c 3 < $<  2>$@.err  > $@ 
+	${CCIDE} -c 3 < $<  2>$@.err  > $@ 
 
 %.cpp: %.cpp.d 
-	ccide -c 3 < $< > $@ 
+	${CCIDE} -c 3 < $< > $@ 
 
 %.java: %.java.d 
-	ccide -L JAVA -c 3 < $< > $@ 
+	${CCIDE} -L JAVA -c 3 < $< > $@ 
 
 %.bash: %.bash.d 
-	ccide -L BASH -c 3 < $< > $@ 
+	${CCIDE} -L BASH -c 3 < $< > $@ 
 
 %: %.bash
 	ln -sf $< $@
@@ -86,7 +87,7 @@ testhuge2:	huge2
 	. huge2.c.opt; ./huge2 $TOPT  
 
 check:
-	./testrun all
+	../scripts/check.sh all
 
 check_old:	 testcases
 	[ -x ../scripts/ccide ] || chmod a+x ../scripts/ccide

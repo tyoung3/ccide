@@ -19,7 +19,7 @@
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/* hcond.in */
+/* THISIS: hcond.c.d */
 
 #include <stdlib.h>
 #include <stdio.h>
