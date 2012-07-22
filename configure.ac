@@ -24,12 +24,18 @@
 # Process this file with autoconf0 to produce a configure script.
 # See 'build' script for complete build process.
 AC_PREREQ(2.59)
-AC_INIT([ccide], [0.6.2], [ccide@twyoung.com])
+AC_INIT([ccide],[0.6.2],[ccide@twyoung.com])
 #AUTOMAKE_OPTIONS foreign|gnu  
 
 AC_PROG_INSTALL
 AC_PROG_CC
 AC_PROG_MAKE_SET
+
+# Conform to C99 http://www.manpagez.com/info/autoconf/autoconf-2.64/autoconf_67.php#SEC67
+# ac_cv_prog_cc_c99=no otherwise 
+# configure.ac:36: error: possibly undefined macro: AC_PROG_CC_C99
+#AC_PROG_CC_C99
+#AC_SUBST([ac_cv_prog_cc_c99])
 
 # Required to build parser and lexer C files initially.  
 AC_PROG_YACC
@@ -37,7 +43,7 @@ AM_PROG_LEX
 
 #Build ccide wrapper script 
 # See: http://www.gnu.org/software/automake/manual/html_node/Scripts.html
-AC_CONFIG_FILES([scripts/ccide], [chmod +x scripts/ccide])
+#AC_CONFIG_FILES([scripts/ccide], [chmod +x scripts/ccide])
 AC_CONFIG_FILES([autogen.sh], [chmod +x autogen.sh])
 
 # Not sure if these are really needed.
@@ -47,14 +53,14 @@ AC_PROG_RANLIB
 # For compiling and testing C++ sample programs.  Not required for ccide itself.
 AC_PROG_CXX
 # For compiling and testing Java sample programs.  Not required for ccide itself.
-AM_PROG_GCJ
+#AM_PROG_GCJ
 
 # Build shared libs only
-AC_DISABLE_STATIC
+#AC_DISABLE_STATIC
 AM_PROG_LIBTOOL 
 
 # Checks for system type. Defines target_cpu, etc.
-AC_CANONICAL_SYSTEM
+AC_CANONICAL_TARGET([])
 TARGET=$target_cpu-$target_os
 
 AM_INIT_AUTOMAKE([ccide], [0.6.2])
@@ -74,17 +80,12 @@ to STDOUT, forming a compilable C source module. Erratic side effects\
 are avoided by evaluating all condition expressions exactly once and by\
 performing all evaluations and actions in the original sequence."
 
-# MY_CFLAGS='-g -Wall -Wtraditional -DRELEASE=\"${RELEASE}\"'
-# MY_CFLAGS='-O3 -Wall -DRELEASE=\"${RELEASE}\"'
-
-# -std   gnu89=gnu90  is default.
 # CFLAGS='-O0 -g --pedantic -std=c99 `-std=gnu99 -Wall -DRELEASE=\"${RELEASE}\"'
 # CFLAGS='-O3 -g  `-std=gnu99 -D_POSIX_C_SOURCE=200112L -Werror -Wall -DRELEASE=\"${RELEASE}\"'
-CFLAGS='-O3 -g   -Werror  -DRELEASE=\"${RELEASE}\"'
+CFLAGS='-O3 -g -std=c99 -D_POSIX_C_SOURCE=200112L  -Werror  -DRELEASE=\"${RELEASE}\"'
 AC_SUBST(RELEASE)
 AC_SUBST(LIBVER)
 AC_SUBST(LIBCCIDE)
-AC_SUBST(MY_CFLAGS)
 AC_SUBST(TARGET)
 AC_SUBST(DESCR)
 AC_SUBST(LONG_DESCR)
@@ -99,7 +100,7 @@ AC_PREFIX_PROGRAM(m4)
 
 
 #  Do compilation tests using `CC' and `CPP' and use extension `.c'
-AC_LANG_C
+AC_LANG([C])
 
 # Checks for programs.
 AC_ISC_POSIX
@@ -114,7 +115,15 @@ AC_PATH_PROG(M4, m4)
 # Checks for header files.
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(libinitl.h malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h)
+# AC_CHECK_HEADERS([libinitl.h malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h])
+
+AC_CHECK_HEADERS([assert.h])
+
+AC_CHECK_HEADERS([stdio.h malloc.h], [], [],
+   [[#ifdef HAVE_STDIO_H
+     # include <stdio.h>
+     #endif
+   ]])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -126,7 +135,8 @@ AC_FUNC_ALLOCA
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 
-AC_CHECK_FUNCS(strdup memcpy strstr)
+# Ccide/Strdup function replaces strdup, because of portability problems.
+AC_CHECK_FUNCS(memcpy strstr)
 AC_CHECK_FUNCS(malloc)
 
 AC_TYPE_SIZE_T
@@ -143,6 +153,7 @@ AC_ARG_ENABLE(debug,
   esac],[CFLAGS="${CFLAGS:=-O}" ; AC_MSG_RESULT([no])])
 
 AC_CONFIG_SRCDIR([src/ccidemain.h])
-AM_CONFIG_HEADER(src/ccideconfig.h)
+AC_CONFIG_HEADERS([src/ccideconfig.h])
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile src/ccide.pod scripts/Makefile])
-AC_OUTPUT( ccide.spec CYGWIN-PATCHES/setup.hint)
+AC_CONFIG_FILES([ccide.spec CYGWIN-PATCHES/setup.hint])
+AC_OUTPUT

@@ -336,7 +336,9 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 
+
+
 
 #ifndef NOTSTRICT
 // Needed for -Werror compiler option
@@ -1095,7 +1097,9 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 
+
+
 
 
 	SetRuleMap(nrules);
@@ -1535,7 +1539,9 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 */
+
+
 
 #else
 	/*DECISION_TABLE:					*/
@@ -1572,7 +1578,9 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Sat Jul 21 08:46:54 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 */
+
+
 
 #endif
 	logLabel=FALSE;

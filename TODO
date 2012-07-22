@@ -1,7 +1,9 @@
 TODO: 
+	. Fix ccide.in ignores --datatrootdir setting. (Configure message.)
 	. Make clean should not remove scripts/ccide. ? I think.
 	. Test Windows/mingw/cygwin.
 	? Fix ccide for mingw
+		. Change assert to ASSERT and define a null macro -- for mingw.
 		. autogen.sh/configure WARNING: scripts/ccide.in ignores --datarootdir setting.
 		. ? if C99 compatibility library, libmingwex, is installed. mingw-get ? to install? 
 		. Run unix2dos for test files.

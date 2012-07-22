@@ -61,6 +61,10 @@ AM_YFLAGS = -d -l -v
 .c.flaws:
 	flawfinder -c -C $*.c $*.flaws > $*.flaws
 
+# Creates a circular dependency, but this is how it was done.   Put in another Makefile?
+#%.c.d : %.c 
+#	ccidew -u -c 3  < $< > $@  
+
 %.c : %.c.d 
 	ccide -c 3 < $< > $@
 

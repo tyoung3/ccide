@@ -72,6 +72,10 @@ all:  testcases
 
 install:
 
+install-strip:
+
+installcheck:
+
 uninstall:
 
 testcases:   threeway.c.in
@@ -100,4 +104,4 @@ distclean: clean
 clean:
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp *.right testcases hw.java  
 
-# .PHONY:	testcases
+# .PHONY:	testcases 

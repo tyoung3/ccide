@@ -20,9 +20,12 @@
 */
 
 /* ccidemain.h */ 
- 
-#include "ccide.h"
+
+#ifndef _CCIDEMAIN__H
+#define _CCIDEMAIN__H
+
 #include <stdlib.h>
+#include "ccide.h"
 
 #ifndef HAVE_ASSERT_H
 #define assert(N)
@@ -143,3 +146,5 @@ char *GetTimeStamp(void);
 void Generate(int nconds, int nactions, int nrules);
 
 void SaveLeadingWhiteSpace(char *s);
+#endif
+

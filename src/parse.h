@@ -18,8 +18,8 @@
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
-#ifndef PARSE_H
-#define PARSE_H
+#ifndef PARSE__H
+#define PARSE__H
 
 
 /* ccidelex.c */
@@ -40,4 +40,4 @@ extern int lineno;
 extern void warning2(char *s, char *t);
 extern int main(int argc, char **argv);
 
-#endif // PARSE_H
+#endif // PARSE__H

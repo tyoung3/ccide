@@ -22,12 +22,12 @@
 # ----------------------------------------------- end of legal stuff ---------------------- #
 
 # ccide: wrapper for ccidew.  
+#
+#  ? AS_INIT from M4SH
 
 CCIDELANG=C
 BINDIR="@prefix@/bin"
-DATADIR="@prefix@@datadir@"
-DATADIR="@prefix@/share"
-PKGDATADIR="${DATADIR}/@PACKAGE@"
+PKGDATADIR=@pkgdatadir@
 LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB"
 #DELIM="-q \` '  " 
 

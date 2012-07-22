@@ -297,6 +297,8 @@ int TableEqual( int rindex, int nawords, CCIDE_BIT utbl[] ) {
 //  - - - - - - X | return -1;   
 //END_TABLE:
 
+
+
 #ifndef NOTSTRICT
 // Needed for -Werror compiler option
 	return -1;
@@ -1005,6 +1007,8 @@ void GenConds( int nconds, int nrules, int notable ) {
 	//END_TABLE:
 
 
+
+
 	SetRuleMap(nrules);
         for(r=0;r<nrules;r++) {
 		int rm;
@@ -1420,6 +1424,8 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
 
+
+
 #else
 	/*DECISION_TABLE:					*/
 	/*  Y - - | nbrcstubs==1				*/
@@ -1432,6 +1438,8 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*  - X - | GenerateSingleRule(nconds,nactions);	*/
 	/*  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
+
+
 
 #endif
 	logLabel=FALSE;
