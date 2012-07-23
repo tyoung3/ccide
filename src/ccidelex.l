@@ -23,11 +23,10 @@
 
 %{
 
-#include "ccide.h"
 #include <string.h>
 #include <stdlib.h>
-#include "ccideparse.h"
 #include "ccidemain.h"
+#include "ccideparse.h"
 
 #define PGMNAME "ccide"
 void warning( const char *s );

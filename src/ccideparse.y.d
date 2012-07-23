@@ -52,7 +52,6 @@
 #define twy
 #define PARSE_STRING_SIZE 4096
 
-#include "ccideconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

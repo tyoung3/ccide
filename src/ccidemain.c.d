@@ -26,7 +26,22 @@
 
 
         /* ********************  Includes *********************/
+
 // #define _GNU_SOURCE
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "ccide.h"
+#include "ccidemain.h"
+#include "ccideparse.h"
+#include "parse.h"
+
+#ifdef HAVE_STRING_H
+#include <string.h>
+#else
+#pragma message "string.h not available"
+#endif
 
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
@@ -34,8 +49,6 @@
 #undef INTBITS
 #define INTBITS 32
 #endif
-
-#include "ccide.h"
 
 #if TIME_WITH_SYS_TIME
 # include <sys/time.h>
@@ -48,19 +61,6 @@
 # endif
 #endif
 
-
-#ifdef HAVE_STRING_H
-#include <string.h>
-#else
-#pragma message "string.h not available"
-#endif
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "ccidemain.h"
-#include "ccideparse.h"
-#include "parse.h"
 typedef int STATE;
 
         /* ******************** Local Defines *********************/

@@ -51,6 +51,7 @@ bin_PROGRAMS = ccidew
 #bin_SCRIPTS = ccide
  
 ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h parse.h
+# ccide_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h parse.h
 
 #Bison Flags  ( -y added by autoconf )
 AM_YFLAGS = -d -l -v

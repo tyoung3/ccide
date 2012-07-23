@@ -115,7 +115,11 @@ MakeAM() {
 	echo "dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\\" >> $PTMPLT
 	echo "	m4/ccide-BASH.m4 m4/ccide-BASIC.m4 m4/ccide-QB.m4 \\"		   >> $PTMPLT
 	echo "EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLog CYGWIN-PATCHES/setup.hint.in scripts/ccide.in \\" 	 								   >> $TMPLT
-	MakeEntry "	scripts/check.sh scripts/ccide tests/f1 tests/f2 tests/f3 tests/f4 tests/Makefile"
+	MakeEntry "	src/Makefile.in  src/ccide.pod.in src/ccideconfig.h.in"
+	MakeEntry "	src/ccidemain.h  \$(srcdir)/ccidelex.l"
+	MakeEntry "	src/ccideinline.c  src/ccidelex.c  src/ccidemain.c  src/ccideparse.c  src/cciderunx.c"
+	MakeEntry "	tests/f1 tests/f2 tests/f3 tests/f4 tests/Makefile"
+	MakeEntry "	scripts/check.sh scripts/Makefile scripts/Makefile.in scripts/ccide.in"
 	for TINPUT in src/ccide*.d; do 
 		echo $TINPUT							   >> $TMPLT
 	done						   

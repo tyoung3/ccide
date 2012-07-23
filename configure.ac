@@ -20,7 +20,9 @@
 #    	Fifth Floor, Boston, MA 02110-1301 USA.
 #     _____________________________________________________________________________________
 #
-#
+#configure.ac:60: warning: The macro `AS_HELP_STRING()' is obsolete.
+# configure.ac:60: You should run autoupdate.
+
 # Process this file with autoconf0 to produce a configure script.
 # See 'build' script for complete build process.
 AC_PREREQ(2.59)
@@ -57,7 +59,7 @@ AC_PROG_CXX
 
 # Build shared libs only
 #AC_DISABLE_STATIC
-AM_PROG_LIBTOOL 
+#AM_PROG_LIBTOOL 
 
 # Checks for system type. Defines target_cpu, etc.
 AC_CANONICAL_TARGET([])
@@ -68,7 +70,7 @@ AM_INIT_AUTOMAKE([ccide], [0.6.2])
 AM_MAINTAINER_MODE(TRUE)
 
 # Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=3	
+RELEASE=4	
 LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"
@@ -115,18 +117,23 @@ AC_PATH_PROG(M4, m4)
 # Checks for header files.
 AC_HEADER_STDC
 AC_HEADER_TIME
-# AC_CHECK_HEADERS([libinitl.h malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h sys/time.h])
+# AC_CHECK_HEADERS([libinitl.h malloc.h stdlib.h stdio.h io.h ctype.h unistd.h limits.h string.h assert.h time.h alloca.h libintl.h stddef.h ])
 
-AC_CHECK_HEADERS([assert.h])
-
-AC_CHECK_HEADERS([stdio.h malloc.h], [], [],
-   [[#ifdef HAVE_STDIO_H
-     # include <stdio.h>
+AC_CHECK_HEADERS([assert.h], [], [],
+   [[#ifdef HAVE_ASSERT_H
+     # include <assert.h>
      #endif
    ]])
 
+#AC_CHECK_HEADERS([stdio.h malloc.h], [], [],
+#   [[#ifdef HAVE_STDIO_H
+#     # include <stdio.h>
+# #    #endif
+#   ]])
+AC_CHECK_HEADERS([malloc.h])
+
 # Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
+# Fails on Mingw: AC_C_CONST
 AC_STRUCT_TM
 
 # Checks for library functions.
@@ -134,10 +141,12 @@ AC_FUNC_STRFTIME
 AC_FUNC_ALLOCA
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
+AC_FUNC_REALLOC
 
 # Ccide/Strdup function replaces strdup, because of portability problems.
 AC_CHECK_FUNCS(memcpy strstr)
 AC_CHECK_FUNCS(malloc)
+AC_CHECK_FUNCS(fileno)
 
 AC_TYPE_SIZE_T
 AC_C_INLINE
@@ -153,7 +162,8 @@ AC_ARG_ENABLE(debug,
   esac],[CFLAGS="${CFLAGS:=-O}" ; AC_MSG_RESULT([no])])
 
 AC_CONFIG_SRCDIR([src/ccidemain.h])
+AC_CONFIG_SRCDIR([scripts/ccide.in])
 AC_CONFIG_HEADERS([src/ccideconfig.h])
-AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile src/ccide.pod scripts/Makefile])
+AC_CONFIG_FILES([Makefile scripts/Makefile src/Makefile tests/Makefile src/ccide.pod])
 AC_CONFIG_FILES([ccide.spec CYGWIN-PATCHES/setup.hint])
 AC_OUTPUT

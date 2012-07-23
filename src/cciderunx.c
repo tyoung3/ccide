@@ -22,16 +22,14 @@
 /* cciderun.c  run time decision tables                                      */
 
  
-#include "ccide.h"
 #include <stdlib.h>
+#include "ccide.h"
+#include "ccideparse.h"
+#include "parse.h"
 
 #ifndef UINT_MAX
 #include <limits.h>
 #endif
-
-
-#include "ccideparse.h"
-#include "parse.h"
 
 int ccide_group=1;
 

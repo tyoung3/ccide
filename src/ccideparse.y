@@ -52,7 +52,6 @@
 #define twy
 #define PARSE_STRING_SIZE 4096
 
-#include "ccideconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -524,7 +523,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
 
 
 }
@@ -571,7 +570,7 @@ static void PrintC(char c) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
 
 
 
@@ -632,7 +631,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
 
 
 
@@ -780,7 +779,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-1 Fri Jul 20 09:50:03 2012 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
 
 
 

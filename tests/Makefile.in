@@ -87,6 +87,8 @@ if2rpn: if2rpn.c  if2rpnq.c if2rpntok.c
 
 distdir:
 
+distcheck:
+
 testhuge2:	huge2
 	. huge2.c.opt; ./huge2 $TOPT  
 

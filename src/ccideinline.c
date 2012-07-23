@@ -21,11 +21,9 @@
 
 /* ccideinline.c: Generate inline code or skeleton program */
 
-#include "ccide.h"
 #include <stdio.h>
 #include <string.h>
 #include "ccidemain.h"
-
 
 #define J(L) printf("%s %c",L,'\n');
 

@@ -26,7 +26,22 @@
 
 
         /* ********************  Includes *********************/
+
 // #define _GNU_SOURCE
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "ccide.h"
+#include "ccidemain.h"
+#include "ccideparse.h"
+#include "parse.h"
+
+#ifdef HAVE_STRING_H
+#include <string.h>
+#else
+#pragma message "string.h not available"
+#endif
 
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
@@ -34,8 +49,6 @@
 #undef INTBITS
 #define INTBITS 32
 #endif
-
-#include "ccide.h"
 
 #if TIME_WITH_SYS_TIME
 # include <sys/time.h>
@@ -48,19 +61,6 @@
 # endif
 #endif
 
-
-#ifdef HAVE_STRING_H
-#include <string.h>
-#else
-#pragma message "string.h not available"
-#endif
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "ccidemain.h"
-#include "ccideparse.h"
-#include "parse.h"
 typedef int STATE;
 
         /* ******************** Local Defines *********************/
@@ -336,7 +336,7 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
 
 
 
@@ -1097,7 +1097,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
 
 
 
@@ -1539,7 +1539,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 */
 
 
 
@@ -1578,7 +1578,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-3 Sat Jul 21 10:09:06 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 */
 
 
 
