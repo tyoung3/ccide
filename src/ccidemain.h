@@ -24,14 +24,31 @@
 #ifndef _CCIDEMAIN__H
 #define _CCIDEMAIN__H
 
+// For Mingw Changes to ccideconfig.h ??? hacked up so will compile.
+// Remove defines for rpl_malloc...
+#ifndef HAVE_STRING_H
+#define HAVE_STRING_H 1
+#endif
+/* Define to 1 if you have the `malloc' function. */
+#define HAVE_MALLOC 1
+/* Define to 1 if you have the <malloc.h> header file. */
+#define HAVE_MALLOC_H 1
+
 #include <stdlib.h>
 #include "ccide.h"
 
-#ifndef HAVE_ASSERT_H
-#define assert(N)
-#else 
+#ifdef HAVE_ASSERT_H
 #include <assert.h>
+#else 
+#undef assert
+#define assert(N)
 #endif 
+
+#ifndef HAVE_FILENO
+#undef fileno
+#define fileno(X) 4
+#endif
+
 
 	/* ********************  Capacities *********************/
 #define CCIDE_NCOND   32

@@ -92,6 +92,7 @@ AC_SUBST(TARGET)
 AC_SUBST(DESCR)
 AC_SUBST(LONG_DESCR)
 
+
 # Change install default from /usr/local to /usr
 AC_PREFIX_PROGRAM(m4)
 
@@ -125,6 +126,11 @@ AC_CHECK_HEADERS([assert.h], [], [],
      #endif
    ]])
 
+AC_CHECK_HEADERS([libintl.h])
+AC_CHECK_HEADERS([limits.h])
+AC_CHECK_HEADERS([stddef.h])
+AC_CHECK_HEADERS([sys/time.h])
+
 #AC_CHECK_HEADERS([stdio.h malloc.h], [], [],
 #   [[#ifdef HAVE_STDIO_H
 #     # include <stdio.h>
@@ -133,7 +139,8 @@ AC_CHECK_HEADERS([assert.h], [], [],
 AC_CHECK_HEADERS([malloc.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-# Fails on Mingw: AC_C_CONST
+# Fails on Mingw: AC_C_CONST -- defines empty const 
+# however: configure.ac: warning: missing AC_C_CONST wanted by: ccide-0.6.2/src/ccidemain.h:63
 AC_STRUCT_TM
 
 # Checks for library functions.
@@ -162,7 +169,7 @@ AC_ARG_ENABLE(debug,
   esac],[CFLAGS="${CFLAGS:=-O}" ; AC_MSG_RESULT([no])])
 
 AC_CONFIG_SRCDIR([src/ccidemain.h])
-AC_CONFIG_SRCDIR([scripts/ccide.in])
+#AC_CONFIG_SRCDIR([scripts/ccide.in])
 AC_CONFIG_HEADERS([src/ccideconfig.h])
 AC_CONFIG_FILES([Makefile scripts/Makefile src/Makefile tests/Makefile src/ccide.pod])
 AC_CONFIG_FILES([ccide.spec CYGWIN-PATCHES/setup.hint])

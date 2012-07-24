@@ -45,6 +45,11 @@
 
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
+#ifdef WORD_BIT
+#define INTBITS WORD_BIT
+#else
+#define INTBITS 32 
+#endif  
 #else
 #undef INTBITS
 #define INTBITS 32
@@ -106,10 +111,10 @@ typedef struct  {
 static CCIDEABLE ccide;	  /* Current Decision table */
 
 static int saven[MAXENTRY+1];
-static int numbers[CCIDE_NRULE];
+static int numbers[CCIDE_NRULE+1];
 static int rulemap[CCIDE_NRULE+1];
 static int isagoto[CCIDE_NRULE+1];  /* 1 to generate case label */
-static int remap[CCIDE_NRULE];
+static int remap[CCIDE_NRULE+1];
 static int save4goto[CCIDE_NRULE+1];
 
 static int nunique=0;
@@ -619,7 +624,7 @@ void UnSetNumbers( ) {
 
 	nunique=0;
 
-	for( i=0;i<CCIDE_NRULE+1;i++) {
+	for( i=0;i<CCIDE_NRULE;i++) {
 		numbers[i] = -1;
 		save4goto[i] = 0;
 	}

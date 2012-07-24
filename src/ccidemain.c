@@ -45,6 +45,11 @@
 
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
+#ifdef WORD_BIT
+#define INTBITS WORD_BIT
+#else
+#define INTBITS 32 
+#endif  
 #else
 #undef INTBITS
 #define INTBITS 32
@@ -106,10 +111,10 @@ typedef struct  {
 static CCIDEABLE ccide;	  /* Current Decision table */
 
 static int saven[MAXENTRY+1];
-static int numbers[CCIDE_NRULE];
+static int numbers[CCIDE_NRULE+1];
 static int rulemap[CCIDE_NRULE+1];
 static int isagoto[CCIDE_NRULE+1];  /* 1 to generate case label */
-static int remap[CCIDE_NRULE];
+static int remap[CCIDE_NRULE+1];
 static int save4goto[CCIDE_NRULE+1];
 
 static int nunique=0;
@@ -336,7 +341,7 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 
 
 
 
@@ -660,7 +665,7 @@ void UnSetNumbers( ) {
 
 	nunique=0;
 
-	for( i=0;i<CCIDE_NRULE+1;i++) {
+	for( i=0;i<CCIDE_NRULE;i++) {
 		numbers[i] = -1;
 		save4goto[i] = 0;
 	}
@@ -1097,7 +1102,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 
 
 
 
@@ -1539,7 +1544,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 */
 
 
 
@@ -1578,7 +1583,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 */
 
 
 

@@ -1,5 +1,6 @@
 2012-07-17
-	0.6.2-3
+	0.6.2-4
+		Portability fixes
 		Changed 'build' script name to 'autogen.sh'.
 		Using -Werror compiler option.
 		Renamed huge test files to be huge1 test files.
