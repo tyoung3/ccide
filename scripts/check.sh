@@ -133,8 +133,12 @@ MakeAM() {
 			# echo $TINPUT $T
 			MakeEntry "	$TDIR/$TINPUT"
 			[ -f $T.d ]    && MakeEntry "	$TDIR/$T.d " 
-			[ -f $T.opt ]  && MakeEntry "	$TDIR/$T.opt " 		
-			[ -f $T.X ]    && MakeEntry "	$TDIR/$T.X " 	
+			[ -f $T.opt ]  && MakeEntry "	$TDIR/$T.opt " 	
+	done				   
+	for TINPUT in *.X; do
+			MakeEntry "	$TDIR/$TINPUT"	
+			T=`basename $TINPUT .X`
+			[ -f $T.h ] && MakeEntry "	$TDIR/$T.h "
 	done
 	echo 				"	scripts/check.sh "	>> $TMPLT	
 	echo "	m4/ccide-VB.m4 m4/ccide-JAVA.m4 m4/ccide-CS.m4 m4/ccide-EX.m4"  >> $PTMPLT

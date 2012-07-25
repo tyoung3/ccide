@@ -30,9 +30,14 @@
 #define HAVE_STRING_H 1
 #endif
 /* Define to 1 if you have the `malloc' function. */
+#ifndef HAVE_MALLOC
 #define HAVE_MALLOC 1
+#endif
+
 /* Define to 1 if you have the <malloc.h> header file. */
+#ifndef HAVE_MALLOC_H
 #define HAVE_MALLOC_H 1
+#endif
 
 #include <stdlib.h>
 #include "ccide.h"

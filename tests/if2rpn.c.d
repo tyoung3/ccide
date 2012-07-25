@@ -102,6 +102,7 @@ static STATE FindLeft() {
 	//DECISION_TABLE:    /* Check Stack */
 	// 0 4 6 |TOS==$$  
 	// _______________
+	// - - x | PopToQueue();
 	// - - x | goto $@;
 	// 9 2 - | return $$; 
 	//END_TABLE:
