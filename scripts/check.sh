@@ -47,6 +47,11 @@ TestIt() {
 
 }
 
+CheckExpand() {
+	diff $* && Success "Generate $1" 	\
+			|| Fail "Generate" $1  
+}
+
 TestCase() {
 	CASE=$1
 	[ -z $1 ] && CASE=calc
@@ -57,7 +62,7 @@ TestCase() {
 	for Y in $X; do
 		Z=`basename $Y .d`
 		[ -f $Z.opt ] && . $Z.opt
-		$MAKE -i $Z  
+		$MAKE -i $Z && CheckExpand $Z $Z.right  
 	done
 	$MAKE $CASE && X=$CASE && TestIt
 }
@@ -158,8 +163,8 @@ MakeRight() {
 		for X in $Y; do
 			Z=`basename $X .$SFX`
 			echo make $Z.$SFX.right from $Z.$SFX
-			cp -avp $Z.$SFX  $Z.$SFX.right 	\
-			&& sed -e "s/$VERSION/\$CCIDE_VERSION/g" $Z.$SFX.right > $Z.$SFX.in  
+			cp -avp $Z.$SFX  $Z.$SFX.right 	
+			# && sed -e "s/$VERSION/\$CCIDE_VERSION/g" $Z.$SFX.right > $Z.$SFX.in  
 		done
 	done
 }
@@ -174,11 +179,14 @@ case $1 in
 	-V)	echo 	check.sh-0.0;;
 	all)	shift; 	All $*;;
 	mkam)shift; MakeAM $*;;
-	right)	shift;	MakeRight $*;;
+	mkright)shift;	MakeRight $*;;
 	*) 	[ -z $1 ] && Usage 
-	   	for T in $*; do ( TestCase $T 	\
-			&& Success "test $T" 	\
-			|| Fail "Test" $T ) &
-	  	done;;
+	   	for T in $*; do 
+			TestCase $T 	\
+			&& Success "Test $T" 	\
+			|| Fail "Test" $T  
+	  	done
+	        Summarize
+	   ;;
 esac
 	

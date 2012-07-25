@@ -22,6 +22,7 @@
 # ----------------------------------------------- end of legal stuff ---------------------- #
 GCJ = gcj
 CCIDE = ../scripts/ccide
+CCIDEW = ../src/ccidew
 GCJDEPMODE = depmode=gcc3
 GCJFLAGS = -g -O2
 am__fastdepGCJ_FALSE = #
@@ -34,7 +35,7 @@ TEST_CASES = 	\
        ex1	\
        fourway	\
        hcond	\
-       huge	\
+       huge1	\
        huge2	\
        if2rpn	\
        simple	\
@@ -49,16 +50,16 @@ TEST_CASES = 	\
 	${CC} -g $(CFLAGS) $<  -o $@  
 
 %.c: %.c.d 
-	${CCIDE} -c 3 < $<  2>$@.err  > $@ 
+	${CCIDEW} -c 3 -b < $<  2>$@.err  > $@ 
 
 %.cpp: %.cpp.d 
-	${CCIDE} -c 3 < $< > $@ 
+	${CCIDE} -c 3  -b < $< > $@ 
 
 %.java: %.java.d 
-	${CCIDE} -L JAVA -c 3 < $< > $@ 
+	${CCIDE} -L JAVA -c 3 -b  < $< > $@ 
 
 %.bash: %.bash.d 
-	${CCIDE} -L BASH -c 3 < $< > $@ 
+	${CCIDE} -L BASH -c 3 -b < $< > $@ 
 
 %: %.bash
 	ln -sf $< $@
@@ -78,9 +79,9 @@ installcheck:
 
 uninstall:
 
-testcases:   threeway.c.in
-	../scripts/check.sh mkright ccide-@PACKAGE_VERSION@-@RELEASE@
-	touch $@
+testcases:   threeway.c.in Makefile
+	../scripts/check.sh mkright ${TEST_CASES} \
+	&& touch $@
 
 if2rpn: if2rpn.c  if2rpnq.c if2rpntok.c
 	cc  -g    if2rpn.c if2rpnq.c if2rpntok.c  -o if2rpn
@@ -92,8 +93,8 @@ distcheck:
 testhuge2:	huge2
 	. huge2.c.opt; ./huge2 $TOPT  
 
-check:
-	../scripts/check.sh all
+check:	testcases
+	../scripts/check.sh  ${TEST_CASES}
 
 check_old:	 testcases
 	[ -x ../scripts/ccide ] || chmod a+x ../scripts/ccide
