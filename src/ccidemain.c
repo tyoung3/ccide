@@ -66,6 +66,8 @@
 # endif
 #endif
 
+void warning(char *s);
+
 typedef int STATE;
 
         /* ******************** Local Defines *********************/
@@ -188,7 +190,7 @@ static int RuleSeq(const void *a, const void *b) {
 }
 
 #ifndef NODROP_EMPTY
-	/* Delete rules with no conditions and no actions.  */
+	/* Delete rules with no actions.  */
 static int DropEmpty(int nrules) { 
 	int i,ndrop=0;
 
@@ -198,11 +200,9 @@ static int DropEmpty(int nrules) {
 		i--;
 		if( 
 			(ccide.act[i][0] == 0)
-			&& (ccide.yes[i][0] == 0)
-			&& (ccide.no[i][0]  == 0)
 		  ) {
 			ndrop++;	// N.B.: Cannot change nrules, so pass back number to drop.
-			fprintf(stderr,"//Dropping rule %i;\n",i);
+			WARN3("Dropping rule %i in table %i.", remap[i], nbrtables );
 		} else {
 			return ndrop;
 		}
@@ -301,7 +301,8 @@ int TableEqual( int rindex, int nawords, CCIDE_BIT utbl[] ) {
 //   -  -  -  -  X  -  - | return rulemap[ri];
 //   -  -  -  -  -  -  X | return -1;   
 //END_TABLE:
-//GENERATED_CODE: FOR TABLE_1.	7 Rules, 7 conditions, and 12 actions.
+//GENERATED_CODE: FOR TABLE_1.
+//	7 Rules, 7 conditions, and 12 actions.
  {	unsigned long CCIDE_table1_yes[7]={  68UL,  58UL,  26UL,   9UL,   4UL,   2UL,   0UL};
 	unsigned long CCIDE_table1_no[7]= {   0UL,   0UL,  32UL,   0UL,  64UL,  16UL,   8UL};
 
@@ -341,7 +342,7 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 
 
 
 
@@ -477,7 +478,7 @@ static void CompareRules(int r1, int r2) {
 
 	if(diff == 0 ) {
 		ERROR3( "Rule %i conflicts with rule %2i\n", 
-			r1+1, r2+1);
+			remap[r1+1], remap[r2+1]);
 	}
 }
 
@@ -893,22 +894,22 @@ void SetCSTUB2( int ncond, char *c1, char *c2 ) {
 #endif
 
 	/* Check for inconsistent (dupe or conflicting) rules. */
-void CcideCheckRules() {
+void CcideCheckRules(int ndrop) {
 	int i, j;
 	CCIDE_BIT w;
 
 	assert( nbractions > 0 );
 	assert( nbrcond > 0 );
-	assert( nbrrule > 0 );
+	assert( (nbrrule - ndrop)  > 0 );
 
-	if(nbrrule>1) {
-	   for( i=0;i < (nbrrule-1); i++ ) {
-		for( j=i+1; j<nbrrule; j++ ) {
+	if((nbrrule - ndrop)>1) {
+	   for( i=0;i < ((nbrrule - ndrop)-1); i++ ) {
+		for( j=i+1; j<(nbrrule - ndrop); j++ ) {
 			CompareRules(i,j);
 		}
 	        w = (CCIDE_BIT) ccide.act[i][0];
 		for( 	j=i+1; 
-			j<nbrrule && ( w == (CCIDE_BIT) ccide.act[j][0] );
+			j<(nbrrule - ndrop) && ( w == (CCIDE_BIT) ccide.act[j][0] );
 			j++ ) {
 				Overlap(i,j);
 		}
@@ -1051,7 +1052,8 @@ void GenConds( int nconds, int nrules, int notable ) {
 	//   -  -  -  -  -  -  -  X |printf( "%s_table%i_yes", pPrefix, nbrtables); 	 
 	//   -  -  -  X  -  -  -  X |printf(")) {\n");
 	//END_TABLE:
-	//GENERATED_CODE: FOR TABLE_2.	8 Rules, 4 conditions, and 19 actions.
+	//GENERATED_CODE: FOR TABLE_2.
+	//	8 Rules, 4 conditions, and 19 actions.
 	 {	unsigned long CCIDE_table2_yes[8]={   9UL,   8UL,   5UL,   4UL,   3UL,   2UL,   1UL,   0UL};
 		unsigned long CCIDE_table2_no[8]= {   6UL,   7UL,   0UL,   1UL,   0UL,   1UL,   0UL,   1UL};
 
@@ -1102,7 +1104,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 
 
 
 
@@ -1495,30 +1497,35 @@ void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate la
 
 	/* Print the generated C code from the ccide table. */
 void Generate( int nconds, int nactions, int nrules ) {
-	int i, ndrop;
+	int i, ndrop=0;
 
 	for(i=0;i<=CCIDE_NRULE;) isagoto[i++]=0; 
 	assert(ccide.dummy_guard[0]==19);
 	if(donotgenerate) 
 		return;
+
+
 	nbrrule	   = nrules;
 	nbrcond    = nconds;
 	nbractions = nactions;
+
+	if(m4out) { 	printf("%s%s%sGENERATED_CODE: FOR TABLE_%i.%s%s\n", 
+				lws, pComment, qt1, nbrtables,qt2,pEcomment); 	
+	} else{		printf("%s%sGENERATED_CODE: FOR TABLE_%i.\n", 
+				lws, pComment, nbrtables);	 
+	}
 	ncwords=(nbrcond-1)/INTBITS + 1;
 	nawords=(nactions-1)/INTBITS + 1;
 	FixNulls(nrules);
-	CcideCheckRules();
 	Reorder(nrules);
 	ndrop = DropEmpty(nrules);  /* number rules(at end) to drop */
-
-	if(m4out) { 	printf("%s%s%sGENERATED_CODE: FOR TABLE_%i.", 
-				lws, pComment, qt1, nbrtables); 	
-			printf("\t%i Rules, %i conditions, and %i actions.%s%s\n",
-				nrules-ndrop, nconds, nactions,qt2, pEcomment);
-	} else{		printf("%s%sGENERATED_CODE: FOR TABLE_%i.", 
-				lws, pComment, nbrtables);	 
-			printf("\t%i Rules, %i conditions, and %i actions.%s\n",
-				nrules-ndrop, nconds, nactions, pEcomment);
+	CcideCheckRules(ndrop);
+	if(m4out) { 	 	
+			printf("%s%s%s\t%i Rules, %i conditions, and %i actions.%s%s\n",
+				lws, pComment,qt1, nrules-ndrop, nconds, nactions, qt2, pEcomment);
+	} else{			 
+			printf("%s%s\t%i Rules, %i conditions, and %i actions.%s\n",
+				lws, pComment, nrules-ndrop, nconds, nactions, pEcomment);
 	}
 
 
@@ -1534,7 +1541,8 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
 	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
-	/*GENERATED_CODE: FOR TABLE_3.	3 Rules, 5 conditions, and 3 actions.*/
+	/*GENERATED_CODE: FOR TABLE_3.
+	/*	3 Rules, 5 conditions, and 3 actions.*/
 	 {	unsigned long CCIDE_table3_yes[3]={  23UL,  16UL,   8UL};
 		unsigned long CCIDE_table3_no[3]= {   8UL,   8UL,   0UL};
 
@@ -1557,7 +1565,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 */
 
 
 
@@ -1573,7 +1581,8 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
 	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
-	/*GENERATED_CODE: FOR TABLE_4.	3 Rules, 5 conditions, and 3 actions.*/
+	/*GENERATED_CODE: FOR TABLE_4.
+	/*	3 Rules, 5 conditions, and 3 actions.*/
 	 {	unsigned long CCIDE_table4_yes[3]={  23UL,  16UL,   8UL};
 		unsigned long CCIDE_table4_no[3]= {   8UL,   8UL,   0UL};
 
@@ -1596,7 +1605,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 */
 
 
 

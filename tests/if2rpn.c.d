@@ -84,12 +84,12 @@ static inline void MisMatch() {
 static STATE DoRightParen() {
 
 	//DECISION_TABLE:		
-	// - 4 6 7 8 9 10 11 |TOS==$$ 
+	// - 4 6 - 7 8 9 10  -  11 |TOS==$$ 
 	// ________________________________________
-	// - x - - - -  -  - | Pop();  
-	// - - x x x x  x  x | PopToQueue();
-	// - - x x x x  x  x | goto $@;
-	// 9 2 - - - -  -  - | return $$;  
+	// - x - - - - -  -  -   - | Pop();  
+	// - - x - x x x  x  -   x | PopToQueue();
+	// - - x - x x x  x  -   x | goto $@;
+	// 9 2 - - - - -  -  -   - | return $$;  
 	//END_TABLE:
 }
 
@@ -131,11 +131,11 @@ static STATE DoOperator() {
 
 // 1-number, 2-function token, 3-function argument separator (e.g. a comma) 9=no more tokens // 4=LEFT_PAREN, 5=RIGHT_PAREN, 6=OPERATOR
 
-static void ParseInput() {
+static void ParseInput() {   
 	STATE s=0;
 	TOKEN_TYPE t;
 
-	//DECISION_TABLE:
+	//DECISION_TABLE:    Test dropping empty rules.
 	// 0 2 2 2 2 2 2 - | s==$$
 	// - 1 2 3 4 5 6 - | t==$$   
 	// _____________________________
@@ -152,13 +152,13 @@ static void ParseInput() {
 			// 0=EMPTY, 1=LEFT_PAREN, 2=RIGHT_PAREN
 
 	    //DECISION_TABLE:    	/* No more input tokens */
-	    // - 1 2 5 7 8 9 10 11 |TOS==$$    
+	    // - 1 2 - 5 7 8 9 10 11 |TOS==$$    
 	    // ____________________|____________
-	    // x x x x x x x  x  x | // Test comment
-	    // - x - x - - -  -  - | MisMatch();        
-	    // - - x - x x x  x  x | PopToQueue();
-	    // - x x x x x x  x  x | goto $@;  
-	    // x - - - - - -  -  - | printf("\n");
+	    // x x x - x x x x  x  x | // Test comment
+	    // - x - - x - - -  -  - | MisMatch();        
+	    // - - x - - x x x  x  x | PopToQueue();
+	    // - x x - x x x x  x  x | goto $@;  
+	    // x - - - - - - -  -  - | printf("\n");
 	    //END_TABLE:
 }
 
@@ -166,10 +166,10 @@ int main(int argc, char **argv) {
 
 	TOS=EMPTY; 
 	//DECISION_TABLE:
-	// y | token==SEPARATOR
-	// __|_________________
-	// x | token=EMPTY; ParseInput();
-	// x | goto $@;
+	// - y | token==SEPARATOR
+	// ____|_________________
+	// - x | token=EMPTY; ParseInput();
+	// - x | goto $@;
 	//END_TABLE:
 	return 0;
 

@@ -1,5 +1,6 @@
 2012-07-26
 	0.6.2-5
+		Drop a null rule; i.e. a rule with no actions.
 		Fixed missing table label when generating a single rule [ if(cond) ...]. 
 		Removed unneeded braces,{}, surrounding actions when generating
 		a single rule.

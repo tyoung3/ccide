@@ -66,6 +66,8 @@
 # endif
 #endif
 
+void warning(char *s);
+
 typedef int STATE;
 
         /* ******************** Local Defines *********************/
@@ -188,7 +190,7 @@ static int RuleSeq(const void *a, const void *b) {
 }
 
 #ifndef NODROP_EMPTY
-	/* Delete rules with no conditions and no actions.  */
+	/* Delete rules with no actions.  */
 static int DropEmpty(int nrules) { 
 	int i,ndrop=0;
 
@@ -198,11 +200,9 @@ static int DropEmpty(int nrules) {
 		i--;
 		if( 
 			(ccide.act[i][0] == 0)
-			&& (ccide.yes[i][0] == 0)
-			&& (ccide.no[i][0]  == 0)
 		  ) {
 			ndrop++;	// N.B.: Cannot change nrules, so pass back number to drop.
-			fprintf(stderr,"//Dropping rule %i;\n",i);
+			WARN3("Dropping rule %i in table %i.", remap[i], nbrtables );
 		} else {
 			return ndrop;
 		}
@@ -436,7 +436,7 @@ static void CompareRules(int r1, int r2) {
 
 	if(diff == 0 ) {
 		ERROR3( "Rule %i conflicts with rule %2i\n", 
-			r1+1, r2+1);
+			remap[r1+1], remap[r2+1]);
 	}
 }
 
@@ -852,22 +852,22 @@ void SetCSTUB2( int ncond, char *c1, char *c2 ) {
 #endif
 
 	/* Check for inconsistent (dupe or conflicting) rules. */
-void CcideCheckRules() {
+void CcideCheckRules(int ndrop) {
 	int i, j;
 	CCIDE_BIT w;
 
 	assert( nbractions > 0 );
 	assert( nbrcond > 0 );
-	assert( nbrrule > 0 );
+	assert( (nbrrule - ndrop)  > 0 );
 
-	if(nbrrule>1) {
-	   for( i=0;i < (nbrrule-1); i++ ) {
-		for( j=i+1; j<nbrrule; j++ ) {
+	if((nbrrule - ndrop)>1) {
+	   for( i=0;i < ((nbrrule - ndrop)-1); i++ ) {
+		for( j=i+1; j<(nbrrule - ndrop); j++ ) {
 			CompareRules(i,j);
 		}
 	        w = (CCIDE_BIT) ccide.act[i][0];
 		for( 	j=i+1; 
-			j<nbrrule && ( w == (CCIDE_BIT) ccide.act[j][0] );
+			j<(nbrrule - ndrop) && ( w == (CCIDE_BIT) ccide.act[j][0] );
 			j++ ) {
 				Overlap(i,j);
 		}
@@ -1402,30 +1402,35 @@ void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate la
 
 	/* Print the generated C code from the ccide table. */
 void Generate( int nconds, int nactions, int nrules ) {
-	int i, ndrop;
+	int i, ndrop=0;
 
 	for(i=0;i<=CCIDE_NRULE;) isagoto[i++]=0; 
 	assert(ccide.dummy_guard[0]==19);
 	if(donotgenerate) 
 		return;
+
+
 	nbrrule	   = nrules;
 	nbrcond    = nconds;
 	nbractions = nactions;
+
+	if(m4out) { 	printf("%s%s%sGENERATED_CODE: FOR TABLE_%i.%s%s\n", 
+				lws, pComment, qt1, nbrtables,qt2,pEcomment); 	
+	} else{		printf("%s%sGENERATED_CODE: FOR TABLE_%i.\n", 
+				lws, pComment, nbrtables);	 
+	}
 	ncwords=(nbrcond-1)/INTBITS + 1;
 	nawords=(nactions-1)/INTBITS + 1;
 	FixNulls(nrules);
-	CcideCheckRules();
 	Reorder(nrules);
 	ndrop = DropEmpty(nrules);  /* number rules(at end) to drop */
-
-	if(m4out) { 	printf("%s%s%sGENERATED_CODE: FOR TABLE_%i.", 
-				lws, pComment, qt1, nbrtables); 	
-			printf("\t%i Rules, %i conditions, and %i actions.%s%s\n",
-				nrules-ndrop, nconds, nactions,qt2, pEcomment);
-	} else{		printf("%s%sGENERATED_CODE: FOR TABLE_%i.", 
-				lws, pComment, nbrtables);	 
-			printf("\t%i Rules, %i conditions, and %i actions.%s\n",
-				nrules-ndrop, nconds, nactions, pEcomment);
+	CcideCheckRules(ndrop);
+	if(m4out) { 	 	
+			printf("%s%s%s\t%i Rules, %i conditions, and %i actions.%s%s\n",
+				lws, pComment,qt1, nrules-ndrop, nconds, nactions, qt2, pEcomment);
+	} else{			 
+			printf("%s%s\t%i Rules, %i conditions, and %i actions.%s\n",
+				lws, pComment, nrules-ndrop, nconds, nactions, pEcomment);
 	}
 
 

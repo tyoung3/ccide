@@ -87,9 +87,14 @@ extern char bfr[BFRSIZE];
 /* Flawfinder: ignore */
 #define ERROR3(F,A,B) sprintf(bfr,(const char*)F,A,B); 	\
 	yyerror(bfr); 				\
-        printf((const char*) "%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
-		pComment, bfr, pEcomment);	\
+        printf((const char*) "%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
+		lws, pComment, bfr, pEcomment);	\
 	RC=1;
+
+#define WARN3(F,A,B) sprintf(bfr,(const char*)F,A,B); 	\
+	warning(bfr); 				\
+        printf((const char*) "%s%sWARNING: %s %s\n",		\
+		lws, pComment, bfr, pEcomment);	
 
 	/* ********************  Macros *********************/
 
@@ -161,7 +166,7 @@ void SetASTUBhere(int nactions, char *c1);
 void SetASTUB2(int nactions, char *c1, char *c2);
 void SetASTUBn(int nactions, int nrules);
 /*  obs. void SetCSTUB2(int ncond, char *c1, char *c2); */
-void CcideCheckRules(void);
+void CcideCheckRules(int ndrop);
 /* obs. int NoBitOn(int nrule, int n); */
 void GenConds(int nconds, int nrules, int notable);
 char *GetTimeStamp(void);
