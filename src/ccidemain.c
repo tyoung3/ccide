@@ -341,7 +341,7 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 
 
 
 
@@ -1102,7 +1102,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 
 
 
 
@@ -1414,12 +1414,25 @@ int CanDoSwitch() {
 	return 0;
 }
 
+static void GenerateLabel() {
+
+	if(logLabel) {
+		if(m4out)
+		        printf("\n%s%s_LABEL(%s_TABLE_%i)",
+				lws, pPrefix, pPrefix, nbrtables);
+		else
+        		printf("\n%s%s_TABLE_%i:",
+				lws, pPrefix, nbrtables);
+	} 
+}
+
 	/* Print the generated C code from the ccide table. */
-void GenerateSingleRule( int nconds, int nactions ) {
+void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate label */
 	int i,c;
 	char *s;
 	char sand[80]="";
 
+	GenerateLabel();
 	if(m4out)
 		printf("%sCCIDE_IF()",lws);
 	else
@@ -1468,7 +1481,7 @@ void GenerateSingleRule( int nconds, int nactions ) {
 				printf("%s   CCIDE_ACTION(%s%s%s)\n", 
 					lws, qt1, ccide.actiontable[i], qt2);
 			else
-				printf("%s   {%s}\n", lws, 
+				printf("%s   %s\n", lws, 
 					ccide.actiontable[i]);
 		}
 	}
@@ -1544,7 +1557,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 */
 
 
 
@@ -1583,7 +1596,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-4 Tue Jul 24 18:02:40 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 */
 
 
 

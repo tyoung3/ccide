@@ -44,15 +44,10 @@ static int ptbl[NTOK]={0,1,2,3,4,4,6,7,8,8,10,10};          /* Precedence table 
 /***********************LOCAL FUNCTIONS*******************/
 
 //CCIDE_INLINE_CODE:
-static int Prec(TYPE a, TYPE b) {
-	STATE rc;
-	rc = ptbl[a]>ptbl[b];
-	return rc;
-}
 
 /***********************GLOBAL FUNCTIONS******************/
-STATE GetPrecedence() {
-	return Prec(token,TOS);
+int GetPrecedence() {
+	return ptbl[token]>ptbl[TOS];
 }
 
 #ifdef PSEUDO_INPUT
@@ -60,7 +55,6 @@ TYPE GetToken(){
 	//DECISION_TABLE:
 	// 1 2 3 4 5 6 7 8  9 10 11 |instate==$$
 	// _____________________________________
-	// 2 3 4 5 6 7 8 9 10 11 12 |instate=$$;
 	// x - - - - - - -  -  -  - |SETN(17);	
 	// - x - - - - - -  -  -  - |SETO(TIMES);
 	// - - x - - - - -  -  -  - |token=LEFT_PAREN; SET(LEFT_PAREN);
@@ -73,8 +67,11 @@ TYPE GetToken(){
 	// - - - - - - - -  -  x  - |SETO(EQUAL);
 	// - - - - - - - -  -  -  x |SET(EMPTY);
 	//END_TABLE:
+	
+	instate++;
 }
 #endif
+
 
 void PushToken() {
 
@@ -111,7 +108,7 @@ void OutputToken(){
 void Pop(){ 
 	
 	//DECISION_TABLE:
-	// Y -  |SP<1
+	// Y N  |SP<1
 	//________________________
 	// x -	|fprintf(stderr,"");
 	// x -	|exit(1);

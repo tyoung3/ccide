@@ -69,8 +69,7 @@
 
 //CCIDE_INLINE_CODE:
 
-
-static void MisMatch() {
+static inline void MisMatch() {
 	fprintf(stderr,"Mismatched parens.\n");
 }
 
@@ -87,7 +86,7 @@ static STATE DoRightParen() {
 	//DECISION_TABLE:		
 	// - 4 6 7 8 9 10 11 |TOS==$$ 
 	// ________________________________________
-	// - x - - -  -  - - | Pop();  
+	// - x - - - -  -  - | Pop();  
 	// - - x x x x  x  x | PopToQueue();
 	// - - x x x x  x  x | goto $@;
 	// 9 2 - - - -  -  - | return $$;  
@@ -165,11 +164,13 @@ static void ParseInput() {
 
 int main(int argc, char **argv) {
 
-	TOS=EMPTY;     
-	while(  token==SEPARATOR) {
-		token=EMPTY;
-		ParseInput();
-	}
+	TOS=EMPTY; 
+	//DECISION_TABLE:
+	// y | token==SEPARATOR
+	// __|_________________
+	// x | token=EMPTY; ParseInput();
+	// x | goto $@;
+	//END_TABLE:
 	return 0;
 
 }

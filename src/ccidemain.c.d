@@ -1321,12 +1321,25 @@ int CanDoSwitch() {
 	return 0;
 }
 
+static void GenerateLabel() {
+
+	if(logLabel) {
+		if(m4out)
+		        printf("\n%s%s_LABEL(%s_TABLE_%i)",
+				lws, pPrefix, pPrefix, nbrtables);
+		else
+        		printf("\n%s%s_TABLE_%i:",
+				lws, pPrefix, nbrtables);
+	} 
+}
+
 	/* Print the generated C code from the ccide table. */
-void GenerateSingleRule( int nconds, int nactions ) {
+void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate label */
 	int i,c;
 	char *s;
 	char sand[80]="";
 
+	GenerateLabel();
 	if(m4out)
 		printf("%sCCIDE_IF()",lws);
 	else
@@ -1375,7 +1388,7 @@ void GenerateSingleRule( int nconds, int nactions ) {
 				printf("%s   CCIDE_ACTION(%s%s%s)\n", 
 					lws, qt1, ccide.actiontable[i], qt2);
 			else
-				printf("%s   {%s}\n", lws, 
+				printf("%s   %s\n", lws, 
 					ccide.actiontable[i]);
 		}
 	}
