@@ -1,14 +1,11 @@
 TODO: 
-	. Fix ccide.in ignores --datatrootdir setting. (Configure message.)
 	. Make clean should not remove scripts/ccide. ? I think.
 	. Test Windows/mingw/cygwin.
 	? Fix ccide for mingw
+		. Problem with  HAVE_MALLOC_H & HAVE_MALLOC
 		. Change assert to ASSERT and define a null macro -- for mingw.
-		. autogen.sh/configure WARNING: scripts/ccide.in ignores --datarootdir setting.
-		. ? if C99 compatibility library, libmingwex, is installed. mingw-get ? to install? 
 		. Run unix2dos for test files.
-		    CFLAGS = --pedantic -Wall -std=c99 -O2 in src/Makefile?
-		. execute ccidew in ccide script.
+		. execute ccidew[.exe] in ccide script.
 		. Fix 'make install'
 		. Use ncurses??
 		??? Create ccide[.BAT] file for Windows.
@@ -55,6 +52,7 @@ TODO:
 	. Make valgrind clean
 
 DONE:
+	. Fixed ccide.in ignores --datatrootdir setting. (Configure message.)
 	. Using -Werror compiler option.
 	. ccidelex.c:2361: warning: implicit declaration of function ‘fileno’
 	. cideparse.c:1912: warning: implicit declaration of function ‘strdup’ Use Strdup instead.

@@ -198,8 +198,8 @@ static int DropEmpty(int nrules) {
 		i--;
 		if( 
 			(ccide.act[i][0] == 0)
-			&& (ccide.yes[i] == 0)
-			&& (ccide.no[i]  == 0)
+			&& (ccide.yes[i][0] == 0)
+			&& (ccide.no[i][0]  == 0)
 		  ) {
 			ndrop++;	// N.B.: Cannot change nrules, so pass back number to drop.
 			fprintf(stderr,"//Dropping rule %i;\n",i);
@@ -341,7 +341,7 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 
 
 
 
@@ -1102,7 +1102,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 
 
 
 
@@ -1557,7 +1557,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 */
 
 
 
@@ -1596,7 +1596,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-5 Thu Jul 26 09:44:25 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-5 Thu Jul 26 10:31:31 2012 */
 
 
 

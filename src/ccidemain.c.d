@@ -198,8 +198,8 @@ static int DropEmpty(int nrules) {
 		i--;
 		if( 
 			(ccide.act[i][0] == 0)
-			&& (ccide.yes[i] == 0)
-			&& (ccide.no[i]  == 0)
+			&& (ccide.yes[i][0] == 0)
+			&& (ccide.no[i][0]  == 0)
 		  ) {
 			ndrop++;	// N.B.: Cannot change nrules, so pass back number to drop.
 			fprintf(stderr,"//Dropping rule %i;\n",i);
