@@ -105,6 +105,6 @@ test: check
 distclean: clean
 
 clean:
-	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp *.right testcases hw.java  
+	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases hw.java  
 
 # .PHONY:	testcases 

@@ -183,7 +183,7 @@ target_vendor = @target_vendor@
 edit = sed \
 		-e 's|@bindir[@]|$(bindir)|g' \
 		-e 's|@pkgdatadir[@]|$(pkgdatadir)|g' \
-		-e 's|@PACKAGE[@]|$(package)|g' \
+		-e 's|@PACKAGE[@]|$(PACKAGE)|g' \
 		-e 's|@ECHO[@]|$(ECHO)|g' \
 		-e 's|@VERSION[@]|$(VERSION)|g' \
 		-e 's|@RELEASE[@]|$(RELEASE)|g' \

@@ -29,7 +29,6 @@ CCIDELANG=C
 BINDIR="@prefix@/bin"
 PKGDATADIR=@pkgdatadir@
 LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB"
-#DELIM="-q \` '  " 
 
 Die() {
 	echo "$0/DIE: $*"
@@ -46,39 +45,30 @@ Usage() {
               	[-L LANG|?] [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] 
                	[-s SKELSIZE][-t] [-u] [-x] < STDIN > STDOUT 
 
-	
 EOF
 }
 
 if [ -z "$CCIDEW" ]; then
-	if [ -f ./ccidew ]; then
-		CCIDEW=`pwd`/@PACKAGE@w
+	if [ -x $BINDIR/ccidew ]; then 	
+		CCIDEW=$BINDIR/ccidew
+	elif [ -x ./ccidew ]; then
+		CCIDEW=`pwd`/ccidew
+	elif [ -x ../src/ccidew ]; then	
+		CCIDEW=`pwd`/../src/ccidew
 	else
-		CCIDEW="$BINDIR//@PACKAGE@w"
+		Die Cannot file bin/ccidew
 	fi
 fi
 
-if [ ! -f $CCIDEW ]; then
-	@ECHO@ "$CCIDEW not found"
-	exit 1 
-fi
-
-if [ -z "$CCIDE_M4DIR" ]; then
-		CCIDE_M4DIR="$PKGDATADIR"
-fi
-
-M4DIR=$CCIDE_M4DIR
-[ -f $M4DIR/ccide-C++.m4 ] 			\
-	|| ( W=`find ./ -name ccide-CC.m4`; 	\
-	M4DIR=`dirname $W` && echo W=$W		\
-	&& [ -f $M4DIR/ccide-C++.m4 ] 		\
-	|| Die Cannot find $M4DIR/ccide-C++.m4)
+#   Set m4 directory...  (Prefer a local directory, if present.)
+W=`find ../ -name ccide-CC.m4 | head -1 ` && [ ! -z $W ]  && M4DIR=`pwd`/`dirname $W`  	
+[ -f $M4DIR/ccide-CC.m4 ] || M4DIR=@pkgdatadir@
+[ -z $CCIDE_M4DIR ] || M4DIR=$CCIDE_M4DIR;   # CCIDE_M4DIR overrides if specified:
 
 while [[ $# > 0 ]]; do
 	if [[ ("$1" == "-L") ]]; then
                 CCIDELANG=`echo $2|tr [:lower:] [:upper:]`
 		shift
-		# @ECHO@ "LANG=$CCIDELANG"
 	elif [[ ("$1" == "-m4") ]] ; then
 		CCIDE_M4="yes"
 	elif [[ ("$1" == "--help") ]] ; then
@@ -114,6 +104,7 @@ if [ "$CCIDELANG" == "CH" ];  then
 	exit $?
 fi
 
+[ -f $M4DIR/ccide-${CCIDELANG}.m4 ] || Die Cannot find $M4DIR/ccide-${CCIDELANG}.m4
 
 if [ "$CCIDELANG" == "BASH" ];  then
 	      DELIM="-d '[[' ']]'" 

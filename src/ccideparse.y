@@ -97,7 +97,7 @@ void warning2( char *s, char *t);
 #define EOS '\0'
 
 void fatal(char *s);
-static int columnsize=2;
+static int columnsize=3;
 // static int skelsize=1; 		/* Size of skeleton decision table */
 static void SetNbrRules(int n);
 static void PrintC(char c);
@@ -466,7 +466,8 @@ static void SetLang(char *s) {
         //   X  -  -  -  -  -  -  X  -  -  X  X | SetQdelimit("`","\'");     
         //   X  -  X  X  X  X  X  X  X  -  X  - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         //END_TABLE:
-        //GENERATED_CODE: FOR TABLE_1.	12 Rules, 12 conditions, and 10 actions.
+        //GENERATED_CODE: FOR TABLE_1.
+        //	12 Rules, 12 conditions, and 10 actions.
          {	unsigned long CCIDE_table1_yes[12]={2048UL,1024UL, 512UL, 256UL, 128UL,  64UL,  32UL,  16UL,   8UL,   1UL,   0UL,   0UL};
         	unsigned long CCIDE_table1_no[12]= {   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,3599UL,   8UL};
 
@@ -523,7 +524,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
 
 
 }
@@ -539,38 +540,30 @@ static void PrintC(char c) {
 	//   -  -  -  X  -  - | printf("    %c",c);
 	//   -  -  -  -  X  - | printf("     %c",c);
 	//END_TABLE:
-	//GENERATED_CODE: FOR TABLE_2.	6 Rules, 5 conditions, and 6 actions.
-	 {	unsigned long CCIDE_table2_yes[6]={  16UL,   8UL,   4UL,   2UL,   1UL,   0UL};
-
-
-		switch(CCIDEFindRuleYes(6,
-			  (columnsize==1)
-			| (columnsize==3)<<1
-			| (columnsize==4)<<2
-			| (columnsize==5)<<3
-			| (columnsize==6)<<4
-			  ,CCIDE_table2_yes)) {
-		case  0:	//	Rule  5 
+	//GENERATED_CODE: FOR TABLE_2.
+	//	6 Rules, 5 conditions, and 6 actions.
+	 { CCIDE_TABLE_2: switch(columnsize) {	
+		case 6:		//  Rule  5  
 		    printf("     %c",c);
 		    break;
-		case  1:	//	Rule  4 
+		case 5:		//  Rule  4  
 		    printf("    %c",c);
 		    break;
-		case  2:	//	Rule  3 
+		case 4:		//  Rule  3  
 		    printf("   %c",c);
 		    break;
-		case  3:	//	Rule  2 
+		case 3:		//  Rule  2  
 		    printf("  %c",c);
 		    break;
-		case  5:	//	Rule  6 
-		    printf(" %c",c);
-		    break;
-		case  4:	//	Rule  1 
+		case 1:		//  Rule  1  
 		    printf("%c",c);
 		    break;
-		} // End Switch
+		 default:		//  Rule  6  
+		    printf(" %c",c);
+		    break;
+	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
 
 
 
@@ -589,15 +582,16 @@ static void PrintNum(long n) {
 	//DECISION_TABLE:
 	//   2  3  4  5  -  -  -  -  - | columnsize==$$
 	//   Y  -  -  -  Y  N  N  N  N | n<10
-	//   -  Y  -  -  -  Y  N  N  N | n<100
+	//   -  Y  -  -  N  Y  N  N  N | n<100
 	//   -  -  Y  -  -  -  Y  N  N | n<1000
 	//   -  -  -  Y  -  -  -  Y  N | n<10000
 	// -------------------| ------
 	//   2  3  4  5  2  3  4  5  6 | printf("%$$li", n);
 	//END_TABLE:     
-	//GENERATED_CODE: FOR TABLE_3.	9 Rules, 8 conditions, and 5 actions.
+	//GENERATED_CODE: FOR TABLE_3.
+	//	9 Rules, 8 conditions, and 5 actions.
 	 {	unsigned long CCIDE_table3_yes[9]={ 136UL, 128UL,  68UL,  64UL,  34UL,  32UL,  17UL,  16UL,   0UL};
-		unsigned long CCIDE_table3_no[9]= {   0UL, 112UL,   0UL,  48UL,   0UL,  16UL,   0UL,   0UL, 240UL};
+		unsigned long CCIDE_table3_no[9]= {   0UL, 112UL,   0UL,  48UL,   0UL,  16UL,   0UL,  32UL, 240UL};
 
 
 		switch(CCIDEFindRule(9,
@@ -631,7 +625,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
 
 
 
@@ -700,7 +694,8 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X | SetPrefix(argv[narg+1]); narg++;
   	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  - | exit(0); 
   	//END_TABLE:  	
-  	//GENERATED_CODE: FOR TABLE_4.	17 Rules, 16 conditions, and 18 actions.
+  	//GENERATED_CODE: FOR TABLE_4.
+  	//	17 Rules, 16 conditions, and 18 actions.
   	 {	unsigned long CCIDE_table4_yes[17]={32768UL,16384UL,8192UL,4096UL,2048UL,1024UL, 512UL, 256UL, 128UL,  64UL,  32UL,  16UL,   8UL,   4UL,   2UL,   1UL,   0UL};
 
 
@@ -779,7 +774,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-3 Mon Jul 23 09:57:16 2012 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
 
 
 

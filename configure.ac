@@ -70,7 +70,7 @@ AM_INIT_AUTOMAKE([ccide], [0.6.2])
 AM_MAINTAINER_MODE(TRUE)
 
 # Do not use 'RELEASE=0'.  Cygwin starts at ...-1.
-RELEASE=5	
+RELEASE=6	
 LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"

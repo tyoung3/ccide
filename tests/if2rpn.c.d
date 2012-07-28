@@ -84,12 +84,12 @@ static inline void MisMatch() {
 static STATE DoRightParen() {
 
 	//DECISION_TABLE:		
-	// - 4 6 - 7 8 9 10  -  11 |TOS==$$ 
+	// 4 6 7 8 9 10 11 - |TOS==$$ 
 	// ________________________________________
-	// - x - - - - -  -  -   - | Pop();  
-	// - - x - x x x  x  -   x | PopToQueue();
-	// - - x - x x x  x  -   x | goto $@;
-	// 9 2 - - - - -  -  -   - | return $$;  
+	// x - - - -  -  - - | Pop();  
+	// - x x x x  x  x - | PopToQueue();
+	// - x x x x  x  x - | goto $@;
+	// 2 - - - -  -  - 9 | return $$;  
 	//END_TABLE:
 }
 
@@ -136,29 +136,29 @@ static void ParseInput() {
 	TOKEN_TYPE t;
 
 	//DECISION_TABLE:    Test dropping empty rules.
-	// 0 2 2 2 2 2 2 - | s==$$
-	// - 1 2 3 4 5 6 - | t==$$   
+	// - 0 2 - 2 2 2 2 2 - | s==$$
+	// - - 1 - 2 3 4 5 6 - | t==$$   
 	// _____________________________
-	// - - - x - - - - |s=FindLeft();
-	// - - - - - x - - |s=DoRightParen();
-	// - - - - - - x - |s=DoOperator();
-	// - - x - x - x - |PushToken();
-	// - x - - - - - - |OutputNumber();
-	// 2 - - - - - - - |s=$$;
-	// x x x x x x x - |t=GetToken();
-	// x x x x x x x - |goto $@;
+	// - - - - - x - - - - |s=FindLeft();
+	// - - - - - - - x - - |s=DoRightParen();
+	// - - - - - - - - x - |s=DoOperator();
+	// - - - - x - x - x - |PushToken();
+	// - - x - - - - - - - |OutputNumber();
+	// - 2 - - - - - - - - |s=$$;
+	// - x x - x x x x x - |t=GetToken();
+	// - x x - x x x x x - |goto $@;
 	//END_TABLE:
 
 			// 0=EMPTY, 1=LEFT_PAREN, 2=RIGHT_PAREN
 
 	    //DECISION_TABLE:    	/* No more input tokens */
-	    // - 1 2 - 5 7 8 9 10 11 |TOS==$$    
-	    // ____________________|____________
-	    // x x x - x x x x  x  x | // Test comment
-	    // - x - - x - - -  -  - | MisMatch();        
-	    // - - x - - x x x  x  x | PopToQueue();
-	    // - x x - x x x x  x  x | goto $@;  
-	    // x - - - - - - -  -  - | printf("\n");
+	    // 1 2 5 7 8 9 10 11  - | TOS==$$    
+	    // _____________________|____________
+	    // x x x x x x  x  x  x | // Test comment
+	    // x - x - - -  -  -  - | MisMatch();        
+	    // - x - x x x  x  x  - | PopToQueue();
+	    // x x x x x x  x  x  - | goto $@;  
+	    // - - - - - -  -  -  x | printf("\n");
 	    //END_TABLE:
 }
 

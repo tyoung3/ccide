@@ -31,7 +31,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#define ThisProgramCanHandleDefaultCases 
 #include "ccide.h"
 #include "ccidemain.h"
 #include "ccideparse.h"
@@ -126,6 +126,7 @@ static int nbrrule=0;     /* Number of rules */
 static int ncwords;	  /* ncwords = (nbrcond-1)/INTBITS + 1; */
 static int nawords;	  /* nawords = (nactions-1)/INTBITS + 1; */
 
+static int switchable=0;
 static char nullact[]={"{};"};
 char bufs[BFRSIZE];
 static char bash_cases[BFRSIZE];
@@ -142,9 +143,50 @@ static void turnbitson( CCIDE_BIT b[], int n ) {
 	assert(r<32);
         b[w] = ( 1<<r ) | b[w];
 }
+
+	/* Get Case value for switch statement */
+	/* Since there is only one condition row, the rule number
+	   gives the condition for the case statement.
+	*/
+char *FindCaseValue( int nrule) {
+	static char *c;
+	int foundit=0;
+
+     c = ccide.conccideable[nrule-1];
+     if(c) {
+	while( *c != 0) {
+		if( ( *c == '=') && (*(c+1) == '=')  ) {
+			c+=2;
+			foundit=1;
+			break;
+		} 
+		c++;
+	}
+	while ( ( *c == ' ') || ( *c == '\t') ) 
+		c++;
+
+	if(!foundit) {
+		ERROR3( "Cannot find case value for rule %i%s\n", 
+			nrule, "");
+		return "ERROR";
+	}
+     } else {
+	return "default";
+     }// end if(c)
+	return c;
+}
+
 	
 	/* Sorting rule for qsort */
 static int mapseq(const void *a, const void *b) {
+
+#if 0
+	if(  strcmp(FindCaseValue(  remap[*(int*)a] -1  ), "default") == 0) 
+		return -1;
+ 
+	if(  strcmp(FindCaseValue(  remap[*(int*)b] -1  ), "default") == 0) 
+		return 1;
+#endif
 
 	if(  ccide.act[*(int*)a][0] < ccide.act[*(int*)b][0] )
 		return 1;
@@ -342,7 +384,7 @@ CCIDE_TABLE_1:
 	    goto CCIDE_TABLE_1 ;
 	} // End Switch
 }
-//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 
+//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
 
 
 
@@ -450,7 +492,7 @@ static void PerformActions(int rindex, int rule, int nextrule, int nbrrules) {
 
 	s1=ccide.actiontable[li];
 	while( (*s1 == ' ') && (*s1) ) s1++;
-	if( strncmp( s1, "goto ",5) ) {
+	if( strncmp( s1, "goto ",5) ) {   
 		if(m4out) {
 			if(lang!=VB)
 				printf("%s\t    CCIDE_BREAK()\n",lws);
@@ -478,7 +520,7 @@ static void CompareRules(int r1, int r2) {
 
 	if(diff == 0 ) {
 		ERROR3( "Rule %i conflicts with rule %2i\n", 
-			remap[r1+1], remap[r2+1]);
+			remap[r1], remap[r2]);
 	}
 }
 
@@ -510,7 +552,7 @@ static void Overlap( int r1, int r2) {
 
 	if(eq1 || eq2 ) {
 		ERROR3("Rules %2i and  %2i overlap.\n",
-			r1+1, r2+1);
+			remap[r1], remap[r2]);
 	}
 }
 
@@ -595,7 +637,10 @@ void CheckEqual(char *cstub, int ncond) {
 
 	while(checkequal && (*c1 != 0) ) {
 		if( *c1 == '=') {
-			if( (*(c1+1) == '=') || (*(c1-1) = '!') ) {
+			if( 	   (*(c1+1) == '=') 
+			 	|| (*(c1-1) == '!') 
+			 	|| (*(c1-1) == '<') 
+			   ) {
 				c1++;
 			} else {
 				ERROR3("%s '=' error in condition expression %i",
@@ -848,8 +893,6 @@ int SetCSTUBscan( int ncond, char *c1 ) {
 	while( (*c3 != 0) && ( (*c3 == ' ') || (*c3 == '\t' ) ) 
 	     )	c3++;
 
-/* ??	CheckEqual(c1, ncond); */
-
 	for( a=0;a<substitute;a++) {
 		while(numbers[i++] == -1) {}
 		s2=bufs;
@@ -867,6 +910,7 @@ int SetCSTUBscan( int ncond, char *c1 ) {
 	}
 
 	UnSetNumbers();
+	switchable=1;   /* Allow to generate switch/case statement. */
 	return substitute;
 }
 
@@ -1104,7 +1148,7 @@ void GenConds( int nconds, int nrules, int notable ) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
 
 
 
@@ -1183,39 +1227,6 @@ char *GetTimeStamp() {
 	ts = Strdup(bfr);
 	return(ts);
 }
-
-	/* Get Case value for switch statement */
-	/* Since there is only one condition row, the rule number
-	   gives the condition for the case statement.
-	*/
-char *FindCaseValue( int nrule) {
-	static char *c;
-	int foundit=0;
-
-     c = ccide.conccideable[nrule-1];
-     if(c) {
-	while( *c != 0) {
-		if( ( *c == '=') && (*(c+1) == '=')  ) {
-			c+=2;
-			foundit=1;
-			break;
-		} 
-		c++;
-	}
-	while ( ( *c == ' ') || ( *c == '\t') ) 
-		c++;
-
-	if(!foundit) {
-		ERROR3( "Cannot find case value for rule %i%s\n", 
-			nrule, "");
-		return "ERROR";
-	}
-     } else {
-	return "default";
-     }// end if(c)
-	return c;
-}
-
 void GenEnd() {
 	if(m4out)
 		printf("%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s %s%s",
@@ -1225,7 +1236,7 @@ void GenEnd() {
 			lws, lws, pComment, nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment);
 }
 
-	/* Generate code when there is just one condition stub. */
+	/* Generate code when there is just one substitution condition stub. */
 void GenerateCases( int nactions, int nrules) {
 	int r;
 	char *c3, *c1;
@@ -1258,16 +1269,40 @@ void GenerateCases( int nactions, int nrules) {
 	 	printf(" switch(%s) {\t\n", c1 ); 
 	}
 
+#if 0
+	for(r=0;r<nrules;r++) {
+		rulemap[r]=r;
+	}
+	rulemap[nrules] = -1;
+#endif
+#if 1
+	if(strcmp(FindCaseValue(remap[nrules-1]),"default") == 0) { 
+		SetRuleMap(nrules-1);
+		rulemap[nrules-1] = nrules-1;
+		rulemap[nrules] = -1;
+	} else {
+		SetRuleMap(nrules);
+	}
+#else
 	SetRuleMap(nrules);
+#endif
         for(r=0;r<nrules;r++) {
 		int rm;
+		char *cv;
                 rm=rulemap[r];
 		if(m4out)
-			printf("%s\tCCIDE_CASE(%i, %s, %i)\n",
+			printf("%s\tCCIDE_CASE(%i, %s, %i)\n",    //?? for default
 				lws, nbrtables, FindCaseValue(remap[rm]),remap[rm]);
-		else
-                	printf("%s\tcase %s:\t\t%s  Rule %2i  %s\n",
-				lws,FindCaseValue(remap[rm]),pComment,remap[rm],pEcomment);
+		else  {
+			cv=FindCaseValue(remap[rm]);
+			if( strcmp(cv,"default") != 0) {
+ 		               	printf("%s\tcase %s:\t\t%s  Rule %2i  %s\n",
+					lws,cv,pComment,remap[rm],pEcomment);
+			} else {
+ 		               	printf("%s\t default:\t\t%s  Rule %2i  %s\n",
+					lws,pComment,remap[rm],pEcomment);
+			} 
+		}
                 PerformActions(r, rm, rulemap[r+1], nrules);
         };
 
@@ -1407,7 +1442,7 @@ int CanDoSwitch() {
         c = ccide.conccideable[0];
 
         while( *c != 0) {
-                if( ( *c == '=') && (*(c+1) == '=')  ) {
+                if( ( *c == '$') && (*(c+1) == '$')  ) {
                         return 1;
                 }
                 c++;
@@ -1533,11 +1568,11 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*DECISION_TABLE:					*/
 	/*   Y  -  - | nbrcstubs==1				*/
 	/*   Y  -  - | nconds<=(nrules-ndrop)			*/
-	/*   Y  -  - | CanDoSwitch()				*/
-	/*   N  Y  N | (nrules-ndrop)==1			*/
+	/*   Y  -  - | switchable					*/
+	/*   N  Y  N | (nrules-ndrop)==1			  	*/
 	/*   Y  -  Y | (nrules-ndrop)>0				*/
-	/* ---------------------				*/
-	/*   X  -  - | GenerateCases(nactions, nrules-ndrop);		*/
+	/* -----------------------------------------------------*/
+	/*   X  -  - | GenerateCases(nactions, nrules-ndrop);	*/
 	/*   -  X  - | GenerateSingleRule(nconds,nactions);	*/
 	/*   -  -  X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
@@ -1549,8 +1584,8 @@ void Generate( int nconds, int nactions, int nrules ) {
 
 		switch(CCIDEFindRule(3,
 			  (nbrcstubs==1)
-			| (nconds!=(nrules-ndrop))<<1
-			| (CanDoSwitch())<<2
+			| (nconds<=(nrules-ndrop))<<1
+			| (switchable)<<2
 			| ((nrules-ndrop)==1)<<3
 			| ((nrules-ndrop)>0)<<4
 			  ,CCIDE_table3_yes, CCIDE_table3_no)) {
@@ -1565,7 +1600,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 */
 
 
 
@@ -1605,12 +1640,13 @@ void Generate( int nconds, int nactions, int nrules ) {
 		    break;
 		} /* End Switch*/
 	}
-	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-5 Thu Jul 26 16:11:08 2012 */
+	/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 */
 
 
 
 #endif
 	logLabel=FALSE;
+	switchable=0;	/* Assume unswitchable for next table. */ 
 }
 
 /* End of ccidemain.c < ccidemain.cd */

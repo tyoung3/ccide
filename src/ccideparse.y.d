@@ -97,7 +97,7 @@ void warning2( char *s, char *t);
 #define EOS '\0'
 
 void fatal(char *s);
-static int columnsize=2;
+static int columnsize=3;
 // static int skelsize=1; 		/* Size of skeleton decision table */
 static void SetNbrRules(int n);
 static void PrintC(char c);
@@ -499,7 +499,7 @@ static void PrintNum(long n) {
 	//DECISION_TABLE:
 	//  2 3 4 5 - - - - - | columnsize==$$
 	//  Y - - - Y N N N N | n<10
-	//  - Y - - - Y N N N | n<100
+	//  - Y - - N Y N N N | n<100
 	//  - - Y - - - Y N N | n<1000
 	//  - - - Y - - - Y N | n<10000
 	// -------------------| ------

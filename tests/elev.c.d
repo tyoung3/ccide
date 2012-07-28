@@ -61,25 +61,25 @@ int main(int argc, char **argv) {
         char *stri={"d"};
 
 //DECISION_TABLE:
-//  1  2 2 2 2 - 3    | NEWGROUP
-//  0  - 2 - - 1 4    |strcmp(strg[$$],stri) == 0
-//  0  - 2 - - 1 40000 |b == $$
-//  Y  Y Y - y N -    |Idle
-//  -  - - N - Y -    |Moving
-//  N  - N - N - -    |AnybodyWaiting(c)
-//  N  Y y - Y - -    |AnybodyRiding
-//-----------------
-//  -  x - - - - -    |GoToFloor();
-//  x  - - - - - -    |AdvanceClock();
-// 11 12 8 - - - 12345  |a=$$;
-//  1  1 2 3 2 - -    |Act($$,$$);
-//  -  - x - x x -    |{ int x=2;  
-//  -  - x - x x -    | UnLoad(x); printf("`date` 'abcd'\n"); 
-//  -  - x - x x -    | Load(); }
-//  -  - - - - - x    |assert(1==0); 
-//  -  - - x - - -    |DefaultRule();
-//  -  - - x - - -    |goto $@;
-//  1  2 3 - 3 3 -    |NEWGROUP
+//  1  2 2 2 2 3     - | NEWGROUP
+//  0  - 2 - - 4     1 |strcmp(strg[$$],stri) == 0
+//  0  - 2 - - 40000 1 |b == $$
+//  Y  Y Y - Y -     N |Idle
+//  -  - - N - -     Y |Moving
+//  N  - N - N -     - |AnybodyWaiting(c)
+//  N  Y Y - Y -     - |AnybodyRiding
+//------------------------------------------------
+//  -  x - - - -     - |GoToFloor();
+//  x  - - - - -     - |AdvanceClock();
+// 11 12 8 - - 12345 - |a=$$;
+//  1  1 2 3 2 -     - |Act($$,$$);
+//  -  - x - x -     x |{ int x=2;  
+//  -  - x - x -     x | UnLoad(x); printf("`date` 'abcd'\n"); 
+//  -  - x - x -     x | Load(); }
+//  -  - - - - x     - |assert(1==0); 
+//  -  - - x - -     - |DefaultRule();
+//  -  - - x - -     - |goto $@;
+//  1  2 3 - 3 -     3 |NEWGROUP
 //END_TABLE:
 
 	return 0;

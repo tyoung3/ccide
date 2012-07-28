@@ -1,6 +1,12 @@
 2012-07-26
-	0.6.2-5
-		Drop a null rule; i.e. a rule with no actions.
+	0.6.2-6
+		Fixed bug causing change to condition stub. (<= was being changed to !=).
+		Fixed ccide script search for m4 files.  CCIDE_M4DIR overrides this search. 
+		Changed default columnsize from 2 to 3.
+		Fixed overlap and conflict error messages to show correct rule numbers.
+		Fixed messages when dropping rules to show correct rule number.
+		Avoid verifying dropped rules causing spurious error messages.
+		Drop null rules; i.e. rules with no actions.
 		Fixed missing table label when generating a single rule [ if(cond) ...]. 
 		Removed unneeded braces,{}, surrounding actions when generating
 		a single rule.
@@ -12,8 +18,8 @@
 		Using -Werror compiler option.
 		Renamed huge test files to be huge1 test files.
 		Created new test program,if2rpn, an infix to RPN converter using
-		state machine logic embedded in decision tables.
-		Converted some ccide logic to be decision tables.
+		    state machine logic embedded in decision tables.
+		Moved some ccidew logic into decision tables.
 		Changed ccide build to use ccidemain.c.d and 
 		ccideparse.y.d files as source for ccidemain.c 
 		and ccideparse.y files.
