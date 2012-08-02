@@ -57,7 +57,7 @@
 
 	/* ********************  Capacities *********************/
 #define CCIDE_NCOND   32
-#define CCIDE_NACTION 1024
+#define CCIDE_NACTION 2048
 #define CCIDE_NRULE   256
 
 	/* ccide -s 263 | ccide dies otherwise */

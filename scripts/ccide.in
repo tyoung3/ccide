@@ -48,8 +48,15 @@ Usage() {
 EOF
 }
 
+
 if [ -z "$CCIDEW" ]; then
-	if [ -x $BINDIR/ccidew ]; then 	
+	if [ -x $BINDIR/ccidew.exe ]; then 	
+		CCIDEW=$BINDIR/ccidew.exe
+	elif [ -x ./ccidew.exe ]; then
+		CCIDEW=`pwd`/ccidew.exe
+	elif [ -x ../src/ccidew.exe ]; then	
+		CCIDEW=`pwd`/../src/ccidew.exe
+	elif [ -x $BINDIR/ccidew ]; then 	
 		CCIDEW=$BINDIR/ccidew
 	elif [ -x ./ccidew ]; then
 		CCIDEW=`pwd`/ccidew
@@ -60,9 +67,11 @@ if [ -z "$CCIDEW" ]; then
 	fi
 fi
 
-#   Set m4 directory...  (Prefer a local directory, if present.)
-W=`find ../ -name ccide-CC.m4 | head -1 ` && [ ! -z $W ]  && M4DIR=`pwd`/`dirname $W`  	
-[ -f $M4DIR/ccide-CC.m4 ] || M4DIR=@pkgdatadir@
+#   Set m4 directory...  	
+CWD=`pwd`
+[ -f ../m4/ccide-CC.m4 ] && M4DIR=$CWD/../m4
+[ -f m4/ccide-CC.m4 ] && M4DIR=$CWD/m4
+[ -f /usr/share/ccide/ccide-CC.m4 ] && M4DIR=/usr/share/ccide
 [ -z $CCIDE_M4DIR ] || M4DIR=$CCIDE_M4DIR;   # CCIDE_M4DIR overrides if specified:
 
 while [[ $# > 0 ]]; do

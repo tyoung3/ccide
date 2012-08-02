@@ -53,20 +53,21 @@ int GetPrecedence() {
 #ifdef PSEUDO_INPUT
 TYPE GetToken(){
 	//DECISION_TABLE:
-	// 1 2 3 4 5 6 7 8  9 10 11 |instate==$$
+	//   1  2  3  4  5  6  7  8  9 10 11 |instate==$$
 	// _____________________________________
-	// x - - - - - - -  -  -  - |SETN(17);	
-	// - x - - - - - -  -  -  - |SETO(TIMES);
-	// - - x - - - - -  -  -  - |token=LEFT_PAREN; SET(LEFT_PAREN);
-	// - - - x - - - -  -  -  - |SETN(5);	
-	// - - - - x - - -  -  -  - |SETO(PLUS);
-	// - - - - - x - -  -  -  - |SETN(13);	
-	// - - - - - - x -  -  -  - |token=RIGHT_PAREN;SET(RIGHT_PAREN);
-	// - - - - - - - x  -  -  - |SETO(MINUS);
-	// - - - - - - - -  x  -  - |SETN(41);	
-	// - - - - - - - -  -  x  - |SETO(EQUAL);
-	// - - - - - - - -  -  -  x |SET(EMPTY);
+	//   X  -  -  -  -  -  -  -  -  -  - |SETN(17);	
+	//   -  X  -  -  -  -  -  -  -  -  - |SETO(TIMES);
+	//   -  -  X  -  -  -  -  -  -  -  - |token=LEFT_PAREN; SET(LEFT_PAREN);
+	//   -  -  -  X  -  -  -  -  -  -  - |SETN(5);	
+	//   -  -  -  -  X  -  -  -  -  -  - |SETO(PLUS);
+	//   -  -  -  -  -  X  -  -  -  -  - |SETN(13);	
+	//   -  -  -  -  -  -  X  -  -  -  - |token=RIGHT_PAREN;SET(RIGHT_PAREN);
+	//   -  -  -  -  -  -  -  X  -  -  - |SETO(MINUS);
+	//   -  -  -  -  -  -  -  -  X  -  - |SETN(41);	
+	//   -  -  -  -  -  -  -  -  -  X  - |SETO(EQUAL);
+	//   -  -  -  -  -  -  -  -  -  -  X |SET(EMPTY);
 	//END_TABLE:
+
 	
 	instate++;
 }
@@ -76,44 +77,48 @@ TYPE GetToken(){
 void PushToken() {
 
 	//DECISION_TABLE:
-	// N -  |SP<SSIZE
+	//   N  - |SP<SSIZE
 	//________________________
-	// x -	|fprintf(stderr,"Stack space exceeded\n");
-	// x -	|exit(2);
-	// - x  |SP++;
-	// - x  |TOS=token; 
+	//   X  - |fprintf(stderr,"Stack space exceeded\n");
+	//   X  - |exit(2);
+	//   -  X |SP++;
+	//   -  X |TOS=token; 
 	//END_TABLE:
+
 	
 }
 
 void OutputNumber() {
 
 	//DECISION_TABLE:
-	// Y |1
+	//   Y |1
 	//________________________
-	// x |printf("%i ", number);
+	//   X |printf("%i ", number);
 	//END_TABLE:
+
 	
 }
 
 void OutputToken(){  
 	
 	//DECISION_TABLE:
-	// 1  |$$==1
+	//   1 |$$==1
 	//________________________
-	// X  |printf("%s ",token);
+	//   X |printf("%s ",token);
 	//END_TABLE:
+
 }
 
 void Pop(){ 
 	
 	//DECISION_TABLE:
-	// Y N  |SP<1
+	//   Y  N |SP<1
 	//________________________
-	// x -	|fprintf(stderr,"");
-	// x -	|exit(1);
-	// - x  |SP--;
+	//   X  - |fprintf(stderr,"");
+	//   X  - |exit(1);
+	//   -  X |SP--;
 	//END_TABLE:
+
 }
 
 void PopToQueue() {

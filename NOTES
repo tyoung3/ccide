@@ -1,3 +1,14 @@
+GCC Vectors:
+      ENABLING:
+	Vectorization can be enabled using the command line options -O2 -ftree-vectorize.
+	
+      DETAILS:
+	This page offers details on getting gcc to automatically vectorize loops, including a few examples:
+		http://gcc.gnu.org/projects/tree-ssa/vectorization.html
+	In summary, the following options will work for x86 chips with SSE2, giving a log of loops that have been vectorized:
+		gcc -O2 -ftree-vectorize -msse2 -ftree-vectorizer-verbose=5
+	Note that -msse is also a possibility, but it will only vectorize loops using floats, not doubles or ints.
+
 To Create Dependency Graph:
 	/usr/local/bin/yaccviso *.y  (creates depgraph.gif)
 	rm depgraph.vcg

@@ -30,7 +30,9 @@ am__fastdepGCJ_TRUE =
 
 TEST_CASES = 	\
        bin2dec	\
+       bonus    \
        ccidetime\
+       depeter  \
        elev	\
        ex1	\
        fourway	\

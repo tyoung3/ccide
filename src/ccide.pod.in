@@ -26,8 +26,8 @@
 
 ccide - Decision Table Code Generator
 
-Expand embedded decision tables and copy supporting code to generate
-compilable or interpretable code.
+Ccide preprocesses a source code file (written in one of several programming languages) containing embedded,commented decision tables.  
+Ccide generates a compilable source file with verified, expanded,  decision logic.
 
 =head1 SYNOPSIS
 
@@ -44,10 +44,10 @@ B<ccide> [--help]
 =head1 DESCRIPTION
 
 Ccide reads a source code file containing embedded decision tables 
-from STDIN, analyzes, and expands the tables. 
+from STDIN, analyzes, expands the tables, and writes a compilable source file. 
 
 The output from ccide can be modified (or not) then used as input to ccide
-subsequently.   In other words if ccide is run as follows:
+subsequently.   In other words, if ccide is run as follows:
 	ccide -b < foobar.d | tee foobar.c | ccide -b > foobar.t
 then foobar.c will be identical to foobar.t.  (The -b option suppresses
 the timestamps that would otherwise cause differences.)
@@ -114,7 +114,7 @@ Decision table statements may be preceded with whitespace(blanks and
 tab characters).   The generated output will duplicate the whitespace
 preceding the '//DECISION_TABLE:' statement.
 
-There is no provision for commentary within a table, except as
+There is no provision for commentary within a table, except that
 comments may appear in stub entries. However, if all entries are
 "don't care" entries, then the statement is effectively a comment. 
 
@@ -124,11 +124,42 @@ in the order of appearance in the table.  In case all the condition
 entries are "Don't care", the condition is not evaluated, since the
 condition cannot affect the logical outcome.  
 
-When analyzing the table, ccide reorders the rules, placing the more 
-specific rules in front of less specific rules.   You can safely assume 
-that the order of rules in the table has no effect on the resulting 
-program and accordingly you should enter rules in whatever order is most 
-convenient(readable).  
+The order in which rules appear in the table should not affect the results.
+To accomplish this, ccide reorders the rules internally, placing more 
+specific rules in front of less specific rules.  When two rules are
+equally specific, condition entry ranking is used to break the tie.
+Condition entry ranking gives higher priority to conditions nearer the
+beginning (top) of the table.
+A comment is generated showing the resulting rule ordering.  For example, 
+
+	//DECISION_TABLE:
+	// Y - | cond1
+	// - Y | cond2
+	//    ...
+
+will generate   
+
+	//      Table 1 rule order = 1 2
+
+Condition ranking gives priority to condition entries in 
+row order:  
+
+	//DECISION_TABLE:
+	// - Y | cond1
+	// Y - | cond2
+	//    ...
+
+generates
+
+	//      Table 1 rule order = 2 1 
+
+because the cond1 'Y'  appears before the cond2 'Y'. ('N' would have the same effect.)
+While the order of condition rows may affect the rule ordering, this
+should not change the program results, unless the table is specified
+ambiguously, as in the example above, which is ambiguous if 
+cond1 and cond2 can both be true.  Condition entry ranking
+removes the ambiguity based on the condition row order instead of the 
+rule order making output strictly deterministic.
 
 If integers appear as condition or action entries, a '$$' in the row stub
 will be replaced by the entry integer.  A separate row is generated, in
@@ -195,14 +226,12 @@ ccide performance can be improved slightly by reversing the logic of all the
 condition stubs and replacing all the 'N' condition entries with 'Y'
 entries.
 
-In the special case where a single condition row containing integers(and
-no '-'s(don't care) is specified and the condition stub is in the form
-of:
-	... | EXPRESSION == $$ 
-
-ccide will generate more efficient 'state machine' code replacing the
-CcideFindRule.. function with a switch(EXPRESSION) statement, and using
-the row integers in a case statement.  NEWGROUP may be specified as the
+In the special case where a single condition row containing integers(and at most
+one '-'(don't care) is specified and the condition stub is in the form
+of:	'... | EXPRESSION == $$ ' 
+ccide will generate more efficient code replacing the
+CcideFindRule.. function with a switch(EXPRESSION) statement, and use
+the row integers in  case statements.  NEWGROUP may be specified as the
 last action, and will cause a 'goto' back to the switch statement. 
 However, the ccide-group variable will not be set.  Highly complex state
 machines depending on N variables can be efficiently defined by using an
@@ -216,7 +245,7 @@ entries will be upper case.
 
 Ccide is a wrapper script for ccidew, the actual decision table processing
 engine.   For C language tables, ccidew generates all the output.  For
-other languages, ccidew generates M4 output which is then processed 
+other languages, ccidew generates m4 output which is then processed 
 by the m4 macro processor.  There is no guarantee that this arrangement will continue in 
 future releases.  In other words, use 'ccide' not 'ccidew' in your projects. 
 
@@ -267,7 +296,7 @@ instead of UTC on timestamps.
 
 B<-L>	The B<-L>(language) option determines the output programming language for ccide.  In case of multiple -L options, the last one  remains in effect.  '-L ?' will cause ccide to display a list of supported languages and exit with return code 2.
 
-B<-m4>	Produce m4 output instead of C code.  The m4 output can be used to create language independent decision table code.  This option is useful when working with an unsupported language as with a domain specific language.  
+B<-m4>	Produce m4 output instead of C code.  The m4 output can be used to create language independent decision table code.  This option is useful when working with an unsupported language, as with a domain specific language.  
 
 B<-n>	The B<-n> option causes ccide to suppress the generation
 of inline code when the "//CCIDE_INLINE_CODE:" statement 
@@ -305,7 +334,7 @@ any code, effectively recreating its original input.
 B<-V>	The B<-V> option causes ccide to display the software version
 and a copyright notice on STDERR, and terminate with return code 0.
 
-B<-x>	The B<-x> option causes ccide add a "don't care" rule to every
+B<-x>	The B<-x> option causes ccide to add a "don't care" rule to every
 decision table.   Multiple B<-x> options cause multiple rules
 to be added.  This option is intended to save clerical effort
 when adding rules to tables.  A don't care rule can also serve
@@ -331,7 +360,7 @@ continues, but the return code is changed to 1.
 
 The message "Rules x and  y overlap." is issued when a rule
 cannot take effect.   The program is not terminated and the 
-return code is not set -- will be 0, unless other errors are detected.
+return code is not set -- remain 0, unless other errors are detected.
 
 A usage message is issued when the '--help' option is supplied or if an
 option is not recognizable. 
@@ -402,7 +431,7 @@ ccide will search in the data directory (usually /usr/share/ccide)  and then in 
 =head1 FILES
 
 Ccide reads STDIN and writes to STDOUT and STDERR.  There is a 'ccide-LANG.m4'
-file for each language other than C, where LANG = CC,C++,CS,BASH,BASIC,EX,QB,VB, or JAVA. 
+file for each supported language, other than C, where LANG = CC,C++,CS,BASH,BASIC,EX,QB,VB, or JAVA. 
 
 =head1 PORTABILITY
 
@@ -429,10 +458,8 @@ as this would raise many portability issues.
 
 Ccide may not work correctly on all platforms or some non-C languages, 
 as C/C++ language code has been tested most extensively.  
-Ccide may not work correctly on Mingw.  Ccide will definitely fail if it is 
-linked with a M/S Windows C library or if the input file is in DOS format rather
-than *nix format.   
-
+Ccide may not work correctly on Mingw.  Ccide will most likely fail 
+if the input file is in DOS format rather than *nix format. 
 
 Valgrind displays some minor memory leaks.   This should not effect anyone.
 
@@ -449,10 +476,13 @@ There is no provision for continuing a row onto the next line.
 
 The documentation needs improving. 
 
+Ccide-0.6.2-6 and prior versions have known bugs. Please install
+the latest version before reporting bugs.
+
 
 =head1 RESTRICTIONS
 
-There can no more than 32 condition rows or 32 action rows or 32 rules
+There can no more than 32 conditions or 2048 actions or 256 rules
 in a single decision table.  
 
 Ccide imposes no limit on the number of decision tables in a single module or program. 
@@ -464,7 +494,7 @@ Neither does Ccide impose any limit on the number of statements in a program.
 
 =item Globalize.
 
-=item Port to more platforms, starting with Mingw.
+=item Port to more platforms, starting with Mingw. 
 
 =item Improve the documentation.
 
@@ -508,3 +538,4 @@ Older versions are available from SourceForge at
 	http://www.sourceforge.net/projects/ccide
 
 =cut
+ 

@@ -84,13 +84,14 @@ static inline void MisMatch() {
 static STATE DoRightParen() {
 
 	//DECISION_TABLE:		
-	// 4 6 7 8 9 10 11 - |TOS==$$ 
+	//   4  6  7  8  9 10 11  - |TOS==$$ 
 	// ________________________________________
-	// x - - - -  -  - - | Pop();  
-	// - x x x x  x  x - | PopToQueue();
-	// - x x x x  x  x - | goto $@;
-	// 2 - - - -  -  - 9 | return $$;  
+	//   X  -  -  -  -  -  -  - | Pop();  
+	//   -  X  X  X  X  X  X  - | PopToQueue();
+	//   -  X  X  X  X  X  X  - | goto $@;
+	//   2  -  -  -  -  -  -  9 | return $$;  
 	//END_TABLE:
+
 }
 
 //            Until the token at the top of the stack is a left parenthesis, pop operators off the stack onto the output queue. 
@@ -99,12 +100,13 @@ static STATE DoRightParen() {
 static STATE FindLeft() {
 
 	//DECISION_TABLE:    /* Check Stack */
-	// 0 4 6 |TOS==$$  
+	//   0  4  6 |TOS==$$  
 	// _______________
-	// - - x | PopToQueue();
-	// - - x | goto $@;
-	// 9 2 - | return $$; 
+	//   -  -  X | PopToQueue();
+	//   -  -  X | goto $@;
+	//   9  2  - | return $$; 
 	//END_TABLE:
+
 }
 
 /*        If the token is an operator, o1, then:
@@ -119,58 +121,62 @@ static STATE DoOperator() {
 	STATE s=9;
 
 	//DECISION_TABLE:
-	//  9   -  0  0  0  0  0  1  1  1  1  1 | s==$$
-	//  -   -  7  8  9 10 11  7  8  9 10 11 | TOS==$$
+	//   9  -  0  0  0  0  0  1  1  1  1  1 | s==$$
+	//   -  -  7  8  9 10 11  7  8  9 10 11 | TOS==$$
 	//  ____________________________________________________
-	//  -   -  x  x  x  x  x  -  -  -  -  - | PopToQueue(); 
-	//  x   -  x  x  x  x  x  -  -  -  -  - | s=GetPrecedence(); 
-	//  x   -  x  x  x  x  x  -  -  -  -  - | goto $@; 
-	//  -   2  -  -  -  -  -  2  2  2  2  2 | return $$;
+	//   -  -  X  X  X  X  X  -  -  -  -  - | PopToQueue(); 
+	//   X  -  X  X  X  X  X  -  -  -  -  - | s=GetPrecedence(); 
+	//   X  -  X  X  X  X  X  -  -  -  -  - | goto $@; 
+	//   -  2  -  -  -  -  -  2  2  2  2  2 | return $$;
 	//END_TABLE:
+
 }
 
 // 1-number, 2-function token, 3-function argument separator (e.g. a comma) 9=no more tokens // 4=LEFT_PAREN, 5=RIGHT_PAREN, 6=OPERATOR
 
 static void ParseInput() {   
 	STATE s=0;
-	TOKEN_TYPE t;
+	TOKEN_TYPE token;
 
 	//DECISION_TABLE:    Test dropping empty rules.
-	// - 0 2 - 2 2 2 2 2 - | s==$$
-	// - - 1 - 2 3 4 5 6 - | t==$$   
+	//   -  0  2  -  2  2  2  2  2  - | s==$$
+	//   -  -  1  -  2  3  4  5  6  - | token==$$   
 	// _____________________________
-	// - - - - - x - - - - |s=FindLeft();
-	// - - - - - - - x - - |s=DoRightParen();
-	// - - - - - - - - x - |s=DoOperator();
-	// - - - - x - x - x - |PushToken();
-	// - - x - - - - - - - |OutputNumber();
-	// - 2 - - - - - - - - |s=$$;
-	// - x x - x x x x x - |t=GetToken();
-	// - x x - x x x x x - |goto $@;
+	//   -  -  -  -  -  -  -  -  -  - |s=FindLeft();
+	//   -  -  -  -  -  -  -  X  -  - |s=DoRightParen();
+	//   -  -  -  -  -  -  -  -  X  - |s=DoOperator();
+	//   -  -  -  -  X  -  X  -  X  - |PushToken();
+	//   -  -  X  -  -  -  -  -  -  - |OutputNumber();
+	//   -  2  -  -  -  -  -  -  -  - |s=$$;
+	//   -  X  X  -  X  -  X  X  X  - |token=GetToken();
+	//   -  X  X  -  X  -  X  X  X  - |goto $@;
 	//END_TABLE:
+
 
 			// 0=EMPTY, 1=LEFT_PAREN, 2=RIGHT_PAREN
 
 	    //DECISION_TABLE:    	/* No more input tokens */
-	    // 1 2 5 7 8 9 10 11  - | TOS==$$    
+	    //   1  2  5  7  8  9 10 11  - | TOS==$$    
 	    // _____________________|____________
-	    // x x x x x x  x  x  x | // Test comment
-	    // x - x - - -  -  -  - | MisMatch();        
-	    // - x - x x x  x  x  - | PopToQueue();
-	    // x x x x x x  x  x  - | goto $@;  
-	    // - - - - - -  -  -  x | printf("\n");
+	    //   X  X  X  X  X  X  X  X  X | // Test comment
+	    //   X  -  X  -  -  -  -  -  - | MisMatch();        
+	    //   -  X  -  X  X  X  X  X  - | PopToQueue();
+	    //   X  X  X  X  X  X  X  X  - | goto $@;  
+	    //   -  -  -  -  -  -  -  -  X | printf("\n");
 	    //END_TABLE:
+
 }
 
 int main(int argc, char **argv) {
 
 	TOS=EMPTY; 
 	//DECISION_TABLE:
-	// - y | token==SEPARATOR
-	// ____|_________________
-	// - x | token=EMPTY; ParseInput();
-	// - x | goto $@;
+	//   -  Y | token==SEPARATOR
+	// _______|_________________
+	//   -  X | token=EMPTY; ParseInput();
+	//   -  X | goto $@;
 	//END_TABLE:
+
 	return 0;
 
 }

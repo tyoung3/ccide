@@ -102,9 +102,9 @@ char *pEcomment="*/";
         /* ********************  Local Structure *********************/
 typedef struct  {
 	int	 dummy_guard[1];  /* Something clobbering this on Solaris 9 ?? */
-        RULE     yes[CCIDE_NRULE];
-        RULE      no[CCIDE_NRULE];
-        ACTON    act[CCIDE_NRULE];
+        RULE     yes[CCIDE_NRULE+1];
+        RULE      no[CCIDE_NRULE+1];
+        ACTON    act[CCIDE_NRULE+1];
         char     *actiontable[CCIDE_NACTION];
         char     *conccideable[CCIDE_NCOND];
 } CCIDEABLE;
@@ -179,22 +179,19 @@ char *FindCaseValue( int nrule) {
 	
 	/* Sorting rule for qsort */
 static int mapseq(const void *a, const void *b) {
+	register int x,y;
 
-#if 0
-	if(  strcmp(FindCaseValue(  remap[*(int*)a] -1  ), "default") == 0) 
-		return -1;
- 
-	if(  strcmp(FindCaseValue(  remap[*(int*)b] -1  ), "default") == 0) 
-		return 1;
-#endif
-
-	if(  ccide.act[*(int*)a][0] < ccide.act[*(int*)b][0] )
+	x=*(int*)a; y=*(int*)b;
+	if(  ccide.act[x][0] < ccide.act[y][0] )
 		return 1;
 
-	if(  ccide.act[*(int*)a][0] > ccide.act[*(int*)b][0] )
+	if(  ccide.act[x][0] > ccide.act[y][0] )
                 return -1;
 
-	return 0;
+	if(x<y)
+		return -1;
+
+	return 1;
 
 }
 
@@ -213,36 +210,56 @@ static void SetRuleMap(int nrules) {
 	rulemap[nrules] = -1;
 }
 
-	/* Qsort rule sequencing function */
-static int RuleSeq(const void *a, const void *b) {
-
-	if( ccide.yes[*(int*)a][0] > ccide.yes[*(int*)b][0] ) 
-		return -1;
-
-	if( ccide.yes[*(int*)a][0] < ccide.yes[*(int*)b][0] ) 
-		return  1;
-
-	if( ccide.no[*(int*)a][0] > ccide.no[*(int*)b][0] ) 
-		return -1;
- 
-	if( ccide.no[*(int*)a][0] < ccide.no[*(int*)b][0] ) 
-		return  1;
- 
-	return 0;
+static inline int CountEm(CCIDE_BIT z) {  				 /* Return number of bits */
+	return __builtin_popcount ( (unsigned long) z);
 }
 
-#ifndef NODROP_EMPTY
+static inline int YesNoCount(int x) {
+	return CountEm(  ccide.yes[x][0]  |  ccide.no[x][0]  );
+}
+
+	/* Qsort rule sequencing function */
+static int RuleSeq(const void *a, const void *b) {
+	register int x, y;
+	int ca, cb;  // Count a, count b
+
+	x=*(int*)a; y=*(int*)b;
+	ca=YesNoCount(x); cb=YesNoCount(y);
+
+	if( ca > cb )
+		return -1; 
+	if( ca < cb )
+		return 1;
+
+	ca=ccide.yes[x][0]|ccide.no[x][0]; 
+	cb=ccide.yes[y][0]|ccide.no[y][0];
+	if( ca > cb )
+		return 1; 
+	if( ca < cb )
+		return  -1;
+
+	if(x<y)
+		return -1;
+
+	return 1;     
+}
+
 	/* Delete rules with no actions.  */
 static int DropEmpty(int nrules) { 
-	int i,ndrop=0;
+	int i,j,ndrop=0,hasaction;
 
 	i=nrules;
 
 	do {
 		i--;
-		if( 
-			(ccide.act[i][0] == 0)
-		  ) {
+		hasaction=0;
+		for(j=0;j<nawords;j++) {
+			if(ccide.act[i][j] != 0) {
+				hasaction=1;
+				break;
+			}
+		 }
+		 if(!hasaction) {
 			ndrop++;	// N.B.: Cannot change nrules, so pass back number to drop.
 			WARN3("Dropping rule %i in table %i.", remap[i], nbrtables );
 		} else {
@@ -253,13 +270,10 @@ static int DropEmpty(int nrules) {
 	return ndrop;
 	
 }
-#else 
-#define DropEmpty(X) 
-#endif
 
 	/* Sequence rules with most specific first.  */
 static void Reorder(int nrules) {  
-	int  mapr[CCIDE_NRULE];
+	int  mapr[CCIDE_NRULE+1];
 	int i,k;
 	CCIDEABLE ccide2;   /* Decision table copy */
 
@@ -1435,6 +1449,29 @@ void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate la
 	 	GenEnd();
 }
 
+int showruleorder=1;
+static void ShowOrder(int nrules, int map[] ) {
+	int i;
+
+	for(i=0;i<nrules;i++) {
+		printf("%i ",map[i]);
+	}
+}
+
+static void ShowRuleOrder(int nrules) {
+	if(showruleorder) {
+		if(m4out) { 	 	;
+			printf("%s%s%s\tTable %i rule order = ",lws, pComment,qt1, nbrtables);
+			ShowOrder(nrules, remap);
+			printf("%s%s\n",qt2, pEcomment);
+		} else{			 
+			printf("%s%s\tTable %i rule order = ",lws, pComment, nbrtables);
+			ShowOrder(nrules, remap);
+			printf("%s\n",  pEcomment);
+		}
+	}
+}
+
 	/* Print the generated C code from the ccide table. */
 void Generate( int nconds, int nactions, int nrules ) {
 	int i, ndrop=0;
@@ -1468,7 +1505,6 @@ void Generate( int nconds, int nactions, int nrules ) {
 				lws, pComment, nrules-ndrop, nconds, nactions, pEcomment);
 	}
 
-
 #ifdef ThisProgramCanHandleDefaultCases
 	/*DECISION_TABLE:					*/
 	/*  Y - - | nbrcstubs==1				*/
@@ -1479,6 +1515,7 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/* -----------------------------------------------------*/
 	/*  X - - | GenerateCases(nactions, nrules-ndrop);	*/
 	/*  - X - | GenerateSingleRule(nconds,nactions);	*/
+	/*  - - X | ShowRuleOrder(nrules-ndrop);		*/
 	/*  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
 
@@ -1492,8 +1529,9 @@ void Generate( int nconds, int nactions, int nrules ) {
 	/*  N Y N | (nrules-ndrop)==1			*/
 	/*  Y - Y | (nrules-ndrop)>0				*/
 	/* ---------------------				*/
-	/*  X - - | GenerateCases(nactions, nrules-ndrop);		*/
+	/*  X - - | GenerateCases(nactions, nrules-ndrop);	*/
 	/*  - X - | GenerateSingleRule(nconds,nactions);	*/
+	/*  - - X | ShowRuleOrder(nrules-ndrop);			*/
 	/*  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
 	/*END_TABLE:						*/
 

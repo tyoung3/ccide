@@ -1,4 +1,13 @@
 2012-07-26
+	0.6.2-7
+		Improved rule search order. 
+		Eliminated qsort ambiguity for equal conditions.
+		Show rule search order in output commentary.
+		Fixed a bug possibly dropping a rule in error when more than 32 actions in the table.
+		Increase maximum number of actions to 2048. 
+		Updated man page.
+
+2012-07-26
 	0.6.2-6
 		Fixed bug causing change to condition stub. (<= was being changed to !=).
 		Fixed ccide script search for m4 files.  CCIDE_M4DIR overrides this search. 

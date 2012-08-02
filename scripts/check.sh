@@ -1,10 +1,20 @@
 #!/bin/bash
 
 # CHECK.SH:  Test ccide 
-export CCIDEW=`pwd`/../src/ccidew
-export CCIDE_M4DIR=`pwd`/../m4
-PGM=`pwd`/../scripts/ccide
-OPT="-b -c 2"
+CWD=`pwd`
+[ -x ../src/ccidew ] && CCIDEW=$CWD/../src/ccidew
+[ -x src/ccidew ] && CCIDEW=$CWD/src/ccidew
+[ -x ../src/ccidew.exe ] && CCIDEW=$CWD/../src/ccidew.exe
+[ -x src/ccidew.exe ] && CCIDEW=$CWD/src/ccidew.exe
+[ -f ../m4/ccide-C++.m4 ] && CCIDE_M4DIR=$CWD/../m4
+[ -f m4/ccide-C++.m4 ] && CCIDE_M4DIR=$CWD/m4
+[ -x ../scripts/ccide ] && PGM=$CWD/../scripts/ccide
+[ -x scripts/ccide ] && PGM=$CWD/scripts/ccide
+
+export CCIDEW=$CCIDEW
+export CCIDE_M4DIR=$CCIDE_M4DIR
+# echo CCIDEW=$CCIDEW  m4dir=$CCIDE_M4DIR
+OPT="-b "
 MAKE="make -s -B -i --no-print-directory"
 
 Die() {
@@ -42,6 +52,7 @@ MakeIt() {
 }
 
 TestIt() {
+	[ -x $X.exe ] && X=$X.exe 
 	./$X $TOPT < /dev/null >$X.output  	\
 	&& diff -q $T.X $X.output  >/dev/null	
 
@@ -122,8 +133,8 @@ MakeAM() {
 	echo "EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLog CYGWIN-PATCHES/setup.hint.in scripts/ccide.in \\" 	 								   >> $TMPLT
 	MakeEntry "	src/Makefile.in  src/ccide.pod.in src/ccideconfig.h.in"
 	MakeEntry "	src/ccidemain.h src/ccide.h src/parse.h \$(srcdir)/src/ccidelex.l"
-	MakeEntry "	src/ccideinline.c  src/ccidelex.c  src/ccidemain.c  src/ccideparse.c  src/cciderunx.c"
-	MakeEntry "	tests/f1 tests/f2 tests/f3 tests/f4 tests/Makefile"
+	MakeEntry "	src/ccideinline.c  src/ccidelex.c  src/ccidemain.c  src/ccideparse.c src/ccideparse.y  src/cciderunx.c"
+	MakeEntry "	tests/f1 tests/f2 tests/f3 tests/f4 tests/if2rpn.txt tests/Makefile"
 	MakeEntry "	scripts/check.sh scripts/Makefile scripts/Makefile.in scripts/ccide.in"
 	for TINPUT in src/ccide*.d; do 
 		echo $TINPUT							   >> $TMPLT
@@ -134,6 +145,7 @@ MakeAM() {
 			MakeEntry "	$TDIR/$TINPUT"
 			[ -f $T.d ]    && MakeEntry "	$TDIR/$T.d " 
 			[ -f $T.opt ]  && MakeEntry "	$TDIR/$T.opt " 	
+			[ -f $T.right ] && MakeEntry "	$TDIR/$T.right " 	
 	done				   
 	for TINPUT in *.X; do
 			MakeEntry "	$TDIR/$TINPUT"	
