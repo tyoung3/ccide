@@ -21,6 +21,7 @@
 #    	Fifth Floor, Boston, MA 02110-1301 USA.
 # ----------------------------------------------- end of legal stuff ---------------------- #
 GCJ = gcj
+CFLAGS = -lmcheck
 CCIDE = ../scripts/ccide
 CCIDEW = ../src/ccidew
 GCJDEPMODE = depmode=gcc3

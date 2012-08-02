@@ -442,18 +442,18 @@ static void SetQdelimit(char *s1, char *s2) {
 static void SetLang(char *s) {
 
         //DECISION_TABLE:
-        //   -  N  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //   -  N  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0
-        //   -  N  -  -  -  -  -  -  -  -  -  - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0
-        //   N  N  -  -  -  -  -  -  -  Y  -  - | strcmp(s,"C")==0     || strcmp(s,"c")==0
-        //   -  -  Y  -  -  -  -  -  -  -  -  - | strcmp(s,"BASH")==0
-        //   -  -  -  Y  -  -  -  -  -  -  -  - | strcmp(s,"bash")==0
-        //   -  -  -  -  Y  -  -  -  -  -  -  - | strcmp(s,"QB")==0
-        //   -  -  -  -  -  Y  -  -  -  -  -  - | strcmp(s,"qb")==0
-        //   -  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //   -  N  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //   -  N  -  -  -  -  Y  -  -  -  -  - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //   -  N  -  -  -  -  -  Y  -  -  -  - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //   N  -  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0
+        //   N  -  Y  -  -  -  -  -  -  -  -  - | strcmp(s,"BASH")==0
+        //   N  -  -  Y  -  -  -  -  -  -  -  - | strcmp(s,"bash")==0
+        //   N  -  -  -  Y  -  -  -  -  -  -  - | strcmp(s,"QB")==0
+        //   N  -  -  -  -  Y  -  -  -  -  -  - | strcmp(s,"qb")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //   N  -  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
+        //   N  -  -  -  -  -  Y  -  -  -  -  - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
+        //   N  -  -  -  -  -  -  Y  -  -  -  - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //   N  -  -  -  -  -  -  -  -  Y  -  - | strcmp(s,"C")==0     || strcmp(s,"c")==0
         //  _______________________ |_________________________ ___________________
         //   -  X  -  -  -  -  -  -  -  -  -  - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
         //   -  -  X  X  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
@@ -468,63 +468,64 @@ static void SetLang(char *s) {
         //END_TABLE:
         //GENERATED_CODE: FOR TABLE_1.
         //	12 Rules, 12 conditions, and 10 actions.
-         {	unsigned long CCIDE_table1_yes[12]={2048UL,1024UL, 512UL, 256UL, 128UL,  64UL,  32UL,  16UL,   8UL,   1UL,   0UL,   0UL};
-        	unsigned long CCIDE_table1_no[12]= {   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,3599UL,   8UL};
+        //	Table 1 rule order = 1 9 3 4 5 6 12 11 7 8 10 2 
+         {	unsigned long CCIDE_table1_yes[12]={   0UL,   1UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,   0UL};
+        	unsigned long CCIDE_table1_no[12]= {4095UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL};
 
 
         	switch(CCIDEFindRule(12,
         		  (strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0)
         		| (strcmp(s,"CC")==0    || strcmp(s,"cc")==0)<<1
         		| (strcmp(s,"C++")==0   || strcmp(s,"c++")==0)<<2
-        		| (strcmp(s,"C")==0     || strcmp(s,"c")==0)<<3
-        		| (strcmp(s,"BASH")==0)<<4
-        		| (strcmp(s,"bash")==0)<<5
-        		| (strcmp(s,"QB")==0)<<6
-        		| (strcmp(s,"qb")==0)<<7
-        		| (strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0)<<8
-        		| (strcmp(s,"JAVA")==0 || strcmp(s,"java")==0)<<9
-        		| (strcmp(s,"VB")==0   || strcmp(s,"vb")==0)<<10
-        		| ((strcmp(s,"EX")==0) || (strcmp(s,"ex")==0))<<11
+        		| (strcmp(s,"BASH")==0)<<3
+        		| (strcmp(s,"bash")==0)<<4
+        		| (strcmp(s,"QB")==0)<<5
+        		| (strcmp(s,"qb")==0)<<6
+        		| (strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0)<<7
+        		| (strcmp(s,"JAVA")==0 || strcmp(s,"java")==0)<<8
+        		| (strcmp(s,"VB")==0   || strcmp(s,"vb")==0)<<9
+        		| ((strcmp(s,"EX")==0) || (strcmp(s,"ex")==0))<<10
+        		| (strcmp(s,"C")==0     || strcmp(s,"c")==0)<<11
         		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
-        	case  2:	//	Rule 11 
+        	case  7:	//	Rule 11 
         	    lang=JAVA;
-        	    goto CCIDE_case1_11;
-        	case  0:	//	Rule  8 
+        	    goto CCIDE_case1_0;
+        	case  9:	//	Rule  8 
         	    lang=EX;	 // euphoria
-        	CCIDE_case1_11: case 11:	//	Rule  1 
+        	CCIDE_case1_0: case  0:	//	Rule  1 
         	    SetQdelimit("`","\'");
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case  9:	//	Rule  9 
+        	case  1:	//	Rule  9 
         	    lang=BASIC;
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case  1:	//	Rule  7 
+        	case  8:	//	Rule  7 
         	    lang=VB;
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case  4:	//	Rule  6 
-        	case  5:	//	Rule  5 
+        	case  4:	//	Rule  5 
+        	case  5:	//	Rule  6 
         	    lang=QB;
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case  6:	//	Rule  4 
-        	case  7:	//	Rule  3 
+        	case  2:	//	Rule  3 
+        	case  3:	//	Rule  4 
         	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
         	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         	    break;
-        	case  3:	//	Rule 12 
+        	case  6:	//	Rule 12 
         	    lang=CS;
         	    SetQdelimit("`","\'");
         	    break;
-        	case 10:	//	Rule  2 
+        	case 11:	//	Rule  2 
         	    printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
         	    break;
-        	case  8:	//	Rule 10 
+        	case 10:	//	Rule 10 
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
 
 
 }
@@ -563,7 +564,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
 
 
 
@@ -590,8 +591,9 @@ static void PrintNum(long n) {
 	//END_TABLE:     
 	//GENERATED_CODE: FOR TABLE_3.
 	//	9 Rules, 8 conditions, and 5 actions.
-	 {	unsigned long CCIDE_table3_yes[9]={ 136UL, 128UL,  68UL,  64UL,  34UL,  32UL,  17UL,  16UL,   0UL};
-		unsigned long CCIDE_table3_no[9]= {   0UL, 112UL,   0UL,  48UL,   0UL,  16UL,   0UL,  32UL, 240UL};
+	//	Table 3 rule order = 8 9 7 1 2 5 6 3 4 
+	 {	unsigned long CCIDE_table3_yes[9]={ 128UL,   0UL,  64UL,  17UL,  34UL,  16UL,  32UL,  68UL, 136UL};
+		unsigned long CCIDE_table3_no[9]= { 112UL, 240UL,  48UL,   0UL,   0UL,  32UL,  16UL,   0UL,   0UL};
 
 
 		switch(CCIDEFindRule(9,
@@ -604,28 +606,28 @@ static void PrintNum(long n) {
 			| (n<1000)<<6
 			| (n<10000)<<7
 			  ,CCIDE_table3_yes, CCIDE_table3_no)) {
-		case  8:	//	Rule  9 
+		case  1:	//	Rule  9 
 		    printf("%6li", n);
 		    break;
-		case  0:	//	Rule  4 
-		case  1:	//	Rule  8 
+		case  0:	//	Rule  8 
+		case  8:	//	Rule  4 
 		    printf("%5li", n);
 		    break;
-		case  2:	//	Rule  3 
-		case  3:	//	Rule  7 
+		case  2:	//	Rule  7 
+		case  7:	//	Rule  3 
 		    printf("%4li", n);
 		    break;
 		case  4:	//	Rule  2 
-		case  5:	//	Rule  6 
+		case  6:	//	Rule  6 
 		    printf("%3li", n);
 		    break;
-		case  6:	//	Rule  1 
-		case  7:	//	Rule  5 
+		case  3:	//	Rule  1 
+		case  5:	//	Rule  5 
 		    printf("%2li", n);
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
 
 
 
@@ -696,7 +698,8 @@ int main( int argc, char **argv) {
   	//END_TABLE:  	
   	//GENERATED_CODE: FOR TABLE_4.
   	//	17 Rules, 16 conditions, and 18 actions.
-  	 {	unsigned long CCIDE_table4_yes[17]={32768UL,16384UL,8192UL,4096UL,2048UL,1024UL, 512UL, 256UL, 128UL,  64UL,  32UL,  16UL,   8UL,   4UL,   2UL,   1UL,   0UL};
+  	//	Table 4 rule order = 11 1 13 15 2 12 9 14 3 17 16 4 5 6 7 10 8 
+  	 {	unsigned long CCIDE_table4_yes[17]={   1UL,   2UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,4096UL,8192UL,16384UL,32768UL,   0UL};
 
 
   		switch(CCIDEFindRuleYes(17,
@@ -721,60 +724,60 @@ int main( int argc, char **argv) {
   		    Usage();
   		    exit(0);
   		    break;
-  		case  1:	//	Rule  7 
+  		case 14:	//	Rule  7 
   		    ShowCopyright();
   		    exit(0);
   		    break;
-  		case  4:	//	Rule  4 
+  		case 11:	//	Rule  4 
   		    if(GenSkeleton(argv[narg+1])) narg++;
   		    exit(0);
   		    break;
-  		case  6:	//	Rule 17 
+  		case  9:	//	Rule 17 
   		    SetPrefix(argv[narg+1]); narg++;
   		    break;
-  		case  5:	//	Rule 16 
+  		case 10:	//	Rule 16 
   		    SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   		    break;
-  		case 12:	//	Rule 15 
+  		case  3:	//	Rule 15 
   		    SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   		    break;
-  		case  8:	//	Rule 14 
+  		case  7:	//	Rule 14 
   		    m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
   		    break;
-  		case 13:	//	Rule 13 
+  		case  2:	//	Rule 13 
   		    SetColumn(argv[narg+1]); narg++;
   		    break;
-  		case 10:	//	Rule 12 
+  		case  5:	//	Rule 12 
   		    SetLang(argv[narg+1]); narg++;
   		    break;
-  		case 15:	//	Rule 11 
+  		case  0:	//	Rule 11 
   		    DupeActionIsAnError=0;
   		    break;
-  		case  0:	//	Rule 10 
+  		case 15:	//	Rule 10 
   		    strcat(xstring, "- ");
   		    break;
-  		case  9:	//	Rule  9 
+  		case  6:	//	Rule  9 
   		    checkequal=0;     // Do Not check for '='.
   		    break;
-  		case  2:	//	Rule  6 
+  		case 13:	//	Rule  6 
   		    noinline=1;
   		    donotgenerate=1;
   		    break;
-  		case  3:	//	Rule  5 
+  		case 12:	//	Rule  5 
   		    yydebug=1;
   		    break;
-  		case  7:	//	Rule  3 
+  		case  8:	//	Rule  3 
   		    noinline=1;
   		    break;
-  		case 11:	//	Rule  2 
+  		case  4:	//	Rule  2 
   		    uselocaltime=1;
   		    break;
-  		case 14:	//	Rule  1 
+  		case  1:	//	Rule  1 
   		    notimestamp=1;
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-6 Sat Jul 28 06:26:35 2012 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
 
 
 

@@ -53,7 +53,7 @@ MakeIt() {
 
 TestIt() {
 	[ -x $X.exe ] && X=$X.exe 
-	./$X $TOPT < /dev/null >$X.output  	\
+	./$X $TOPT  < /dev/null >$X.output 	\
 	&& diff -q $T.X $X.output  >/dev/null	
 
 }
@@ -165,6 +165,8 @@ Usage() {
 		$0 CASENAME		. Run CASENAME test.  Ex.  "$0 calc"
 		$0 -V			. Show check.sh version
 		$0 [--help]		. Show usage
+        NOTE: MALLOC_CHECK_=3 is set by $0.  Set MALLOC_CHECK_=0 to bypass hook messages.
+       
 
 EOF
 	exit 1
@@ -197,6 +199,7 @@ case $1 in
 	mkam)shift; MakeAM $*;;
 	mkright)shift;	MakeRight $*;;
 	*) 	[ -z $1 ] && Usage 
+		[ -z $MALLOC_CHECK_ ] && export MALLOC_CHECK_=3;  # Slower, but message and abort on error. 
 	   	for T in $*; do 
 			TestCase $T 	\
 			&& Success "Test $T" 	\

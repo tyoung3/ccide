@@ -442,18 +442,18 @@ static void SetQdelimit(char *s1, char *s2) {
 static void SetLang(char *s) {
 
         //DECISION_TABLE:
-        //  - N - - - - - - Y - - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //  - N - - - - - - - - - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0
-        //  - N - - - - - - - - - - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0
-        //  N N - - - - - - - Y - - | strcmp(s,"C")==0     || strcmp(s,"c")==0
-        //  - - Y - - - - - - - - - | strcmp(s,"BASH")==0
-        //  - - - Y - - - - - - - - | strcmp(s,"bash")==0
-        //  - - - - Y - - - - - - - | strcmp(s,"QB")==0
-        //  - - - - - Y - - - - - - | strcmp(s,"qb")==0
-        //  - - - - - - - - - - - Y | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //  - N - - - - - - - - Y - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //  - N - - - - Y - - - - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //  - N - - - - - Y - - - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //  N - - - - - - - Y - - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //  N - - - - - - - - - - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0
+        //  N - - - - - - - - - - - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0
+        //  N - Y - - - - - - - - - | strcmp(s,"BASH")==0
+        //  N - - Y - - - - - - - - | strcmp(s,"bash")==0
+        //  N - - - Y - - - - - - - | strcmp(s,"QB")==0
+        //  N - - - - Y - - - - - - | strcmp(s,"qb")==0
+        //  N - - - - - - - - - - Y | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //  N - - - - - - - - - Y - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
+        //  N - - - - - Y - - - - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
+        //  N - - - - - - Y - - - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //  N - - - - - - - - Y - - | strcmp(s,"C")==0     || strcmp(s,"c")==0
         //  _______________________ |_________________________ ___________________
         //  - X - - - - - - - - - - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
         //  - - X X - - - - - - - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
