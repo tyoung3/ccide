@@ -50,7 +50,7 @@ CCIDE_DIR=$(distdir)
 bin_PROGRAMS = ccidew
 #bin_SCRIPTS = ccide
  
-ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h parse.h
+ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  $(srcdir)/ccide.pod  ccide.h parse.h
 # ccide_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h parse.h
 
 #Bison Flags  ( -y added by autoconf )
@@ -64,7 +64,7 @@ AM_YFLAGS = -d -l -v
 
 # Creates a circular dependency, but this is how it was done.   Put in another Makefile?
 #%.c.d : %.c 
-#	ccidew -u -c 3  < $< > $@  
+#	ccidew -u   < $< > $@  
 
 %.c : %.c.d 
 	ccide -c 3 < $< > $@
@@ -72,15 +72,19 @@ AM_YFLAGS = -d -l -v
 %.y : %.y.d 
 	ccide -c 3 < $< > $@
 
+# mostlyclean-local, clean-local, distclean-local, or maintainer-clean-local
+
 flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 
 man: 	${PACKAGE}.1
 
+distclean-local:
+	rm Makefile  \
+	.deps/ccideinline.Po .deps/ccidelex.Po .deps/ccidemain.Po .deps/ccideparse.Po .deps/cciderunx.Po 
+
 clean-local:    
 	rm -f *~  *.log *.output ccide.1 ccidelex.c ccideparse.c 	\
-	*.output ccideparse.c ccidelex.c ccide.1 
-
-gitclean: clean-local
+	*.output ccideparse.c ccidelex.c ccide.1 *.o ccidew ccide.1 y.output
 	
 ${PACKAGE}.1:	${PACKAGE}.pod
 	/usr/bin/pod2man --section=1						\
@@ -93,13 +97,13 @@ ${MAIN}$(OBJEXT):  ${MAIN}.h ${MAIN}.c ${PARSE}.h ${RUNX}.o config.h
 
 ${PARSE}.h:  ${PARSE}.c 
 	
-${PARSE}.c: $(PARSE).y
-	$(YACC) $(AM_YFLAGS) $(PARSE).y
+${PARSE}.c: $(srcdir)/$(PARSE).y
+	$(YACC) $(AM_YFLAGS) $(srcdir)/$(PARSE).y
 	mv y.tab.c $(PARSE).c;
-	mv y.tab.h $(PARSE).h
+	mv y.tab.h $(srcdir)/$(PARSE).h
 
-${CCIDE}lex.c: ${PARSE}.h ${MAIN}.h ${CCIDE}lex.l 
-	$(LEX) -i -o${CCIDE}lex.c ${CCIDE}lex.l
+${CCIDE}lex.c: ${PARSE}.h ${MAIN}.h  $(srcdir)/${CCIDE}lex.l 
+	$(LEX) -i -o${CCIDE}lex.c $(srcdir)/${CCIDE}lex.l
 
 ${CCIDE}lex.o: ${PARSE}.h ${MAIN}.h ${CCIDE}lex.c ${CCIDE}.h 
 

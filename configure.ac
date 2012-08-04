@@ -1,6 +1,11 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
 AC_INIT([ccide],[0.6.2],[ccide@twyoung.com])
+AC_CONFIG_SRCDIR([src/ccidemain.h])
+AC_CONFIG_HEADERS([src/ccideconfig.h])
+
 TARGET=$target_cpu-$target_os
 AM_MAINTAINER_MODE(TRUE)
 AC_CANONICAL_TARGET([])
@@ -11,27 +16,65 @@ LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"
 
-LONG_DESCR="Ccide reads a source file of C source code containing\
-embedded decision tables from STDIN, analyzes it, and expands the\
+LONG_DESCR="Ccide reads a source code file containing\
+embedded decision tables from STDIN, analyzes and expands each of the\
 tables. All statements not within a decision table are copied unchanged\
-to STDOUT, forming a compilable C source module. Erratic side effects\
+to STDOUT, generating a compilable C source module. Erratic side effects\
 are avoided by evaluating all condition expressions exactly once and by\
-performing all evaluations and actions in the original sequence."
+performing evaluations and actions in the original sequence."
 
 CFLAGS='-O3  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\"'
 
-
-###########CONFIG.H######################
-AC_PROG_INSTALL
-AC_PROG_CC
-AC_PROG_MAKE_SET
+# Checks for programs.
+AC_PROG_CXX
 AC_PROG_YACC
-AM_PROG_LEX
-
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_LEX
+AC_PROG_AWK
+AC_PROG_INSTALL
 AC_PROG_LN_S
+AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 
-AC_PROG_CXX
+# Checks for libraries.
+# FIXME: Replace `main' with a function in `-lfl':
+AC_CHECK_LIB([fl], [main])
+# FIXME: Replace `main' with a function in `-lmcheck':
+AC_CHECK_LIB([mcheck], [main])
+
+# Checks for header files.
+AC_FUNC_ALLOCA
+AC_HEADER_STDC
+AC_CHECK_HEADERS([libintl.h limits.h malloc.h stddef.h stdlib.h string.h sys/time.h unistd.h])
+
+# additional header checks
+AC_HEADER_STDC
+AC_HEADER_TIME
+
+AC_CHECK_HEADERS([assert.h], [], [],
+   [[#ifdef HAVE_ASSERT_H
+     # include <assert.h>
+     #endif
+   ]])
+
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC 
+AC_FUNC_STRFTIME 
+AC_CHECK_FUNCS([strstr]) 
+#  ----------------------------
+AC_FUNC_ALLOCA
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_STRUCT_TM
+###########CONFIG.H######################
+
+
 
 
 ###########CONFIG.H######################
@@ -47,35 +90,20 @@ AC_LANG([C])
 AC_ISC_POSIX
 AC_PATH_PROG(ECHO, echo)
 AC_PATH_PROG(M4, m4)
-AC_HEADER_STDC
-AC_HEADER_TIME
-AC_STRUCT_TM
-
-AC_TYPE_SIZE_T
-AC_C_INLINE
 
 
-AC_CONFIG_FILES([autogen.sh], [chmod +x autogen.sh])
+# Req'd for builds: disp_pkg.mk  extra_dist.mk
 
-AC_CHECK_HEADERS([assert.h], [], [],
-   [[#ifdef HAVE_ASSERT_H
-     # include <assert.h>
-     #endif
-   ]])
+#  ############Generation############################
+AC_CONFIG_FILES( [autogen.sh], [chmod +x autogen.sh]) 
 
-# Autoscan 
-AC_CHECK_HEADERS([libintl.h]) 
-AC_CHECK_HEADERS([limits.h]) 
-AC_CHECK_HEADERS([malloc.h]) 
-AC_CHECK_HEADERS([stddef.h]) 
-AC_CHECK_HEADERS([sys/time.h]) 
-AC_C_CONST 
-AC_FUNC_REALLOC 
-
-
-#  ############PRESERVE THESE############################
-AC_CONFIG_SRCDIR([src/ccidemain.h])
-AC_CONFIG_HEADERS([src/ccideconfig.h])
-AC_CONFIG_FILES([Makefile scripts/Makefile src/Makefile tests/Makefile src/ccide.pod])
-AC_CONFIG_FILES([ccide.spec CYGWIN-PATCHES/setup.hint])
+AC_CONFIG_FILES([Makefile
+		 ccide.spec 
+		 disp_pkg.mk  
+		 extra_dist.mk
+		 CYGWIN-PATCHES/setup.hint
+                 scripts/Makefile
+                 src/Makefile
+                 src/ccide.pod
+                 tests/Makefile])
 AC_OUTPUT

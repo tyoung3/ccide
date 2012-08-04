@@ -15,7 +15,8 @@ export CCIDEW=$CCIDEW
 export CCIDE_M4DIR=$CCIDE_M4DIR
 # echo CCIDEW=$CCIDEW  m4dir=$CCIDE_M4DIR
 OPT="-b "
-MAKE="make -s -B -i --no-print-directory"
+#MAKE="make -s -B -i --no-print-directory"
+MAKE="make -s  -i --no-print-directory"
 
 Die() {
         echo "$0/DIE: $*"
@@ -52,8 +53,9 @@ MakeIt() {
 }
 
 TestIt() {
-	[ -x $X.exe ] && X=$X.exe 
-	./$X $TOPT  < /dev/null >$X.output 	\
+	[ -x $X.exe ] && X=$X.exe
+	[ -z $TIN ] && TIN=/dev/null 
+	./$X $TOPT  < $TIN >$X.output 	\
 	&& diff -q $T.X $X.output  >/dev/null	
 
 }
@@ -72,8 +74,8 @@ TestCase() {
 	touch $X
 	for Y in $X; do
 		Z=`basename $Y .d`
-		[ -f $Z.opt ] && . $Z.opt
-		$MAKE -i $Z && CheckExpand $Z $Z.right  
+		[ -f $Z.opt ] && . $Z.opt  
+		$MAKE -i $Z && CheckExpand $Z $Z.r  
 	done
 	$MAKE $CASE && X=$CASE && TestIt
 }
@@ -96,7 +98,7 @@ Discard() {
 				qb|QB)$PGM 		$OPT -L QB 	< $T.d 2> $T.err > $T;;
 				*)Die Cannot handle $TINPUT $T;;
 			esac   
-			diff -q $T $T.right >/dev/null 			\
+			diff -q $T $T.r >/dev/null 			\
 			  	&& MakeIt $T $SFX 2>&1 >$T.make.out	\
 			  	&& Success "$DESC generate"		\
 			  	|| Fail "$DESC generate"
@@ -105,7 +107,7 @@ Discard() {
 			  	&& TestIt && Success "$DESC execute" || Fail "$DESC execute"  
 }
 
-All(){
+Allx(){
 	X=`ls *.X`
 	for T in $X; do 
 		Y=`basename $T .X`
@@ -136,8 +138,8 @@ MakeAM() {
 	MakeEntry "	src/ccideinline.c  src/ccidelex.c  src/ccidemain.c  src/ccideparse.c src/ccideparse.y  src/cciderunx.c"
 	MakeEntry "	tests/f1 tests/f2 tests/f3 tests/f4 tests/if2rpn.txt tests/Makefile"
 	MakeEntry "	scripts/check.sh scripts/Makefile scripts/Makefile.in scripts/ccide.in"
-	for TINPUT in src/ccide*.d; do 
-		echo $TINPUT							   >> $TMPLT
+	for TINPUT in src/ccideparse.y.d src/ccidemain.c.d; do 
+		echo "	$TINPUT"							   >> $TMPLT
 	done						   
 	for TINPUT in *.in; do
 			T=`basename $TINPUT .in`
@@ -145,7 +147,7 @@ MakeAM() {
 			MakeEntry "	$TDIR/$TINPUT"
 			[ -f $T.d ]    && MakeEntry "	$TDIR/$T.d " 
 			[ -f $T.opt ]  && MakeEntry "	$TDIR/$T.opt " 	
-			[ -f $T.right ] && MakeEntry "	$TDIR/$T.right " 	
+			[ -f $T.r ] && MakeEntry "	$TDIR/$T.right " 	
 	done				   
 	for TINPUT in *.X; do
 			MakeEntry "	$TDIR/$TINPUT"	
@@ -160,9 +162,8 @@ Usage() {
 	cat << EOF
 
 	Usage:
-		$0 all			. Test all cases
-		$0 right CASENAME	. Create CASENAME*.in & CASENAME*.right files
-		$0 CASENAME		. Run CASENAME test.  Ex.  "$0 calc"
+		$0 CASENAME ...		. Run CASENAME test.  Ex.  "$0 calc simple in2rpn"
+		$0 mkright CASENAME ...	. Create CASENAME*.r files from generated source files. 
 		$0 -V			. Show check.sh version
 		$0 [--help]		. Show usage
         NOTE: MALLOC_CHECK_=3 is set by $0.  Set MALLOC_CHECK_=0 to bypass hook messages.
@@ -173,6 +174,19 @@ EOF
 }
 
 
+MakeIn() {
+	for T in $*; do 
+		X=`ls $T*.d`
+		SFX=`echo $X|cut -f2 -d.`
+		Y=`ls $T*.$SFX `
+		for X in $Y; do
+			Z=`basename $X .$SFX`
+			echo make $Z.$SFX.r.in from $Z.$SFX
+			sed  -e "s/$VERSION/\$CCIDE_VERSION/g" $Z.$SFX   > $Z.$SFX.r.in 
+		done
+	done
+}
+
 MakeRight() {
 	for T in $*; do 
 		X=`ls $T*.d`
@@ -180,23 +194,24 @@ MakeRight() {
 		Y=`ls $T*.$SFX `
 		for X in $Y; do
 			Z=`basename $X .$SFX`
-			echo make $Z.$SFX.right from $Z.$SFX
-			cp -avp $Z.$SFX  $Z.$SFX.right 	
+			# echo make $Z.$SFX.r from $Z.$SFX
+			cp -avp $Z.$SFX  $Z.$SFX.r 	
 			# && sed -e "s/$VERSION/\$CCIDE_VERSION/g" $Z.$SFX.right > $Z.$SFX.in  
 		done
 	done
 }
 
-VERSION=0.6.2-1
+VERSION=0.6.2-8
 [ -d ../tests ] && pushd ../tests 
 [ -d ./tests  ] && pushd ./tests
-[ -f threeway.c.in ] || Die cannot find threeway.c.in 
+[ -f threeway.X ] || Die cannot find threeway.X 
 
 case $1 in
 	--help)	Usage;;
 	-V)	echo 	check.sh-0.0;;
 	all)	shift; 	All $*;;
 	mkam)shift; MakeAM $*;;
+	mkin)shift; MakeIn $*;;
 	mkright)shift;	MakeRight $*;;
 	*) 	[ -z $1 ] && Usage 
 		[ -z $MALLOC_CHECK_ ] && export MALLOC_CHECK_=3;  # Slower, but message and abort on error. 

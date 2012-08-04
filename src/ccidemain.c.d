@@ -1382,6 +1382,86 @@ static void GenerateLabel() {
 	} 
 }
 
+	/* Just one condition entry, number rules < 3. */
+void GenerateIfElseRule(int nrules, int nconds, int nactions ) {   
+	int i,c,r=0;
+	char *s;
+	char sand[80]="";
+
+	GenerateLabel();
+
+	if(m4out)
+		printf("%sCCIDE_IF()",lws);
+	else
+		printf("%sif( ",lws);
+
+		strcpy(sand,"");
+		s=ccide.conccideable[0];
+		while( (*s!=0) && ((*s==' ') || (*s=='\t')) ) s++;
+		if(ccide.no[0][0] &1) {
+				if(m4out)
+					printf("%sCCIDE_FALSE(%s%s%s)", 
+						sand,  qt1, s, qt2 );
+				else
+					printf("%s!(%s)", sand, s );
+		} else {
+			if(ccide.yes[0][0] & 1) {
+				if(m4out)
+					printf("%sCCIDE_TRUE(%s%s%s)", 
+						sand,  qt1, s, qt2 );
+				else
+					printf("%s(%s)", sand, s );
+			}
+		}
+
+	if(m4out)
+		printf("%s_ENDCOND()\n", pPrefix);
+	else
+		printf(" )  {\n");
+
+	for(i=0;i<nactions;i++) {
+		c = 1 << i;
+		if(    (ccide.actiontable[i] != NULL )
+		    && ( ccide.act[0][0] & c) 
+		) {
+			if(m4out)
+				printf("%s   CCIDE_ACTION(%s%s%s)\n", 
+					lws, qt1, ccide.actiontable[i], qt2);
+			else
+				printf("%s   %s\n", lws, 
+					ccide.actiontable[i]);
+		}
+	}
+
+   if(nrules > 0) {
+	if(m4out)
+		printf("%sCCIDE_ELSE()",lws);
+	else
+		printf("%s} else { \n",lws);
+	for(i=0;i<nactions;i++)  {
+		c = 1 << i;
+		if(    (ccide.actiontable[i] != NULL )
+		    && ( ccide.act[1][0] & c) 
+		) {
+			if(m4out)
+				printf("%s   CCIDE_ACTION(%s%s%s)\n", 
+					lws, qt1, ccide.actiontable[i], qt2);
+			else
+				printf("%s   %s\n", lws, 
+					ccide.actiontable[i]);
+		}
+	}
+
+   }
+
+
+	if(m4out) 
+		printf("%s%s_ENDIF()\n%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s%s%s",
+			lws, pPrefix, lws, pComment, qt1,  nbrtables, VERSION, RELEASE, GetTimeStamp(),pEcomment,qt2);
+	else
+	 	GenEnd();
+}
+
 	/* Print the generated C code from the ccide table. */
 void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate label */
 	int i,c;
@@ -1449,6 +1529,7 @@ void GenerateSingleRule( int nconds, int nactions ) {   /* ?? MARKIT Generate la
 	 	GenEnd();
 }
 
+
 int showruleorder=1;
 static void ShowOrder(int nrules, int map[] ) {
 	int i;
@@ -1506,18 +1587,21 @@ void Generate( int nconds, int nactions, int nrules ) {
 	}
 
 #ifdef ThisProgramCanHandleDefaultCases
-	/*DECISION_TABLE:					*/
-	/*  Y - - | nbrcstubs==1				*/
-	/*  Y - - | nconds<=(nrules-ndrop)			*/
-	/*  Y - - | switchable					*/
-	/*  N Y N | (nrules-ndrop)==1			  	*/
-	/*  Y - Y | (nrules-ndrop)>0				*/
-	/* -----------------------------------------------------*/
-	/*  X - - | GenerateCases(nactions, nrules-ndrop);	*/
-	/*  - X - | GenerateSingleRule(nconds,nactions);	*/
-	/*  - - X | ShowRuleOrder(nrules-ndrop);		*/
-	/*  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop);*/
-	/*END_TABLE:						*/
+	/*DECISION_TABLE:						*/
+	/*  Y - - - | nbrcstubs==1					*/
+	/*  Y - - - | nconds<=(nrules-ndrop)				*/
+	/*  - - N Y | nconds==1						*/
+	/*  Y - - N | switchable					*/
+	/*  N Y N N | (nrules-ndrop)==1			  		*/
+	/*  Y - Y Y | (nrules-ndrop)>0					*/
+	/*  - - - Y | (nrules-ndrop)<3					*/
+	/* -------------------------------------------------------------*/
+	/*  X - - - | GenerateCases(nactions, nrules-ndrop);		*/
+	/*  - X - - | GenerateSingleRule(nconds,nactions);		*/
+	/*  - - - X | GenerateIfElseRule(nrules-ndrop,nconds,nactions); */
+	/*  - - X - | ShowRuleOrder(nrules-ndrop);			*/
+	/*  - - X - | GenerateFindRule(nconds,nactions,nrules-ndrop);	*/
+	/*END_TABLE:							*/
 
 
 

@@ -72,6 +72,7 @@ SOURCES =
 DIST_SOURCES =
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ALLOCA = @ALLOCA@
 AMDEP_FALSE = @AMDEP_FALSE@
 AMDEP_TRUE = @AMDEP_TRUE@
 AMTAR = @AMTAR@
@@ -247,9 +248,13 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean-am: clean-generic mostlyclean-am
+clean: clean-am
 
-distclean-am: clean-am distclean-generic
+clean-am: clean-generic clean-local mostlyclean-am
+
+distclean: distclean-am
+	-rm -f Makefile
+distclean-am: clean-am distclean-generic distclean-local
 
 dvi: dvi-am
 
@@ -289,14 +294,14 @@ ps-am:
 
 uninstall-am: uninstall-info-am
 
-.PHONY: all all-am check check-am clean clean-generic distclean \
-	distclean-generic distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-exec \
-	install-exec-am install-info install-info-am install-man \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic pdf pdf-am ps ps-am uninstall uninstall-am \
-	uninstall-info-am
+.PHONY: all all-am check check-am clean clean-generic clean-local \
+	distclean distclean-generic distclean-local distdir dvi dvi-am \
+	html html-am info info-am install install-am install-data \
+	install-data-am install-exec install-exec-am install-info \
+	install-info-am install-man install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
+	pdf-am ps ps-am uninstall uninstall-am uninstall-info-am
 
 
 all:  ccide
@@ -323,14 +328,13 @@ uninstall:
 
 distdir:
 
-check:  test
+#distclean: clean 
+#	rm ccide
 
-test:  ccide
+distclean-local:
+	rm Makefile  
 
-distclean: clean 
-	rm ccide
-
-clean:
+clean-local:
 	rm -f *~ 
 
 .PHONY: check distdir distclean test 

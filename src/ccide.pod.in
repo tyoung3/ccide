@@ -237,6 +237,10 @@ However, the ccide-group variable will not be set.  Highly complex state
 machines depending on N variables can be efficiently defined by using an
 N dimensioned array to contain the state values for N variables. 
 
+For the special case with two rules and one condition, ccide generates
+an if/else statement.  For one rule and one condition, ccide generates
+an if statement.  
+
 See ccidemain.c or one of the '...LANG.d' test case files for examples of decision
 tables.   
 
