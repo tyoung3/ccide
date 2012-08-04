@@ -96,6 +96,7 @@ AC_PATH_PROG(M4, m4)
 
 #  ############Generation############################
 AC_CONFIG_FILES( [autogen.sh], [chmod +x autogen.sh]) 
+AC_CONFIG_FILES( [scripts/check.sh], [chmod +x scripts/check.sh]) 
 
 AC_CONFIG_FILES([Makefile
 		 ccide.spec 

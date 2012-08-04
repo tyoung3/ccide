@@ -60,14 +60,15 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = scripts
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	$(srcdir)/check.sh.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/ccideconfig.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = check.sh
 SOURCES =
 DIST_SOURCES =
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -222,6 +223,8 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+check.sh: $(top_builddir)/config.status $(srcdir)/check.sh.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 uninstall-info-am:
 tags: TAGS
 TAGS:
@@ -304,11 +307,20 @@ uninstall-am: uninstall-info-am
 	pdf-am ps ps-am uninstall uninstall-am uninstall-info-am
 
 
-all:  ccide
+all:  ccide check.sh
 
 # See http://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Installation-Directory-Variables.html#Installation-Directory-Variables
 # for explanation.
 ccide: ccide.in Makefile 
+	rm -f $@ $@.tmp
+	srcdir=''; \
+		test -f ./$@.in || srcdir=$(srcdir)/; \
+		$(edit) $${srcdir}$@.in >$@.tmp     
+	chmod +x $@.tmp
+	chmod a-w $@.tmp
+	mv $@.tmp $@
+
+check.shx: check.sh.in Makefile 
 	rm -f $@ $@.tmp
 	srcdir=''; \
 		test -f ./$@.in || srcdir=$(srcdir)/; \

@@ -101,6 +101,9 @@ check_old:	 testcases
 check:	testcases
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
+distclean-local:
+	rm testcases
+
 cleanx:
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases hw.java  
 

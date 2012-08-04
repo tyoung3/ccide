@@ -68,7 +68,7 @@ CheckExpand() {
 TestCase() {
 	CASE=$1
 	[ -z $1 ] && CASE=calc
-	TDIR=../tests
+	TDIR=@top_srcdir@/tests
 	TINPUT=`ls ../$TDIR/$CASE*.X` || Die Cannot find ../$TDIR/$CASE*.X
 	T=`basename $TINPUT .X`
 	X=`ls $TDIR/$CASE*.d`
@@ -202,10 +202,10 @@ MakeRight() {
 	done
 }
 
-VERSION=0.6.2-8
+VERSION=@VERSION@-@RELEASE@
 [ -d ../tests ] && pushd ../tests 
 [ -d ./tests  ] && pushd ./tests
-#[ -f ../tests/threeway.X ] || echo cannot find ../tests/threeway.X 
+#[ -f @top_srcdir@/tests/threeway.X ] || echo cannot find @top_srcdir@/tests/threeway.X 
 
 case $1 in
 	--help)	Usage;;
