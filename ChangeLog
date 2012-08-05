@@ -1,6 +1,7 @@
 2012-08-04
 	0.6.2-8
 		Improved generated code for the special case of just one condition.
+		Fixed 'make distcheck'
 
 2012-07-26
 	0.6.2-7

@@ -53,6 +53,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
+check_PROGRAMS = if2rpn$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -62,8 +63,21 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/ccideconfig.h
 CONFIG_CLEAN_FILES =
-SOURCES =
-DIST_SOURCES =
+am_if2rpn_OBJECTS = if2rpn.$(OBJEXT) if2rpnq.$(OBJEXT) \
+	if2rpntok.$(OBJEXT)
+if2rpn_OBJECTS = $(am_if2rpn_OBJECTS)
+if2rpn_LDADD = $(LDADD)
+DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/src
+depcomp = $(SHELL) $(top_srcdir)/depcomp
+am__depfiles_maybe = depfiles
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+SOURCES = $(if2rpn_SOURCES)
+DIST_SOURCES = $(if2rpn_SOURCES)
+ETAGS = etags
+CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
@@ -76,7 +90,7 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-CFLAGS = -lmcheck
+CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -181,12 +195,17 @@ target_vendor = @target_vendor@
 #    	Fifth Floor, Boston, MA 02110-1301 USA.
 # ----------------------------------------------- end of legal stuff ---------------------- #
 GCJ = gcj
+# AM_CFLAGS = -lmcheck
+# CFLAGS = 
+# AM_CFLAGS =  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS  -DRELEASE=\"${RELEASE}\"
 CCIDE = $(top_srcdir)/scripts/ccide
-CCIDEW = $(top_srcdir)/src/ccidew
+CCIDEW = $(top_srcdir)/src/ccidew$(EXEEXT)
 GCJDEPMODE = depmode=gcc3
 GCJFLAGS = -g -O2
 am__fastdepGCJ_FALSE = #
 am__fastdepGCJ_TRUE = 
+if2rpn_SOURCES = if2rpn.h if2rpn.c if2rpnq.c if2rpntok.c
+EXTRA_DIST = if2rpn.txt
 DISTCLEANFILES = Makefile
 TEST_CASES = \
        bin2dec	\
@@ -208,6 +227,7 @@ TEST_CASES = \
 all: all-am
 
 .SUFFIXES:
+.SUFFIXES: .c .o .obj
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -237,13 +257,82 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
+
+mostlyclean-compile:
+	-rm -f *.$(OBJEXT)
+
+distclean-compile:
+	-rm -f *.tab.c
+
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/if2rpn.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/if2rpnq.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/if2rpntok.Po@am__quote@
+
+.c.o:
+@am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(COMPILE) -c $<
+
+.c.obj:
+@am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ `$(CYGPATH_W) '$<'`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 uninstall-info-am:
+
+ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
+	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	mkid -fID $$unique
 tags: TAGS
-TAGS:
 
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+		$(TAGS_FILES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	if test -z "$(ETAGS_ARGS)$$tags$$unique"; then :; else \
+	  test -n "$$unique" || unique=$$empty_fix; \
+	  $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
+	    $$tags $$unique; \
+	fi
 ctags: CTAGS
-CTAGS:
+CTAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+		$(TAGS_FILES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
+	unique=`for i in $$list; do \
+	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
+	  done | \
+	  $(AWK) '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(CTAGS_ARGS)$$tags$$unique" \
+	  || $(CTAGS) $(CTAGSFLAGS) $(AM_CTAGSFLAGS) $(CTAGS_ARGS) \
+	     $$tags $$unique
 
+GTAGS:
+	here=`$(am__cd) $(top_builddir) && pwd` \
+	  && cd $(top_srcdir) \
+	  && gtags -i $(GTAGS_ARGS) $$here
+
+distclean-tags:
+	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
 distdir: $(DISTFILES)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
@@ -273,6 +362,7 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 check: check-am
 all-am: Makefile
 installdirs:
@@ -303,11 +393,13 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic mostlyclean-am
+clean-am: clean-checkPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic distclean-local
+distclean-am: clean-am distclean-compile distclean-generic \
+	distclean-local distclean-tags
 
 dvi: dvi-am
 
@@ -330,12 +422,13 @@ install-man:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-generic
+mostlyclean-am: mostlyclean-compile mostlyclean-generic
 
 pdf: pdf-am
 
@@ -347,15 +440,20 @@ ps-am:
 
 uninstall-am: uninstall-info-am
 
-.PHONY: all all-am check check-am clean clean-generic distclean \
-	distclean-generic distclean-local distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-exec install-exec-am install-info \
-	install-info-am install-man install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-info-am
+.PHONY: CTAGS GTAGS all all-am check check-am clean \
+	clean-checkPROGRAMS clean-generic ctags distclean \
+	distclean-compile distclean-generic distclean-local \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-exec \
+	install-exec-am install-info install-info-am install-man \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-info-am
 
+
+if2rpn.txt:
+	cp ${srcdir}/if2rpn.txt .
 
 #%.r : %.r.in 
 #	rm -f $@ $@.tmp
@@ -366,20 +464,20 @@ uninstall-am: uninstall-info-am
 %: %.cpp 
 	${CXX} -g $(CXXFLAGS) $< -o $@ 
 
-%.o: %.c 
+%: %.c 
 	${CC} -g $(CFLAGS) $<  -o $@  
 
-%.c: %.c.d 
-	${CCIDEW} -c 3 -b < $<  2>$@.err  > $@ 
+%.c: ${srcdir}/%.c.d 
+	${CCIDEW} -c 3 -b < ${srcdir}/$<  2>$@.err  > $@ 
 
 %.cpp: %.cpp.d 
-	${CCIDE} -c 3  -b < $< > $@ 
+	${CCIDE} -c 3  -b < ${srcdir}/$< > $@ 
 
 %.java: %.java.d 
-	${CCIDE} -L JAVA -c 3 -b  < $< > $@ 
+	${CCIDE} -L JAVA -c 3 -b  < ${srcdir}/$< > $@ 
 
 %.bash: %.bash.d 
-	${CCIDE} -L BASH -c 3 -b < $< > $@ 
+	${CCIDE} -L BASH -c 3 -b < ${srcdir}/$< > $@ 
 
 %: %.bash
 	ln -sf $< $@
@@ -392,26 +490,21 @@ testcases:   $(srcdir)/threeway.X
 	$(top_srcdir)/scripts/check.sh mkright ${TEST_CASES} \
 	&& touch $@
 
-if2rpn: if2rpn.c  if2rpnq.c if2rpntok.c
-	cc  -g    if2rpn.c if2rpnq.c if2rpntok.c  -o if2rpn
+if2rpn$(EXEEXT): if2rpn.o  if2rpnq.o if2rpntok.o 
+	${CC}  -g   $CFLAGS if2rpn.o if2rpnq.o if2rpntok.o  -o if2rpn
 
 testhuge2:	huge2
 	. huge2.c.opt; ./huge2 $TOPT  
 
-checkx:	testcases
+check:	if2rpn$(EXEEXT)
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
 check_old:	 testcases
 	[ -x $(top_srcdir)/scripts/ccide ] || chmod a+x $(top_srcdir)/scripts/ccide
 	$(top_srcdir)/scripts/check.sh 
 
-check:	testcases
-	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
-
 distclean-local:
-	rm testcases
-
-cleanx:
+	rm -f testcases *~
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases hw.java  
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -35,6 +35,7 @@ man_MANS = ccide.1
 
 CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub 
 
+AM_CFLAGS = -O3  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\" 
 DEBUG =   
 #AM_CFLAGS=@MY_CFLAGS@
 ELEV=elev

@@ -2,4 +2,4 @@
 # TOPT defines fourway execution parameters
 
 OPT="-b -c 4"
-TOPT="f1 f2 f3 f4"
+TOPT="$TDIR/f1 $TDIR/f2 $TDIR/f3 $TDIR/f4"

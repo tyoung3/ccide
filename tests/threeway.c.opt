@@ -1,2 +1,2 @@
-TOPT="f1 f2 f3" 
+TOPT="$TDIR/f1 $TDIR/f2 $TDIR/f3" 
 

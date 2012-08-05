@@ -23,7 +23,7 @@ to STDOUT, generating a compilable C source module. Erratic side effects\
 are avoided by evaluating all condition expressions exactly once and by\
 performing evaluations and actions in the original sequence."
 
-CFLAGS='-O3  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\"'
+# CFLAGS='-O3  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\"'
 
 # Checks for programs.
 AC_PROG_CXX
@@ -39,9 +39,10 @@ AC_PROG_RANLIB
 
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lfl':
-AC_CHECK_LIB([fl], [main])
+#AC_CHECK_LIB([fl], [main])
 # FIXME: Replace `main' with a function in `-lmcheck':
-AC_CHECK_LIB([mcheck], [main])
+#AC_CHECK_LIB([mcheck], [main])
+#AC_CHECK_LIB([mcheck], [main])
 
 # Checks for header files.
 AC_FUNC_ALLOCA

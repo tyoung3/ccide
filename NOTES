@@ -1,4 +1,25 @@
-GCC Vectors:
+D/T references:
+        Semantic D/T http://en.wikipedia.org/wiki/Semantic_decision_table
+        http://comjnl.oxfordjournals.org/content/10/2/135.full.pdf P.J.H. King
+        K ING, P. J. H. (1966). "Conversion of Decision Tables to Computer Programs by Rule Mask Techniques", Comm. ACM, Vol. 9, p. 796.
+        EGLER, J. F. (1963). "A Procedure for Converting Logic Table Conditions into an Efficient Sequence of Test Instructions", Comm. ACM, 			Vol. 6, p. 510.
+        http://www.rand.org/pubs/research_memoranda/RM3306.html FORTAB - scientific D/Ts
+        http://sourceforge.net/projects/decisiontablecr/ D/T Creator
+        http://decisiontables.wikispaces.com/
+        Tools, CASE tools, preprocessors: 9
+        	[1][5][6][76][126][134][304][305][336]
+        	1-Silk COBOL Case Tool 5-Pascal Preprocessor, 76-COPE, B. Dwyer
+        	126-http://shemesh.larc.nasa.gov/tbell-decision-table.html 
+       		 	Hoover, Doug; and Chen, Zewei: TBell: A Mathematical Tool for Analyzing Decision Tables.NASA Contractor Report 				195027, Nov. 1994.  Note: Tbell is now known as TableWise.
+		134-Huellenkremer M., “Computer aided process planning with help of a decision table generator”,
+		304-Sherry L., Hoover D., “FM program: Tablewise project”,
+			http://shemesh.larc.nasa.gov/tbell.html
+		305-Sherry L., Hoover D., “Tablewise”, http://www.oracorp.com:80/tablewise.html
+		336-Tanaka M., Aoyama N., al., “Integration of multiple knowledge representation
+		    classification problems”, Proc. of the 1993 IEEE, p. 448-449.
+
+
+GCC Vectors: 
       ENABLING:
 	Vectorization can be enabled using the command line options -O2 -ftree-vectorize.
 	

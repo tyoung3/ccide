@@ -21,14 +21,8 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the `fl' library (-lfl). */
-#undef HAVE_LIBFL
-
 /* Define to 1 if you have the <libintl.h> header file. */
 #undef HAVE_LIBINTL_H
-
-/* Define to 1 if you have the `mcheck' library (-lmcheck). */
-#undef HAVE_LIBMCHECK
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H

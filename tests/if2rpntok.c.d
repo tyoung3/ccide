@@ -92,32 +92,33 @@ static TYPE GetType() {
 #ifndef PSEUDO_INPUT
 TYPE GetToken() {
 	static STATE s=2;
+
 	//DECISION_TABLE:
 	//   2  3  0  1 | s==$$
 	// _____________________
 	//   X  -  -  - | Setup();
-	//   -  X  -  - | s = (  (in = fopen("./if2rpn.txt","r"))== NULL );
-	//   3  -  9  - | s = $$;
-	//   -  -  -  X | perror("Opening infix.txt"); return 1;
-	//   -  -  X  - | ch=NULL;
-	//   X  X  -  X | goto $@;
+	//   -  -  -  - | s = (  (in = fopen("./if2rpn.txt","r"))== NULL );
+	//   0  -  -  - | s = $$;
+	//   -  -  -  - | perror("Opening infix.txt"); return 1;
+	//   X  -  -  - | ch=NULL;
+	//   -  -  -  - | goto $@;
 	//END_TABLE:
 
     {
 	static STATE s2=2;	
 	//DECISION_TABLE:
-	//   4  2  0  1  -  3  3 | s2==$$
-	//   -  -  -  -  -  N  Y | ch==NULL
+	//   4  2  0  -  3  3 | s2==$$
+	//   -  -  -  -  N  Y | ch==NULL
 	// ___________________________
-	//   -  X  -  -  -  -  - | s2=(fgets(bfr,SIZE,in) == NULL);
-	//   -  -  X  -  -  -  - | ch = strtok(bfr, " \n");
-	//   x  -  -  -  -  -  - | ch = strtok(NULL, " \n");
-	//   3  -  3  -  -  4  2 | s2 = $$; 
-	//   -  -  -  -  -  -  - | ch=NULL;
-	//   -  -  -  -  -  X  X | return GetType();
-	//   -  -  -  -  -  -  - | return SEPARATOR;
-	//   -  -  -  X  X  -  - | return EMPTY;
-	//   x  x  x  -  -  -  - | goto $@;
+	//   -  X  -  -  -  - | s2=(fgets(bfr,SIZE,stdin) == NULL);
+	//   -  -  X  -  -  - | ch = strtok(bfr, " \n");
+	//   x  -  -  -  -  - | ch = strtok(NULL, " \n");
+	//   3  -  3  -  4  2 | s2 = $$; 
+	//   -  -  -  -  -  - | ch=NULL;
+	//   -  -  -  -  X  X | return GetType();
+	//   -  -  -  -  -  - | return SEPARATOR;
+	//   -  -  -  X  -  - | return EMPTY;
+	//   x  x  x  -  -  - | goto $@;
 	//END_TABLE:
 
    }
