@@ -29,6 +29,10 @@
 
 // #define _GNU_SOURCE
 
+/*  For gettext */
+#include "gettext.h"
+#define _(string) gettext (string)
+
 #include <stdio.h>
 #include <stdlib.h>
 #define ThisProgramCanHandleDefaultCases 
@@ -210,9 +214,20 @@ static void SetRuleMap(int nrules) {
 	rulemap[nrules] = -1;
 }
 
-static inline int CountEm(CCIDE_BIT z) {  				 /* Return number of bits */
+/* Return number of bits set in z */
+#ifdef HAVE___BUILTIN_POPCOUNT
+static inline int CountEm(CCIDE_BIT z) {  				
 	return __builtin_popcount ( (unsigned long) z);
 }
+#else
+/* From: http://stackoverflow.com/questions/109023/best-algorithm-to-count-the-number-of-set-bits-in-a-32-bit-integer */
+static int CountEm(CCIDE_BIT n	) {      
+  unsigned int c; // c accumulates the total bits set in n
+  for (c = 0; n; c++) 
+    n &= n - 1; // clear the least significant bit set
+  return c;
+}
+#endif
 
 static inline int YesNoCount(int x) {
 	return CountEm(  ccide.yes[x][0]  |  ccide.no[x][0]  );

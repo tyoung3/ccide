@@ -52,6 +52,14 @@
 #define twy
 #define PARSE_STRING_SIZE 4096
 
+#if 1
+/* For gettext: */
+#include "ccideconfig.h"
+#include <locale.h>
+#include "gettext.h"
+#define _(string) gettext (string)
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -442,45 +450,48 @@ static void SetQdelimit(char *s1, char *s2) {
 static void SetLang(char *s) {
 
         //DECISION_TABLE:
-        //  N - - - - - - - Y - - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //  N - - - - - - - - - - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0
-        //  N - - - - - - - - - - - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0
-        //  N - Y - - - - - - - - - | strcmp(s,"BASH")==0
-        //  N - - Y - - - - - - - - | strcmp(s,"bash")==0
-        //  N - - - Y - - - - - - - | strcmp(s,"QB")==0
-        //  N - - - - Y - - - - - - | strcmp(s,"qb")==0
-        //  N - - - - - - - - - - Y | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //  N - - - - - - - - - Y - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //  N - - - - - Y - - - - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //  N - - - - - - Y - - - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
-        //  N - - - - - - - - Y - - | strcmp(s,"C")==0     || strcmp(s,"c")==0
-        //  _______________________ |_________________________ ___________________
-        //  - X - - - - - - - - - - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
-        //  - - X X - - - - - - - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        //  - - - - X X - - - - - - | lang=QB; 
-        //  - - - - - - X - - - - - | lang=VB; 
-        //  - - - - - - - X - - - - | lang=EX;	 // euphoria 
-        //  - - - - - - - - X - - - | lang=BASIC; 
-        //  - - - - - - - - - - X - | lang=JAVA; 
-        //  - - - - - - - - - - - X | lang=CS;  
-        //  X - - - - - - X - - X X | SetQdelimit("`","\'");     
-        //  X - X X X X X X X - X - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        //   N  -  -  -  -  -  -  -  Y  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
+        //   N  -  Y  -  -  -  -  -  -  -  -  - - | strcmp(s,"BASH")==0
+        //   N  -  -  Y  -  -  -  -  -  -  -  - - | strcmp(s,"bash")==0
+        //   N  -  -  -  Y  -  -  -  -  -  -  - - | strcmp(s,"QB")==0
+        //   N  -  -  -  -  Y  -  -  -  -  -  - - | strcmp(s,"qb")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  Y - | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //   N  -  -  -  -  -  -  -  -  -  Y  - - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
+        //   N  -  -  -  -  -  Y  -  -  -  -  - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
+        //   N  -  -  -  -  -  -  Y  -  -  -  - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //   N  -  -  -  -  -  -  -  -  Y  -  - - | strcmp(s,"C")==0     || strcmp(s,"c")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  - Y | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
+        //  __________________________________________________________________________________________
+        //   -  X  -  -  -  -  -  -  -  -  -  - - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
+        //   -  -  X  X  -  -  -  -  -  -  -  - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
+        //   -  -  -  -  X  X  -  -  -  -  -  - - | lang=QB; 
+        //   -  -  -  -  -  -  X  -  -  -  -  - - | lang=VB; 
+        //   -  -  -  -  -  -  -  X  -  -  -  - - | lang=EX;	 // euphoria 
+        //   -  -  -  -  -  -  -  -  X  -  -  - - | lang=BASIC; 
+        //   -  -  -  -  -  -  -  -  -  -  X  - - | lang=JAVA; 
+        //   -  -  -  -  -  -  -  -  -  -  -  X - | lang=CS;  
+        //   -  -  -  -  -  -  -  -  -  -  -  - - | lang=CC;  
+        //   X  -  -  -  -  -  -  X  -  -  X  X - | SetQdelimit("`","\'");     
+        //   X  -  X  X  X  X  X  X  X  -  X  - - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         //END_TABLE:
+
 
 
 }
 
 static void PrintC(char c) {
 	//DECISION_TABLE:
-	//  1 3 4 5 6 - | columnsize==$$
+	//   1  3  4  5  6  - - | columnsize==$$
 	// ------------ | --------------
-	//  X - - - - - | printf("%c",c);
-	//  - - - - - X | printf(" %c",c);
-	//  - X - - - - | printf("  %c",c);
-	//  - - X - - - | printf("   %c",c);
-	//  - - - X - - | printf("    %c",c);
-	//  - - - - X - | printf("     %c",c);
+	//   X  -  -  -  -  - - | printf("%c",c);
+	//   -  -  -  -  -  X - | printf(" %c",c);
+	//   -  X  -  -  -  - - | printf("  %c",c);
+	//   -  -  X  -  -  - - | printf("   %c",c);
+	//   -  -  -  X  -  - - | printf("    %c",c);
+	//   -  -  -  -  X  - - | printf("     %c",c);
 	//END_TABLE:
+
 
 
 
@@ -497,14 +508,15 @@ static inline long int max( long int a, long int b) {
 static void PrintNum(long n) {
 
 	//DECISION_TABLE:
-	//  2 3 4 5 - - - - - | columnsize==$$
-	//  Y - - - Y N N N N | n<10
-	//  - Y - - N Y N N N | n<100
-	//  - - Y - - - Y N N | n<1000
-	//  - - - Y - - - Y N | n<10000
+	//   2  3  4  5  -  -  -  -  - - | columnsize==$$
+	//   Y  -  -  -  Y  N  N  N  N - | n<10
+	//   -  Y  -  -  N  Y  N  N  N - | n<100
+	//   -  -  Y  -  -  -  Y  N  N - | n<1000
+	//   -  -  -  Y  -  -  -  Y  N - | n<10000
 	// -------------------| ------
-	//  2 3 4 5 2 3 4 5 6 | printf("%$$li", n);
+	//   2  3  4  5  2  3  4  5  6 - | printf("%$$li", n);
 	//END_TABLE:     
+
 
 
 
@@ -520,6 +532,10 @@ int main( int argc, char **argv) {
 
         assert( UINT_MAX == 4294967295UL);
 	lws = Strdup("");
+
+   	setlocale (LC_ALL, "");
+	bindtextdomain (PACKAGE, LOCALEDIR);
+	textdomain (PACKAGE);
 
     while( argc>narg ) { 
 	s1=argv[narg]; ls1=0;
@@ -537,42 +553,43 @@ int main( int argc, char **argv) {
 	}
 
   	//DECISION_TABLE:
-  	//  - - - - - - - - - - Y - - - - - - | Argis(-a)
-  	//  Y - - - - - - - - - - - - - - - - | Argis(-b)
-  	//  - - - - - - - - - - - - Y - - - - | Argis(-c)
-  	//  - - - - - - - - - - - - - - Y - - | Argis(-d)
-  	//  - Y - - - - - - - - - - - - - - - | Argis(-l)
-  	//  - - - - - - - - - - - Y - - - - - | Argis(-L)
-  	//  - - - - - - - - Y - - - - - - - - | Argis(-e)
-  	//  - - - - - - - - - - - - - Y - - - | Argis(-m4)
-  	//  - - Y - - - - - - - - - - - - - - | Argis(-n)
-  	//  - - - - - - - - - - - - - - - - Y | Argis(-p)
-  	//  - - - - - - - - - - - - - - - Y - | Argis(-q)
-  	//  - - - Y - - - - - - - - - - - - - | Argis(-s)
-  	//  - - - - Y - - - - - - - - - - - - | Argis(-t)
-  	//  - - - - - Y - - - - - - - - - - - | Argis(-u)
-  	//  - - - - - - Y - - - - - - - - - - | Argis(-V)
-  	//  - - - - - - - - - Y - - - - - - - | Argis(-x)
+  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - - | Argis(-a)
+  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-b)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - - | Argis(-c)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - - | Argis(-d)
+  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-l)
+  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - - | Argis(-L)
+  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - - | Argis(-e)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - - | Argis(-m4)
+  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-n)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y - | Argis(-p)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - - | Argis(-q)
+  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-s)
+  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-t)
+  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - - | Argis(-u)
+  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  - - | Argis(-V)
+  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - - | Argis(-x)
   	//  _________________________________ | _________
-  	//  X - - - - - - - - - - - - - - - - | notimestamp=1;
-  	//  - X - - - - - - - - - - - - - - - | uselocaltime=1;
-  	//  - - X - - X - - - - - - - - - - - | noinline=1;
-  	//  - - - X - - - - - - - - - - - - - | if(GenSkeleton(argv[narg+1])) narg++;
-  	//  - - - - X - - - - - - - - - - - - | yydebug=1;
-  	//  - - - - - X - - - - - - - - - - - | donotgenerate=1;
-  	//  - - - - - - X - - - - - - - - - - | ShowCopyright(); 
-  	//  - - - - - - - X - - - - - - - - - | Usage();
-  	//  - - - - - - - - X - - - - - - - - | checkequal=0;     // Do Not check for '='.
-  	//  - - - - - - - - - X - - - - - - - | strcat(xstring, "- ");
-  	//  - - - - - - - - - - X - - - - - - | DupeActionIsAnError=0;
-  	//  - - - - - - - - - - - X - - - - - | SetLang(argv[narg+1]); narg++;
-  	//  - - - - - - - - - - - - X - - - - | SetColumn(argv[narg+1]); narg++;
-  	//  - - - - - - - - - - - - - X - - - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
-  	//  - - - - - - - - - - - - - - X - - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
-  	//  - - - - - - - - - - - - - - - X - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
-  	//  - - - - - - - - - - - - - - - - X | SetPrefix(argv[narg+1]); narg++;
-  	//  - - - X - - X X - - - - - - - - - | exit(0); 
+  	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | notimestamp=1;
+  	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | uselocaltime=1;
+  	//   -  -  X  -  -  X  -  -  -  -  -  -  -  -  -  -  - - | noinline=1;
+  	//   -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  - - | if(GenSkeleton(argv[narg+1])) narg++;
+  	//   -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - - | yydebug=1;
+  	//   -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  - - | donotgenerate=1;
+  	//   -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  - - | ShowCopyright(); 
+  	//   -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  - - | Usage();
+  	//   -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  - - | checkequal=0;     // Do Not check for '='.
+  	//   -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - - | strcat(xstring, "- ");
+  	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - - | DupeActionIsAnError=0;
+  	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - - | SetLang(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - - | SetColumn(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X - | SetPrefix(argv[narg+1]); narg++;
+  	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  - - | exit(0); 
   	//END_TABLE:  	
+
 
 
 

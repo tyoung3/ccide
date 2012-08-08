@@ -22,24 +22,20 @@
  
 
 See the accompanying file, COPYING, for terms of use.  
-
-Ccide generates C code from a file containing C code and one or more 
-decision tables.  Using the m4 preprocessor, Ccide can generate code in a number
-of other languages(including JAVA, C++, BASH script, and Euphoria from language 
-files which contain commented decision tables.
-
-Embedded decision tables make programs with if-then-else logic easier to read, 
-thereby helping to prevent logic errors.
+  
+Ccide generate compilable code in a number of languages(including JAVA, C/C++, BASH script, and Euphoria; from a source language file containing one or more commented decision tables.  Decision tables are easier to read than traditional if-then-else structures, thereby helping to prevent logic errors.
  
 See the man page for a complete description or visit
-https://github.com/tyoung3/ccide or https://ccide.sourceforge.com/ for more information.
+http://github.com/tyoung3/ccide or http://ccide.sourceforge.net/ for more information and downloads.
 
 Install Note:
+	Normal procedure is ./configure, make, make check, install. 
 	To rebuild from scratch, run the './autogen.sh' script in the installation
 	directory(contains Makefile.am, etc.) and run 'make'. Run 'make check'
-	to verify your build. 
+	to verify the build.  On Windows systems, you might want to do something like
+	'make DESTDIR=/mingw' to install.
 	Running 'make install', as root, will install ccide without package management.
-	Or, you can build an rpm by running 'make rpm', as root, then installing the rpm.
+	Or, you can build an rpm by running 'make rpm', as root, then install the rpm.
 	The ccide source code itself contains several, previously expanded, decision tables.     
 
 

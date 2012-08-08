@@ -1,3 +1,30 @@
+
+______________________________________________________________________________________________
+In the freshly created po/ directory, set up the POTFILES.in file, and do a “make update-po”. Then distribute the generated .pot file to your nearest translation project.
+Shortly before a release, integrate the translators' .po files into the po/ directory and do “make update-po” again.
+gettextize --copy
+_______________________________________________________________________________
+
+Please create po/Makevars from the template in po/Makevars.template.
+You can then remove po/Makevars.template.
+
+Please fill po/POTFILES.in as described in the documentation.
+
+Please run 'aclocal -I m4' to regenerate the aclocal.m4 file.
+You need aclocal from GNU automake 1.9 (or newer) to do this.
+Then run 'autoconf' to regenerate the configure file.
+
+You might also want to copy the convenience header file gettext.h
+from the /usr/share/gettext directory into your package.
+It is a wrapper around <libintl.h> that implements the configure --disable-nls
+option.
+
+______________________________________________________________________________________________
+Set this up: http://thechangelog.com/post/26561326450/barkeep-the-friendly-code-review-system
+
+See workflowy for notes:
+http://producingoss.com/en/publicity.html
+
 D/T references:
         Semantic D/T http://en.wikipedia.org/wiki/Semantic_decision_table
         http://comjnl.oxfordjournals.org/content/10/2/135.full.pdf P.J.H. King
@@ -20,6 +47,7 @@ D/T references:
 
 
 GCC Vectors: 
+	Probably will not speed up ccide.
       ENABLING:
 	Vectorization can be enabled using the command line options -O2 -ftree-vectorize.
 	
@@ -58,12 +86,11 @@ Makefile and source files > 	(autoscan) 	> configure.scan
 configure.scan 		>	(Manually edit) > configure.in
 
 Makefile.in > (./configure)   > Makefile
-config.h.in > (./configure) [ > C header file ] 	> config.h
+config.h.in > (./configure) [ > C header file ] 	> src/ccideconfig.h
               (./configure) [ > configure.status ]
               (./configure)   > configure.cache
               (./configure)   > configure.log
               (./configure)   > ccide.spec
-
 
 
 Cases:

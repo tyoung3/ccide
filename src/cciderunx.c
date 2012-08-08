@@ -22,6 +22,10 @@
 /* cciderun.c  run time decision tables                                      */
 
  
+/*  For gettext */
+#include "gettext.h"
+#define _(string) gettext (string)
+
 #include <stdlib.h>
 #include "ccide.h"
 #include "ccideparse.h"

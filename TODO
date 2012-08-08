@@ -1,6 +1,13 @@
 TODO: 
-	. Make clean should not remove scripts/ccide. ? I think.
 	. Test Windows/mingw/cygwin.
+	. Fix autogen.sh per http://www.eyrie.org/~eagle/notes/style/build.html
+	    #!/bin/sh
+    		set -e
+    		autoreconf -i --force
+	    rm -rf autom4te.cache
+
+	. Skip pod2man if program missing.  --  Move from makefile to autogen.sh script, somehow.
+	. Move done list to Changelog
 	? Fix ccide for mingw
 		. Problem with  HAVE_MALLOC_H & HAVE_MALLOC
 		. Change assert to ASSERT and define a null macro -- for mingw.
@@ -16,6 +23,7 @@ TODO:
 	. Option to reorganize rules -- i.e.  move decision table colums around.
 	. Option to delete a rule. Can be multiples.
 	. Fix number of spaces for -x option. 
+	. Replace autogen.sh with autoreconf.
 	. Additional languages
 		. Tutorial on adding a new language
 			. Language requirements
@@ -50,6 +58,7 @@ TODO:
 	. Make valgrind clean
 
 DONE:
+	. Make clean should not remove scripts/ccide. ? I think.
 	. Drop a rule with no conditions and no actions.
 	. Use switch/case and default for '// 1 2 3 - |state==$'.
 	. Fixed ccide.in ignores --datatrootdir setting. (Configure message.)

@@ -52,6 +52,14 @@
 #define twy
 #define PARSE_STRING_SIZE 4096
 
+#if 1
+/* For gettext: */
+#include "ccideconfig.h"
+#include <locale.h>
+#include "gettext.h"
+#define _(string) gettext (string)
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -442,50 +450,51 @@ static void SetQdelimit(char *s1, char *s2) {
 static void SetLang(char *s) {
 
         //DECISION_TABLE:
-        //   N  -  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0
-        //   N  -  Y  -  -  -  -  -  -  -  -  - | strcmp(s,"BASH")==0
-        //   N  -  -  Y  -  -  -  -  -  -  -  - | strcmp(s,"bash")==0
-        //   N  -  -  -  Y  -  -  -  -  -  -  - | strcmp(s,"QB")==0
-        //   N  -  -  -  -  Y  -  -  -  -  -  - | strcmp(s,"qb")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //   N  -  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //   N  -  -  -  -  -  Y  -  -  -  -  - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //   N  -  -  -  -  -  -  Y  -  -  -  - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
-        //   N  -  -  -  -  -  -  -  -  Y  -  - | strcmp(s,"C")==0     || strcmp(s,"c")==0
-        //  _______________________ |_________________________ ___________________
-        //   -  X  -  -  -  -  -  -  -  -  -  - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
-        //   -  -  X  X  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        //   -  -  -  -  X  X  -  -  -  -  -  - | lang=QB; 
-        //   -  -  -  -  -  -  X  -  -  -  -  - | lang=VB; 
-        //   -  -  -  -  -  -  -  X  -  -  -  - | lang=EX;	 // euphoria 
-        //   -  -  -  -  -  -  -  -  X  -  -  - | lang=BASIC; 
-        //   -  -  -  -  -  -  -  -  -  -  X  - | lang=JAVA; 
-        //   -  -  -  -  -  -  -  -  -  -  -  X | lang=CS;  
-        //   X  -  -  -  -  -  -  X  -  -  X  X | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  X  X  -  X  - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        //   N  -  -  -  -  -  -  -  Y  -  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
+        //   N  -  Y  -  -  -  -  -  -  -  -  -  - | strcmp(s,"BASH")==0
+        //   N  -  -  Y  -  -  -  -  -  -  -  -  - | strcmp(s,"bash")==0
+        //   N  -  -  -  Y  -  -  -  -  -  -  -  - | strcmp(s,"QB")==0
+        //   N  -  -  -  -  Y  -  -  -  -  -  -  - | strcmp(s,"qb")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //   N  -  -  -  -  -  -  -  -  -  Y  -  - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
+        //   N  -  -  -  -  -  Y  -  -  -  -  -  - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
+        //   N  -  -  -  -  -  -  Y  -  -  -  -  - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //   N  -  -  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"C")==0     || strcmp(s,"c")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
+        //  __________________________________________________________________________________________
+        //   -  X  -  -  -  -  -  -  -  -  -  -  - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
+        //   -  -  X  X  -  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
+        //   -  -  -  -  X  X  -  -  -  -  -  -  - | lang=QB; 
+        //   -  -  -  -  -  -  X  -  -  -  -  -  - | lang=VB; 
+        //   -  -  -  -  -  -  -  X  -  -  -  -  - | lang=EX;	 // euphoria 
+        //   -  -  -  -  -  -  -  -  X  -  -  -  - | lang=BASIC; 
+        //   -  -  -  -  -  -  -  -  -  -  X  -  - | lang=JAVA; 
+        //   -  -  -  -  -  -  -  -  -  -  -  X  - | lang=CS;  
+        //   -  -  -  -  -  -  -  -  -  -  -  -  - | lang=CC;  
+        //   X  -  -  -  -  -  -  X  -  -  X  X  - | SetQdelimit("`","\'");     
+        //   X  -  X  X  X  X  X  X  X  -  X  -  - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
         //END_TABLE:
         //GENERATED_CODE: FOR TABLE_1.
-        //	12 Rules, 12 conditions, and 10 actions.
-        //	Table 1 rule order = 1 9 3 4 5 6 12 11 7 8 10 2 
-         {	unsigned long CCIDE_table1_yes[12]={   0UL,   1UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,   0UL};
-        	unsigned long CCIDE_table1_no[12]= {4095UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL};
+        //	13 Rules, 12 conditions, and 11 actions.
+        //	Table 1 rule order = 1 9 3 4 5 6 12 11 7 8 10 13 2 
+         {	unsigned long CCIDE_table1_yes[13]={   0UL,   1UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,   0UL};
+        	unsigned long CCIDE_table1_no[13]= {4095UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL};
 
 
-        	switch(CCIDEFindRule(12,
+        	switch(CCIDEFindRule(13,
         		  (strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0)
         		| (strcmp(s,"CC")==0    || strcmp(s,"cc")==0)<<1
-        		| (strcmp(s,"C++")==0   || strcmp(s,"c++")==0)<<2
-        		| (strcmp(s,"BASH")==0)<<3
-        		| (strcmp(s,"bash")==0)<<4
-        		| (strcmp(s,"QB")==0)<<5
-        		| (strcmp(s,"qb")==0)<<6
-        		| (strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0)<<7
-        		| (strcmp(s,"JAVA")==0 || strcmp(s,"java")==0)<<8
-        		| (strcmp(s,"VB")==0   || strcmp(s,"vb")==0)<<9
-        		| ((strcmp(s,"EX")==0) || (strcmp(s,"ex")==0))<<10
-        		| (strcmp(s,"C")==0     || strcmp(s,"c")==0)<<11
+        		| (strcmp(s,"BASH")==0)<<2
+        		| (strcmp(s,"bash")==0)<<3
+        		| (strcmp(s,"QB")==0)<<4
+        		| (strcmp(s,"qb")==0)<<5
+        		| (strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0)<<6
+        		| (strcmp(s,"JAVA")==0 || strcmp(s,"java")==0)<<7
+        		| (strcmp(s,"VB")==0   || strcmp(s,"vb")==0)<<8
+        		| ((strcmp(s,"EX")==0) || (strcmp(s,"ex")==0))<<9
+        		| (strcmp(s,"C")==0     || strcmp(s,"c")==0)<<10
+        		| (strcmp(s,"C++")==0   || strcmp(s,"c++")==0)<<11
         		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
         	case  7:	//	Rule 11 
         	    lang=JAVA;
@@ -518,30 +527,34 @@ static void SetLang(char *s) {
         	    lang=CS;
         	    SetQdelimit("`","\'");
         	    break;
-        	case 11:	//	Rule  2 
+        	case 12:	//	Rule  2 
         	    printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
         	    break;
         	case 10:	//	Rule 10 
         	    break;
+        	case 11:	//	Rule 13 
+        	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+
 
 
 }
 
 static void PrintC(char c) {
 	//DECISION_TABLE:
-	//   1  3  4  5  6  - | columnsize==$$
+	//   1  3  4  5  6  -  - | columnsize==$$
 	// ------------ | --------------
-	//   X  -  -  -  -  - | printf("%c",c);
-	//   -  -  -  -  -  X | printf(" %c",c);
-	//   -  X  -  -  -  - | printf("  %c",c);
-	//   -  -  X  -  -  - | printf("   %c",c);
-	//   -  -  -  X  -  - | printf("    %c",c);
-	//   -  -  -  -  X  - | printf("     %c",c);
+	//   X  -  -  -  -  -  - | printf("%c",c);
+	//   -  -  -  -  -  X  - | printf(" %c",c);
+	//   -  X  -  -  -  -  - | printf("  %c",c);
+	//   -  -  X  -  -  -  - | printf("   %c",c);
+	//   -  -  -  X  -  -  - | printf("    %c",c);
+	//   -  -  -  -  X  -  - | printf("     %c",c);
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_2.
+	//WARNING: Dropping rule 7 in table 2. 
 	//	6 Rules, 5 conditions, and 6 actions.
 	 { CCIDE_TABLE_2: switch(columnsize) {	
 		case 6:		//  Rule  5  
@@ -564,7 +577,8 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+
 
 
 
@@ -581,15 +595,16 @@ static inline long int max( long int a, long int b) {
 static void PrintNum(long n) {
 
 	//DECISION_TABLE:
-	//   2  3  4  5  -  -  -  -  - | columnsize==$$
-	//   Y  -  -  -  Y  N  N  N  N | n<10
-	//   -  Y  -  -  N  Y  N  N  N | n<100
-	//   -  -  Y  -  -  -  Y  N  N | n<1000
-	//   -  -  -  Y  -  -  -  Y  N | n<10000
+	//   2  3  4  5  -  -  -  -  -  - | columnsize==$$
+	//   Y  -  -  -  Y  N  N  N  N  - | n<10
+	//   -  Y  -  -  N  Y  N  N  N  - | n<100
+	//   -  -  Y  -  -  -  Y  N  N  - | n<1000
+	//   -  -  -  Y  -  -  -  Y  N  - | n<10000
 	// -------------------| ------
-	//   2  3  4  5  2  3  4  5  6 | printf("%$$li", n);
+	//   2  3  4  5  2  3  4  5  6  - | printf("%$$li", n);
 	//END_TABLE:     
 	//GENERATED_CODE: FOR TABLE_3.
+	//WARNING: Dropping rule 10 in table 3. 
 	//	9 Rules, 8 conditions, and 5 actions.
 	//	Table 3 rule order = 8 9 7 1 2 5 6 3 4 
 	 {	unsigned long CCIDE_table3_yes[9]={ 128UL,   0UL,  64UL,  17UL,  34UL,  16UL,  32UL,  68UL, 136UL};
@@ -627,7 +642,8 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+
 
 
 
@@ -643,6 +659,10 @@ int main( int argc, char **argv) {
 
         assert( UINT_MAX == 4294967295UL);
 	lws = Strdup("");
+
+   	setlocale (LC_ALL, "");
+	bindtextdomain (PACKAGE, LOCALEDIR);
+	textdomain (PACKAGE);
 
     while( argc>narg ) { 
 	s1=argv[narg]; ls1=0;
@@ -660,43 +680,44 @@ int main( int argc, char **argv) {
 	}
 
   	//DECISION_TABLE:
-  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - | Argis(-a)
-  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-b)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - | Argis(-c)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - | Argis(-d)
-  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-l)
-  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - | Argis(-L)
-  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - | Argis(-e)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - | Argis(-m4)
-  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-n)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y | Argis(-p)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - | Argis(-q)
-  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-s)
-  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-t)
-  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)
-  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  - | Argis(-V)
-  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - | Argis(-x)
+  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - | Argis(-a)
+  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-b)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - | Argis(-c)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - | Argis(-d)
+  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-l)
+  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - | Argis(-L)
+  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  - | Argis(-e)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - | Argis(-m4)
+  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-n)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - | Argis(-p)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - | Argis(-q)
+  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-s)
+  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-t)
+  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)
+  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - | Argis(-V)
+  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - | Argis(-x)
   	//  _________________________________ | _________
-  	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | notimestamp=1;
-  	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | uselocaltime=1;
-  	//   -  -  X  -  -  X  -  -  -  -  -  -  -  -  -  -  - | noinline=1;
-  	//   -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  - | if(GenSkeleton(argv[narg+1])) narg++;
-  	//   -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - | yydebug=1;
-  	//   -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  - | donotgenerate=1;
-  	//   -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  - | ShowCopyright(); 
-  	//   -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  - | Usage();
-  	//   -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  - | checkequal=0;     // Do Not check for '='.
-  	//   -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - | strcat(xstring, "- ");
-  	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - | DupeActionIsAnError=0;
-  	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - | SetLang(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - | SetColumn(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X | SetPrefix(argv[narg+1]); narg++;
-  	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  - | exit(0); 
+  	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | notimestamp=1;
+  	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | uselocaltime=1;
+  	//   -  -  X  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - | noinline=1;
+  	//   -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  - | if(GenSkeleton(argv[narg+1])) narg++;
+  	//   -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  - | yydebug=1;
+  	//   -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - | donotgenerate=1;
+  	//   -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  - | ShowCopyright(); 
+  	//   -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  - | Usage();
+  	//   -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  - | checkequal=0;     // Do Not check for '='.
+  	//   -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  - | strcat(xstring, "- ");
+  	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - | DupeActionIsAnError=0;
+  	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - | SetLang(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - | SetColumn(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - | SetPrefix(argv[narg+1]); narg++;
+  	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  -  - | exit(0); 
   	//END_TABLE:  	
   	//GENERATED_CODE: FOR TABLE_4.
+  	//WARNING: Dropping rule 18 in table 4. 
   	//	17 Rules, 16 conditions, and 18 actions.
   	//	Table 4 rule order = 11 1 13 15 2 12 9 14 3 17 16 4 5 6 7 10 8 
   	 {	unsigned long CCIDE_table4_yes[17]={   1UL,   2UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,4096UL,8192UL,16384UL,32768UL,   0UL};
@@ -777,7 +798,8 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.2-7 Thu Aug  2 15:00:34 2012 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+
 
 
 

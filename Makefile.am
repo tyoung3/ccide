@@ -30,16 +30,19 @@
 #If the maintainer built it (for instance, a .info file), then maintainer-clean should delete it. However maintainer-clean should not delete
 # anything that needs to exist in order to run ‘./configure && make
 
+
+## DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
 RH=/usr/src/rpm
 TARBALL= $(distdir).tar.gz
 CYGWIN_TARBALL= $(distdir).tar.bz2
 CYGWIN_SOURCE_TARBALL= $(distdir)-src.tar.bz2
 
 # DIST_SUBDIRS = lib src tests examples CYGWIN-PATCHES 
-SUBDIRS = src scripts tests
+SUBDIRS = scripts src po tests 
 
 # Required for 'make clean', etc.: 
-DIST_SUBDIRS = src scripts tests
+DIST_SUBDIRS = scripts src po tests
 #DIST_SUBDIRS = src tests examples CYGWIN-PATCHES
 #DIST_SUBDIRS = src examples CYGWIN-PATCHES
 
@@ -120,3 +123,7 @@ MAINTAINERCLEANFILES =   \
   missing                \
   mkinstalldirs          \
   ccide.spec		
+
+ACLOCAL_AMFLAGS = -I m4
+
+# EXTRA_DIST = config.rpath

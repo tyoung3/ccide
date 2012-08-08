@@ -119,6 +119,12 @@ if [ "$CCIDELANG" == "BASH" ];  then
 	      DELIM="-d '[[' ']]'" 
 fi
 
+if [ "$CCIDELANG" == "C++" ];  then
+	$CCIDEW -L $CCIDELANG $WC	\
+	| @M4@ "$M4DIR/ccide-$CCIDELANG.m4" "-"
+	exit $?
+fi
+
 if [ ! -f "$M4DIR/ccide-$CCIDELANG.m4" ]; then
 	@ECHO@ "$M4DIR/ccide-$CCIDELANG.m4 not found"
 	exit 1 

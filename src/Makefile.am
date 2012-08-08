@@ -31,13 +31,14 @@
 AUTOMAKE_OPTIONS=
 RUNTESTDEFAULTFLAGS = --tool ccide CCIDE=`pwd`/ccide --outdir /tmp --srcdir ./tests
 
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
 man_MANS = ccide.1
 
 CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub 
 
 AM_CFLAGS = -O3  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\" 
 DEBUG =   
-#AM_CFLAGS=@MY_CFLAGS@
 ELEV=elev
 CCIDE=${PACKAGE}
 PARSE=${PACKAGE}parse
@@ -49,10 +50,8 @@ CCIDE_DIR=$(distdir)
 
 ##automake standard names:
 bin_PROGRAMS = ccidew
-#bin_SCRIPTS = ccide
  
-ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  $(srcdir)/ccide.pod  ccide.h parse.h
-# ccide_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  ccide.pod  ccide.h parse.h
+ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  $(srcdir)/ccide.pod  ccide.h parse.h gettext.h
 
 #Bison Flags  ( -y added by autoconf )
 AM_YFLAGS = -d -l -v
