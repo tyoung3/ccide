@@ -1,10 +1,6 @@
-2012-08-09  gettextize  <bug-gnu-gettext@gnu.org>
-
-	* Makefile.am (SUBDIRS): Remove intl.
-	(DIST_SUBDIRS): Remove intl.
-
-2012-08-07
+2012-08-09  
 	0.6.3-1
+		.  Internationalization framework.
 		.  Mingw install: 'make DESTDIR=/mingw install'
 		.  gettextize -- Automake changes for gettext NLS translation.
 		.  Fix C++ invocation so that ccide -L C++ < SOURCE.c.d does not cause error message.
