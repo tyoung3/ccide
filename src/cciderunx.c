@@ -21,11 +21,6 @@
 
 /* cciderun.c  run time decision tables                                      */
 
- 
-/*  For gettext */
-#include "gettext.h"
-#define _(string) gettext (string)
-
 #include <stdlib.h>
 #include "ccide.h"
 #include "ccideparse.h"
@@ -37,6 +32,8 @@
 
 int ccide_group=1;
 
+/** Return number of the first matching rule in a D/T.
+ */
 int CCIDEFindRule(               /* Return rule number */
 	int nbrrules,
 	unsigned long ccide_table, 
@@ -56,7 +53,8 @@ int CCIDEFindRule(               /* Return rule number */
 
 	return r;
 }
-
+/** Find first matching rule in a D/T, which has no 'N' condition entries.
+ */
 int CCIDEFindRuleYes(		/* Return rule number */
 	int nbrrules,
         unsigned long ccide_table,

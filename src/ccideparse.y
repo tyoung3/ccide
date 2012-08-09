@@ -104,15 +104,17 @@ void warning2( char *s, char *t);
 #define EOS '\0'
 
 void fatal(char *s);
-static int columnsize=3;
-// static int skelsize=1; 		/* Size of skeleton decision table */
-static void SetNbrRules(int n);
+static int columnsize=3;		/* Decision table spacing		*/
+// static int skelsize=1; 		/* Size of skeleton decision table 	*/
+static void SetNbrRules(int n);		
 static void PrintC(char c);
 static inline long int max( long int a, long int b);
 static void PrintNum(long int n);
 static char pGroup[100];
 static int logCond=FALSE;
 
+/** Strip trailing whitespace 
+ */
 char *StripTrail(char *s) {
 	int l;
 	char *s1;
@@ -185,7 +187,7 @@ conds:    /* Null */
 		PrintNum( (long) $2);
 		logCond = TRUE;
 		nrules++; 
-	};
+	}; 
 
 act:  ACT {
 		/* printf(" "); */
@@ -294,18 +296,6 @@ int lineno = 0 ;
 
 /*  ---------------   */
 
-/*
-** #ifndef  twy
-** int yylex( void ) {
-**        int c;
-** 
-**     c = lex();
-**     return c;
-** }
-** #endif
-*/
-/*  ---------------   */
-
 /*-------------------------------------------------------------------
 **  WARNING
 */
@@ -324,6 +314,8 @@ void warning2( char *s, char *t)
 #include <limits.h>
 #endif
 
+/** Check number of rules equal to number in the first D/T statement.
+ */ 
 static void SetNbrRules(int n) {
 
 	DISPLAY(SetNbrRules);
@@ -341,7 +333,8 @@ static void SetNbrRules(int n) {
 	DISPLAY(End SetNbrRules);
 }
 
-	/* Set Prefix */
+	/** Set Prefix for D/T output.
+        */
 static void SetPrefix(char *s) {
 	char *s1;
 	const char *const_1={_("Prefix longer than 30 bytes.")};
@@ -386,7 +379,8 @@ static void SetColumn(char *s) {
 		columnsize = 4;
 }
 
-
+/** Ensure delimiters are orthogonal. 
+ */ 
 int DelimitCheck(char *s1, char *s2) {
 	if( strcmp(s1,s2) == 0 ) {
 		fprintf(stderr,_("CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,%s) \n"),
@@ -396,7 +390,8 @@ int DelimitCheck(char *s1, char *s2) {
 	return 0;
 }
 
-	/* Check delimiters */
+	/* Check delimiters 
+	 */
 static int DelimitEq(char *s1, char *s2) {
 
 	if( (s1==NULL) || (s2==NULL) ) {
@@ -416,7 +411,8 @@ static int DelimitEq(char *s1, char *s2) {
 	return 0;
 }
 
-	/* Set stub substition strings. */
+	/* Set stub substition strings. 
+         */
 static void SetDelimit(char *s1, char *s2) {
 
 	if(DelimitEq(s1, s2))
@@ -428,7 +424,8 @@ static void SetDelimit(char *s1, char *s2) {
 	svar2=s2;
 }
 
-	/* Set m4 delimiters */
+	/* Set m4 delimiters 
+	 */
 static void SetQdelimit(char *s1, char *s2) {
 
 	if(DelimitEq(s1, s2))
@@ -442,7 +439,8 @@ static void SetQdelimit(char *s1, char *s2) {
 }
 
 
-	/* Set computer language */
+	/* Set computer language 
+         */
 static void SetLang(char *s) {
 
         //DECISION_TABLE:
@@ -532,16 +530,18 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 06:37:53 PM EDT 
 
 
 
 }
 
+/** Print character adjusting for column width.
+ */
 static void PrintC(char c) {
 	//DECISION_TABLE:
 	//   1  3  4  5  6  -  - | columnsize==$$
-	// ------------ | --------------
+	//   ____________________________________
 	//   X  -  -  -  -  -  - | printf("%c",c);
 	//   -  -  -  -  -  X  - | printf(" %c",c);
 	//   -  X  -  -  -  -  - | printf("  %c",c);
@@ -573,14 +573,11 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
-
-
-
-
-
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 06:37:53 PM EDT 
 }
 
+/** Compute maximum of two values.
+ */
 static inline long int max( long int a, long int b) {
 
 	if( b > a) 
@@ -588,6 +585,8 @@ static inline long int max( long int a, long int b) {
 	return a;
 }
 
+/** Print number adjusting for column width.
+ */
 static void PrintNum(long n) {
 
 	//DECISION_TABLE:
@@ -596,7 +595,7 @@ static void PrintNum(long n) {
 	//   -  Y  -  -  N  Y  N  N  N  - | n<100
 	//   -  -  Y  -  -  -  Y  N  N  - | n<1000
 	//   -  -  -  Y  -  -  -  Y  N  - | n<10000
-	// -------------------| ------
+	//   ______________________________________
 	//   2  3  4  5  2  3  4  5  6  - | printf("%$$li", n);
 	//END_TABLE:     
 	//GENERATED_CODE: FOR TABLE_3.
@@ -638,16 +637,13 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
-
-
-
-
-
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 06:37:53 PM EDT 
 }
 
 #define Argis(P) strcmp( #P, argv[narg]) == 0 
 
+/** ccide main entry point. 
+ */
 int main( int argc, char **argv) {
 	int narg=1;
 	char *s1, *tdomain, *tdir;
@@ -696,7 +692,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)
   	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - | Argis(-V)
   	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - | Argis(-x)
-  	//  _________________________________ | _________
+  	//  ________________________________________________________________
   	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | notimestamp=1;
   	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | uselocaltime=1;
   	//   -  -  X  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - | noinline=1;
@@ -798,11 +794,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
-
-
-
-
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 06:37:53 PM EDT 
 
 	narg++;
     }

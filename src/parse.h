@@ -21,7 +21,6 @@
 #ifndef PARSE__H
 #define PARSE__H
 
-
 /* ccidelex.c */
 extern int nbrcstubs;  /* Number of condition stubs */
  

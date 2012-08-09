@@ -45,10 +45,11 @@ int  nbrcstubs=0;	/* Number of condition stub statements. */
 static int lineno = 1;
 void yyerror(const char *s);
 
+/* Set beginning of a decision table. 
+ */
 void SetTable() {
                 lineno++;
 		SaveLeadingWhiteSpace(yytext);
-/*		printf("%s%s%s%s\n", lws, pComment, "DECISION_TABLE:", pEcomment);*/
 		printf("%s",yytext);
 }
 
@@ -367,7 +368,8 @@ void SetTable() {
 	};
 
 %%
-
+/* Issue parse error message.
+ */
 void yyerror(const char *s) {
 	static int count=0;
 
@@ -383,10 +385,14 @@ void yyerror(const char *s) {
 	}
 }
 
+/* Issue parse warning message.
+ */
 void warning( const char *s ) {
         fprintf(stderr,"%s: WARNING at line %i: %s\n", PGMNAME, lineno, s);
 }
 
+/* Allow buffer switch.
+ */
 int yywrap() {
         return(1);
 }

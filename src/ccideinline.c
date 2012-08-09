@@ -32,8 +32,10 @@
 #define J_(L) printf("%s %c",_(L),'\n');
 #define J(L) printf("%s %c",L,'\n');
 
-char *slang="";
+char *slang="";   /* D/T file source language: C, C++, etc. /*
 
+/** Print 'Generated Code' message.
+ */
 void GenInLineCode(char *s) {
 
 	if( noinline ) 
@@ -101,7 +103,8 @@ printf("%sEND_GENERATED_CODE: %s\n",pComment,pEcomment);
 
 }   /* End of GenInLineCode() */
 
-
+/** Output D/T skeleton code.
+ */
 int GenSkeleton(char *s) {
 	int i,j,skelsize=4,size,RC=0;
 	char *sep=" ";
@@ -224,7 +227,7 @@ for(j=1;j<skelsize;j++) {
            printf("%s", bar);		
         }
 
-printf("__|_____ %s\n", pEcomment);
+printf("_______________ %s\n", pEcomment);
 
 for(i=0;i<skelsize;i++) {
 	printf("\t%s  ",pComment);
@@ -260,6 +263,8 @@ printf(_("%sEnd of Skeleton Program.%s\n"), pComment, pEcomment);
 	return RC;
 }   /* End of GenSkeleton */
 
+/** Show program usage.  Popt is not used to reduce library dependencies.
+ */
 void Usage() {
 
 J("Usage:")
@@ -273,6 +278,8 @@ J("	          [-s SKELSIZE][-t] [-u] [-x] < STDIN > STDOUT")
         RC=1; exit(1);
 }
 
+/** Print Copyright information.
+ */
 void ShowCopyright() {
 
 printf("    ccidew version %s-%s, Copyright (C) 2002-2004,2010,2012 Thomas W. Young, e-mail ccide@twyoung.com\n",
