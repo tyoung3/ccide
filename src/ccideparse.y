@@ -262,20 +262,17 @@ start:	TSTART {
 
 end:	TEND {
 	  if(nbrrules > CCIDE_NRULE) {
-		/* yyerror( "Excessive number of rules.");  */
-		ERROR3("%i exceeds the maximum number of rules  %i.", 
+		ERROR3(_("%i exceeds the maximum number of rules  %i."), 
 			 nbrrules, CCIDE_NRULE);
 		nbrrules = CCIDE_NRULE;
 	  }
 	  if(nactions > CCIDE_NACTION) {
-		/* yyerror( "Excessive number of actions.");  */
-		ERROR3("%i exceeds the maximum number of actions %i.", 
+		ERROR3(_("%i exceeds the maximum number of actions %i."), 
 			 nactions, CCIDE_NACTION);
 		nactions = CCIDE_NACTION;
 	  }
 	  if(nconds > CCIDE_NCOND) {
-		/* yyerror( "Excessive number of conditions.");  */
-		ERROR3("%i exceeds the maximum number of conditions %i.", 
+		ERROR3(_("%i exceeds the maximum number of conditions %i."), 
 			 nconds, CCIDE_NCOND);
 		nconds = CCIDE_NCOND;
 	  }
@@ -335,7 +332,7 @@ static void SetNbrRules(int n) {
 	} else {
 		if( nbrrules != n ) {
 			/* yyerror( "Inconsistent number of rules."); */
-			ERROR3("%i rules, instead of %i.", 
+			ERROR3(_("%i rules, instead of %i."), 
 				n, nbrrules);
 		}
 	}
@@ -347,7 +344,7 @@ static void SetNbrRules(int n) {
 	/* Set Prefix */
 static void SetPrefix(char *s) {
 	char *s1;
-	const char *const_1={"Prefix longer than 30 bytes."};
+	const char *const_1={_("Prefix longer than 30 bytes.")};
 	if(strlen(s) > 30) {
 		fprintf(stderr,const_1);
 		return;
@@ -367,7 +364,7 @@ static void SetPrefix(char *s) {
 		  ) { 
 			s1++;
 		} else {
-			fprintf(stderr,"Prefix contains illegal characters bytes.");
+			fprintf(stderr,_("Prefix contains illegal characters bytes."));
 			return;
 		}
 	}
@@ -392,7 +389,7 @@ static void SetColumn(char *s) {
 
 int DelimitCheck(char *s1, char *s2) {
 	if( strcmp(s1,s2) == 0 ) {
-		fprintf(stderr,"CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,%s) \n",
+		fprintf(stderr,_("CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,%s) \n"),
 			s1,qt1,qt2,svar1,svar2); 
 		return 1;
 	}
@@ -403,7 +400,7 @@ int DelimitCheck(char *s1, char *s2) {
 static int DelimitEq(char *s1, char *s2) {
 
 	if( (s1==NULL) || (s2==NULL) ) {
-		fprintf(stderr,"NULL Delimiter\n"); 
+		fprintf(stderr,_("NULL Delimiter\n")); 
 		return 1;
 	}
 
@@ -462,7 +459,7 @@ static void SetLang(char *s) {
         //   N  -  -  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"C")==0     || strcmp(s,"c")==0
         //   N  -  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
         //  __________________________________________________________________________________________
-        //   -  X  -  -  -  -  -  -  -  -  -  -  - | printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
+        //   -  X  -  -  -  -  -  -  -  -  -  -  - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
         //   -  -  X  X  -  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
         //   -  -  -  -  X  X  -  -  -  -  -  -  - | lang=QB; 
         //   -  -  -  -  -  -  X  -  -  -  -  -  - | lang=VB; 
@@ -527,7 +524,7 @@ static void SetLang(char *s) {
         	    SetQdelimit("`","\'");
         	    break;
         	case 12:	//	Rule  2 
-        	    printf("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n", s); Usage();
+        	    printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
         	    break;
         	case 10:	//	Rule 10 
         	    break;
@@ -535,7 +532,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
 
 
 
@@ -576,7 +573,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
 
 
 
@@ -641,7 +638,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
 
 
 
@@ -661,10 +658,10 @@ int main( int argc, char **argv) {
 
    	setlocale (LC_ALL, "");
 	if(  (tdir=bindtextdomain (PACKAGE, LOCALEDIR)) == NULL) {
-		perror("Binding gettext");     /// Translate this.
+		perror(_("Binding gettext"));    
 	};
 	if(  (tdomain=textdomain (PACKAGE)) == NULL) {
-		perror("Getting textdomain");  /// Translate this.
+		perror(_("Getting textdomain"));  
 	}
 
     while( argc>narg ) { 
@@ -678,7 +675,7 @@ int main( int argc, char **argv) {
 
 	if( ls1 >= MAXARG) {
 		argv[narg+MAXARG] = 0;
-		fprintf(stderr, "Parameter %i is too long.\n", narg);
+		fprintf(stderr, _("Parameter %i is too long.\n"), narg);
 		exit(1);
 	}
 
@@ -801,7 +798,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 01:05:13 PM EDT 
 
 
 

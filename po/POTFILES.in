@@ -1,2 +1,4 @@
 # List of source files which contain translatable strings.
 src/ccideinline.c
+src/ccideparse.c
+src/ccidemain.c

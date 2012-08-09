@@ -1,1 +1,3 @@
-     ../src/ccideinline.c
+     ../src/ccideinline.c \
+     ../src/ccideparse.c \
+     ../src/ccidemain.c

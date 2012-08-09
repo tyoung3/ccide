@@ -31,16 +31,5 @@
 set -e				\
 &&./scripts/check.sh mkam	\
 && autoreconf -i --force	\
-&&rm -rf autom4te.cache
-exit $?
-
-aclocal 			\
-&&./scripts/check.sh mkam	\
-&&autoconf -Wall		\
-&&autoheader 			\
-&& automake --add-missing 	\
-&& ./configure	
-
-# gettextize --copy            \
-# &&libtoolize --automake				
+&&rm -rf autom4te.cache		
 

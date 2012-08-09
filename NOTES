@@ -1,5 +1,7 @@
 
 . http://translationproject.org/html/maintainers.html  Send tarball link for translation.
+	TARBALL:  http://sourceforge.net/projects/ccide/files/ccide-0.6.3-1.tar.gz/download
+     rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po
 
 PRESS RELEASE:
 	https://github.com/tyoung3/ccide/wiki/Press-Release•
@@ -36,6 +38,13 @@ with `mingw-get install mingw32-gettext'.
 . Publicize.
 	. README.md for GitHub
 . Name from Ccide to Ccidew in error messages. w/version. >??
+
+Choice of input file language:  [ from xgettext ]  Use these for ccide.
+       -L, --language=NAME
+              recognise  the  specified  language  (C,  C++,  ObjectiveC,  PO,  Shell, Python, Lisp, EmacsLisp, librep, Scheme,
+              Smalltalk, Java, JavaProperties, C#, awk, YCP, Tcl, Perl, PHP, GCC-source, NXStringTable, RST, Glade)
+
+
 ______________________________________________________________________________________________
 In the freshly created po/ directory, set up the POTFILES.in file, and do a “make update-po”. Then distribute the generated .pot file to your nearest translation project.
 Shortly before a release, integrate the translators' .po files into the po/ directory and do “make update-po” again.

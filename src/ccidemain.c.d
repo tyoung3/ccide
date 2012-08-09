@@ -27,8 +27,6 @@
 
         /* ********************  Includes *********************/
 
-// #define _GNU_SOURCE
-
 /*  For gettext */
 #include "gettext.h"
 #define _(string) gettext (string)
@@ -170,7 +168,7 @@ char *FindCaseValue( int nrule) {
 		c++;
 
 	if(!foundit) {
-		ERROR3( "Cannot find case value for rule %i%s\n", 
+		ERROR3( _("Cannot find case value for rule %i%s\n"), 
 			nrule, "");
 		return "ERROR";
 	}
@@ -506,7 +504,7 @@ static void CompareRules(int r1, int r2) {
 	}
 
 	if(diff == 0 ) {
-		ERROR3( "Rule %i conflicts with rule %2i\n", 
+		ERROR3( _("Rule %i conflicts with rule %2i\n"), 
 			remap[r1], remap[r2]);
 	}
 }
@@ -538,7 +536,7 @@ static void Overlap( int r1, int r2) {
 	}
 
 	if(eq1 || eq2 ) {
-		ERROR3("Rules %2i and  %2i overlap.\n",
+		ERROR3(_("Rules %2i and  %2i overlap.\n"),
 			remap[r1], remap[r2]);
 	}
 }
@@ -595,7 +593,7 @@ void SaveLeadingWhiteSpace(char *s1) {
 	free(lws);
 	{ 	register int i=s-s1;
 		if( (lws = (char *) malloc (i + 1)) == NULL) {
-			perror("Allocating leading white space");
+			perror(_("Allocating leading white space"));
 		};
 		memcpy(lws, s1, i);
 		lws[i] = '\0';
@@ -630,7 +628,7 @@ void CheckEqual(char *cstub, int ncond) {
 			   ) {
 				c1++;
 			} else {
-				ERROR3("%s '=' error in condition expression %i",
+				ERROR3(_("%s '=' error in condition expression %i"),
 				cstub, ncond+1);
 			}
 		}
@@ -652,7 +650,7 @@ void SetCSTUB( int ncond, char *cstub ) {
 
 	for(i=0; i<ncond;i++) {
 		if( strcmp(cstub,ccide.conccideable[i]) == 0) {
-			ERROR3("%s is the same as condition %i",
+			ERROR3(_("%s is the same as condition %i"),
 			   cstub, i+1);
 		}
 	}
@@ -725,7 +723,7 @@ void SetASTUB( int n, char *stub ) {
 			&& (strcmp(stub,ccide.actiontable[i])==0) 
 			&& DupeActionIsAnError
 		  ) {
-			ERROR3("%s is the same as action %i",
+			ERROR3(_("%s is the same as action %i"),
 				stub,i+1);
 		}
 		i++;
