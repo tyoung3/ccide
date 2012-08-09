@@ -1,16 +1,16 @@
-2012-08-07  gettextize  <bug-gnu-gettext@gnu.org>
+2012-08-09  gettextize  <bug-gnu-gettext@gnu.org>
 
-	* m4/gettext.m4: New file, from gettext-0.17.
-	* m4/iconv.m4: New file, from gettext-0.17.
-	* m4/lib-ld.m4: New file, from gettext-0.17.
-	* m4/lib-link.m4: New file, from gettext-0.17.
-	* m4/lib-prefix.m4: New file, from gettext-0.17.
-	* m4/nls.m4: New file, from gettext-0.17.
-	* m4/po.m4: New file, from gettext-0.17.
-	* m4/progtest.m4: New file, from gettext-0.17.
-	* Makefile.am (ACLOCAL_AMFLAGS): New variable.
-	(EXTRA_DIST): New variable.
-	* configure.ac (AC_CONFIG_FILES): Add po/Makefile.in.
+	* Makefile.am (SUBDIRS): Remove intl.
+	(DIST_SUBDIRS): Remove intl.
+
+2012-08-07
+	0.6.3-1
+		.  Mingw install: 'make DESTDIR=/mingw install'
+		.  gettextize -- Automake changes for gettext NLS translation.
+		.  Fix C++ invocation so that ccide -L C++ < SOURCE.c.d does not cause error message.
+		.  Changed configure to not delete the ccide man page from the build.
+		.  Issued Press Release: https://github.com/tyoung3/ccide/wiki/Press-Release 
+		.  Autogen.sh invokes autoreconf but not configure.  Configure must be run separately.
 
 2012-08-04
 	0.6.2-9

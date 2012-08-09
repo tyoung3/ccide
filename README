@@ -29,14 +29,16 @@ See the man page for a complete description or visit
 http://github.com/tyoung3/ccide or http://ccide.sourceforge.net/ for more information and downloads.
 
 Install Note:
-	Normal procedure is ./configure, make, make check, install. 
+	Normal procedure is configure, make check, install. 
+	Use ./configure --disable-nls  if the libintl is not available.
 	To rebuild from scratch, run the './autogen.sh' script in the installation
-	directory(contains Makefile.am, etc.) and run 'make'. Run 'make check'
-	to verify the build.  On Windows systems, you might want to do something like
-	'make DESTDIR=/mingw' to install.
-	Running 'make install', as root, will install ccide without package management.
-	Or, you can build an rpm by running 'make rpm', as root, then install the rpm.
-	The ccide source code itself contains several, previously expanded, decision tables.     
+	directory(contains Makefile.am, etc.) and run 'make'.  You may need a working
+	version of ccide to regenerate ccide ccideparse.y and ccidemain.c as
+	the ccide source code itself contains several, previously expanded, decision tables. 
 
+	Running 'make install' will install ccide without package management.	
+	On Windows systems, you will want to do something like
+	'make DESTDIR=/mingw install' to install.
 
-
+	You can build an rpm by running 'make rpm' then install the rpm, as root.    
+	

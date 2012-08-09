@@ -31,7 +31,7 @@ Ccide generates a compilable source file with verified, expanded,  decision logi
 
 =head1 SYNOPSIS
 
-B<ccide> [ -a] [-b] [-c COLSIZE] [-d SUBSTITUTE_STRING1 SUBSTITUTE_STRING2 ] [-e] [-l] [-L C|CC|CH|CS|BASH|BASIC|EX|JAVA|VB|QB] 
+B<ccide> [ -a] [-b] [-c COLSIZE] [-d SUBSTITUTE_STRING1 SUBSTITUTE_STRING2 ] [-e] [-l] [-L C|C++|CC|CH|CS|BASH|BASIC|EX|JAVA|VB|QB] 
 		 [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] [-s SKELSIZE] [-t] 
  		 [-u] [-x] < FILEIN > FILEOUT  
 

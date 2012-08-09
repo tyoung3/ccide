@@ -1,4 +1,41 @@
 
+. http://translationproject.org/html/maintainers.html  Send tarball link for translation.
+
+PRESS RELEASE:
+	https://github.com/tyoung3/ccide/wiki/Press-Release•
+	Publish in these places:
+		. localnews@scni.com Advocate DONE
+		. localnews@scni.com <Advocate>  8/7/2012
+		. https://github.com/tyoung3/ccide/wiki/Press-Release DONE 8/7/2012
+		. Softpedia  8/8/2012
+		. http://freecode.com (announcing)
+		. Blog it
+		. GCC/GNU system
+			Must follow GNU standards http://www.gnu.org/prep/standards/
+		. Feedburner.com blog to podcast
+		. Freevlog.org Video blog tutorial
+		. SourceForge: upload README & .2-8 pkg
+			Show all languages working
+			http://www.cprogramming.com/tips/add.php
+		. DDJ - write an article
+		. ?distclean FSF Centos
+		. Facebook/twitter/youTube ?barcamp.org
+		. NASA/.gov http://code.nasa.gov/
+			NoCanDoYet 
+
+Libintl is part of gettext. Install the pre-built MinGW gettext
+with `mingw-get install mingw32-gettext'.
+
+.Fix web site demo
+	. Fix Sourceforge ssh login. 
+	. Update on-line man page 
+
+. Make valgrind clean
+
+. Document/improve release workflow.
+. Publicize.
+	. README.md for GitHub
+. Name from Ccide to Ccidew in error messages. w/version. >??
 ______________________________________________________________________________________________
 In the freshly created po/ directory, set up the POTFILES.in file, and do a “make update-po”. Then distribute the generated .pot file to your nearest translation project.
 Shortly before a release, integrate the translators' .po files into the po/ directory and do “make update-po” again.

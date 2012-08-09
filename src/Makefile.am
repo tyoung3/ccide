@@ -79,12 +79,12 @@ flaws:  ccideinline.flaws ccidemain.flaws ccideparse.flaws ccidelex.flaws
 man: 	${PACKAGE}.1
 
 distclean-local:
-	rm Makefile  \
+	rm Makefile  ccide.1 \
 	.deps/ccideinline.Po .deps/ccidelex.Po .deps/ccidemain.Po .deps/ccideparse.Po .deps/cciderunx.Po 
 
 clean-local:    
-	rm -f *~  *.log *.output ccide.1 ccidelex.c ccideparse.c 	\
-	*.output ccideparse.c ccidelex.c ccide.1 *.o ccidew ccide.1 y.output
+	rm -f *~  *.log *.output  ccidelex.c ccideparse.c 	\
+	*.output ccideparse.c ccidelex.c  *.o ccidew  y.output
 	
 ${PACKAGE}.1:	${PACKAGE}.pod
 	/usr/bin/pod2man --section=1						\

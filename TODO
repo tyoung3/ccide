@@ -1,30 +1,22 @@
 TODO: 
-	. Test Windows/mingw/cygwin.
-	. Fix autogen.sh per http://www.eyrie.org/~eagle/notes/style/build.html
-	    #!/bin/sh
-    		set -e
-    		autoreconf -i --force
-	    rm -rf autom4te.cache
-
-	. Skip pod2man if program missing.  --  Move from makefile to autogen.sh script, somehow.
-	. Move done list to Changelog
-	? Fix ccide for mingw
-		. Problem with  HAVE_MALLOC_H & HAVE_MALLOC
+	. Set NODEBUG (for assert)
 		. Change assert to ASSERT and define a null macro -- for mingw.
+	. Internationalization:
+		. Fix mingw link.
+		. Markup strings w/_(STRING).
+		. Add translations:  Spanish, French, German 
+		. See:  http://www.gnu.org/software/gettext/FAQ.html#integrating_undefined
+		. Internationalize ccide script or (better) issue ccidew messages from the script.
+	. Windows/mingw/cygwin.
+	   . Fix ccide for mingw
+		. Problem with  HAVE_MALLOC_H & HAVE_MALLOC
 		. Run unix2dos for test files.
-		. execute ccidew[.exe] in ccide script.
-		. Fix 'make install'
 		. Use ncurses??
 		??? Create ccide[.BAT] file for Windows.
-	. Optimizations:
-		. Use If-Then-Else when only one // Y N condition row.
-		. Eliminate a goto to another goto action; just goto the second goto target.
-	. Allow for symbols instead of numbers in condition entries.   Ex. // RED YELLOW GREEN | color==$$
-	. Option to reorganize rules -- i.e.  move decision table colums around.
-	. Option to delete a rule. Can be multiples.
-	. Fix number of spaces for -x option. 
-	. Replace autogen.sh with autoreconf.
-	. Additional languages
+		 ZIP file for Windows.  -- 'make dist-zip'
+				. Ensure unix2dos run on all text files.
+		. Fix ex1.bash test case.
+	. Additional programming languages
 		. Tutorial on adding a new language
 			. Language requirements
 			. M4 requirements
@@ -34,42 +26,21 @@ TODO:
 		. PHP
 		. Perl
 		. Python
-	. Release 0.5.0-8
-		. Name from Ccide to Ccidew in error messages. w/version.
-		. Document/improve release workflow.
-			. ZIP file for Windows.  -- 'make dist-zip'
-				. Ensure unix2dos run on all text files.
-	. Fix configure.in to verify functions like strncpy and sprintf.
-	. Publicize.
-		. README.md for GitHub
-	. Include test cases in RPM Source.
-	. Additional program checks.  Increase testing coverage.
+	      . Additional program checks.  Increase testing coverage.
 		. If the corresponding compiler is present
-			. Check C++ thru execution.
-			. Check Java thru execution.
 		   otherwise issue a compiler missing warning.
+	. Implement extended tables: allow for symbols instead of numbers in condition entries.   
+		Ex. // RED YELLOW GREEN | color==$$;  but not necessarily:  //  <0  >3   ==7  | A$$  
+	. Optimizations:
+		. Eliminate a goto to another goto action; just goto the second goto target.
+	. Table editting:
+		. Option to reorganize rules -- i.e.  move decision table colums around.
+		. Create editor program/GUI
+		. Option to delete a rule. Can be multiples.
+		. Fix number of spaces for -x option. 
         . Change ccide script to accept multiple file names and if the -L language option is ommitted,
 		    convert according to suffixes: (using an intermediate file if the output file name 
 		    would duplicate the input filename).
 		. Ex.  'ccide foobar.LANG.d' will execute ccide -L LANG < foobar.LANG.d > foobar.LANG
 			where LANG=cpp, qb, java, etc.
-	. Fix web site demo
-		. Update on-line man page 
-	. Make valgrind clean
 
-DONE:
-	. Make clean should not remove scripts/ccide. ? I think.
-	. Drop a rule with no conditions and no actions.
-	. Use switch/case and default for '// 1 2 3 - |state==$'.
-	. Fixed ccide.in ignores --datatrootdir setting. (Configure message.)
-	. Using -Werror compiler option.
-	. ccidelex.c:2361: warning: implicit declaration of function ‘fileno’
-	. cideparse.c:1912: warning: implicit declaration of function ‘strdup’ Use Strdup instead.
-	. Check threeway.c.d expansion, compilation, and execution.
-	. 0.6.0-2
-		. Fix Java
-	. ZIP file for Windows.  -- 'make dist-zip'
-	. Fixed autoscan problems in configure.in
-	. Fixed problem with spec file.
-	. Sent rpm to GitHub 'Downloads'
-	

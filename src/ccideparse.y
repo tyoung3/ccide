@@ -52,13 +52,12 @@
 #define twy
 #define PARSE_STRING_SIZE 4096
 
-#if 1
-/* For gettext: */
+	/* For gettext: */
 #include "ccideconfig.h"
 #include <locale.h>
 #include "gettext.h"
 #define _(string) gettext (string)
-#endif
+#define YYENABLE_NLS 1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -536,7 +535,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
 
 
 
@@ -577,7 +576,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
 
 
 
@@ -642,7 +641,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
 
 
 
@@ -654,15 +653,19 @@ static void PrintNum(long n) {
 
 int main( int argc, char **argv) {
 	int narg=1;
-	char *s1;
+	char *s1, *tdomain, *tdir;
 	int ls1;
 
         assert( UINT_MAX == 4294967295UL);
 	lws = Strdup("");
 
    	setlocale (LC_ALL, "");
-	bindtextdomain (PACKAGE, LOCALEDIR);
-	textdomain (PACKAGE);
+	if(  (tdir=bindtextdomain (PACKAGE, LOCALEDIR)) == NULL) {
+		perror("Binding gettext");     /// Translate this.
+	};
+	if(  (tdomain=textdomain (PACKAGE)) == NULL) {
+		perror("Getting textdomain");  /// Translate this.
+	}
 
     while( argc>narg ) { 
 	s1=argv[narg]; ls1=0;
@@ -798,7 +801,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Tue 07 Aug 2012 05:10:31 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 11:12:33 AM EDT 
 
 
 

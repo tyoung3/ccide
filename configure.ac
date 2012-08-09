@@ -31,7 +31,7 @@ performing evaluations and actions in the original sequence."
 AC_GNU_SOURCE
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
-AM_INTL_SUBDIR([intl])
+# AM_INTL_SUBDIR([intl])
 
 # Checks for programs.
 AC_PROG_CXX
@@ -92,8 +92,8 @@ AC_SUBST(LONG_DESCR)
 AC_PREFIX_PROGRAM(m4)
 AC_LANG([C])
 
-# Uncomment POSIX for mingw
-AC_ISC_POSIX
+# Uncomment POSIX for mingw ??
+# AC_ISC_POSIX
 
 AC_PATH_PROG(ECHO, echo)
 AC_PATH_PROG(M4, m4)
