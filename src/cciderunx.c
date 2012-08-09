@@ -30,42 +30,43 @@
 #include <limits.h>
 #endif
 
-int ccide_group=1;
+int ccide_group = 1;
 
 /** Return number of the first matching rule in a D/T.
  */
-int CCIDEFindRule(               /* Return rule number */
-	int nbrrules,
-	unsigned long ccide_table, 
-	unsigned long yes[], 
-	unsigned long no[]) 
+int
+CCIDEFindRule (			/* Return rule number */
+		int nbrrules,
+		unsigned long ccide_table,
+		unsigned long yes[], unsigned long no[])
 {
-	int r=0;
-	CCIDE_BIT nstate;
-	
-	nstate = UINT_MAX ^ ccide_table;
+  int r = 0;
+  CCIDE_BIT nstate;
 
-        while (	
-		( (yes[r] & nstate) || (no[r]  & ccide_table) )
-		       &&
-		 ( ++r < nbrrules )  
-	) {};
+  nstate = UINT_MAX ^ ccide_table;
 
-	return r;
+  while (((yes[r] & nstate) || (no[r] & ccide_table)) && (++r < nbrrules))
+    {
+    };
+
+  return r;
 }
+
 /** Find first matching rule in a D/T, which has no 'N' condition entries.
  */
-int CCIDEFindRuleYes(		/* Return rule number */
-	int nbrrules,
-        unsigned long ccide_table,
-	unsigned long yes[] )
+int
+CCIDEFindRuleYes (		/* Return rule number */
+		   int nbrrules,
+		   unsigned long ccide_table, unsigned long yes[])
 {
-	int r=0;
-	CCIDE_BIT nstate;
-	
-	nstate = UINT_MAX ^ ccide_table;
-        while ( ( yes[r] & nstate)  && ( ++r < nbrrules ) ) {};
-	return r;
+  int r = 0;
+  CCIDE_BIT nstate;
+
+  nstate = UINT_MAX ^ ccide_table;
+  while ((yes[r] & nstate) && (++r < nbrrules))
+    {
+    };
+  return r;
 }
 
 /* End of cciderun.c */
