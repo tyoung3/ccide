@@ -312,7 +312,7 @@ void warning2( char *s, char *t)
 	/* ?? Move this to ...?.h  */
 #ifndef UINT_MAX
 #include <limits.h>
-#endif
+#endif /* End if not defined UINT_MAX */
 
 /** Check number of rules equal to number in the first D/T statement.
  */ 

@@ -28,7 +28,7 @@
 
 #ifndef UINT_MAX
 #include <limits.h>
-#endif
+#endif  /* End if UINT_MAX not defined. */
 
 int ccide_group = 1;
 

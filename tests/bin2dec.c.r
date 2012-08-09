@@ -58,7 +58,7 @@ including incorporating it into or linking it with proprietary software.
 static int ccide_group=1; 
 #ifndef UINT_MAX 
 #include "limits.h" 
-#endif  
+#endif /* End if not defined UINT_MAX */ 
  
 		/* Return rule number */ 
 static int CCIDEFindRule(

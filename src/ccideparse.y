@@ -312,7 +312,7 @@ void warning2( char *s, char *t)
 	/* ?? Move this to ...?.h  */
 #ifndef UINT_MAX
 #include <limits.h>
-#endif
+#endif /* End if not defined UINT_MAX */
 
 /** Check number of rules equal to number in the first D/T statement.
  */ 
@@ -530,7 +530,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 07:20:43 PM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
 
 
 
@@ -573,7 +573,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 07:20:43 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
 }
 
 /** Compute maximum of two values.
@@ -637,7 +637,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 07:20:43 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
 }
 
 #define Argis(P) strcmp( #P, argv[narg]) == 0 
@@ -794,7 +794,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 07:20:43 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
 
 	narg++;
     }

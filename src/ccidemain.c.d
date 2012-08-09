@@ -43,7 +43,7 @@
 #include <string.h>
 #else
 #pragma message "string.h not available"
-#endif
+#endif /* if HAVE_STRING_H */
 
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
@@ -51,11 +51,11 @@
 #define INTBITS WORD_BIT
 #else
 #define INTBITS 32
-#endif
+#endif  /* if WORD_BIT */
 #else
 #undef INTBITS
 #define INTBITS 32
-#endif
+#endif  /* HAVE_LIMITS_H */
 
 #if TIME_WITH_SYS_TIME
 # include <sys/time.h>
@@ -65,10 +65,10 @@
 #  include <sys/time.h>
 # else
 #  include <time.h>
-# endif
-#endif
+# endif /* if HAVE_SYS_TIME_H   */
+#endif /* if TIME_WITH_SYS_TIME */
 
-void warning (char *s);
+void warning (char *s);  /* Parser warning message. */
 
 typedef int STATE;
 
@@ -245,7 +245,7 @@ CountEm (CCIDE_BIT n)
     n &= n - 1;			// clear the least significant bit set
   return c;
 }
-#endif
+#endif /* if HAVE___BUILTIN_POPCOUNT */
 
 static inline int
 YesNoCount (int x)
@@ -432,7 +432,7 @@ TableEqual (int rindex, int nawords, CCIDE_BIT utbl[])
 #ifndef NOTSTRICT
 // Needed for -Werror compiler option
   return -1;
-#endif
+#endif /* End if not defined NOTSTRICT. */
 }
 
 	/* See if the remaining actions = the actions in the next rule. */
@@ -969,25 +969,6 @@ SetASTUBhere (int nactions, char *c1)
   SetASTUB (nactions, bufs);
 }
 
-#if 0
-void
-SetASTUB2 (int nactions, char *c1, char *c2)
-{
-  int i = 0, a = nactions;
-
-  DISPLAY (SetASTUB2);		/* if yydebug */
-  for (a = 0; a < substitute; a++)
-    {
-      while (numbers[i++] == -1)
-	{
-	}
-      snprintf (bufs, BFRSIZE, "%s%i%s", c1, numbers[i - 1], c2);
-      SetASTUB (a + nactions, bufs);
-    }
-  UnSetNumbers ();
-}
-#endif
-
 	/* NEWGROUP in last action */
 void
 SetASTUBn (int nactions, int nrules)
@@ -1071,32 +1052,6 @@ SetCSTUBscan (int ncond, char *c1)
   return substitute;
 }
 
-#if 0				/*  Obsolete */
-void
-SetCSTUB2 (int ncond, char *c1, char *c2)
-{
-  int i = 0, c = ncond;
-  char *c3;
-
-  c3 = c1;
-  while ((*c3 != 0) && ((*c3 == ' ') || (*c3 == '\t')))
-    c3++;
-
-  CheckEqual (c1, ncond);
-
-  for (c = 0; c < substitute; c++)
-    {
-      while (numbers[i++] == -1)
-	{
-	}
-      snprintf (bufs, BFRSIZE, "%s%s%i%s", lws, c3, numbers[i - 1], c2);
-      ccide.conccideable[c + ncond] = Strdup (bufs);
-    }
-
-  UnSetNumbers ();
-}
-
-#endif
 
 	/* Check for inconsistent (dupe or conflicting) rules. */
 void
@@ -1357,7 +1312,7 @@ GetTimeStamp ()
       tm = gmtime (&tmt);
       strftime (bfr, 100, "%cUTC", tm);
     }
-#endif
+#endif /* if 1  */
 
   ts = Strdup (bfr);
   return (ts);
@@ -1417,13 +1372,6 @@ GenerateCases (int nactions, int nrules)
       printf (" switch(%s) {\t\n", c1);
     }
 
-#if 0
-  for (r = 0; r < nrules; r++)
-    {
-      rulemap[r] = r;
-    }
-  rulemap[nrules] = -1;
-#endif
 #if 1
   if (strcmp (FindCaseValue (remap[nrules - 1]), "default") == 0)
     {
@@ -1437,7 +1385,7 @@ GenerateCases (int nactions, int nrules)
     }
 #else
   SetRuleMap (nrules);
-#endif
+#endif  /* if 1 */
   for (r = 0; r < nrules; r++)
     {
       int rm;
@@ -1935,7 +1883,7 @@ Generate (int nconds, int nactions, int nrules)
 
 
 
-#endif
+#endif /* End if defined: ThisProgramCanHandleDefaultCases */
   logLabel = FALSE;
   switchable = 0;		/* Assume unswitchable for next table. */
 }
