@@ -172,6 +172,7 @@ Usage() {
 
 	Usage:
 		$0 CASENAME ...		. Run CASENAME test.  Ex.  "$0 calc simple in2rpn"
+		$0 gettrans		. Update translation po files.
 		$0 mkright CASENAME ...	. Create CASENAME*.r files from generated source files. 
 		$0 -V			. Show check.sh version
 		$0 [--help]		. Show usage
@@ -209,6 +210,12 @@ MakeRight() {
 	done
 }
 
+GetTranslations() {
+	pushd ../po || Die Cannot cd ../po
+	rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po
+	popd
+}
+
 VERSION=@VERSION@-@RELEASE@
 [ -d ../tests ] && pushd ../tests 
 [ -d ./tests  ] && pushd ./tests
@@ -224,6 +231,7 @@ case $1 in
 	--help)	Usage;;
 	-V)	echo 	check.sh-0.0;;
 	all)	shift; 	All $*;;
+	gettrans) shift; GetTranslations $*;;
 	mkam)shift; MakeAM $*;;
 	mkin)shift; MakeIn $*;;
 	mkright)shift;	MakeRight $*;;

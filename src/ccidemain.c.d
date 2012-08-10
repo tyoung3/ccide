@@ -639,14 +639,14 @@ Overlap (int r1, int r2)
 	/* *******************  Global Functions ************* */
 
 	/* Y input */
-void
+void inline
 SetYes (int nrule, int ncond)
 {
   turnbitson (ccide.yes[nrule], ncond);
 }
 
 	/* N input */
-void
+void inline
 SetNo (int nrule, int ncond)
 {
   turnbitson (ccide.no[nrule], ncond);
