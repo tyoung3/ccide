@@ -48,8 +48,6 @@
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-#define twy
 #define PARSE_STRING_SIZE 4096
 
 	/* For gettext: */
@@ -71,18 +69,18 @@
 
 static char ctbl[10];
 static char xs[81];
-static char *xstring=xs;    /* For adding a new rule  */
+static char *xstring=xs;    /* For adding a new rule  	*/
 
-int substitute=0;       /* 1 - If substitution in row */
-int RC=0;		/* main() Return Code */
+int substitute=0;        /* 1 - If substitution in row 	*/
+int RC=0;		 /* main() Return Code 		*/
 
 /* static CCIDE_HANDLE handle; */
-static int nrules=0;   /* Number of rules */
+static int nrules=0;   	 /* Number of rules */
 static int nbrrules=0;   /* Number of rules */
-static int nconds=0;   /* Number of condition statements */
+static int nconds=0;   	 /* Number of condition statements 	*/
 
-int nactions=0;   /* Number of actions */
-int DupeActionIsAnError=1;    /* 0=allow duplicate actions. */
+int nactions=0;   	 	/* Number of actions 		*/
+int DupeActionIsAnError=1;    	/* 0=allow duplicate actions. 	*/
 
 void yyerror( const char *s);
 int yylex( void );
@@ -95,21 +93,18 @@ void warning2( char *s, char *t);
 #define LOGE   stderr
 #define LOGP   stderr
 
-#define YYDEBUG  1     /* Move 1 to yydebug to debug */ 
-#define MAXTOKEN 1024
+#define YYDEBUG  1      /* Move 1 to yydebug to debug 	*/ 
+#define MAXTOKEN 1024	/* Largest possible token 	*/
+#define EOL '\n'	/* End of line			*/
+#define EOS '\0'	/* End of string		*/
 
-/* #include "cmbt.h"   data declarations, function prototypes */
-
-#define EOL '\n'
-#define EOS '\0'
-
-void fatal(char *s);
+void fatal(char *s);			/* Fatal error msg string		*/
 static int columnsize=3;		/* Decision table spacing		*/
 // static int skelsize=1; 		/* Size of skeleton decision table 	*/
 static void SetNbrRules(int n);		
-static void PrintC(char c);
-static inline long int max( long int a, long int b);
-static void PrintNum(long int n);
+static void PrintC(char c);		/* Print a character 				*/
+static inline long int max( long int a, long int b);  /* Return max of two values 	*/
+static void PrintNum(long int n);	/* Print a number 				*/
 static char pGroup[100];
 static int logCond=FALSE;
 
@@ -179,7 +174,7 @@ cond:  	  YES {
 conds:    /* Null */ 
 	| conds cond   {  
 		assert( $2 >= YES );
-		PrintC(ctbl[$2-YES]);
+	 	PrintC(ctbl[$2-YES]);
 		nrules++; 
 	} 
 	| conds NUMBER {  
@@ -438,7 +433,6 @@ static void SetQdelimit(char *s1, char *s2) {
 	changequote=1;
 }
 
-
 	/* Set computer language 
          */
 static void SetLang(char *s) {
@@ -530,13 +524,11 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
-
-
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
 
 }
 
-/** Print character adjusting for column width.
+/** Print a character,  adjusting for column width.
  */
 static void PrintC(char c) {
 	//DECISION_TABLE:
@@ -573,7 +565,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
 }
 
 /** Compute maximum of two values.
@@ -637,9 +629,10 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
 }
 
+/* Define condition for D/T. */
 #define Argis(P) strcmp( #P, argv[narg]) == 0 
 
 /** ccide main entry point. 
@@ -794,7 +787,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Thu 09 Aug 2012 07:46:10 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
 
 	narg++;
     }
