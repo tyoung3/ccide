@@ -30,7 +30,7 @@
 #include <limits.h>
 #endif  /* End if UINT_MAX not defined. */
 
-int ccide_group = 1;
+int ccide_group = 1;  /* For NEWGROUP */
 
 /** Return number of the first matching rule in a D/T.
  */
@@ -52,7 +52,7 @@ CCIDEFindRule (			/* Return rule number */
   return r;
 }
 
-/** Find first matching rule in a D/T, which has no 'N' condition entries.
+/** Return number of first matching rule in a D/T, which has no 'N' condition entries.
  */
 int
 CCIDEFindRuleYes (		/* Return rule number */
@@ -69,4 +69,4 @@ CCIDEFindRuleYes (		/* Return rule number */
   return r;
 }
 
-/* End of cciderun.c */
+/* End of cciderunx.c */

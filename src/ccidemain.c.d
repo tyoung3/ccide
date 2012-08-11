@@ -73,12 +73,13 @@ void warning (char *s);  /* Parser warning message. */
 typedef int STATE;
 
 	/* ******************** Local Defines ******************** */
-
-	/* Local defines */
-#define XOR ^
-#define MAXENTRY 99999
-#define CBFRSIZE 64000
-#define MAX_ATBL (CCIDE_NACTION/32)
+/* Exclusive OR */
+#define XOR ^	
+		
+// fine MAXENTRY CCIDE_NRULE    /* Maximum no. unique entry values      */
+#define MAXENTRY 99999                                         
+#define CBFRSIZE 64000		/* Space for all condition stubs in a table. */
+#define MAX_ATBL (CCIDE_NACTION/32)  /* Maximum number of actions for a rule. */
 
 typedef CCIDE_BIT ACTON[1 + MAX_ATBL];
 typedef CCIDE_BIT RULE[1 + CCIDE_NCOND / INTBITS];

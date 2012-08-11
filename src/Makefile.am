@@ -37,7 +37,7 @@ man_MANS = ccide.1
 
 CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub 
 
-AM_CFLAGS = -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\" 
+AM_CFLAGS = -g --pedantic -DNDEBUG -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\" 
 DEBUG =   
 ELEV=elev
 CCIDE=${PACKAGE}
@@ -84,6 +84,7 @@ distclean-local:
 
 clean-local:    
 	rm -f *~  *.log *.output  ccidelex.c ccideparse.c 	\
+	*.gcov *.gcda *.gcno					\
 	*.output ccideparse.c ccidelex.c  *.o ccidew  y.output
 	
 ${PACKAGE}.1:	${PACKAGE}.pod
