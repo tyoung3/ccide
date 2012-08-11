@@ -84,57 +84,57 @@ typedef CCIDE_BIT ACTON[1 + MAX_ATBL];
 typedef CCIDE_BIT RULE[1 + CCIDE_NCOND / INTBITS];
 
 	/* ********************  Shared Variables  ******************** */
-int nbrtables = 1;		/* Number of tables defined */
-int ccide_newgroup = 0;
-int m4out = 0;			/* 1 = generate m4 code, rather than C code. */
-int noinline = 0;		/* 1 = do not generate inline code. */
-int notimestamp = 0;		/* 1 = bypass timestamps. */
-int uselocaltime = 0;		/* 1 = local time in timestamps. */
-int donotgenerate = 0;		/* 1 = do not generate any code. */
-int checkequal = 1;		/* 0 = do not check for '=' in cond stub. */
-char *lws = "";			/* Decision table leading White Space */
-char bfr[BFRSIZE];
-int lang = C;
-int changequote = 0;		/* 1=issue m4 changequote command */
-char *pPrefix = "CCIDE";
-char *pPrefixLc = "ccide";
-char *pComment = "/*";
-char *pEcomment = "*/";
+int nbrtables = 1;		/* Number of tables defined 			*/
+int ccide_newgroup = 0;		/* Default state for NEWGROUP 			*/
+int m4out = 0;			/* 1 = generate m4 code, rather than C code. 	*/
+int noinline = 0;		/* 1 = do not generate inline code. 		*/
+int notimestamp = 0;		/* 1 = bypass timestamps. 			*/
+int uselocaltime = 0;		/* 1 = local time in timestamps. 		*/
+int donotgenerate = 0;		/* 1 = do not generate any code. 		*/
+int checkequal = 1;		/* 0 = do not check for '=' in cond stub. 	*/
+char *lws = "";			/* Decision table leading White Space 		*/
+char bfr[BFRSIZE];		/* Internal buffer 		  		*/
+int lang = C;			/* Source file program language.  		*/
+int changequote = 0;		/* 1=issue m4 changequote command 		*/
+char *pPrefix = "CCIDE";	/* Generated code prefix 			*/
+char *pPrefixLc = "ccide";	/* Lower case generated code prefix 		*/
+char *pComment = "/*";		/* Comment start 				*/
+char *pEcomment = "*/";		/* Comment end   				*/
 
-	/* ********************  Local Structure ******************** */
+	/* ******************** Decision Table Structure ******************** */
 typedef struct
 {
-  int dummy_guard[1];		/* Something clobbering this on Solaris 9 ?? */
-  RULE yes[CCIDE_NRULE + 1];
-  RULE no[CCIDE_NRULE + 1];
-  ACTON act[CCIDE_NRULE + 1];
-  char *actiontable[CCIDE_NACTION];
-  char *conccideable[CCIDE_NCOND];
+  int dummy_guard[1];			/* Something clobbering this on Solaris 9 ?? 	*/
+  int nact[CCIDE_NRULE + 1];		/* Number of actions per rule.  		*/
+  RULE yes[CCIDE_NRULE + 1];		/* 'Y' bits for rule 				*/
+  RULE no[CCIDE_NRULE + 1];		/* 'N' bits for rule 				*/
+  ACTON act[CCIDE_NRULE + 1];		/* Action bits for rule 			*/
+  char *actiontable[CCIDE_NACTION];	/* Pointers to actions for rule 		*/
+  char *conccideable[CCIDE_NCOND];	/* Pointers to condition for rule 		*/
 } CCIDEABLE;
 
 	/* ********************  Local Variables  ******************** */
-static CCIDEABLE ccide;		/* Current Decision table */
-
+static CCIDEABLE ccide;			/* Current Decision table 			*/
 static int saven[MAXENTRY + 1];
 static int numbers[CCIDE_NRULE + 1];
-static int rulemap[CCIDE_NRULE + 1];
-static int isagoto[CCIDE_NRULE + 1];	/* 1 to generate case label */
-static int remap[CCIDE_NRULE + 1];
+static int rulemap[CCIDE_NRULE + 1];	 
+static int isagoto[CCIDE_NRULE + 1];	/* 1 to generate case label 			*/
+static int remap[CCIDE_NRULE + 1];	/* Rule order remap vector.			*/
 static int save4goto[CCIDE_NRULE + 1];
 
 static int nunique = 0;
-static int nbractions = 0;	/* Number of actions */
-static int nbrcond = 0;		/* Number of conditions */
-static int nbrrule = 0;		/* Number of rules */
-static int ncwords;		/* ncwords = (nbrcond-1)/INTBITS + 1; */
-static int nawords;		/* nawords = (nactions-1)/INTBITS + 1; */
+static int nbractions = 0;		/* Number of actions			*/
+static int nbrcond = 0;			/* Number of conditions 		*/
+static int nbrrule = 0;			/* Number of rules 			*/
+static int ncwords;			/* ncwords = (nbrcond-1)/INTBITS + 1; 	*/
+static int nawords;			/* nawords = (nactions-1)/INTBITS + 1; 	*/
 
-static int switchable = 0;
+static int switchable = 0;		/* 1 if numbers in condition entries	*/
 static char nullact[] = { "{};" };
-char bufs[BFRSIZE];
+char bufs[BFRSIZE];			/* Internal buffer			*/
 static char bash_cases[BFRSIZE];
 static char bash_rules[BFRSIZE];
-static int logLabel = FALSE;	/* 1 = generate table label. */
+static int logLabel = FALSE;		/* 1 = generate table label. 		*/
 		/* *******************  Local Functions ************* */
 
 	/* Turn on bit, n, in array of BITs. */
