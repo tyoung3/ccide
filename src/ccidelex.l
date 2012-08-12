@@ -33,21 +33,22 @@ void warning( const char *s );
 
 #define PARSE_ERROR 1
 
-char  *StringIn;                 /* String to parse */
-char *StringInPtr;     /* Current position in StringIn */
-char *StringInLimit; /* End of  StringIn data */
+char  *StringIn;       	/* String to parse 			*/
+char *StringInPtr;     	/* Current position in StringIn 	*/
+char *StringInLimit;	/* End of  StringIn data 		*/
 int  nbrcstubs=0;	/* Number of condition stub statements. */
 
+/* Return minimum of two values. */
 #ifndef min
 #define min(A,B) A<B?A:B
 #endif
 
-static int lineno = 1;
-void yyerror(const char *s);
+static int lineno = 1;		/* Source file lineno.  */
+void yyerror(const char *s);	/* Parse error string   */
 
-/* Set beginning of a decision table. 
+/* Set the beginning of a decision table. 
  */
-void SetTable() {
+static void SetTable() {
                 lineno++;
 		SaveLeadingWhiteSpace(yytext);
 		printf("%s",yytext);
@@ -142,6 +143,13 @@ void SetTable() {
                 return( START_ACTIONS );
         };
 
+<CONDS>^[\ \t]*~~[_\ \-\t\|]*$  	{
+                BEGIN ACTIONS;
+                lineno++;
+                printf("%s", yytext);
+                return( START_ACTIONS );
+        };
+
 <CONDS>^[\ \t]*[\%\'][_\ \-\t\|]*$  	{
                 BEGIN ACTIONS;
                 lineno++;
@@ -172,6 +180,13 @@ void SetTable() {
 
 
 <ACTIONS>^[\ \t]*;END_TABLE:.*$	     {
+                BEGIN INITIAL;
+                lineno++;
+                printf("%s\n",yytext);
+                return( TEND );
+        };
+
+<ACTIONS>^[\ \t]*~~END_TABLE:.*$	     {
                 BEGIN INITIAL;
                 lineno++;
                 printf("%s\n",yytext);
@@ -218,6 +233,11 @@ void SetTable() {
                 lineno++;
         };
 
+<GENERATED>^[\ \t]*~~END_GENERATED_CODE:[^\n]*\n     {
+                BEGIN INITIAL;
+                lineno++;
+        };
+
 <GENERATED>^[\ \t]*;END_GENERATED_CODE:[^\n]*\n     {
                 BEGIN INITIAL;
                 lineno++;
@@ -245,7 +265,8 @@ void SetTable() {
 <CONDS,ACTIONS>--\      |
 <CONDS,ACTIONS>\/\/     |
 <CONDS,ACTIONS>\/\*     |
-<CONDS,ACTIONS>\/#	{printf("%s%c%c ",lws,yytext[0],yytext[1]);};
+<CONDS,ACTIONS>\/#	|
+<CONDS,ACTIONS>~~	{printf("%s%c%c ",lws,yytext[0],yytext[1]);};
 
 <CONDS,ACTIONS>[#\;\%\']   {printf("%s%s ",lws,yytext);};
 
@@ -287,6 +308,11 @@ void SetTable() {
         GenInLineCode(yytext);
         };
 
+^[\ \t]*~~CCIDE_INLINE_CODE:.*\n    {
+        printf("%s",yytext);
+        GenInLineCode(yytext);
+	};
+
 ^[\ \t]*#CCIDE_INLINE_CODE:.*\n    {
         printf("%s",yytext);
         GenInLineCode(yytext);
@@ -313,6 +339,12 @@ void SetTable() {
 	};
 
 ^[\ \t]*;DECISION_TABLE:.*\n	{
+                BEGIN CONDS;
+		SetTable();
+                return( TSTART );
+        };
+
+^[\ \t]*~~DECISION_TABLE:.*\n	{
                 BEGIN CONDS;
 		SetTable();
                 return( TSTART );
@@ -351,6 +383,7 @@ void SetTable() {
 
 ^[\ \t]*;GENERATED_CODE:.*\n			|
 ^[\ \t]*#GENERATED_CODE:.*\n			|
+^[\ \t]*~~GENERATED_CODE:.*\n			|  
 ^[\ \t]*[\%\']GENERATED_CODE:.*\n		|
 ^[\ \t]*\/\*GENERATED_CODE:.*\*\/\n 		| 
 ^[\ \t]*--GENERATED_CODE:.*\*\/\n 		| 
@@ -368,6 +401,7 @@ void SetTable() {
 	};
 
 %%
+
 /* Issue parse error message.
  */
 void yyerror(const char *s) {

@@ -75,9 +75,10 @@ typedef int STATE;
 	/* ******************** Local Defines ******************** */
 /* Exclusive OR */
 #define XOR ^	
-		
-// fine MAXENTRY CCIDE_NRULE    /* Maximum no. unique entry values      */
+
+/* Maximum no. unique entry values      */	                                   
 #define MAXENTRY 99999                                         
+
 #define CBFRSIZE 64000		/* Space for all condition stubs in a table. */
 #define MAX_ATBL (CCIDE_NACTION/32)  /* Maximum number of actions for a rule. */
 
@@ -513,8 +514,8 @@ PerformActions (int rindex, int rule, int nextrule, int nbrrules)
 	  if ((lang == BASH) && !ended)
 	    {
 	      ended = 1;
-	      printf ("%s\tCCIDE_CASE(%i,%s,%s)\n",
-		      lws, nbrtables, bash_cases, bash_rules);
+	      printf ("%s\t%s_CASE(%i,%s,%s)\n",
+		      lws, pPrefix, nbrtables, bash_cases, bash_rules);
 	      bash_cases[0] = 0;
 	      bash_rules[0] = 0;
 	    }
@@ -523,10 +524,10 @@ PerformActions (int rindex, int rule, int nextrule, int nbrrules)
 	    {
 	      isagoto[ec] = 1;	/* Generates the label later. */
 	      if (m4out)
-		printf ("%s\t    CCIDE_GOTO(%sCCIDE_%i_%i%s)\n",
-			lws, qt1, nbrtables, ec, qt2);
+		printf ("%s\t    %s_GOTO(%sCCIDE_%i_%i%s)\n",
+			lws, pPrefix, qt1, nbrtables, ec, qt2);
 	      else
-		printf ("%s\t    goto CCIDE_case%i_%i;\n", lws, nbrtables,
+		printf ("%s\t    goto %s_case%i_%i;\n", lws, pPrefix, nbrtables,
 			ec);
 	      return;		/* Case ec: will generate remaining actions. */
 	    }
@@ -535,8 +536,8 @@ PerformActions (int rindex, int rule, int nextrule, int nbrrules)
 	      if (ccide.actiontable[i] != NULL)
 		{
 		  if (m4out)
-		    printf ("%s\t    CCIDE_ACTION(%s%s%s)\n",
-			    lws, qt1, ccide.actiontable[i], qt2);
+		    printf ("%s\t    %s_ACTION(%s%s%s)\n",
+			    lws, pPrefix, qt1, ccide.actiontable[i], qt2);
 		  else
 		    printf ("%s\t    %s\n", lws, ccide.actiontable[i]);
 		  li = i;
@@ -560,7 +561,7 @@ PerformActions (int rindex, int rule, int nextrule, int nbrrules)
       if (m4out)
 	{
 	  if (lang != VB)
-	    printf ("%s\t    CCIDE_BREAK()\n", lws);
+	    printf ("%s\t    %s_BREAK()\n", lws, pPrefix );
 	}
       else
 	{
@@ -1259,12 +1260,12 @@ GenConds (int nconds, int nrules, int notable)
 	  }
 	else
 	  {
-	    printf ("%s\tCCIDE_CASE(%i,%2i,%i)\n",
-		    lws, nbrtables, rm, remap[rm]);
+	    printf ("%s\t%s_CASE(%i,%2i,%i)\n",
+		    lws, pPrefix, nbrtables, rm, remap[rm]);
 	  }
       else if (isagoto[rm])
-	printf ("%s\tCCIDE_case%i_%i: case %2i:\t%s\tRule %2i %s\n",
-		lws, nbrtables, rm, rm, pComment, remap[rm], pEcomment);
+	printf ("%s\t%s_case%i_%i: case %2i:\t%s\tRule %2i %s\n",
+		lws, pPrefix,nbrtables, rm, rm, pComment, remap[rm], pEcomment);
       else
 	printf ("%s\tcase %2i:\t%s\tRule %2i %s\n",
 		lws, rm, pComment, remap[rm], pEcomment);
@@ -1272,7 +1273,7 @@ GenConds (int nconds, int nrules, int notable)
     };
 
   if (m4out)
-    printf ("%s\tCCIDE_END_SWITCH()\n", lws);
+    printf ("%s\t%s_END_SWITCH()\n", lws, pPrefix );
   else
     printf ("%s\t} %s End Switch%s\n", lws, pComment, pEcomment);
 
@@ -1354,12 +1355,12 @@ GenerateCases (int nactions, int nrules)
     c1++;
 
   if (lang == EX)
-    printf ("%s CCIDE_BEGIN_BLOCK() label \"%s_TABLE_%i\"\n%s ", lws, pPrefix,
+    printf ("%s %s_BEGIN_BLOCK() label \"%s_TABLE_%i\"\n%s ", lws, pPrefix, pPrefix,
 	    nbrtables, lws);
   else if (lang == C)
     printf ("%s { %s_TABLE_%i:", lws, pPrefix, nbrtables);
   else
-    printf ("%s CCIDE_BEGIN_BLOCK() %s_TABLE_%i:", lws, pPrefix, nbrtables);
+    printf ("%s %s_BEGIN_BLOCK() %s_TABLE_%i:", lws, pPrefix, pPrefix, nbrtables);
 
   if (m4out)
     {
@@ -1393,8 +1394,8 @@ GenerateCases (int nactions, int nrules)
       char *cv;
       rm = rulemap[r];
       if (m4out)
-	printf ("%s\tCCIDE_CASE(%i, %s, %i)\n",	//?? for default
-		lws, nbrtables, FindCaseValue (remap[rm]), remap[rm]);
+	printf ("%s\t%s_CASE(%i, %s, %i)\n",	//?? for default
+		lws, pPrefix, nbrtables, FindCaseValue (remap[rm]), remap[rm]);
       else
 	{
 	  cv = FindCaseValue (remap[rm]);
@@ -1415,7 +1416,7 @@ GenerateCases (int nactions, int nrules)
   if (lang == C)
     printf ("%s }\n", lws);
   else
-    printf ("%s CCIDE_END_SWITCH() \n", lws);
+    printf ("%s %s_END_SWITCH() \n", lws, pPrefix);
   GenEnd ();
 }
 
@@ -1430,7 +1431,7 @@ GenerateFindRule (int nconds, int nactions, int nrules)
     if (lang == BASH)
       printf ("%s\t", lws);
     else
-      printf ("%s CCIDE_BEGIN_BLOCK()\t", lws);
+      printf ("%s %s_BEGIN_BLOCK()\t", lws, pPrefix);
   else
     printf ("%s {\t", lws);
 
@@ -1621,7 +1622,7 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
   GenerateLabel ();
 
   if (m4out)
-    printf ("%sCCIDE_IF()", lws);
+    printf ("%s%s_IF()", lws, pPrefix);
   else
     printf ("%sif( ", lws);
 
@@ -1632,7 +1633,7 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
   if (ccide.no[0][0] & 1)
     {
       if (m4out)
-	printf ("%sCCIDE_FALSE(%s%s%s)", sand, qt1, s, qt2);
+	printf ("%s%s_FALSE(%s%s%s)", sand, pPrefix, qt1, s, qt2);
       else
 	printf ("%s!(%s)", sand, s);
     }
@@ -1641,7 +1642,7 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
       if (ccide.yes[0][0] & 1)
 	{
 	  if (m4out)
-	    printf ("%sCCIDE_TRUE(%s%s%s)", sand, qt1, s, qt2);
+	    printf ("%s%s_TRUE(%s%s%s)", sand, pPrefix, qt1, s, qt2);
 	  else
 	    printf ("%s(%s)", sand, s);
 	}
@@ -1658,8 +1659,8 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
       if ((ccide.actiontable[i] != NULL) && (ccide.act[0][0] & c))
 	{
 	  if (m4out)
-	    printf ("%s   CCIDE_ACTION(%s%s%s)\n",
-		    lws, qt1, ccide.actiontable[i], qt2);
+	    printf ("%s   %s_ACTION(%s%s%s)\n",
+		    lws, pPrefix, qt1, ccide.actiontable[i], qt2);
 	  else
 	    printf ("%s   %s\n", lws, ccide.actiontable[i]);
 	}
@@ -1668,7 +1669,7 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
   if (nrules > 0)
     {
       if (m4out)
-	printf ("%sCCIDE_ELSE()", lws);
+	printf ("%s%s_ELSE()", lws, pPrefix);
       else
 	printf ("%s} else { \n", lws);
       for (i = 0; i < nactions; i++)
@@ -1677,8 +1678,8 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
 	  if ((ccide.actiontable[i] != NULL) && (ccide.act[1][0] & c))
 	    {
 	      if (m4out)
-		printf ("%s   CCIDE_ACTION(%s%s%s)\n",
-			lws, qt1, ccide.actiontable[i], qt2);
+		printf ("%s   %s_ACTION(%s%s%s)\n",
+			lws, pPrefix, qt1, ccide.actiontable[i], qt2);
 	      else
 		printf ("%s   %s\n", lws, ccide.actiontable[i]);
 	    }
@@ -1706,7 +1707,7 @@ GenerateSingleRule (int nconds, int nactions)
 
   GenerateLabel ();
   if (m4out)
-    printf ("%sCCIDE_IF()", lws);
+    printf ("%s%s_IF()", lws, pPrefix);
   else
     printf ("%sif( ", lws);
 
@@ -1727,7 +1728,7 @@ GenerateSingleRule (int nconds, int nactions)
       if (ccide.no[0][0] & c)
 	{
 	  if (m4out)
-	    printf ("%sCCIDE_FALSE(%s%s%s)", sand, qt1, s, qt2);
+	    printf ("%s%s_FALSE(%s%s%s)", sand, pPrefix, qt1, s, qt2);
 	  else
 	    printf ("%s!(%s)", sand, s);
 	}
@@ -1736,7 +1737,7 @@ GenerateSingleRule (int nconds, int nactions)
 	  if (ccide.yes[0][0] & c)
 	    {
 	      if (m4out)
-		printf ("%sCCIDE_TRUE(%s%s%s)", sand, qt1, s, qt2);
+		printf ("%s%s_TRUE(%s%s%s)", sand, pPrefix, qt1, s, qt2);
 	      else
 		printf ("%s(%s)", sand, s);
 	    }
@@ -1754,8 +1755,8 @@ GenerateSingleRule (int nconds, int nactions)
       if ((ccide.actiontable[i] != NULL) && (ccide.act[0][0] & c))
 	{
 	  if (m4out)
-	    printf ("%s   CCIDE_ACTION(%s%s%s)\n",
-		    lws, qt1, ccide.actiontable[i], qt2);
+	    printf ("%s   %s_ACTION(%s%s%s)\n",
+		    lws, pPrefix, qt1, ccide.actiontable[i], qt2);
 	  else
 	    printf ("%s   %s\n", lws, ccide.actiontable[i]);
 	}

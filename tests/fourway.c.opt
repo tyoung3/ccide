@@ -1,5 +1,5 @@
 # OPT defines ccide options for generating fourway.c.  
 # TOPT defines fourway execution parameters
 
-OPT="-b -c 4"
+OPT="-b -c 3"
 TOPT="$TDIR/f1 $TDIR/f2 $TDIR/f3 $TDIR/f4"

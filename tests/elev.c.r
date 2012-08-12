@@ -105,25 +105,25 @@ int main(int argc, char **argv) {
         char *stri={"d"};
 
 //DECISION_TABLE:
-//   1  2  2  2  2  3  - |NEWGROUP		
-//   0  -  2  -  -  4  1 |strcmp(strg[$$],stri) == 0
-//   0  -  2  -  - 40000  1 |b == $$
-//   Y  Y  Y  -  Y  -  N |Idle
-//   -  -  -  N  -  -  Y |Moving
-//   N  -  N  -  N  -  - |AnybodyWaiting(c)
-//   N  Y  Y  -  Y  -  - |AnybodyRiding
+//    1   2   2   2   2   3   - |NEWGROUP		
+//    0   -   2   -   -   4   1 |strcmp(strg[$$],stri) == 0
+//    0   -   2   -   - 40000   1 |b == $$
+//    Y   Y   Y   -   Y   -   N |Idle
+//    -   -   -   N   -   -   Y |Moving
+//    N   -   N   -   N   -   - |AnybodyWaiting(c)
+//    N   Y   Y   -   Y   -   - |AnybodyRiding
 //------------------------------------------------
-//   -  X  -  -  -  -  - |GoToFloor();
-//   X  -  -  -  -  -  - |AdvanceClock();
-//  11 12  8  -  - 12345  - |a=$$;
-//   1  1  2  3  2  -  - |Act($$,$$);
-//   -  -  X  -  X  -  X |{ int x=2;  
-//   -  -  X  -  X  -  X | UnLoad(x); printf("`date` 'abcd'\n"); 
-//   -  -  X  -  X  -  X | Load(); }
-//   -  -  -  -  -  X  - |assert(1==0); 
-//   -  -  -  X  -  -  - |DefaultRule();
-//   -  -  -  X  -  -  - |goto $@;
-//   1  2  3  -  3  -  3 |NEWGROUP		
+//    -   X   -   -   -   -   - |GoToFloor();
+//    X   -   -   -   -   -   - |AdvanceClock();
+//  11 12   8   -   - 12345   - |a=$$;
+//    1   1   2   3   2   -   - |Act($$,$$);
+//    -   -   X   -   X   -   X |{ int x=2;  
+//    -   -   X   -   X   -   X | UnLoad(x); printf("`date` 'abcd'\n"); 
+//    -   -   X   -   X   -   X | Load(); }
+//    -   -   -   -   -   X   - |assert(1==0); 
+//    -   -   -   X   -   -   - |DefaultRule();
+//    -   -   -   X   -   -   - |goto $@;
+//    1   2   3   -   3   -   3 |NEWGROUP		
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	7 Rules, 15 conditions, and 19 actions.

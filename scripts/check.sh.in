@@ -79,10 +79,12 @@ TestCase() {
 	T=`basename $TINPUT .X`
 	X=`ls $TDIR/$CASE*.d`
 	touch $X
+	TOPT=
+	OPT=
 	for Y in $X; do
 		Z=`basename $Y .d`
 		[ -f $TDIR/$Z.opt ] && . $TDIR/$Z.opt   && # echo Sourced TDIR/$Z.opt 
-		$MAKE -i $Z && CheckExpand $Z $TDIR/$Z.r  
+		$MAKE -i OPT="$OPT" $Z && CheckExpand $Z $TDIR/$Z.r  
 	done
 	$MAKE $CASE && X=$CASE && TestIt
 }

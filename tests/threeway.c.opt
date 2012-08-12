@@ -1,2 +1,3 @@
 TOPT="$TDIR/f1 $TDIR/f2 $TDIR/f3" 
+OPT="-c 3 "
 

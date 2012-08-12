@@ -84,13 +84,13 @@ else sign = "zero";
 */
 
 //DECISION_TABLE:
-//   Y  -  - |number > 0
-//   -  Y  - |number < 0
-//   -  -  Y |number == 0
+//    Y   -   - |number > 0
+//    -   Y   - |number < 0
+//    -   -   Y |number == 0
 //______________________
-//   X  -  - |sign = "positive";
-//   -  X  - |sign = "negative";  
-//   -  -  X |sign = "zero";	
+//    X   -   - |sign = "positive";
+//    -   X   - |sign = "negative";  
+//    -   -   X |sign = "zero";	
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	3 Rules, 3 conditions, and 3 actions.

@@ -1,1 +1,2 @@
 TIN=$TDIR/tryit.txt
+OPT="-c 4"

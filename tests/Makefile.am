@@ -73,16 +73,19 @@ TEST_CASES = 	\
 	${CC} -g $(CFLAGS) $<  -o $@  
 
 %.c: ${srcdir}/%.c.d 
-	${CCIDEW}  -b < ${srcdir}/$<  2>$@.err  > $@ 
+	${CCIDEW}  	 -b ${OPT} < ${srcdir}/$<  2>$@.err  > $@ 
 
 %.cpp: %.cpp.d 
-	${CCIDE} -L C++  -b < ${srcdir}/$< > $@ 
+	${CCIDE} -L C++  -b ${OPT} < ${srcdir}/$< > $@ 
 
 %.java: %.java.d 
-	${CCIDE} -L JAVA  -b  < ${srcdir}/$< > $@ 
+	${CCIDE} -L JAVA -b ${OPT} < ${srcdir}/$< > $@ 
 
 %.bash: %.bash.d 
-	${CCIDE} -L BASH  -b < ${srcdir}/$< > $@ 
+	${CCIDE} -L BASH -b ${OPT} < ${srcdir}/$< > $@ 
+
+%.bbl: %.bbl.d 
+	${CCIDE} -a -m4  -b ${OPT}  < ${srcdir}/$< > $@ 
 
 %: %.bash
 	ln -sf $< $@
