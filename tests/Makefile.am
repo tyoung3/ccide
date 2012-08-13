@@ -112,7 +112,8 @@ check_old:	 testcases
 	[ -x $(top_srcdir)/scripts/ccide ] || chmod a+x $(top_srcdir)/scripts/ccide
 	$(top_srcdir)/scripts/check.sh 
 
-distclean-local:
+
+clean-local:
 	rm -f testcases *~
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases hw.java  
 

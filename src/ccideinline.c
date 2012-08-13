@@ -52,8 +52,8 @@ GenInLineCode (char *s)
 	{
 	  printf ("%sGENERATED_CODE: %s\n", pComment, pEcomment);
 	  printf (_
-		  ("CCIDE_COMMENT(%s Substitution strings are: %s and %s%s)\n"),
-		  qt1, svar1, svar2, qt2);
+		  ("%s_COMMENT(%s Substitution strings are: %s and %s%s)\n"),
+		  pPrefix, qt1, svar1, svar2, qt2);
 	  printf ("%sEND_GENERATED_CODE: %s\n", pComment, pEcomment);
 	}
       return;
