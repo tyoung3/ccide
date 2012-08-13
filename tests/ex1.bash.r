@@ -136,7 +136,7 @@ while [[ $N > 0 ]]; do
 		    echo "Got ${!P}!";
 		    ;;
 		esac
-	#END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1  
+	#END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1  
 
 	N=$(( $N-1 ))
 	

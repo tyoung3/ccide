@@ -112,7 +112,7 @@ class hw {
 			    System.out.println("Got A!");
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1  
+		//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1  
 	}
 
 	for (int i = 0; i < args.length; i++) {
@@ -146,7 +146,7 @@ class hw {
 			    System.out.println("B: Got A!");
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1  
+		//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1  
 	}
 
 	for (int i = 0; i < args.length; i++) {
@@ -162,7 +162,7 @@ class hw {
 		if(E.compareTo(args[i]) == 0) {
 		   System.out.println("C: Got E!");
 		}
-		//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 
+		//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 
 	}
 	   while(state<4) {
 		//DECISION_TABLE:
@@ -191,7 +191,7 @@ class hw {
 			    state = 1;
 			    break;
 		 } } /* End Switch*/ 
-		//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1  
+		//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1  
 	   }  // End while state<4
 
 	   for (int j = 0; j < args.length; j++) {
@@ -227,7 +227,7 @@ class hw {
 			    state = 1;
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_5, by ccide-0.6.3-1  
+		//END_GENERATED_CODE: FOR TABLE_5, by ccide-0.6.4-1  
 	   }  // End for j=...	
     }		
 }

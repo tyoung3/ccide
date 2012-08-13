@@ -332,9 +332,10 @@ static void SetNbrRules(int n) {
         */
 static void SetPrefix(char *s) {
 	char *s1;
-	const char *const_1={_("Prefix longer than 30 bytes.")};
-	if(strlen(s) > 30) {
-		fprintf(stderr,const_1);
+	const char *const_1={_("Prefix longer than space allows.")};
+
+	if(strlen(s) > MAXPREFIX) {
+		fprintf(stderr,const_1);  
 		return;
 	}
 
@@ -357,13 +358,15 @@ static void SetPrefix(char *s) {
 		}
 	}
 
-	pPrefix = s;
-	pPrefixLc = s1 = Strdup(s);
+	strcpy(pPrefix,s);
+	s1 = Strdup(s);
 	
 	while(*s1) {	
 		*s1 = tolower(*s1);
 		s1++;
 	}
+	strcpy(pPrefixLc,s1);
+	free(s1);
 }
 
 	/* Set Column size */
@@ -433,10 +436,22 @@ static void SetQdelimit(char *s1, char *s2) {
 	changequote=1;
 }
 
+
+static char *AddPfx(char *s1, char *s2) {
+	char *s;
+
+	s=malloc (strlen(s1) + strlen(s2) + 1);
+	strcpy(s,s1);
+	strcat(s,s2);
+	return s;
+}	
 	/* Set computer language 
          */
 static void SetLang(char *s) {
+	int onone=1;
 
+    if(onone) {     /* Disallow multiple language settings */
+    onone=0;
         //DECISION_TABLE:
         //   N  -  -  -  -  -  -  -  Y  -  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
         //   N  -  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
@@ -461,7 +476,7 @@ static void SetLang(char *s) {
         //   -  -  -  -  -  -  -  -  -  -  -  X  - | lang=CS;  
         //   -  -  -  -  -  -  -  -  -  -  -  -  - | lang=CC;  
         //   X  -  -  -  -  -  -  X  -  -  X  X  - | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  X  X  -  X  -  - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        //   X  -  X  X  X  X  X  X  X  -  X  -  - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         //END_TABLE:
         //GENERATED_CODE: FOR TABLE_1.
         //	13 Rules, 12 conditions, and 11 actions.
@@ -491,25 +506,25 @@ static void SetLang(char *s) {
         	    lang=EX;	 // euphoria
         	CCIDE_case1_0: case  0:	//	Rule  1 
         	    SetQdelimit("`","\'");
-        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
         	case  1:	//	Rule  9 
         	    lang=BASIC;
-        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
         	case  8:	//	Rule  7 
         	    lang=VB;
-        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
         	case  4:	//	Rule  5 
         	case  5:	//	Rule  6 
         	    lang=QB;
-        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
         	case  2:	//	Rule  3 
         	case  3:	//	Rule  4 
         	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        	    m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
         	case  6:	//	Rule 12 
         	    lang=CS;
@@ -524,8 +539,8 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
-
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
+    }  /* End if onone */
 }
 
 /** Print a character,  adjusting for column width.
@@ -565,7 +580,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
 }
 
 /** Compute maximum of two values.
@@ -629,7 +644,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
 }
 
 /* Define condition for D/T. */
@@ -699,7 +714,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - | DupeActionIsAnError=0;
   	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - | SetLang(argv[narg+1]); narg++;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - | SetColumn(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - | m4out=1; pComment=strcat(pPrefix,"_COMMENT()");pEcomment="";
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - | SetPrefix(argv[narg+1]); narg++;
@@ -752,7 +767,7 @@ int main( int argc, char **argv) {
   		    SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   		    break;
   		case  7:	//	Rule 14 
-  		    m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+  		    m4out=1; pComment=strcat(pPrefix,"_COMMENT()");pEcomment="";
   		    break;
   		case  2:	//	Rule 13 
   		    SetColumn(argv[narg+1]); narg++;
@@ -787,7 +802,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Fri 10 Aug 2012 08:22:36 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
 
 	narg++;
     }

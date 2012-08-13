@@ -82,7 +82,7 @@ TEST_CASES = 	\
 	${CCIDE} -L JAVA -b ${OPT} < ${srcdir}/$< > $@ 
 
 %.bash: %.bash.d 
-	${CCIDE} -L BASH -b ${OPT} < ${srcdir}/$< > $@ 
+	${CCIDE}   -L BASH -b ${OPT} < ${srcdir}/$< > $@ 
 
 %.bbl: %.bbl.d 
 	${CCIDE} -a -m4  -b ${OPT}  < ${srcdir}/$< > $@ 

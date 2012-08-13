@@ -332,9 +332,10 @@ static void SetNbrRules(int n) {
         */
 static void SetPrefix(char *s) {
 	char *s1;
-	const char *const_1={_("Prefix longer than 30 bytes.")};
-	if(strlen(s) > 30) {
-		fprintf(stderr,const_1);
+	const char *const_1={_("Prefix longer than space allows.")};
+
+	if(strlen(s) > MAXPREFIX) {
+		fprintf(stderr,const_1);  
 		return;
 	}
 
@@ -357,13 +358,15 @@ static void SetPrefix(char *s) {
 		}
 	}
 
-	pPrefix = s;
-	pPrefixLc = s1 = Strdup(s);
+	strcpy(pPrefix,s);
+	s1 = Strdup(s);
 	
 	while(*s1) {	
 		*s1 = tolower(*s1);
 		s1++;
 	}
+	strcpy(pPrefixLc,s1);
+	free(s1);
 }
 
 	/* Set Column size */
@@ -433,10 +436,22 @@ static void SetQdelimit(char *s1, char *s2) {
 	changequote=1;
 }
 
+
+static char *AddPfx(char *s1, char *s2) {
+	char *s;
+
+	s=malloc (strlen(s1) + strlen(s2) + 1);
+	strcpy(s,s1);
+	strcat(s,s2);
+	return s;
+}	
 	/* Set computer language 
          */
 static void SetLang(char *s) {
+	int onone=1;
 
+    if(onone) {     /* Disallow multiple language settings */
+    onone=0;
         //DECISION_TABLE:
         //   N  -  -  -  -  -  -  -  Y  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
         //   N  -  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
@@ -461,9 +476,9 @@ static void SetLang(char *s) {
         //   -  -  -  -  -  -  -  -  -  -  -  X - | lang=CS;  
         //   -  -  -  -  -  -  -  -  -  -  -  - - | lang=CC;  
         //   X  -  -  -  -  -  -  X  -  -  X  X - | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  X  X  -  X  - - | m4out=1; pComment="CCIDE_COMMENT(";pEcomment=")";
+        //   X  -  X  X  X  X  X  X  X  -  X  - - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         //END_TABLE:
-
+    }  /* End if onone */
 }
 
 /** Print a character,  adjusting for column width.
@@ -572,7 +587,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - - | DupeActionIsAnError=0;
   	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - - | SetLang(argv[narg+1]); narg++;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - - | SetColumn(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | m4out=1; pComment="CCIDE_COMMENT()";pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | m4out=1; pComment=strcat(pPrefix,"_COMMENT()");pEcomment="";
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X - | SetPrefix(argv[narg+1]); narg++;

@@ -68,6 +68,8 @@
 #define TRUE 1
 #define FALSE 0
 
+#define MAXPREFIX 30
+
 #ifdef __uint32_t
 typedef __uint32_t CCIDE_CONDVAR;
 #else
@@ -129,8 +131,8 @@ extern int nbrcstubs;
 extern int DupeActionIsAnError;
 
 /* ccidemain.c */
-extern char *pPrefix;
-extern char *pPrefixLc;
+extern char pPrefix[];
+extern char pPrefixLc[];
 extern char *svar1, *svar2, *qt1, *qt2;
 extern int lsvar1, lsvar2,lqt1,lqt2;
 extern char *lws;          /*  Leading White Space */

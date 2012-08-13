@@ -98,8 +98,8 @@ char *lws = "";			/* Decision table leading White Space 		*/
 char bfr[BFRSIZE];		/* Internal buffer 		  		*/
 int lang = C;			/* Source file program language.  		*/
 int changequote = 0;		/* 1=issue m4 changequote command 		*/
-char *pPrefix = "CCIDE";	/* Generated code prefix 			*/
-char *pPrefixLc = "ccide";	/* Lower case generated code prefix 		*/
+char pPrefix[MAXPREFIX+1] = "CCIDE";	/* Generated code prefix 		*/
+char pPrefixLc[MAXPREFIX+1] = "ccide";	/* Lower case generated code prefix 	*/
 char *pComment = "/*";		/* Comment start 				*/
 char *pEcomment = "*/";		/* Comment end   				*/
 

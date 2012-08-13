@@ -4,14 +4,14 @@
 # ? PACKAGE_URL
 
 AC_PREREQ(2.59)
-AC_INIT([ccide],[0.6.2],[ccide@twyoung.com])
+AC_INIT([ccide],[0.6.4],[ccide@twyoung.com])
 AC_CONFIG_SRCDIR([src/ccidemain.h])
 AC_CONFIG_HEADERS([src/ccideconfig.h])
 
 TARGET=$target_cpu-$target_os
 AM_MAINTAINER_MODE(TRUE)
 AC_CANONICAL_TARGET([])
-AM_INIT_AUTOMAKE([ccide], [0.6.3])
+AM_INIT_AUTOMAKE([ccide], [0.6.4])
 
 RELEASE=1	
 LIBVER=0
