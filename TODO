@@ -1,10 +1,7 @@
 TODO: 
-	. Set NODEBUG (for assert)
-		. Change assert to ASSERT and define a null macro -- for mingw.
 	. Internationalization:
 		. Fix mingw link.
-		. Markup strings w/_(STRING).
-		. Add translations:  Spanish, French, German 
+		. Add translations from Translation Project
 		. See:  http://www.gnu.org/software/gettext/FAQ.html#integrating_undefined
 		. Internationalize ccide script or (better) issue ccidew messages from the script.
 	. Windows/mingw/cygwin.
@@ -14,9 +11,9 @@ TODO:
 		. Use ncurses??
 		??? Create ccide[.BAT] file for Windows.
 		 ZIP file for Windows.  -- 'make dist-zip'
-				. Ensure unix2dos run on all text files.
 		. Fix ex1.bash test case.
 	. Additional programming languages
+		. Fix lexer for variable string for comments.
 		. Tutorial on adding a new language
 			. Language requirements
 			. M4 requirements

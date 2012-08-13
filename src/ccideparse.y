@@ -331,7 +331,7 @@ static void SetNbrRules(int n) {
 	/** Set Prefix for D/T output.
         */
 static void SetPrefix(char *s) {
-	char *s1;
+	char *s1, *s2;
 	const char *const_1={_("Prefix longer than space allows.")};
 
 	if(strlen(s) > MAXPREFIX) {
@@ -359,14 +359,14 @@ static void SetPrefix(char *s) {
 	}
 
 	strcpy(pPrefix,s);
-	s1 = Strdup(s);
+	s1 = s2 = Strdup(s);
 	
 	while(*s1) {	
 		*s1 = tolower(*s1);
 		s1++;
 	}
 	strcpy(pPrefixLc,s1);
-	free(s1);
+	free(s2);
 }
 
 	/* Set Column size */
@@ -539,7 +539,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
     }  /* End if onone */
 }
 
@@ -580,7 +580,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
 }
 
 /** Compute maximum of two values.
@@ -644,7 +644,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
 }
 
 /* Define condition for D/T. */
@@ -802,7 +802,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Mon 13 Aug 2012 10:34:05 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
 
 	narg++;
     }

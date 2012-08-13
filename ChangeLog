@@ -1,6 +1,13 @@
+2012-08-13
+	0.6.4-1
+		.  -p prefix option fixes
+		.  Bash script generation fixes.
+		.  Set -DNDEBUG in Makefile.
+
 2012-08-09  
 	0.6.3-1
 		.  Internationalization framework.
+			. Markup strings w/_(STRING).
 		.  Mingw install: 'make DESTDIR=/mingw install'
 		.  gettextize -- Automake changes for gettext NLS translation.
 		.  Fix C++ invocation so that ccide -L C++ < SOURCE.c.d does not cause error message.

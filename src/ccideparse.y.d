@@ -331,7 +331,7 @@ static void SetNbrRules(int n) {
 	/** Set Prefix for D/T output.
         */
 static void SetPrefix(char *s) {
-	char *s1;
+	char *s1, *s2;
 	const char *const_1={_("Prefix longer than space allows.")};
 
 	if(strlen(s) > MAXPREFIX) {
@@ -359,14 +359,14 @@ static void SetPrefix(char *s) {
 	}
 
 	strcpy(pPrefix,s);
-	s1 = Strdup(s);
+	s1 = s2 = Strdup(s);
 	
 	while(*s1) {	
 		*s1 = tolower(*s1);
 		s1++;
 	}
 	strcpy(pPrefixLc,s1);
-	free(s1);
+	free(s2);
 }
 
 	/* Set Column size */
