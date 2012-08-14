@@ -1,8 +1,9 @@
-2012-08-13
+2012-08-14
 	0.6.4-1
 		.  -p prefix option fixes
 		.  Bash script generation fixes.
-		.  Set -DNDEBUG in Makefile.
+		.  Set -DNDEBUG in Makefile to disable assert function in production.
+		.  Added uk hr & fr .../*.po files from The Translation Project
 
 2012-08-09  
 	0.6.3-1

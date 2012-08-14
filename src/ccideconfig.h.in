@@ -102,6 +102,9 @@
 /* Define to 1 if you have the `__builtin_popcount' function. */
 #undef HAVE___BUILTIN_POPCOUNT
 
+/* Define as const if the declaration of iconv() needs const. */
+#undef ICONV_CONST
+
 /* Name of package */
 #undef PACKAGE
 

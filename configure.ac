@@ -32,6 +32,7 @@ AC_GNU_SOURCE
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
 # AM_INTL_SUBDIR([intl])
+AM_ICONV
 
 # Checks for programs.
 AC_PROG_CXX

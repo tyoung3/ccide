@@ -353,7 +353,7 @@ static void SetPrefix(char *s) {
 		  ) { 
 			s1++;
 		} else {
-			fprintf(stderr,_("Prefix contains illegal characters bytes."));
+			fprintf(stderr,_("Prefix contains invalid characters."));
 			return;
 		}
 	}
@@ -539,7 +539,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
     }  /* End if onone */
 }
 
@@ -580,7 +580,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
 }
 
 /** Compute maximum of two values.
@@ -644,7 +644,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
 }
 
 /* Define condition for D/T. */
@@ -714,7 +714,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - | DupeActionIsAnError=0;
   	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - | SetLang(argv[narg+1]); narg++;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - | SetColumn(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - | m4out=1; pComment=strcat(pPrefix,"_COMMENT()");pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - | m4out=1; pComment=AddPfx(pPrefix,"_COMMENT()");  ;pEcomment="";
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - | SetPrefix(argv[narg+1]); narg++;
@@ -767,7 +767,7 @@ int main( int argc, char **argv) {
   		    SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   		    break;
   		case  7:	//	Rule 14 
-  		    m4out=1; pComment=strcat(pPrefix,"_COMMENT()");pEcomment="";
+  		    m4out=1; pComment=AddPfx(pPrefix,"_COMMENT()");  ;pEcomment="";
   		    break;
   		case  2:	//	Rule 13 
   		    SetColumn(argv[narg+1]); narg++;
@@ -802,7 +802,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.3-1 Mon 13 Aug 2012 11:08:59 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
 
 	narg++;
     }

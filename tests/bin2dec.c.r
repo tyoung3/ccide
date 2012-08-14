@@ -109,13 +109,12 @@ int main(int argc, char **argv) {
 //   Y  Y  Y  Y  -  -  -  -  Y  Y  Y  Y  -  -  -  -  Y  Y  Y  Y  -  -  -  -  Y  Y  Y  Y  -  -  - | binc[2] == '1'
 //   Y  Y  Y  Y  Y  Y  Y  Y  -  -  -  -  -  -  -  -  Y  Y  Y  Y  Y  Y  Y  Y  -  -  -  -  -  -  - | binc[3] == '1'
 //   Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | binc[4] == '1'
-// _____________________________________________________________  | ______________
+// _______________________________________________________________________________
 //   X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X  -  X | dec += 16;
 //   X  X  -  -  X  X  -  -  X  X  -  -  X  X  -  -  X  X  -  -  X  X  -  -  X  X  -  -  X  X  - | dec += 8;
 //   X  X  X  X  -  -  -  -  X  X  X  X  -  -  -  -  X  X  X  X  -  -  -  -  X  X  X  X  -  -  - | dec += 4;
 //   X  X  X  X  X  X  X  X  -  -  -  -  -  -  -  -  X  X  X  X  X  X  X  X  -  -  -  -  -  -  - | dec += 2; 
 //   X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | dec += 1; 
-
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	31 Rules, 5 conditions, and 5 actions.
@@ -211,7 +210,7 @@ int main(int argc, char **argv) {
 	} // End Switch
 }
 //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1  
-
+// 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
 	printf("%s > %li\n", binc, dec);
 
 	return 0;

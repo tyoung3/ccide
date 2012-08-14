@@ -28,6 +28,10 @@
 #include "ccidemain.h"
 #include "ccideparse.h"
 
+/*  For gettext */
+#include "gettext.h"
+#define _(string) gettext (string)
+
 #define PGMNAME "ccide"
 void warning( const char *s );
 
@@ -375,7 +379,7 @@ static void SetTable() {
                 return( TSTART );
 	};
 
-^[\ \t]*--DECISION_TABLE:.*\n { 
+^[\ \t]*--DECISION_TABLE:.*\n {        /* Euphoria(EX) */
 		BEGIN CONDS; 
                 SetTable();
                 return( TSTART );
@@ -408,13 +412,13 @@ void yyerror(const char *s) {
 	static int count=0;
 
         fprintf(stderr, 
-		"%s: Error in line %d: %s near '%s'. Start State=%d\n",
-		PGMNAME, lineno, s, yytext, yy_start);
+		"%s: %s %d: %s near '%s'. %s=%d\n",
+		PGMNAME, _("Error in line"), lineno, s, yytext, _("Start State"),  yy_start);
 
 	if( count++ > 9 ) {
-		printf("%s Reached maximum error count.  Generation abandoned.\n",
+		printf(_("%s Reached maximum error count.  Generation abandoned.\n"),
 			pComment);
-		fprintf(stderr,"Reached maximum error count.  Generation abandoned.\n");
+		fprintf(stderr,_("Reached maximum error count.  Generation abandoned.\n"));
 		exit ( PARSE_ERROR );
 	}
 }
@@ -422,7 +426,7 @@ void yyerror(const char *s) {
 /* Issue parse warning message.
  */
 void warning( const char *s ) {
-        fprintf(stderr,"%s: WARNING at line %i: %s\n", PGMNAME, lineno, s);
+        fprintf(stderr,_("%s: WARNING at line %i: %s\n"), PGMNAME, lineno, s);
 }
 
 /* Allow buffer switch.

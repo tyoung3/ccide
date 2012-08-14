@@ -353,7 +353,7 @@ static void SetPrefix(char *s) {
 		  ) { 
 			s1++;
 		} else {
-			fprintf(stderr,_("Prefix contains illegal characters bytes."));
+			fprintf(stderr,_("Prefix contains invalid characters."));
 			return;
 		}
 	}
@@ -587,7 +587,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - - | DupeActionIsAnError=0;
   	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - - | SetLang(argv[narg+1]); narg++;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - - | SetColumn(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | m4out=1; pComment=strcat(pPrefix,"_COMMENT()");pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | m4out=1; pComment=AddPfx(pPrefix,"_COMMENT()");  ;pEcomment="";
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X - | SetPrefix(argv[narg+1]); narg++;
