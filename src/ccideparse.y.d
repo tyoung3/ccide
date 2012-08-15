@@ -533,6 +533,8 @@ int main( int argc, char **argv) {
         assert( UINT_MAX == 4294967295UL);
 	lws = Strdup("");
 
+/* ENABLE_NLS is set (or not) in ccideconfig.h by configure. */
+#ifdef  ENABLE_NLS
    	setlocale (LC_ALL, "");
 	if(  (tdir=bindtextdomain (PACKAGE, LOCALEDIR)) == NULL) {
 		perror(_("Binding gettext"));    
@@ -540,6 +542,7 @@ int main( int argc, char **argv) {
 	if(  (tdomain=textdomain (PACKAGE)) == NULL) {
 		perror(_("Getting textdomain"));  
 	}
+#endif
 
     while( argc>narg ) { 
 	s1=argv[narg]; ls1=0;

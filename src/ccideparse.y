@@ -539,7 +539,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
     }  /* End if onone */
 }
 
@@ -580,7 +580,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
 }
 
 /** Compute maximum of two values.
@@ -608,9 +608,9 @@ static void PrintNum(long n) {
 	//GENERATED_CODE: FOR TABLE_3.
 	//WARNING: Dropping rule 10 in table 3. 
 	//	9 Rules, 8 conditions, and 5 actions.
-	//	Table 3 rule order = 8 9 7 1 2 5 6 3 4 
-	 {	unsigned long CCIDE_table3_yes[9]={ 128UL,   0UL,  64UL,  17UL,  34UL,  16UL,  32UL,  68UL, 136UL};
-		unsigned long CCIDE_table3_no[9]= { 112UL, 240UL,  48UL,   0UL,   0UL,  32UL,  16UL,   0UL,   0UL};
+	//	Table 3 rule order = 8 9 7 1 2 3 4 5 6 
+	 {	unsigned long CCIDE_table3_yes[9]={ 128UL,   0UL,  64UL,  17UL,  34UL,  68UL, 136UL,  16UL,  32UL};
+		unsigned long CCIDE_table3_no[9]= { 112UL, 240UL,  48UL,   0UL,   0UL,   0UL,   0UL,  32UL,  16UL};
 
 
 		switch(CCIDEFindRule(9,
@@ -627,24 +627,24 @@ static void PrintNum(long n) {
 		    printf("%6li", n);
 		    break;
 		case  0:	//	Rule  8 
-		case  8:	//	Rule  4 
+		case  6:	//	Rule  4 
 		    printf("%5li", n);
 		    break;
 		case  2:	//	Rule  7 
-		case  7:	//	Rule  3 
+		case  5:	//	Rule  3 
 		    printf("%4li", n);
 		    break;
 		case  4:	//	Rule  2 
-		case  6:	//	Rule  6 
+		case  8:	//	Rule  6 
 		    printf("%3li", n);
 		    break;
 		case  3:	//	Rule  1 
-		case  5:	//	Rule  5 
+		case  7:	//	Rule  5 
 		    printf("%2li", n);
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
 }
 
 /* Define condition for D/T. */
@@ -660,6 +660,7 @@ int main( int argc, char **argv) {
         assert( UINT_MAX == 4294967295UL);
 	lws = Strdup("");
 
+#ifdef  ENABLE_NLS
    	setlocale (LC_ALL, "");
 	if(  (tdir=bindtextdomain (PACKAGE, LOCALEDIR)) == NULL) {
 		perror(_("Binding gettext"));    
@@ -667,6 +668,7 @@ int main( int argc, char **argv) {
 	if(  (tdomain=textdomain (PACKAGE)) == NULL) {
 		perror(_("Getting textdomain"));  
 	}
+#endif
 
     while( argc>narg ) { 
 	s1=argv[narg]; ls1=0;
@@ -802,7 +804,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 14 Aug 2012 10:55:08 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
 
 	narg++;
     }

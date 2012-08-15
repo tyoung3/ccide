@@ -1,4 +1,7 @@
 TODO: 
+	. Make RPM depend on gettext if so configured.
+		. Add .po files to rpm 
+	. Create maintaince guidelines.
 	. Internationalization:
 		. Fix mingw link.
 		. Add translations from Translation Project

@@ -211,8 +211,8 @@ static STATE DoOperator() {
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_3.
 	//	12 Rules, 8 conditions, and 4 actions.
-	//	Table 3 rule order = 3 8 4 9 5 10 6 11 7 12 1 2 
-	 {	unsigned long CCIDE_table3_yes[12]={  10UL,  12UL,  18UL,  20UL,  34UL,  36UL,  66UL,  68UL, 130UL, 132UL,   1UL,   0UL};
+	//	Table 3 rule order = 3 4 5 6 7 8 9 10 11 12 1 2 
+	 {	unsigned long CCIDE_table3_yes[12]={  10UL,  18UL,  34UL,  66UL, 130UL,  12UL,  20UL,  36UL,  68UL, 132UL,   1UL,   0UL};
 
 	CCIDE_TABLE_3:
 		switch(CCIDEFindRuleYes(12,
@@ -225,19 +225,19 @@ static STATE DoOperator() {
 			| (TOS==10)<<6
 			| (TOS==11)<<7
 			  ,CCIDE_table3_yes)) {
-		case  1:	//	Rule  8 
-		case  3:	//	Rule  9 
-		case  5:	//	Rule 10 
-		case  7:	//	Rule 11 
+		case  5:	//	Rule  8 
+		case  6:	//	Rule  9 
+		case  7:	//	Rule 10 
+		case  8:	//	Rule 11 
 		case  9:	//	Rule 12 
 		case 11:	//	Rule  2 
 		    return 2;
 		    break;
 		case  0:	//	Rule  3 
-		case  2:	//	Rule  4 
-		case  4:	//	Rule  5 
-		case  6:	//	Rule  6 
-		case  8:	//	Rule  7 
+		case  1:	//	Rule  4 
+		case  2:	//	Rule  5 
+		case  3:	//	Rule  6 
+		case  4:	//	Rule  7 
 		    PopToQueue();
 		case 10:	//	Rule  1 
 		    s=GetPrecedence();

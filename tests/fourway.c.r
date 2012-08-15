@@ -272,8 +272,8 @@ CCIDE_TABLE_3:
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_4.
 //	8 Rules, 7 conditions, and 4 actions.
-//	Table 4 rule order = 6 2 7 4 1 3 5 8 
- {	unsigned long CCIDE_table4_yes[8]={  88UL,  18UL,  24UL,  36UL,   1UL,   2UL,   4UL,   8UL};
+//	Table 4 rule order = 6 2 4 7 1 3 5 8 
+ {	unsigned long CCIDE_table4_yes[8]={  88UL,  18UL,  36UL,  24UL,   1UL,   2UL,   4UL,   8UL};
 	ccide_group=1;
 
 CCIDE_TABLE_4:
@@ -286,8 +286,8 @@ CCIDE_TABLE_4:
 		| (KeyLow(3,4))<<5
 		| (KeyLow(2,3))<<6
 		  ,CCIDE_table4_yes)) {
-	case  2:	//	Rule  7 
-	case  3:	//	Rule  4 
+	case  2:	//	Rule  4 
+	case  3:	//	Rule  7 
 	    WriteFromFile(3);
 	    goto CCIDE_TABLE_4;
 	case  0:	//	Rule  6 
@@ -314,8 +314,8 @@ CCIDE_TABLE_4:
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_5.
 //	12 Rules, 10 conditions, and 4 actions.
-//	Table 5 rule order = 10 3 11 6 8 1 2 4 5 7 9 12 
- {	unsigned long CCIDE_table5_yes[12]={ 704UL, 132UL, 192UL, 272UL, 544UL,   1UL,   2UL,   4UL,   8UL,  16UL,  32UL,  64UL};
+//	Table 5 rule order = 10 3 6 8 11 1 2 4 5 7 9 12 
+ {	unsigned long CCIDE_table5_yes[12]={ 704UL, 132UL, 272UL, 544UL, 192UL,   1UL,   2UL,   4UL,   8UL,  16UL,  32UL,  64UL};
 	ccide_group=1;
 
 CCIDE_TABLE_5:
@@ -331,15 +331,15 @@ CCIDE_TABLE_5:
 		| (KeyLow(3,1))<<8
 		| (KeyLow(2,3))<<9
 		  ,CCIDE_table5_yes)) {
-	case  2:	//	Rule 11 
-	case  3:	//	Rule  6 
+	case  2:	//	Rule  6 
+	case  4:	//	Rule 11 
 	case  8:	//	Rule  5 
 	case 10:	//	Rule  9 
 	    WriteFromFile(3);
 	    goto CCIDE_TABLE_5;
 	case  0:	//	Rule 10 
 	case  1:	//	Rule  3 
-	case  4:	//	Rule  8 
+	case  3:	//	Rule  8 
 	case  6:	//	Rule  2 
 	    WriteFromFile(2);
 	    goto CCIDE_TABLE_5;

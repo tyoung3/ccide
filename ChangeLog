@@ -1,5 +1,10 @@
+2012-08-15 
+		.  Added vi.po file.
+
 2012-08-14
 	0.6.4-1
+		.  Fixed bug in rule sequencing.
+			. Updated tests accordingly.
 		.  -p prefix option fixes
 		.  Bash script generation fixes.
 		.  Set -DNDEBUG in Makefile to disable assert function in production.

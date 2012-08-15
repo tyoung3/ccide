@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
 //		exit(1);
 	}
 	dec = 0;
+//   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
 //DECISION_TABLE:
 //   Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y  -  Y | binc[0] == '1'
 //   Y  Y  -  -  Y  Y  -  -  Y  Y  -  -  Y  Y  -  -  Y  Y  -  -  Y  Y  -  -  Y  Y  -  -  Y  Y  - | binc[1] == '1'
@@ -118,8 +119,8 @@ int main(int argc, char **argv) {
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	31 Rules, 5 conditions, and 5 actions.
-//	Table 1 rule order = 1 17 9 5 3 2 25 21 19 18 13 11 10 7 6 4 29 27 26 23 22 20 15 14 12 8 31 30 28 24 16 
- {	unsigned long CCIDE_table1_yes[31]={  31UL,  15UL,  23UL,  27UL,  29UL,  30UL,   7UL,  11UL,  13UL,  14UL,  19UL,  21UL,  22UL,  25UL,  26UL,  28UL,   3UL,   5UL,   6UL,   9UL,  10UL,  12UL,  17UL,  18UL,  20UL,  24UL,   1UL,   2UL,   4UL,   8UL,  16UL};
+//	Table 1 rule order = 1 17 9 5 3 2 25 21 13 19 11 7 18 10 6 4 29 27 23 15 26 22 14 20 12 8 31 30 28 24 16 
+ {	unsigned long CCIDE_table1_yes[31]={  31UL,  15UL,  23UL,  27UL,  29UL,  30UL,   7UL,  11UL,  19UL,  13UL,  21UL,  25UL,  14UL,  22UL,  26UL,  28UL,   3UL,   5UL,   9UL,  17UL,   6UL,  10UL,  18UL,  12UL,  20UL,  24UL,   1UL,   2UL,   4UL,   8UL,  16UL};
 
 
 	switch(CCIDEFindRuleYes(31,
@@ -144,54 +145,54 @@ int main(int argc, char **argv) {
 	case 14:	//	Rule  6 
 	    dec += 8;
 	    goto CCIDE_case1_25;
-	case 13:	//	Rule  7 
+	case 11:	//	Rule  7 
 	    dec += 16;
 	CCIDE_case1_25: case 25:	//	Rule  8 
 	    dec += 2;
 	    goto CCIDE_case1_30;
 	case  2:	//	Rule  9 
 	    dec += 16;
-	case 12:	//	Rule 10 
+	case 13:	//	Rule 10 
 	    dec += 8;
 	    goto CCIDE_case1_24;
-	case 11:	//	Rule 11 
+	case 10:	//	Rule 11 
 	    dec += 16;
 	CCIDE_case1_24: case 24:	//	Rule 12 
 	    dec += 4;
 	    goto CCIDE_case1_30;
-	case 10:	//	Rule 13 
+	case  8:	//	Rule 13 
 	    dec += 16;
-	case 23:	//	Rule 14 
+	case 22:	//	Rule 14 
 	    dec += 8;
 	    goto CCIDE_case1_30;
-	case 22:	//	Rule 15 
+	case 19:	//	Rule 15 
 	    dec += 16;
 	CCIDE_case1_30: case 30:	//	Rule 16 
 	    dec += 1;
 	    break;
 	case  1:	//	Rule 17 
 	    dec += 16;
-	case  9:	//	Rule 18 
+	case 12:	//	Rule 18 
 	    dec += 8;
-	    goto CCIDE_case1_21;
-	case  8:	//	Rule 19 
+	    goto CCIDE_case1_23;
+	case  9:	//	Rule 19 
 	    dec += 16;
-	CCIDE_case1_21: case 21:	//	Rule 20 
+	CCIDE_case1_23: case 23:	//	Rule 20 
 	    dec += 4;
 	    goto CCIDE_case1_29;
 	case  7:	//	Rule 21 
 	    dec += 16;
-	case 20:	//	Rule 22 
+	case 21:	//	Rule 22 
 	    dec += 8;
 	    goto CCIDE_case1_29;
-	case 19:	//	Rule 23 
+	case 18:	//	Rule 23 
 	    dec += 16;
 	CCIDE_case1_29: case 29:	//	Rule 24 
 	    dec += 2;
 	    break;
 	case  6:	//	Rule 25 
 	    dec += 16;
-	case 18:	//	Rule 26 
+	case 20:	//	Rule 26 
 	    dec += 8;
 	    goto CCIDE_case1_28;
 	case 17:	//	Rule 27 
@@ -210,7 +211,6 @@ int main(int argc, char **argv) {
 	} // End Switch
 }
 //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1  
-// 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
 	printf("%s > %li\n", binc, dec);
 
 	return 0;

@@ -105,8 +105,8 @@ while [[ $N > 0 ]]; do
 	#END_TABLE:
 	#GENERATED_CODE: FOR TABLE_1.
 	#	4 Rules, 5 conditions, and 7 actions.
-	#	Table 1 rule order = 4 1 3 2 
-		CCIDE_YES=(0 9 12 18)
+	#	Table 1 rule order = 4 1 2 3 
+		CCIDE_YES=(0 9 18 12)
 	CCIDE_NO=(7 0 0 0)
 
 
@@ -123,11 +123,11 @@ while [[ $N > 0 ]]; do
 		    T1=4; echo -n "Rule=4 N=$P T1=$T1 P=$P ";
 		    echo "None of the above";
 		    ;;
-		(2) #	Rule 3
+		(3) #	Rule 3
 		    T1=3; echo -n "Rule=3 N=$P T1=$T1 P=$P ";
 		    echo "Got C!";
 		    ;;
-		(3) #	Rule 2
+		(2) #	Rule 2
 		    T1=2; echo -n "Rule=2 N=$P T1=$T1 P=$P ";
 		    echo "Got ${!P}!";
 		    ;;

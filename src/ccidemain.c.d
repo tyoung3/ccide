@@ -255,34 +255,51 @@ YesNoCount (int x)
   return CountEm (ccide.yes[x][0] | ccide.no[x][0]);
 }
 
+/** Hack to reverse bits for sorting
+	FROM: http://graphics.stanford.edu/~seander/bithacks.html#BitReverseObvious
+ */
+static unsigned int ReverseBits(unsigned int v ) {
+	unsigned int r = v; // r will be reversed bits of v; first get LSB of v
+	
+	int s = sizeof(v) * CHAR_BIT - 1; // extra shift needed at end
+
+	for (v >>= 1; v; v >>= 1) {   
+  		r <<= 1;
+  		r |= v & 1;
+  		s--;
+	}
+	r <<= s; // shift when v's highest bits are zero
+	return r;
+}
+
 	/* Qsort rule sequencing function */
 static int
 RuleSeq (const void *a, const void *b)
 {
   register int x, y;
-  int ca, cb;			// Count a, count b
+  unsigned int ca, cb;			// Count a, count b
 
   x = *(int *) a;
   y = *(int *) b;
   ca = YesNoCount (x);
   cb = YesNoCount (y);
 
-  if (ca > cb)
-    return -1;
+  if (ca > cb)      
+    return -1;		/* Rule x+1 before rule y+1 */
   if (ca < cb)
-    return 1;
+    return 1;		/* Rule y+1 before rule x+1 */
 
-  ca = ccide.yes[x][0] | ccide.no[x][0];
-  cb = ccide.yes[y][0] | ccide.no[y][0];
+  ca = ReverseBits(ccide.yes[x][0]) | ReverseBits(ccide.no[x][0]);
+  cb = ReverseBits(ccide.yes[y][0]) | ReverseBits(ccide.no[y][0]);
   if (ca > cb)
-    return 1;
+    return -1;  		/* Rule x+1 before rule y+1 */   
   if (ca < cb)
-    return -1;
+    return 1;		/* Rule y+1 before rule x+1 */
 
-  if (x < y)
-    return -1;
+  if (x < y)		
+    return -1;		/* Rule x+1 before rule y+1 */
 
-  return 1;
+  return 1;		/* Rule y+1 before rule x+1 */
 }
 
 	/* Delete rules with no actions.  */

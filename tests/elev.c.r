@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
 //------------------------------------------------
 //    -   X   -   -   -   -   - |GoToFloor();
 //    X   -   -   -   -   -   - |AdvanceClock();
-//  11 12   8   -   - 12345   - |a=$$;
+//   11  12   8   -   - 12345   - |a=$$;
 //    1   1   2   3   2   -   - |Act($$,$$);
 //    -   -   X   -   X   -   X |{ int x=2;  
 //    -   -   X   -   X   -   X | UnLoad(x); printf("`date` 'abcd'\n"); 
@@ -127,9 +127,9 @@ int main(int argc, char **argv) {
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	7 Rules, 15 conditions, and 19 actions.
-//	Table 1 rule order = 1 3 7 5 6 2 4 
- {	unsigned long CCIDE_table1_yes[7]={2185UL,18706UL,5184UL,18434UL, 548UL,18434UL,   2UL};
-	unsigned long CCIDE_table1_no[7]= {24576UL,8192UL,2048UL,8192UL,   0UL,   0UL,4096UL};
+//	Table 1 rule order = 1 3 5 7 2 6 4 
+ {	unsigned long CCIDE_table1_yes[7]={2185UL,18706UL,18434UL,5184UL,18434UL, 548UL,   2UL};
+	unsigned long CCIDE_table1_no[7]= {24576UL,8192UL,8192UL,2048UL,   0UL,   0UL,4096UL};
 	ccide_group=1;
 
 CCIDE_TABLE_1:
@@ -152,15 +152,15 @@ CCIDE_TABLE_1:
 		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
 	case  1:	//	Rule  3 
 	    a=8;
-	case  3:	//	Rule  5 
+	case  2:	//	Rule  5 
 	    Act(2,2);
-	case  2:	//	Rule  7 
+	case  3:	//	Rule  7 
 	    { int x=2;
 	    UnLoad(x); printf("`date` 'abcd'\n");
 	    Load(); }
 	    ccide_group = 3;
 	    goto CCIDE_TABLE_1;
-	case  5:	//	Rule  2 
+	case  4:	//	Rule  2 
 	    GoToFloor();
 	    a=12;
 	    Act(1,1);
@@ -176,7 +176,7 @@ CCIDE_TABLE_1:
 	    Act(3,3);
 	    DefaultRule();
 	    goto CCIDE_TABLE_1 ;
-	case  4:	//	Rule  6 
+	case  5:	//	Rule  6 
 	    a=12345;
 	    assert(1==0);
 	    break;
