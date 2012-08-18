@@ -56,6 +56,7 @@ TEST_CASES = 	\
        huge2	\
        if2rpn	\
        simple	\
+       skel	\
        threeway	\
        hw	\
        tryit	 

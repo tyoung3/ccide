@@ -296,6 +296,8 @@ RuleSeq (const void *a, const void *b)
   if (ca < cb)
     return 1;		/* Rule y+1 before rule x+1 */
 
+  /*  Unreachable in theory. */
+
   if (x < y)		
     return -1;		/* Rule x+1 before rule y+1 */
 
@@ -978,6 +980,8 @@ SetASTUBscan (int nactions, char *c1)
   return substitute;
 }
 
+/** Dead code */
+#if 0
 void
 SetASTUBhere (int nactions, char *c1)
 {
@@ -987,6 +991,7 @@ SetASTUBhere (int nactions, char *c1)
 	    lws, c1, pPrefix, nbrtables);
   SetASTUB (nactions, bufs);
 }
+#endif 
 
 	/* NEWGROUP in last action */
 void
@@ -1103,9 +1108,8 @@ CcideCheckRules (int ndrop)
 
 }
 
-char *
-yes_tbl (int nrules)
-{
+	/* Build string to display yes table entry values. */
+char *yes_tbl (int nrules) {
   int i;
   static char bfr[4000];
   char bfr2[4000];
@@ -1122,9 +1126,8 @@ yes_tbl (int nrules)
   return bfr;
 }
 
-char *
-no_tbl (int nrules)
-{
+	/* Build string to display no table entry values. */
+char *no_tbl (int nrules) {
   int i;
   static char bfr[4000];
   char bfr2[4000];
@@ -1140,10 +1143,8 @@ no_tbl (int nrules)
   strcat (bfr, "}'");
   return bfr;
 }
-
-char *
-cond_seq (int nconds)
-{
+        /* Build string to display condition stub. */
+char *cond_seq (int nconds) {
   int i;
   static char bfr[1000], conds[1000];
 
@@ -1158,9 +1159,7 @@ cond_seq (int nconds)
   return bfr;
 }
 
-char *
-java_cond_seq (int nconds)
-{
+char *java_cond_seq (int nconds){
   int i;
   static char bfr[10000];
   char conds[10000], bfr2[10000];
@@ -1594,6 +1593,7 @@ GenerateFindRule (int nconds, int nactions, int nrules)
   GenEnd ();
 }
 
+#ifndef ThisProgramCanHandleDefaultCases
 	/* Look for condition substitution. */
 int
 CanDoSwitch ()
@@ -1613,6 +1613,7 @@ CanDoSwitch ()
 
   return 0;
 }
+#endif  /* End if ThisProgramCanHandleDefaultCases is not defined. */
 
 static void
 GenerateLabel ()

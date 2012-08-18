@@ -35,7 +35,7 @@ B<ccide> [ -a] [-b] [-c COLSIZE] [-d SUBSTITUTE_STRING1 SUBSTITUTE_STRING2 ] [-e
 		 [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] [-s SKELSIZE] [-t] 
  		 [-u] [-x] < FILEIN > FILEOUT  
 
-B<ccide> [-V]  		
+B<ccide> [-V] | [--version]		
 
 B<ccide> [-s [nnn] ]  		
 

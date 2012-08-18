@@ -1,7 +1,16 @@
-TODO: 
-	. Make RPM depend on gettext if so configured.
+Must DO:
+	. Switch .pod to FDL from GPL.
+	. The config.sub and other such infrastructure files are rather stale.
+		Get the latest versions from the gnulib project
+		(http://savannah.gnu.org/projects/gnulib), specifically the build-aux
+		subdirectory:
+		http://git.savannah.gnu.org/cgit/gnulib.git/tree/build-aux
+	. Make RPM depend on gettext if, and only if, so configured.
 		. Add .po files to rpm 
-	. Create maintaince guidelines.
+		. Issue: rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po   
+			for new dist.
+TODO: 
+	. Create maintaince guidelines.make 
 	. Internationalization:
 		. Fix mingw link.
 		. Add translations from Translation Project

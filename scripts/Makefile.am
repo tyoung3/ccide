@@ -55,11 +55,8 @@ uninstall:
 
 distdir:
 
-#distclean: clean 
-#	rm ccide
-
 distclean-local:
-	rm Makefile  ccide
+	rm -f Makefile  ccide
 
 clean-local:
 	rm -f *~ 

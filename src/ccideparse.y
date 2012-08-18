@@ -539,7 +539,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Thu 16 Aug 2012 08:53:40 PM EDT 
     }  /* End if onone */
 }
 
@@ -580,7 +580,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Thu 16 Aug 2012 08:53:40 PM EDT 
 }
 
 /** Compute maximum of two values.
@@ -644,7 +644,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Thu 16 Aug 2012 08:53:40 PM EDT 
 }
 
 /* Define condition for D/T. */
@@ -660,6 +660,7 @@ int main( int argc, char **argv) {
         assert( UINT_MAX == 4294967295UL);
 	lws = Strdup("");
 
+/* ENABLE_NLS is set (or not) in ccideconfig.h by configure. */
 #ifdef  ENABLE_NLS
    	setlocale (LC_ALL, "");
 	if(  (tdir=bindtextdomain (PACKAGE, LOCALEDIR)) == NULL) {
@@ -700,7 +701,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-s)
   	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-t)
   	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)
-  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - | Argis(-V)
+  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - | Argis(-V)||Argis(--version)
   	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - | Argis(-x)
   	//  ________________________________________________________________
   	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | notimestamp=1;
@@ -744,7 +745,7 @@ int main( int argc, char **argv) {
   			| (Argis(-s))<<11
   			| (Argis(-t))<<12
   			| (Argis(-u))<<13
-  			| (Argis(-V))<<14
+  			| (Argis(-V)||Argis(--version))<<14
   			| (Argis(-x))<<15
   			  ,CCIDE_table4_yes)) {
   		case 16:	//	Rule  8 
@@ -804,7 +805,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 14 Aug 2012 01:48:48 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Thu 16 Aug 2012 08:53:40 PM EDT 
 
 	narg++;
     }
