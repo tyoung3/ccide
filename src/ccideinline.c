@@ -289,6 +289,10 @@ Usage ()
     J ("       | ccidew [-a] [-b] [-c COLUMNSIZE] [-d STUBSTRING1 STUBSTRING2] [-e] [-l] ")
     J ("               [-L LANG] [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE]")
     J ("	          [-s SKELSIZE][-t] [-u] [-x] < STDIN > STDOUT") 
+    J ("	          ") 
+    J_("Environmental Variables:	          ") 
+    J_("CCIDEW			Path to the ccidew program.\n\t\t\tExample: /usr/local/bin/ccidew") 
+    J_("CCIDE_M4DIR		Directory containing ccide .m4 files.\n\t\t\tExample: /usr/local/share/ccide  ") 
     RC = 1;
     exit (1);
 }
