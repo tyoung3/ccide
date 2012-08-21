@@ -118,7 +118,7 @@ int GenSkeleton(char *skelsize);
 
 /* ********************  Shared Variables and Functions  *********************/
 
-enum{ C, ASM, BASH, CC, VB, QB, BASIC, JAVA, CS, EX};
+enum{ C, ASM, BASH, CC, VB, QB, BASIC, JAVA, CS, EX, JS};
 extern int lang;
 extern char *slang;
 
@@ -141,6 +141,7 @@ extern int ccide_newgroup;
 extern int noinline;	   /* 1=do not generate inline code */
 extern int m4out;	   /* 1=Generate M4 code instead of C code */
 extern int donotgenerate;  /* 1=do not generate any code */
+extern int usegoto;  	   /* 1=GOTO optimization is enabled. */
 extern int notimestamp;    /* 1=do not generate timestamp 		*/
 extern int uselocaltime;   /* 1=local time instead of UTC in timestamp 	*/
 extern int checkequal;     /* 0=bypasss checking for '=' in cond stub. 	*/

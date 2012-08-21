@@ -31,7 +31,7 @@ Ccide generates a compilable source file with verified, expanded,  decision logi
 
 =head1 SYNOPSIS
 
-B<ccide> [ -a] [-b] [-c COLSIZE] [-d SUBSTITUTE_STRING1 SUBSTITUTE_STRING2 ] [-e] [-l] [-L C|C++|CC|CH|CS|BASH|BASIC|EX|JAVA|VB|QB] 
+B<ccide> [ -a] [-b] [-c COLSIZE] [-d SUBSTITUTE_STRING1 SUBSTITUTE_STRING2 ] [-e] [-g] [-l] [-L C|C++|CC|CH|CS|BASH|BASIC|EX|JAVA|VB|QB] 
 		 [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] [-s SKELSIZE] [-t] 
  		 [-u] [-x] < FILEIN > FILEOUT  
 
@@ -207,7 +207,7 @@ minimize action stub generation redundancy.
 
 All cases are labeled with a string showing the table number and the case
 number.  This allows ccide to use goto's to reduce the amount of output in
-some situations.
+some situations. The B<-g> option disables this optimization.  
 
 Ccide reduces the amount of generated code by combining cases wherever
 appropriate.  I.e., if two cases specify the same set of actions, the
@@ -294,6 +294,8 @@ backquotes("`") are not allowed in condition or action stubs.
 For BASH scripts use the, "$(command)",	form of command substitution 
 instead of the back quote form, "`command`".  Use functions, as 
 necessary, to avoid syntax problems with quotes.
+
+B<-g>   Eliminate GOTO statements.  ccide optimizes some complex switch expressions using GOTO statements.  This option will elminate GOTO optimization.  Languages, such as JavaScript, which disallow GOTO, automatically invoke this option.
 
 B<-l>	The B<-l>(localtime) option causes ccide to use local time
 instead of UTC on timestamps.

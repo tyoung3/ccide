@@ -30,10 +30,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ccide 0.6.4\n"
+"Project-Id-Version: ccide 0.6.5\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-08-16 20:54-0400\n"
-"PO-Revision-Date: 2012-08-16 20:54-0400\n"
+"POT-Creation-Date: 2012-08-21 08:00-0400\n"
+"PO-Revision-Date: 2012-08-21 08:00-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -104,54 +104,54 @@ msgstr ""
 msgid "NULL Delimiter\n"
 msgstr "NULL Delimiter\n"
 
-#: src/ccideparse.c:2076
+#: src/ccideparse.c:2082
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 
-#: src/ccideparse.c:2209
+#: src/ccideparse.c:2220
 msgid "Binding gettext"
 msgstr "Binding gettext"
 
-#: src/ccideparse.c:2212
+#: src/ccideparse.c:2223
 msgid "Getting textdomain"
 msgstr "Getting textdomain"
 
-#: src/ccideparse.c:2227
+#: src/ccideparse.c:2238
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Parameter %i is too long.\n"
 
-#: src/ccidemain.c:182
+#: src/ccidemain.c:183
 #, c-format
 msgid "Cannot find case value for rule %i%s\n"
 msgstr "Cannot find case value for rule %i%s\n"
 
-#: src/ccidemain.c:661
+#: src/ccidemain.c:662
 #, c-format
 msgid "Rule %i conflicts with rule %2i\n"
 msgstr "Rule %i conflicts with rule %2i\n"
 
-#: src/ccidemain.c:698
+#: src/ccidemain.c:699
 #, c-format
 msgid "Rules %2i and  %2i overlap.\n"
 msgstr "Rules %2i and  %2i overlap.\n"
 
-#: src/ccidemain.c:771
+#: src/ccidemain.c:772
 msgid "Allocating leading white space"
 msgstr "Allocating leading white space"
 
-#: src/ccidemain.c:820
+#: src/ccidemain.c:821
 #, c-format
 msgid "%s '=' error in condition expression %i"
 msgstr "%s ‘[1m=[0m’ error in condition expression %i"
 
-#: src/ccidemain.c:846
+#: src/ccidemain.c:847
 #, c-format
 msgid "%s is the same as condition %i"
 msgstr "%s is the same as condition %i"
 
-#: src/ccidemain.c:934
+#: src/ccidemain.c:935
 #, c-format
 msgid "%s is the same as action %i"
 msgstr "%s is the same as action %i"

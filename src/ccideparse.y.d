@@ -453,31 +453,34 @@ static void SetLang(char *s) {
     if(onone) {     /* Disallow multiple language settings */
     onone=0;
         //DECISION_TABLE:
-        //   N  -  -  -  -  -  -  -  Y  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
-        //   N  -  Y  -  -  -  -  -  -  -  -  - - | strcmp(s,"BASH")==0
-        //   N  -  -  Y  -  -  -  -  -  -  -  - - | strcmp(s,"bash")==0
-        //   N  -  -  -  Y  -  -  -  -  -  -  - - | strcmp(s,"QB")==0
-        //   N  -  -  -  -  Y  -  -  -  -  -  - - | strcmp(s,"qb")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  Y - | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //   N  -  -  -  -  -  -  -  -  -  Y  - - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //   N  -  -  -  -  -  Y  -  -  -  -  - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //   N  -  -  -  -  -  -  Y  -  -  -  - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
-        //   N  -  -  -  -  -  -  -  -  Y  -  - - | strcmp(s,"C")==0     || strcmp(s,"c")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  - Y | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
+        //   N  -  -  -  -  -  -  -  Y  -  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
+        //   N  -  Y  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"BASH")==0
+        //   N  -  -  Y  -  -  -  -  -  -  -  -  - - | strcmp(s,"bash")==0
+        //   N  -  -  -  Y  -  -  -  -  -  -  -  - - | strcmp(s,"QB")==0
+        //   N  -  -  -  -  Y  -  -  -  -  -  -  - - | strcmp(s,"qb")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  Y  - - | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //   N  -  -  -  -  -  -  -  -  -  Y  -  - - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
+        //   N  -  -  -  -  -  Y  -  -  -  -  -  - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
+        //   N  -  -  -  -  -  -  Y  -  -  -  -  - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
+        //   N  -  -  -  -  -  -  -  -  Y  -  -  - - | strcmp(s,"C")==0    || strcmp(s,"c")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  -  Y - | strcmp(s,"C++")==0  || strcmp(s,"c++")==0 
+        //   N  -  -  -  -  -  -  -  -  -  -  -  - Y | strcmp(s,"JS")==0   || strcmp(s,"js")==0   
         //  __________________________________________________________________________________________
-        //   -  X  -  -  -  -  -  -  -  -  -  - - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
-        //   -  -  X  X  -  -  -  -  -  -  -  - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        //   -  -  -  -  X  X  -  -  -  -  -  - - | lang=QB; 
-        //   -  -  -  -  -  -  X  -  -  -  -  - - | lang=VB; 
-        //   -  -  -  -  -  -  -  X  -  -  -  - - | lang=EX;	 // euphoria 
-        //   -  -  -  -  -  -  -  -  X  -  -  - - | lang=BASIC; 
-        //   -  -  -  -  -  -  -  -  -  -  X  - - | lang=JAVA; 
-        //   -  -  -  -  -  -  -  -  -  -  -  X - | lang=CS;  
-        //   -  -  -  -  -  -  -  -  -  -  -  - - | lang=CC;  
-        //   X  -  -  -  -  -  -  X  -  -  X  X - | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  X  X  -  X  - - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        //   -  X  -  -  -  -  -  -  -  -  -  -  - - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
+        //   -  -  X  X  -  -  -  -  -  -  -  -  - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
+        //   -  -  -  -  X  X  -  -  -  -  -  -  - - | lang=QB; 
+        //   -  -  -  -  -  -  X  -  -  -  -  -  - - | lang=VB; 
+        //   -  -  -  -  -  -  -  X  -  -  -  -  - - | lang=EX;	 // euphoria 
+        //   -  -  -  -  -  -  -  -  X  -  -  -  - - | lang=BASIC; 
+        //   -  -  -  -  -  -  -  -  -  -  X  -  - - | lang=JAVA; 
+        //   -  -  -  -  -  -  -  -  -  -  -  X  - - | lang=CS;  
+        //   -  -  -  -  -  -  -  -  -  -  -  -  - X | lang=JS;  usegoto=0; // JavaScript does not have goto.  
+        //   -  -  -  -  -  -  -  -  -  -  -  -  - - | lang=CC;  
+        //   X  -  -  -  -  -  -  X  -  -  X  X  - - | SetQdelimit("`","\'");     
+        //   X  -  X  X  X  X  X  X  X  -  X  -  - - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         //END_TABLE:
+
     }  /* End if onone */
 }
 
@@ -485,15 +488,16 @@ static void SetLang(char *s) {
  */
 static void PrintC(char c) {
 	//DECISION_TABLE:
-	//   1  3  4  5  6  - - | columnsize==$$
+	//   1  3  4  5  6  -  - - | columnsize==$$
 	//   ____________________________________
-	//   X  -  -  -  -  - - | printf("%c",c);
-	//   -  -  -  -  -  X - | printf(" %c",c);
-	//   -  X  -  -  -  - - | printf("  %c",c);
-	//   -  -  X  -  -  - - | printf("   %c",c);
-	//   -  -  -  X  -  - - | printf("    %c",c);
-	//   -  -  -  -  X  - - | printf("     %c",c);
+	//   X  -  -  -  -  -  - - | printf("%c",c);
+	//   -  -  -  -  -  X  - - | printf(" %c",c);
+	//   -  X  -  -  -  -  - - | printf("  %c",c);
+	//   -  -  X  -  -  -  - - | printf("   %c",c);
+	//   -  -  -  X  -  -  - - | printf("    %c",c);
+	//   -  -  -  -  X  -  - - | printf("     %c",c);
 	//END_TABLE:
+
 }
 
 /** Compute maximum of two values.
@@ -510,14 +514,15 @@ static inline long int max( long int a, long int b) {
 static void PrintNum(long n) {
 
 	//DECISION_TABLE:
-	//   2  3  4  5  -  -  -  -  - - | columnsize==$$
-	//   Y  -  -  -  Y  N  N  N  N - | n<10
-	//   -  Y  -  -  N  Y  N  N  N - | n<100
-	//   -  -  Y  -  -  -  Y  N  N - | n<1000
-	//   -  -  -  Y  -  -  -  Y  N - | n<10000
+	//   2  3  4  5  -  -  -  -  -  - - | columnsize==$$
+	//   Y  -  -  -  Y  N  N  N  N  - - | n<10
+	//   -  Y  -  -  N  Y  N  N  N  - - | n<100
+	//   -  -  Y  -  -  -  Y  N  N  - - | n<1000
+	//   -  -  -  Y  -  -  -  Y  N  - - | n<10000
 	//   ______________________________________
-	//   2  3  4  5  2  3  4  5  6 - | printf("%$$li", n);
+	//   2  3  4  5  2  3  4  5  6  - - | printf("%$$li", n);
 	//END_TABLE:     
+
 }
 
 /* Define condition for D/T. */
@@ -560,42 +565,45 @@ int main( int argc, char **argv) {
 	}
 
   	//DECISION_TABLE:
-  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - - | Argis(-a)
-  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-b)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - - | Argis(-c)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - - | Argis(-d)
-  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-l)
-  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - - | Argis(-L)
-  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - - | Argis(-e)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - - | Argis(-m4)
-  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-n)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y - | Argis(-p)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - - | Argis(-q)
-  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-s)
-  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-t)
-  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - - | Argis(-u)
-  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  - - | Argis(-V)||Argis(--version)
-  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - - | Argis(-x)
+  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - - | Argis(-a)
+  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-b)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - - | Argis(-c)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - - | Argis(-d)
+  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  - - | Argis(-e)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y - | Argis(-g)
+  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-l)
+  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - - | Argis(-L)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - - | Argis(-m4)
+  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-n)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - - | Argis(-p)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - - | Argis(-q)
+  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-s)
+  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-t)
+  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-u)
+  	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  - - | Argis(-V)||Argis(--version)
+  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - - | Argis(-x)
   	//  ________________________________________________________________
-  	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | notimestamp=1;
-  	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | uselocaltime=1;
-  	//   -  -  X  -  -  X  -  -  -  -  -  -  -  -  -  -  - - | noinline=1;
-  	//   -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  - - | if(GenSkeleton(argv[narg+1])) narg++;
-  	//   -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - - | yydebug=1;
-  	//   -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  - - | donotgenerate=1;
-  	//   -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  - - | ShowCopyright(); 
-  	//   -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  - - | Usage();
-  	//   -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  - - | checkequal=0;     // Do Not check for '='.
-  	//   -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - - | strcat(xstring, "- ");
-  	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - - | DupeActionIsAnError=0;
-  	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - - | SetLang(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - - | SetColumn(argv[narg+1]); narg++;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | m4out=1; pComment=AddPfx(pPrefix,"_COMMENT()");  ;pEcomment="";
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X - | SetPrefix(argv[narg+1]); narg++;
-  	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  - - | exit(0); 
+  	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | notimestamp=1;
+  	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | uselocaltime=1;
+  	//   -  -  X  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - - | noinline=1;
+  	//   -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | if(GenSkeleton(argv[narg+1])) narg++;
+  	//   -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  -  - - | yydebug=1;
+  	//   -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  -  - - | donotgenerate=1;
+  	//   -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  -  - - | ShowCopyright(); 
+  	//   -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  -  - - | Usage();
+  	//   -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  -  - - | checkequal=0;     // Do Not check for '='.
+  	//   -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  -  - - | strcat(xstring, "- ");
+  	//   -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  -  - - | DupeActionIsAnError=0;
+  	//   -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  -  - - | SetLang(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  -  - - | SetColumn(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  -  - - | m4out=1; pComment=AddPfx(pPrefix,"_COMMENT()");  ;pEcomment="";
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - - | SetDelimit(argv[narg+1],argv[narg+2]); narg+=2;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - - | SetPrefix(argv[narg+1]); narg++;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X - | usegoto=0;
+  	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  -  - - | exit(0); 
   	//END_TABLE:  	
+
 
 	narg++;
     }

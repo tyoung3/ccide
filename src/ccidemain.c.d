@@ -93,6 +93,7 @@ int noinline = 0;		/* 1 = do not generate inline code. 		*/
 int notimestamp = 0;		/* 1 = bypass timestamps. 			*/
 int uselocaltime = 0;		/* 1 = local time in timestamps. 		*/
 int donotgenerate = 0;		/* 1 = do not generate any code. 		*/
+int usegoto = 1;		/* 1 = GOTO optimization in effect. 		*/
 int checkequal = 1;		/* 0 = do not check for '=' in cond stub. 	*/
 char *lws = "";			/* Decision table leading White Space 		*/
 char bfr[BFRSIZE];		/* Internal buffer 		  		*/

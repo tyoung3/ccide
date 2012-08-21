@@ -1,3 +1,5 @@
+Check on quote,"'", escaping, when m4 ` ' quoting is in use. C++, Javascript, etc.
+
 
 . http://translationproject.org/html/maintainers.html  Send tarball link for translation.
 	TARBALL:  http://sourceforge.net/projects/ccide/files/ccide-0.6.3-1.tar.gz/download
@@ -6,6 +8,7 @@
 PRESS RELEASE:
 	https://github.com/tyoung3/ccide/wiki/Press-Release•
 	Publish in these places:
+		. Linux Journal
 		. localnews@scni.com Advocate DONE
 		, DDJ  DONE 8/9/2012
 			. DDJ - write an article

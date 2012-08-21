@@ -1,7 +1,9 @@
 2012-08-15 
 	0.6.5-1
+		.  Added -g option for languages, like JavaScript, wo/GOTO statement.
 		.  Added Vietamese, vi.po, file.
 		.  Added Russian, ru.po, file.
+		.  Show environment variables in USAGE
 
 2012-08-14
 	0.6.4-1
