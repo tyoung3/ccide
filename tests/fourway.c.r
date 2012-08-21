@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
 //   Y  -  -  -  -  -  - |KeyLow(1,2)
 // _____________________________
 //   1  2  3  2  3  3  4 |WriteFromFile($$);
-//   X  X  X  X  X  X  X |NEWGROUP		
+//   X  X  X  X  X  X  X |NEWGROUP
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	7 Rules, 7 conditions, and 5 actions.
@@ -195,7 +195,7 @@ CCIDE_TABLE_1:
 //   -  -  Y  -  - |KeyLow(1,2)
 // _______________________
 //   2  4  1  2  4 |WriteFromFile($$); 
-//   X  X  X  X  X |NEWGROUP		
+//   X  X  X  X  X |NEWGROUP
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_2.
 //	5 Rules, 5 conditions, and 4 actions.
@@ -232,7 +232,7 @@ CCIDE_TABLE_2:
 //   -  -  Y  -  - |KeyLow(1,3)
 // _______________________
 //   1  4  1  3  4 |WriteFromFile($$); 
-//   X  X  X  X  X |NEWGROUP		
+//   X  X  X  X  X |NEWGROUP
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_3.
 //	5 Rules, 4 conditions, and 4 actions.
@@ -268,7 +268,7 @@ CCIDE_TABLE_3:
 //   -  -  -  -  -  Y  -  - |KeyLow(2,3)
 // ______________________________
 //   4  2  4  3  4  2  3  4 |WriteFromFile($$); 
-//   X  X  X  X  X  X  X  X |NEWGROUP		
+//   X  X  X  X  X  X  X  X |NEWGROUP
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_4.
 //	8 Rules, 7 conditions, and 4 actions.
@@ -310,7 +310,7 @@ CCIDE_TABLE_4:
 //   -  -  -  -  -  -  -  Y  -  Y  -  - |KeyLow(2,3)
 // ________________________________________________
 //   1  2  2  1  3  3  1  2  3  2  3  1 |WriteFromFile($$); 
-//   X  X  X  X  X  X  X  X  X  X  X  X |NEWGROUP		
+//   X  X  X  X  X  X  X  X  X  X  X  X |NEWGROUP
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_5.
 //	12 Rules, 10 conditions, and 4 actions.

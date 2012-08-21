@@ -98,10 +98,10 @@ while [[ $N > 0 ]]; do
 	#   -  -  Y  N | "${!P}" == "C"
 	#   1  3  1  - | "$T1"   == "/::"
 	# ____________________________
-	#   1  2  3  4 | T1=/::; echo -n "Rule=/:: N=$P T1=$T1 P=$P ")
-	#   X  X  -  - | echo "Got ${!P}!")
-	#   -  -  X  - | echo "Got C!")
-	#   -  -  -  X | echo "None of the above")
+	#   1  2  3  4 | T1=/::; echo -n "Rule=/:: N=$P T1=$T1 P=$P "
+	#   X  X  -  - | echo "Got ${!P}!"
+	#   -  -  X  - | echo "Got C!"
+	#   -  -  -  X | echo "None of the above"
 	#END_TABLE:
 	#GENERATED_CODE: FOR TABLE_1.
 	#	4 Rules, 5 conditions, and 7 actions.

@@ -233,7 +233,8 @@ condition_statement: conds PSTUB {
 action_statement:  
 	actions NEWGROUP {
 		ccide_newgroup=1;
-		printf(" %s|NEWGROUP\t\t%s", xstring,  pEcomment);
+		/* printf(" %s|NEWGROUP\t\t%s", xstring,  pEcomment); */
+		printf(" %s|NEWGROUP", xstring);
 		SetASTUBn( nactions, nrules );
 		SetNbrRules(nrules);
 		nactions += (substitute+1);
@@ -241,7 +242,8 @@ action_statement:
 	}
 	|
 	actions PSTUB {
-		printf(" %s|%s%s", xstring, $2,pEcomment);
+		/* printf(" %s|%s%s", xstring, $2,pEcomment); */
+		printf(" %s|%s", xstring, $2);
 		nactions += SetASTUBscan( nactions, ExpVar2(StripTrail($2)) );
 		substitute=0;
 		SetNbrRules(nrules);

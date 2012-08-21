@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
 //    -   -   -   -   -   X   - |assert(1==0); 
 //    -   -   -   X   -   -   - |DefaultRule();
 //    -   -   -   X   -   -   - |goto $@;
-//    1   2   3   -   3   -   3 |NEWGROUP		
+//    1   2   3   -   3   -   3 |NEWGROUP
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	7 Rules, 15 conditions, and 19 actions.
