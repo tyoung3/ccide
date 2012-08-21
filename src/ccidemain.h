@@ -87,6 +87,11 @@ extern char bfr[BFRSIZE];
 		fprintf(stderr,(const char*)"%s\n",#M)  /* Flawfinder: ignore */
 
 /* Flawfinder: ignore */
+#define ERROR1(A) 	\
+	yyerror(A); 				\
+        printf((const char*) "%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
+		lws, pComment, (A), pEcomment);	\
+	RC=1;
 #define ERROR3(F,A,B) sprintf(bfr,(const char*)F,A,B); 	\
 	yyerror(bfr); 				\
         printf((const char*) "%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\

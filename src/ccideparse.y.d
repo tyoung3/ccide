@@ -205,9 +205,9 @@ actions:   /* Null */
 	}
 	;
 
-condition_statement: conds PSTUB {
-		/* printf(" %s|%s%s", xstring, $2, pEcomment); */
-		printf(" %s|%s", xstring, $2);
+condition_statement: conds PSTUB 
+        {
+	    printf(" %s|%s", xstring, $2);
 	    if(logCond) {
 		nconds+=SetCSTUBscan( nconds, StripTrail($2) );
 		logCond = FALSE;
@@ -216,13 +216,12 @@ condition_statement: conds PSTUB {
 	    substitute=0; 
 	}
 	| conds NEWGROUP {
-		/* printf(" %s|NEWGROUP\t\t%s", xstring, pEcomment); */
-		printf(" %s|NEWGROUP\t\t", xstring );
+	    printf(" %s|NEWGROUP\t\t", xstring );
 	    if(logCond) {
 		if(lang==EX)
-			sprintf(pGroup, "%s_group = $$", pPrefixLc);
+			sprintf(pGroup, "%s_group = %s", pPrefixLc, svar1);
 		else
-			sprintf(pGroup, "%s_group == $$", pPrefixLc);
+			sprintf(pGroup, "%s_group == %s", pPrefixLc, svar1);
 		nconds+=SetCSTUBscan( nconds, pGroup );
 		logCond = FALSE;
 	    }
@@ -232,13 +231,17 @@ condition_statement: conds PSTUB {
 
 action_statement:  
 	actions NEWGROUP {
+	    printf(" %s|NEWGROUP", xstring);
+	    if(usegoto) {
 		ccide_newgroup=1;
-		/* printf(" %s|NEWGROUP\t\t%s", xstring,  pEcomment); */
-		printf(" %s|NEWGROUP", xstring);
 		SetASTUBn( nactions, nrules );
 		SetNbrRules(nrules);
 		nactions += (substitute+1);
 		substitute=0;
+	    } else {
+		printf("\n");
+		ERROR1(_("NEWGROUP not supported for GOTOless languages."));
+	    }
 	}
 	|
 	actions PSTUB {

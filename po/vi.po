@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide-0.6.4pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-08-21 08:00-0400\n"
+"POT-Creation-Date: 2012-08-21 10:34-0400\n"
 "PO-Revision-Date: 2012-08-15 14:14+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
@@ -41,36 +41,36 @@ msgstr "%s Chương trình KHUNG được tạo bởi ccide-%s.%s %s %s\n"
 msgid "%sEnd of Skeleton Program.%s\n"
 msgstr "%sKết thúc của chương trình KHUNG.%s\n"
 
-#: src/ccideparse.c:1589
+#: src/ccideparse.c:1593
 #, c-format
 msgid "%i exceeds the maximum number of rules  %i."
 msgstr "%i đạt đến số lượng \"quy tắc\" tối đa %i."
 
-#: src/ccideparse.c:1594
+#: src/ccideparse.c:1598
 #, c-format
 msgid "%i exceeds the maximum number of actions %i."
 msgstr "%i đạt đến số lượng \"hành vi\" tối đa %i."
 
-#: src/ccideparse.c:1599
+#: src/ccideparse.c:1603
 #, c-format
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i đạt đến số lượng \"điều kiện\" tối đa %i."
 
-#: src/ccideparse.c:1864
+#: src/ccideparse.c:1868
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i quy tắc, thay vì %i."
 
-#: src/ccideparse.c:1877
+#: src/ccideparse.c:1881
 msgid "Prefix longer than space allows."
 msgstr "Tiền tố dài hơn không gian cho phép."
 
-#: src/ccideparse.c:1898
+#: src/ccideparse.c:1902
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "Tiền tố chứa ký tự không hợp lệ."
 
-#: src/ccideparse.c:1926
+#: src/ccideparse.c:1930
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -79,26 +79,26 @@ msgstr ""
 "CCIDE/NGHIÊM-TRỌNG: Dấu giới hạn %s không bằng với QUOTE=(%s,%s) hoặc một "
 "SUBSTITUTION=(%s,%s) \n"
 
-#: src/ccideparse.c:1938
+#: src/ccideparse.c:1942
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "Dấu giới hạn NULL\n"
 
-#: src/ccideparse.c:2082
+#: src/ccideparse.c:2084
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr ""
 "CCIDE/PHÂN-TÍCH: Rất tiếc, ngôn ngữ lập trình %s vẫn chưa được hỗ trợ.\n"
 
-#: src/ccideparse.c:2220
+#: src/ccideparse.c:2222
 msgid "Binding gettext"
 msgstr "Đang ràng bộc gettext"
 
-#: src/ccideparse.c:2223
+#: src/ccideparse.c:2225
 msgid "Getting textdomain"
 msgstr "Đang lấy textdomain"
 
-#: src/ccideparse.c:2238
+#: src/ccideparse.c:2240
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Tham số %i quá dài.\n"

@@ -205,9 +205,9 @@ actions:   /* Null */
 	}
 	;
 
-condition_statement: conds PSTUB {
-		/* printf(" %s|%s%s", xstring, $2, pEcomment); */
-		printf(" %s|%s", xstring, $2);
+condition_statement: conds PSTUB 
+        {
+	    printf(" %s|%s", xstring, $2);
 	    if(logCond) {
 		nconds+=SetCSTUBscan( nconds, StripTrail($2) );
 		logCond = FALSE;
@@ -216,13 +216,12 @@ condition_statement: conds PSTUB {
 	    substitute=0; 
 	}
 	| conds NEWGROUP {
-		/* printf(" %s|NEWGROUP\t\t%s", xstring, pEcomment); */
-		printf(" %s|NEWGROUP\t\t", xstring );
+	    printf(" %s|NEWGROUP\t\t", xstring );
 	    if(logCond) {
 		if(lang==EX)
-			sprintf(pGroup, "%s_group = $$", pPrefixLc);
+			sprintf(pGroup, "%s_group = %s", pPrefixLc, svar1);
 		else
-			sprintf(pGroup, "%s_group == $$", pPrefixLc);
+			sprintf(pGroup, "%s_group == %s", pPrefixLc, svar1);
 		nconds+=SetCSTUBscan( nconds, pGroup );
 		logCond = FALSE;
 	    }
@@ -232,13 +231,17 @@ condition_statement: conds PSTUB {
 
 action_statement:  
 	actions NEWGROUP {
+	    printf(" %s|NEWGROUP", xstring);
+	    if(usegoto) {
 		ccide_newgroup=1;
-		/* printf(" %s|NEWGROUP\t\t%s", xstring,  pEcomment); */
-		printf(" %s|NEWGROUP", xstring);
 		SetASTUBn( nactions, nrules );
 		SetNbrRules(nrules);
 		nactions += (substitute+1);
 		substitute=0;
+	    } else {
+		printf("\n");
+		ERROR1(_("NEWGROUP not supported for GOTOless languages."));
+	    }
 	}
 	|
 	actions PSTUB {
@@ -547,7 +550,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 10:31:16 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
 
     }  /* End if onone */
 }
@@ -590,7 +593,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 10:31:16 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
 
 }
 
@@ -656,7 +659,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 10:31:16 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
 
 }
 
@@ -824,7 +827,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 10:31:16 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
 
 
 	narg++;
