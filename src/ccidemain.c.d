@@ -540,7 +540,7 @@ PerformActions (int rindex, int rule, int nextrule, int nbrrules)
 	      bash_rules[0] = 0;
 	    }
 	  ec = TableEqual (rindex, nawords, utbl);
-	  if ((ec > -1) && (lang != BASH))
+	  if ((ec > -1) && (lang != BASH) && usegoto)
 	    {
 	      isagoto[ec] = 1;	/* Generates the label later. */
 	      if (m4out)
@@ -1017,18 +1017,19 @@ SetASTUBn (int nactions, int nrules)
     }
 
   /* Set goto ...table action */
-  for (a1 = 0; a1 < nrules; a1++)
-    {
+  for (a1 = 0; a1 < nrules; a1++) {
       if (save4goto[a1])
 	SetAct (a1, a);
     }
 
-  if (lang == EX)
-    snprintf (bufs, sizeof (bufs) - strlen (pPrefix) - 40,
-	      "goto \"%s_TABLE_%i\"", pPrefix, nbrtables);
-  else
-    snprintf (bufs, sizeof (bufs) - strlen (pPrefix) - 40,
-	      "goto %s_TABLE_%i;", pPrefix, nbrtables);
+  if(usegoto) {
+	if (lang == EX)
+   		snprintf (bufs, sizeof (bufs) - strlen (pPrefix) - 40,
+	      	  	"goto \"%s_TABLE_%i\"", pPrefix, nbrtables);
+  	else
+    		snprintf (bufs, sizeof (bufs) - strlen (pPrefix) - 40,
+	      		"goto %s_TABLE_%i;", pPrefix, nbrtables);
+  }
 
   SetASTUB (a, bufs);
   UnSetNumbers ();

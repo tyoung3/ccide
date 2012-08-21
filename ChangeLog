@@ -1,5 +1,6 @@
 2012-08-15 
 	0.6.5-1
+		.  Fixed stray parenthesis in generated bash programs.
 		.  Added -g option for languages, like JavaScript, wo/GOTO statement.
 		.  Added Vietamese, vi.po, file.
 		.  Added Russian, ru.po, file.

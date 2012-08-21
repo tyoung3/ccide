@@ -206,7 +206,8 @@ actions:   /* Null */
 	;
 
 condition_statement: conds PSTUB {
-		printf(" %s|%s%s", xstring, $2, pEcomment);
+		/* printf(" %s|%s%s", xstring, $2, pEcomment); */
+		printf(" %s|%s", xstring, $2);
 	    if(logCond) {
 		nconds+=SetCSTUBscan( nconds, StripTrail($2) );
 		logCond = FALSE;
@@ -215,7 +216,8 @@ condition_statement: conds PSTUB {
 	    substitute=0; 
 	}
 	| conds NEWGROUP {
-		printf(" %s|NEWGROUP\t\t%s", xstring, pEcomment);
+		/* printf(" %s|NEWGROUP\t\t%s", xstring, pEcomment); */
+		printf(" %s|NEWGROUP\t\t", xstring );
 	    if(logCond) {
 		if(lang==EX)
 			sprintf(pGroup, "%s_group = $$", pPrefixLc);
@@ -453,32 +455,31 @@ static void SetLang(char *s) {
     if(onone) {     /* Disallow multiple language settings */
     onone=0;
         //DECISION_TABLE:
-        //   N  -  -  -  -  -  -  -  Y  -  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
-        //   N  -  Y  -  -  -  -  -  -  -  -  -  - - | strcmp(s,"BASH")==0
-        //   N  -  -  Y  -  -  -  -  -  -  -  -  - - | strcmp(s,"bash")==0
-        //   N  -  -  -  Y  -  -  -  -  -  -  -  - - | strcmp(s,"QB")==0
-        //   N  -  -  -  -  Y  -  -  -  -  -  -  - - | strcmp(s,"qb")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  Y  - - | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //   N  -  -  -  -  -  -  -  -  -  Y  -  - - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //   N  -  -  -  -  -  Y  -  -  -  -  -  - - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //   N  -  -  -  -  -  -  Y  -  -  -  -  - - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
-        //   N  -  -  -  -  -  -  -  -  Y  -  -  - - | strcmp(s,"C")==0    || strcmp(s,"c")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  -  Y - | strcmp(s,"C++")==0  || strcmp(s,"c++")==0 
-        //   N  -  -  -  -  -  -  -  -  -  -  -  - Y | strcmp(s,"JS")==0   || strcmp(s,"js")==0   
+        //   N  -  -    -   -  -  Y  -  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //   N  -  -    -   -  -  -  -  -  -  - - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
+        //   N  -  Y    -   -  -  -  -  -  -  - - | strcmp(s,"BASH")==0  || strcmp(s,"bash")==0
+        //   N  -  -    Y   -  -  -  -  -  -  - - | strcmp(s,"QB")==0    || strcmp(s,"qb")==0
+        //   N  -  -    -   -  -  -  -  -  Y  - - | strcmp(s,"cs")==0    || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //   N  -  -    -   -  -  -  -  Y  -  - - | strcmp(s,"JAVA")==0  || strcmp(s,"java")==0
+        //   N  -  -    -   Y  -  -  -  -  -  - - | strcmp(s,"VB")==0    || strcmp(s,"vb")==0
+        //   N  -  -    -   -  Y  -  -  -  -  - - | (strcmp(s,"EX")==0)  || (strcmp(s,"ex")==0)
+        //   N  -  -    -   -  -  -  Y  -  -  - - | strcmp(s,"C")==0     || strcmp(s,"c")==0
+        //   N  -  -    -   -  -  -  -  -  -  Y - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
+        //   N  -  -    -   -  -  -  -  -  -  - Y | strcmp(s,"JS")==0    || strcmp(s,"js")==0 || strcmp(s,"JAVASCRIPT")==0   
         //  __________________________________________________________________________________________
-        //   -  X  -  -  -  -  -  -  -  -  -  -  - - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
-        //   -  -  X  X  -  -  -  -  -  -  -  -  - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        //   -  -  -  -  X  X  -  -  -  -  -  -  - - | lang=QB; 
-        //   -  -  -  -  -  -  X  -  -  -  -  -  - - | lang=VB; 
-        //   -  -  -  -  -  -  -  X  -  -  -  -  - - | lang=EX;	 // euphoria 
-        //   -  -  -  -  -  -  -  -  X  -  -  -  - - | lang=BASIC; 
-        //   -  -  -  -  -  -  -  -  -  -  X  -  - - | lang=JAVA; 
-        //   -  -  -  -  -  -  -  -  -  -  -  X  - - | lang=CS;  
-        //   -  -  -  -  -  -  -  -  -  -  -  -  - X | lang=JS;  usegoto=0; // JavaScript does not have goto.  
-        //   -  -  -  -  -  -  -  -  -  -  -  -  - - | lang=CC;  
-        //   X  -  -  -  -  -  -  X  -  -  X  X  - - | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  X  X  -  X  -  - - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        //   -  X  -    -   -  -  -  -  -  -  - - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
+        //   -  -  X    -   -  -  -  -  -  -  - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");usegoto=0;
+        //   -  -  -    X   -  -  -  -  -  -  - - | lang=QB; 
+        //   -  -  -    -   X  -  -  -  -  -  - - | lang=VB; 
+        //   -  -  -    -   -  X  -  -  -  -  - - | lang=EX;	 // euphoria 
+        //   -  -  -    -   -  -  X  -  -  -  - - | lang=BASIC; 
+        //   -  -  -    -   -  -  -  -  X  -  - - | lang=JAVA; 
+        //   -  -  -    -   -  -  -  -  -  X  - - | lang=CS;  
+        //   -  -  -    -   -  -  -  -  -  -  - X | lang=JS;  
+	//   -  -  X    -   -  -  -  -  X  -  - X | usegoto=0; // For GOTOless languages
+        //   -  -  -    -   -  -  -  -  -  -  - - | lang=CC;  
+        //   X  -  -    -   -  X  -  -  X  X  - - | SetQdelimit("`","\'");     
+        //   X  -  X    X   X  X  X  -  X  -  - - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         //END_TABLE:
 
     }  /* End if onone */

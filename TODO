@@ -1,4 +1,4 @@
-Must DO:
+Must DO for next release:
 	. Switch .pod to FDL from GPL.
 	. The config.sub and other such infrastructure files are rather stale.
 		Get the latest versions from the gnulib project
@@ -10,6 +10,7 @@ Must DO:
 		. Issue: rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po   
 			for new dist.
 TODO: 
+	. Fix NEWGROUP for -L BASH.
 	. Create maintaince guidelines.make 
 	. Internationalization:
 		. Fix mingw link.
@@ -49,7 +50,7 @@ TODO:
 		. Fix number of spaces for -x option. 
         . Change ccide script to accept multiple file names and if the -L language option is ommitted,
 		    convert according to suffixes: (using an intermediate file if the output file name 
-		    would duplicate the input filename).
+		    would duplicate the input filename).  Default to C language.
 		. Ex.  'ccide foobar.LANG.d' will execute ccide -L LANG < foobar.LANG.d > foobar.LANG
 			where LANG=cpp, qb, java, etc.
 

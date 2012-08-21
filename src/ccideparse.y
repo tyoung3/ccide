@@ -206,7 +206,8 @@ actions:   /* Null */
 	;
 
 condition_statement: conds PSTUB {
-		printf(" %s|%s%s", xstring, $2, pEcomment);
+		/* printf(" %s|%s%s", xstring, $2, pEcomment); */
+		printf(" %s|%s", xstring, $2);
 	    if(logCond) {
 		nconds+=SetCSTUBscan( nconds, StripTrail($2) );
 		logCond = FALSE;
@@ -215,7 +216,8 @@ condition_statement: conds PSTUB {
 	    substitute=0; 
 	}
 	| conds NEWGROUP {
-		printf(" %s|NEWGROUP\t\t%s", xstring, pEcomment);
+		/* printf(" %s|NEWGROUP\t\t%s", xstring, pEcomment); */
+		printf(" %s|NEWGROUP\t\t", xstring );
 	    if(logCond) {
 		if(lang==EX)
 			sprintf(pGroup, "%s_group = $$", pPrefixLc);
@@ -453,99 +455,97 @@ static void SetLang(char *s) {
     if(onone) {     /* Disallow multiple language settings */
     onone=0;
         //DECISION_TABLE:
-        //   N  -  -  -  -  -  -  -  Y  -  -  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
-        //   N  -  Y  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"BASH")==0
-        //   N  -  -  Y  -  -  -  -  -  -  -  -  -  - | strcmp(s,"bash")==0
-        //   N  -  -  -  Y  -  -  -  -  -  -  -  -  - | strcmp(s,"QB")==0
-        //   N  -  -  -  -  Y  -  -  -  -  -  -  -  - | strcmp(s,"qb")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  Y  -  - | strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
-        //   N  -  -  -  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"JAVA")==0 || strcmp(s,"java")==0
-        //   N  -  -  -  -  -  Y  -  -  -  -  -  -  - | strcmp(s,"VB")==0   || strcmp(s,"vb")==0
-        //   N  -  -  -  -  -  -  Y  -  -  -  -  -  - | (strcmp(s,"EX")==0) || (strcmp(s,"ex")==0)
-        //   N  -  -  -  -  -  -  -  -  Y  -  -  -  - | strcmp(s,"C")==0    || strcmp(s,"c")==0
-        //   N  -  -  -  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"C++")==0  || strcmp(s,"c++")==0 
-        //   N  -  -  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"JS")==0   || strcmp(s,"js")==0   
+        //   N  -  -  -  -  -  Y  -  -  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
+        //   N  -  -  -  -  -  -  -  -  -  -  - | strcmp(s,"CC")==0    || strcmp(s,"cc")==0 
+        //   N  -  Y  -  -  -  -  -  -  -  -  - | strcmp(s,"BASH")==0  || strcmp(s,"bash")==0
+        //   N  -  -  Y  -  -  -  -  -  -  -  - | strcmp(s,"QB")==0    || strcmp(s,"qb")==0
+        //   N  -  -  -  -  -  -  -  -  Y  -  - | strcmp(s,"cs")==0    || strcmp(s,"CS")==0 || strcmp(s,"C#")==0 
+        //   N  -  -  -  -  -  -  -  Y  -  -  - | strcmp(s,"JAVA")==0  || strcmp(s,"java")==0
+        //   N  -  -  -  Y  -  -  -  -  -  -  - | strcmp(s,"VB")==0    || strcmp(s,"vb")==0
+        //   N  -  -  -  -  Y  -  -  -  -  -  - | (strcmp(s,"EX")==0)  || (strcmp(s,"ex")==0)
+        //   N  -  -  -  -  -  -  Y  -  -  -  - | strcmp(s,"C")==0     || strcmp(s,"c")==0
+        //   N  -  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
+        //   N  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"JS")==0    || strcmp(s,"js")==0 || strcmp(s,"JAVASCRIPT")==0   
         //  __________________________________________________________________________________________
-        //   -  X  -  -  -  -  -  -  -  -  -  -  -  - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
-        //   -  -  X  X  -  -  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        //   -  -  -  -  X  X  -  -  -  -  -  -  -  - | lang=QB; 
-        //   -  -  -  -  -  -  X  -  -  -  -  -  -  - | lang=VB; 
-        //   -  -  -  -  -  -  -  X  -  -  -  -  -  - | lang=EX;	 // euphoria 
-        //   -  -  -  -  -  -  -  -  X  -  -  -  -  - | lang=BASIC; 
-        //   -  -  -  -  -  -  -  -  -  -  X  -  -  - | lang=JAVA; 
-        //   -  -  -  -  -  -  -  -  -  -  -  X  -  - | lang=CS;  
-        //   -  -  -  -  -  -  -  -  -  -  -  -  -  X | lang=JS;  usegoto=0; // JavaScript does not have goto.  
-        //   -  -  -  -  -  -  -  -  -  -  -  -  -  - | lang=CC;  
-        //   X  -  -  -  -  -  -  X  -  -  X  X  -  - | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  X  X  -  X  -  -  - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        //   -  X  -  -  -  -  -  -  -  -  -  - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
+        //   -  -  X  -  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");usegoto=0;
+        //   -  -  -  X  -  -  -  -  -  -  -  - | lang=QB; 
+        //   -  -  -  -  X  -  -  -  -  -  -  - | lang=VB; 
+        //   -  -  -  -  -  X  -  -  -  -  -  - | lang=EX;	 // euphoria 
+        //   -  -  -  -  -  -  X  -  -  -  -  - | lang=BASIC; 
+        //   -  -  -  -  -  -  -  -  X  -  -  - | lang=JAVA; 
+        //   -  -  -  -  -  -  -  -  -  X  -  - | lang=CS;  
+        //   -  -  -  -  -  -  -  -  -  -  -  X | lang=JS;  
+        //   -  -  X  -  -  -  -  -  X  -  -  X | usegoto=0; // For GOTOless languages
+        //   -  -  -  -  -  -  -  -  -  -  -  - | lang=CC;  
+        //   X  -  -  -  -  X  -  -  X  X  -  - | SetQdelimit("`","\'");     
+        //   X  -  X  X  X  X  X  -  X  -  -  - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         //END_TABLE:
         //GENERATED_CODE: FOR TABLE_1.
-        //	14 Rules, 13 conditions, and 12 actions.
-        //	Table 1 rule order = 1 9 3 4 5 6 12 11 7 8 10 13 14 2 
-         {	unsigned long CCIDE_table1_yes[14]={   0UL,   1UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,4096UL,   0UL};
-        	unsigned long CCIDE_table1_no[14]= {8191UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL};
+        //	12 Rules, 11 conditions, and 13 actions.
+        //	Table 1 rule order = 1 7 3 4 10 9 5 6 8 11 12 2 
+         {	unsigned long CCIDE_table1_yes[12]={   0UL,   1UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,   0UL};
+        	unsigned long CCIDE_table1_no[12]= {2047UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL};
 
 
-        	switch(CCIDEFindRule(14,
+        	switch(CCIDEFindRule(12,
         		  (strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0)
         		| (strcmp(s,"CC")==0    || strcmp(s,"cc")==0)<<1
-        		| (strcmp(s,"BASH")==0)<<2
-        		| (strcmp(s,"bash")==0)<<3
-        		| (strcmp(s,"QB")==0)<<4
-        		| (strcmp(s,"qb")==0)<<5
-        		| (strcmp(s,"cs")==0   || strcmp(s,"CS")==0 || strcmp(s,"C#")==0)<<6
-        		| (strcmp(s,"JAVA")==0 || strcmp(s,"java")==0)<<7
-        		| (strcmp(s,"VB")==0   || strcmp(s,"vb")==0)<<8
-        		| ((strcmp(s,"EX")==0) || (strcmp(s,"ex")==0))<<9
-        		| (strcmp(s,"C")==0    || strcmp(s,"c")==0)<<10
-        		| (strcmp(s,"C++")==0  || strcmp(s,"c++")==0)<<11
-        		| (strcmp(s,"JS")==0   || strcmp(s,"js")==0)<<12
+        		| (strcmp(s,"BASH")==0  || strcmp(s,"bash")==0)<<2
+        		| (strcmp(s,"QB")==0    || strcmp(s,"qb")==0)<<3
+        		| (strcmp(s,"cs")==0    || strcmp(s,"CS")==0 || strcmp(s,"C#")==0)<<4
+        		| (strcmp(s,"JAVA")==0  || strcmp(s,"java")==0)<<5
+        		| (strcmp(s,"VB")==0    || strcmp(s,"vb")==0)<<6
+        		| ((strcmp(s,"EX")==0)  || (strcmp(s,"ex")==0))<<7
+        		| (strcmp(s,"C")==0     || strcmp(s,"c")==0)<<8
+        		| (strcmp(s,"C++")==0   || strcmp(s,"c++")==0)<<9
+        		| (strcmp(s,"JS")==0    || strcmp(s,"js")==0 || strcmp(s,"JAVASCRIPT")==0)<<10
         		  ,CCIDE_table1_yes, CCIDE_table1_no)) {
-        	case  7:	//	Rule 11 
+        	case  5:	//	Rule  9 
         	    lang=JAVA;
+        	    usegoto=0; // For GOTOless languages
         	    goto CCIDE_case1_0;
-        	case  9:	//	Rule  8 
+        	case  7:	//	Rule  6 
         	    lang=EX;	 // euphoria
         	CCIDE_case1_0: case  0:	//	Rule  1 
         	    SetQdelimit("`","\'");
         	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
-        	case  1:	//	Rule  9 
+        	case  2:	//	Rule  3 
+        	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");usegoto=0;
+        	    usegoto=0; // For GOTOless languages
+        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        	    break;
+        	case  1:	//	Rule  7 
         	    lang=BASIC;
         	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
-        	case  8:	//	Rule  7 
+        	case  6:	//	Rule  5 
         	    lang=VB;
         	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
-        	case  4:	//	Rule  5 
-        	case  5:	//	Rule  6 
+        	case  3:	//	Rule  4 
         	    lang=QB;
         	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
         	    break;
-        	case  2:	//	Rule  3 
-        	case  3:	//	Rule  4 
-        	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");
-        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
-        	    break;
-        	case  6:	//	Rule 12 
+        	case  4:	//	Rule 10 
         	    lang=CS;
         	    SetQdelimit("`","\'");
         	    break;
-        	case 12:	//	Rule 14 
-        	    lang=JS;  usegoto=0; // JavaScript does not have goto.
+        	case 10:	//	Rule 12 
+        	    lang=JS;
+        	    usegoto=0; // For GOTOless languages
         	    break;
-        	case 13:	//	Rule  2 
+        	case 11:	//	Rule  2 
         	    printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
         	    break;
-        	case 10:	//	Rule 10 
+        	case  8:	//	Rule  8 
         	    break;
-        	case 11:	//	Rule 13 
+        	case  9:	//	Rule 11 
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 07:59:15 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 10:03:45 AM EDT 
 
     }  /* End if onone */
 }
@@ -588,7 +588,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 07:59:15 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 10:03:45 AM EDT 
 
 }
 
@@ -654,7 +654,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 07:59:15 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 10:03:45 AM EDT 
 
 }
 
@@ -822,7 +822,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 07:59:15 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 10:03:45 AM EDT 
 
 
 	narg++;

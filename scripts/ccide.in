@@ -28,7 +28,7 @@
 CCIDELANG=C
 BINDIR="@prefix@/bin"
 PKGDATADIR=@pkgdatadir@
-LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB"
+LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB JS"
 
 Die() {
 	echo "$0/DIE: $*"
