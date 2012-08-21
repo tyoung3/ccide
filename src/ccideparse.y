@@ -550,7 +550,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
 
     }  /* End if onone */
 }
@@ -593,7 +593,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
 
 }
 
@@ -659,7 +659,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
 
 }
 
@@ -703,23 +703,23 @@ int main( int argc, char **argv) {
 	}
 
   	//DECISION_TABLE:
-  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - | Argis(-a)
-  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-b)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - | Argis(-c)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - | Argis(-d)
-  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  - | Argis(-e)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - | Argis(-g)
-  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-l)
-  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - | Argis(-L)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - | Argis(-m4)
-  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-n)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - | Argis(-p)
-  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - | Argis(-q)
-  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-s)
-  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-t)
-  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)
+  	//   -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  - | Argis(-a)||Argis(--actiondupes)
+  	//   Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-b)||Argis(--blanktime)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  - | Argis(-c)||Argis(--columnsize)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  - | Argis(-d)||Argis(--delimiter)
+  	//   -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  - | Argis(-e)||Argis(--equalok)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - | Argis(-g)||Argis(--gotoless)
+  	//   -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-l)||Argis(--localtime)
+  	//   -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  - | Argis(-L)||Argis(--language) 
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  -  -  - | Argis(-m4)||Argis(--m4output)
+  	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-n)||Argis(--noinlinecode)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - | Argis(-p)||Argis(--prefix)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - | Argis(-q)||Argis(--quote)
+  	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-s)||Argis(--skeleton)
+  	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-t)||Argis(--trace)
+  	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)||Argis(--undo)
   	//   -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-V)||Argis(--version)
-  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  - | Argis(-x)
+  	//   -  -  -  -  -  -  -  -  -  Y  -  -  -  -  -  -  -  -  - | Argis(-x)||Argis(--extrarule)
   	//  ________________________________________________________________
   	//   X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | notimestamp=1;
   	//   -  X  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | uselocaltime=1;
@@ -749,23 +749,23 @@ int main( int argc, char **argv) {
 
 
   		switch(CCIDEFindRuleYes(18,
-  			  (Argis(-a))
-  			| (Argis(-b))<<1
-  			| (Argis(-c))<<2
-  			| (Argis(-d))<<3
-  			| (Argis(-e))<<4
-  			| (Argis(-g))<<5
-  			| (Argis(-l))<<6
-  			| (Argis(-L))<<7
-  			| (Argis(-m4))<<8
-  			| (Argis(-n))<<9
-  			| (Argis(-p))<<10
-  			| (Argis(-q))<<11
-  			| (Argis(-s))<<12
-  			| (Argis(-t))<<13
-  			| (Argis(-u))<<14
+  			  (Argis(-a)||Argis(--actiondupes))
+  			| (Argis(-b)||Argis(--blanktime))<<1
+  			| (Argis(-c)||Argis(--columnsize))<<2
+  			| (Argis(-d)||Argis(--delimiter))<<3
+  			| (Argis(-e)||Argis(--equalok))<<4
+  			| (Argis(-g)||Argis(--gotoless))<<5
+  			| (Argis(-l)||Argis(--localtime))<<6
+  			| (Argis(-L)||Argis(--language))<<7
+  			| (Argis(-m4)||Argis(--m4output))<<8
+  			| (Argis(-n)||Argis(--noinlinecode))<<9
+  			| (Argis(-p)||Argis(--prefix))<<10
+  			| (Argis(-q)||Argis(--quote))<<11
+  			| (Argis(-s)||Argis(--skeleton))<<12
+  			| (Argis(-t)||Argis(--trace))<<13
+  			| (Argis(-u)||Argis(--undo))<<14
   			| (Argis(-V)||Argis(--version))<<15
-  			| (Argis(-x))<<16
+  			| (Argis(-x)||Argis(--extrarule))<<16
   			  ,CCIDE_table4_yes)) {
   		case 17:	//	Rule  8 
   		    Usage();
@@ -827,7 +827,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 11:19:52 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
 
 
 	narg++;
