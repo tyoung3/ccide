@@ -1,5 +1,6 @@
 Must DO for next release:
-	. Switch .pod to FDL from GPL.
+	. Switch .pod to FDL from GPL. 
+	. Change to info. 
 	. The config.sub and other such infrastructure files are rather stale.
 		Get the latest versions from the gnulib project
 		(http://savannah.gnu.org/projects/gnulib), specifically the build-aux
@@ -10,7 +11,7 @@ Must DO for next release:
 		. Issue: rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po   
 			for new dist.
 TODO: 
-	. Fix NEWGROUP for -L BASH.
+	. Expand to > 32 conditions/table.
 	. Create maintaince guidelines.make 
 	. Internationalization:
 		. Fix mingw link.
