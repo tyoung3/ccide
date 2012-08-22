@@ -50,6 +50,7 @@ TEST_CASES = 	\
        depeter  \
        elev	\
        ex1	\
+       ex4	\
        fourway	\
        hcond	\
        huge1	\
@@ -79,6 +80,9 @@ TEST_CASES = 	\
 %.cpp: %.cpp.d 
 	${CCIDE} -L C++  -b ${OPT} < ${srcdir}/$< > $@ 
 
+%.vb: %.vb.d 
+	${CCIDE} -L VB -b ${OPT} < ${srcdir}/$< > $@ 
+
 %.java: %.java.d 
 	${CCIDE} -L JAVA -b ${OPT} < ${srcdir}/$< > $@ 
 
@@ -91,6 +95,11 @@ TEST_CASES = 	\
 %: %.bash
 	ln -sf $< $@
 	chmod a+x $@ 
+
+%: %.vb
+	(echo  "#!/bin/bash"; echo "echo stub for $@")   > $@
+	chmod a+x $@
+	# echo   Add commands to compile VB here.  
 
 %: %.java 
 	${GCJ} --main=$@ $(GCJFLAGS) $< -o $@ 

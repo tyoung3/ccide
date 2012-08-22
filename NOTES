@@ -1,4 +1,40 @@
+http://www.gnu.org/prep/maintain/   
+mentors@gnu.org
+
+
+We strongly recommend using ftp.gnu.org to make distributions
+available.  Please see the GNU maintainers guide for the procedure,
+http://www.gnu.org/prep/maintain/html_node/Automated-FTP-Uploads.html.
+When that is set up, you'll be able to do uploads yourself.  If you
+want to also distribute the package from a site of your own, that is
+fine.  To use some other site instead of ftp.gnu.org is acceptable,
+provided it allows connections from anyone anywhere.
 Check on quote,"'", escaping, when m4 ` ' quoting is in use. C++, Javascript, etc.
+  -rms
+
+Please write some useful web pages about the program, to put in
+http://www.gnu.org/software/PROGNAME.  These pages should be the
+main web site for the program, and they should really have the
+information for users, not just a link to another site; please use
+http://www.gnu.org/software/PROGNAME whenever you give out the URL
+for the home page of the program.  Please don't set up a "site for the
+program" anywhere else--if you want to do work on additional web pages
+about the program, please put them on www.gnu.org.
+  -rms
+
+
+In writing the web pages, please follow the style guidelines in
+http://www.gnu.org/server/fsf-html-style-sheet.html.   See also
+http://www.gnu.org/prep/maintain/html_node/Web-Pages.html.
+
+We ask that you register your package on Savannah, at least to maintain
+your package's web pages.  This is independent of where the actual
+program sources are hosted (although we encourage you to use Savannah
+for that too).  This makes it easy to update the web pages, since you
+will have access to a CVS repository for the web pages and can update it
+as you like.  Using Savannah will help the GNU Project in other ways,
+too.  To set this up, visit http://savannah.gnu.org/.
+  -rms
 
 
 . http://translationproject.org/html/maintainers.html  Send tarball link for translation.

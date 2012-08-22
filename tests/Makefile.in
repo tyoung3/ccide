@@ -497,6 +497,9 @@ if2rpn.txt:
 %.cpp: %.cpp.d 
 	${CCIDE} -L C++  -b ${OPT} < ${srcdir}/$< > $@ 
 
+%.vb: %.vb.d 
+	${CCIDE} -L VB -b ${OPT} < ${srcdir}/$< > $@ 
+
 %.java: %.java.d 
 	${CCIDE} -L JAVA -b ${OPT} < ${srcdir}/$< > $@ 
 
