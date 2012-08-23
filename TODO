@@ -1,9 +1,7 @@
-NOW!!
-	Please send a note to gnu-prog now with a brief description of
-	your package, so that other GNU developers will learn about it.
-
 Must DO for next release:
+	. Test w/localization
 	. Update README and doc files and web pages to mention GNU.
+	. Twitter GNU announcement.
 	. Switch .pod to FDL from GPL. 
 	. Change to info. 
 	. The config.sub and other such infrastructure files are rather stale.
@@ -18,9 +16,8 @@ Must DO for next release:
 	. Announce release:  http://www.gnu.org/prep/maintain/html_node/Announcements.html
 TODO:
 	. Fix: "make[1]: warning: jobserver unavailable: using -j1.  Add `+' to parent make rule."  using make -j 4 check
-
 	. Web pages to http://www.gnu.org/software/ccide
-	. Expand to > 32 conditions/table w/test case(s).
+	. Expand/test  > 32 conditions/table w/test case(s).
 	. Create maintainence guidelines.make 
 	. Internationalization:
 		. Fix mingw link.

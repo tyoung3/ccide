@@ -115,12 +115,20 @@ if2rpn$(EXEEXT): if2rpn.o  if2rpnq.o if2rpntok.o
 testhuge2:	huge2
 	. huge2.c.opt; ./huge2 $TOPT  
 
-check:	if2rpn$(EXEEXT)
+check_help:
+	$(top_srcdir)/scripts/ccide --help 2>&1 > /tmp/help.X
+	diff help.X /tmp/help.X								\
+	&& echo -e "               \033[0;32;32m **** --help Success! **** \033[0;32;39m"	\
+	||  echo -e "               \033[0;32;31m ???? --help Failed   ????\033[0;32;39m"  
+
+check_cases:	if2rpn$(EXEEXT)
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
-check_old:	 testcases
-	[ -x $(top_srcdir)/scripts/ccide ] || chmod a+x $(top_srcdir)/scripts/ccide
-	$(top_srcdir)/scripts/check.sh 
+check:	check_cases check_help
+
+#check_old:	 testcases
+#	[ -x $(top_srcdir)/scripts/ccide ] || chmod a+x $(top_srcdir)/scripts/ccide
+#	$(top_srcdir)/scripts/check.sh 
 
 
 clean-local:

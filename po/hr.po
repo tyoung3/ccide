@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.4pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-08-21 10:34-0400\n"
+"POT-Creation-Date: 2012-08-22 11:28-0400\n"
 "PO-Revision-Date: 2012-08-15 19:51+0200\n"
 "Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -39,36 +39,40 @@ msgstr "%s kosturski program je generirao ccide-%s.%s %s %s\n"
 msgid "%sEnd of Skeleton Program.%s\n"
 msgstr "%sZavršetak kosturskog programa.%s\n"
 
-#: src/ccideparse.c:1593
+#: src/ccideparse.c:1568
+msgid "NEWGROUP not supported for GOTOless languages."
+msgstr ""
+
+#: src/ccideparse.c:1595
 #, c-format
 msgid "%i exceeds the maximum number of rules  %i."
 msgstr "%i prekoračuje najveći broj pravila %i."
 
-#: src/ccideparse.c:1598
+#: src/ccideparse.c:1600
 #, c-format
 msgid "%i exceeds the maximum number of actions %i."
 msgstr "%i prekoračuje najveći broj radnji %i."
 
-#: src/ccideparse.c:1603
+#: src/ccideparse.c:1605
 #, c-format
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i prekoračuje najveći broj uvjeta %i."
 
-#: src/ccideparse.c:1868
+#: src/ccideparse.c:1870
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i pravila, umjesto %i."
 
-#: src/ccideparse.c:1881
+#: src/ccideparse.c:1883
 msgid "Prefix longer than space allows."
 msgstr "Prefiks je dulji od dozvoljenog."
 
-#: src/ccideparse.c:1902
+#: src/ccideparse.c:1904
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "Prefiks sadrži nedozvoljene znakove."
 
-#: src/ccideparse.c:1930
+#: src/ccideparse.c:1932
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -77,25 +81,25 @@ msgstr ""
 "CCIDE/FATAL: Znak za razdvajanje %s ne može biti jednak QUOTE=(%s,%s) ili "
 "SUBSTITUTION=(%s,%s) \n"
 
-#: src/ccideparse.c:1942
+#: src/ccideparse.c:1944
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "NULL znak za razdvajanje\n"
 
-#: src/ccideparse.c:2084
+#: src/ccideparse.c:2086
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr "CCIDE/PARSE: Žao mi je, programski jezik %s još nije podržan.\n"
 
-#: src/ccideparse.c:2222
+#: src/ccideparse.c:2224
 msgid "Binding gettext"
 msgstr "Povezujem gettext"
 
-#: src/ccideparse.c:2225
+#: src/ccideparse.c:2227
 msgid "Getting textdomain"
 msgstr "Dohvaćam tekstualnu domenu"
 
-#: src/ccideparse.c:2240
+#: src/ccideparse.c:2242
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Parametar %i je predugačak.\n"

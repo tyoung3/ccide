@@ -11,6 +11,11 @@ pushd @top_srcdir@
 TWD=`pwd`
 popd
 
+
+Debug() {
+	echo "DEBUG: $*" 
+}
+
 [ -f $TWD/../m4/ccide-C++.m4 ] && CCIDE_M4DIR=$TWD/../m4
 [ -f $TWD/m4/ccide-C++.m4 ] && CCIDE_M4DIR=$TWD/m4
 
@@ -63,7 +68,7 @@ TestIt() {
 	[ -x $X.exe ] && X=$X.exe
 	[ -z $TIN ] && TIN=/dev/null 
 	./$X $TOPT  < $TIN >$X.output 	\
-	&& diff -q $TDIR/$T.X $X.output  >/dev/null	
+	&& diff -q $TDIR/$T.X $X.output  >/dev/null
 
 }
 
@@ -240,6 +245,9 @@ case $1 in
 	*) 	[ -z $1 ] && Usage 
 		# MALLOC_CHECK clutters up make check too much with this msg:   malloc: using debugging hooks
 		# ?? [ -z $MALLOC_CHECK_ ] && export MALLOC_CHECK_=3;  # Slower, but message and abort on error. 
+		$MAKE -i -s check_help  		\
+			&& Success "Test help" 	\
+			|| Fail "Test" help  
 	   	for T in $*; do 
 			TestCase $T 	\
 			&& Success "Test $T" 	\

@@ -328,7 +328,7 @@ DropEmpty (int nrules)
       if (!hasaction)
 	{
 	  ndrop++;		// N.B.: Cannot change nrules, so pass back number to drop.
-	  WARN3 ("Dropping rule %i in table %i.", remap[i], nbrtables);
+	  WARN3(_("Dropping rule %i in table %i."), remap[i], nbrtables);
 	}
       else
 	{

@@ -39,7 +39,7 @@ Usage() {
 	cat <<- EOF
 	USAGE:
 	   ccide -s [SKELETONSIZE] 
-     	| ccide -V 
+     	| ccide -V | --version
        	| ccide --help 
        	| ccide [-a] [-b] [-c COLUMNSIZE] [-d STUBSTRING1 STUBSTRING2] [-e] [-l]  
               	[-L LANG|?] [-m4] [-n] [-p PREFIX] [-q LEFTQUOTE RIGHTQUOTE] 
@@ -81,11 +81,11 @@ while [[ $# > 0 ]]; do
 	elif [[ ("$1" == "-m4") ]] ; then
 		CCIDE_M4="yes"
 	elif [[ ("$1" == "--help") ]] ; then
-		Usage
-		exit 1
-	elif [[ ("$1" == "-V") ]] ; then
+		$CCIDEW --help
+		exit 0
+	elif [[ ("$1" == "-V") || ("$1" == "--version") ]] ; then
 		echo "	ccide-@VERSION@-@RELEASE@"
-		WC="$WC $1"
+		WC="$WC -V"
 	else
 		WC="$WC $1"
 	fi
