@@ -53,16 +53,16 @@ TEST_CASES = 	\
         ex1	\
         ex4	\
         fourway	\
-	quadrants3 \
         hcond	\
 	help	\
         huge1	\
         huge2	\
+        hw	\
         if2rpn	\
+	quadrants3 \
         simple	\
         skel	\
         threeway\
-        hw	\
         tryit	\
 	undo	\
 	version 
@@ -134,5 +134,5 @@ check:	check_cases
 
 clean-local:
 	rm -f testcases *~
-	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases hw.java  
+	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 

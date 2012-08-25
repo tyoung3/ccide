@@ -225,16 +225,16 @@ TEST_CASES = \
         ex1	\
         ex4	\
         fourway	\
-	quadrants3 \
-        cond	\
+        hcond	\
 	help	\
         huge1	\
         huge2	\
+        hw	\
         if2rpn	\
+	quadrants3 \
         simple	\
         skel	\
         threeway\
-        hw	\
         tryit	\
 	undo	\
 	version 
@@ -463,7 +463,7 @@ check:	check_cases
 
 clean-local:
 	rm -f testcases *~
-	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases hw.java  
+	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

@@ -1,7 +1,10 @@
 2012-08-23 
 	0.6.5-1
-		.  Fixed bug in which duplicate condition stubs can go undetected.
-		,  Changed Usage function to display environment variables, exit conditions, and bug reporting.
+		.  Removed compile/execute steps from tests, as no longer necessary.
+		.  Added fr translation to tests.
+		.  ccide man page copyright changed from GPL to GNU Free Documentation License.
+		.  Fixed failure to detect duplicate condition stubs.
+		,  Changed 'Usage' function to display environment variables, exit conditions, and bug reporting.
 		.  Fixed ccide script to call ccidew and exit 0, instead of exit 1 on --help option.
 		.  Fixed check.sh[.in] to verify generation and execution separately.
 		.  Added 'help', 'errors', and 'undo' to tests, increasing coverage.

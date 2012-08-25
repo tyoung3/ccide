@@ -1,20 +1,11 @@
-Must DO for next release:
-	. Test w/localization
-	. Update README and doc files and web pages to mention GNU.
-	. Twitter GNU announcement.
-	. Switch .pod to FDL from GPL. 
-	. Change to info. 
-	. The config.sub and other such infrastructure files are rather stale.
-		Get the latest versions from the gnulib project
-		(http://savannah.gnu.org/projects/gnulib), specifically the build-aux
-		subdirectory:
-		http://git.savannah.gnu.org/cgit/gnulib.git/tree/build-aux
+
+TODO:
+	. The config.sub and other such infrastructure files are stale. Get the latest versions.
 	. Make RPM depend on gettext if, and only if, so configured.
 		. Add .po files to rpm 
 		. Issue: rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po   
 			for new dist.
-	. Announce release:  http://www.gnu.org/prep/maintain/html_node/Announcements.html
-TODO:
+	. Change from man page to info. 
 	. Fix: "make[1]: warning: jobserver unavailable: using -j1.  Add `+' to parent make rule."  using make -j 4 check
 	. Web pages to http://www.gnu.org/software/ccide
 	. Expand/test  > 32 conditions/table w/test case(s).

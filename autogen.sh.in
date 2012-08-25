@@ -29,7 +29,7 @@
 # If autogen.sh is missing try 'bash autogen.sh.in'.  
     		
 set -e				\
-&&./scripts/check.sh mkam	\
-&& autoreconf -i --force	\
-&&rm -rf autom4te.cache		
+&&sudo ./scripts/check.sh mkam	\
+&&sudo autoreconf -i --force	\
+&&sudo rm -rf autom4te.cache		
 

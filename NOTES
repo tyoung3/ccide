@@ -1,3 +1,16 @@
+
+	. Announce release:  http://www.gnu.org/prep/maintain/html_node/Announcements.html
+
+        . Send URL of latest tarball to  <coordinator@translationproject.org>
+
+
+	. Update README and doc files and web pages to mention GNU.
+
+		Get the latest versions from the gnulib project
+		(http://savannah.gnu.org/projects/gnulib), specifically the build-aux
+		subdirectory:   
+		http://git.savannah.gnu.org/cgit/gnulib.git/tree/build-aux
+
 http://www.gnu.org/prep/maintain/   
 mentors@gnu.org
 

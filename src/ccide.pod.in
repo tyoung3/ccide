@@ -478,14 +478,20 @@ Thomas W. Young, ccide@twyoung.com
 ==head1 COPYRIGHT 
 
 Copyright © 2002-2012, Thomas W. Young, The CCIDE Project, ccide@twyoung.com.
-This is free software under the GNU Public License, GPL; 
-see the accompanying COPYING file for copying conditions. 
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation
+License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being
+"GNU General Public License" and "Funding Free Software", the Front-Cover texts being (a) (see below), and with the Back-
+Cover Texts being (b) (see below).  A copy of the license is included in the gfdl(7) man page.
 
-Please note that the GPL imposes no license or distribution restrictions
-on programs which are developed using ccide.
- 
-There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.
+	(a)The FSF's Front-Cover text is:
+
+		A GNU Manual
+
+	(b)The FSF's Back-Cover text is:
+
+            You have freedom to copy and modify this GNU Manual, like GNU
+            software.  Copies published by the Free Software Foundation raise
+            funds for GNU development.
 
 =head1 AVAILABILITY
 

@@ -23,7 +23,7 @@
 
 See the accompanying file, COPYING, for terms of use.  
   
-Ccide generate compilable code in a number of languages(including JAVA, C/C++, BASH script, and Euphoria; from a source language file containing one or more commented decision tables.  Decision tables are easier to read than traditional if-then-else structures, thereby helping to prevent logic errors.
+Ccide generates compilable code in a number of languages(including JAVA, C/C++, BASH script, and Euphoria; from a source language file containing one or more commented decision tables.  Decision tables are easier to read than traditional if-then-else structures, thereby helping to prevent logic errors.
  
 See the man page for a complete description or visit
 http://github.com/tyoung3/ccide or http://ccide.sourceforge.net/ for more information and downloads.

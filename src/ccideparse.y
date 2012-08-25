@@ -551,7 +551,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
 
     }  /* End if onone */
 }
@@ -594,7 +594,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
 
 }
 
@@ -660,7 +660,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
 
 }
 
@@ -833,7 +833,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
 
 
 	narg++;

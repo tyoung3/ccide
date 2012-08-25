@@ -1,6 +1,6 @@
 
-/*  	
-	tryit.cpp.d 
+/*  TRYIT.CPP	
+	 
 	Copyright (C) 2012;  David Topham.  Used by permission.
 
     	This file is part of ccide, the C Language Decision Table Code Generator.

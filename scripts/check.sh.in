@@ -86,9 +86,12 @@ TestCase() {
 	OPT=
 	for Y in $X; do
 		Z=`basename $Y .d`
-		[ -f $TDIR/$Z.opt ] && . $TDIR/$Z.opt   
+		[ -f $TDIR/$Z.opt ] && . $TDIR/$Z.opt  
+		[ "$LANG" == "$CCIDELANG" ] || export LANG=$CCIDELANG  
 		$MAKE -i OPT="$OPT" $Z && CheckExpand $Z $TDIR/$Z.r  
+		[ -f $TDIR/$Z.err.r ]  && CheckExpand $Z.err $TDIR/$Z.err.r
 	done
+	return  ;  # Execution not really necessary, now
 	TINPUT=`ls $TDIR/$CASE*.X 2>/dev/null`
 	if [ $? == 0 ]; then 
 		T=`basename $TINPUT .X`  	\
@@ -184,15 +187,24 @@ MakeAM() {
 			MakeEntry "	$TDIR/$TINPUT"	
 			T=`basename $TINPUT .X`
 			[ -f $T.h ] && MakeEntry "	$TDIR/$T.h "
-			for D in ${T}*.opt; do
-				[ -f $D ] && MakeEntry "	$TDIR/$D "
-			done
-			for D in $T*.d; do
-				MakeEntry "	$TDIR/$D "
-			done
-			for R in $T*.r; do
-				MakeEntry "	$TDIR/$R "
-			done
+			#for D in ${T}*.opt; do
+			#	[ -f $D ] && MakeEntry "	$TDIR/$D "
+			#done
+			#for D in $T*.d; do
+			#	MakeEntry "	$TDIR/$D "
+			#done
+			#for R in $T*.r; do
+			#	MakeEntry "	$TDIR/$R "
+			#done
+	done		   
+	for TINPUT in *.r; do
+			MakeEntry "	$TDIR/$TINPUT"	
+	done	
+	for TINPUT in *.opt; do
+			MakeEntry "	$TDIR/$TINPUT"	
+	done   
+	for TINPUT in *.d; do
+			MakeEntry "	$TDIR/$TINPUT"	
 	done
 	echo 				"	scripts/check.sh "	>> $TMPLT	
 	echo "	m4/ccide-VB.m4 m4/ccide-JAVA.m4 m4/ccide-CS.m4 m4/ccide-EX.m4"  >> $PTMPLT
@@ -275,14 +287,13 @@ case $1 in
 	        Summarize
 		;;
 	*) 	[ -z $1 ] && Usage 
-		# MALLOC_CHECK clutters up make check too much with this msg:   malloc: using debugging hooks
-		# ?? [ -z $MALLOC_CHECK_ ] && export MALLOC_CHECK_=3;  # Slower, but message and abort on error. 
-		#$MAKE -i -s check_help  		\
-		#	&& Success "Test help" 	\
-		#	|| Fail "Test" help  
+			# MALLOC_CHECK clutters up make check too much with the messsage:   "malloc: using debugging hooks"
+		export CCIDE_SAVELANG=$LANG  
 	   	for T in $*; do 
+			export LANG=en_US.UTF-8
 			TestCase $T 
 	  	done
+		export LANG=$CCIDE_SAVELANG
 	        Summarize
 	   ;;
 esac
