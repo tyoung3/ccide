@@ -424,22 +424,18 @@ as C/C++ language code has been tested most extensively.
 Ccide may not work correctly on Mingw.  Ccide will most likely fail 
 if the input file is in DOS format rather than *nix format. 
 
-Valgrind displays some minor memory leaks.   This should not effect anyone.
+Valgrind displays some minor memory leaks.   This should not effect the results.
 
-
-If you find a new bug, please send the failing input and output files, along with your config.log, 
-and anything else you think useful to ccide@twyoung.com.  
-
+If you find a new bug, please post a message at https://sourceforge.net/projects/ccide/forums/forum/395422.  
 
 The output with the 'undo' option may not be exactly the
 same as the original input -- some whitespace may be added or deleted.
-
 
 There is no provision for continuing a row onto the next line.  
 
 The documentation needs improving. 
 
-Ccide-0.6.2-6 and prior versions have known bugs. Please install
+Ccide-0.6.4-1 and prior versions have known bugs. Please install
 the latest version before reporting bugs.
 
 
@@ -498,12 +494,12 @@ Cover Texts being (b) (see below).  A copy of the license is included in the gfd
 This software is freely available under the GPL license agreement terms
 spelled out in the accompanying COPYING file.  
 
-'\<!--#include virtual="/inc/sfinfo.shtml"--\>'
+ccide is part of the GNU project: http://www.gnu.org/gnu/thegnuproject.html.
 
-Ccide is a public Github project at https://github.com/tyoung3/ccide
-The latest version can be found at Github.
+Ccide is available as a public Github project at https://github.com/tyoung3/ccide
+The latest code can be found at Github.
 
-Older versions are available from SourceForge at
+Released packages  are available from SourceForge at
 	http://www.sourceforge.net/projects/ccide
 
 =cut

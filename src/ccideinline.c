@@ -295,6 +295,7 @@ Usage ()
     J_("CCIDE_M4DIR		Directory containing ccide .m4 files.\n\t\t\tExample: /usr/local/share/ccide  ") 
     J("");
     J_("Exit status is 0 if OK, or 1 if some problem.") 
+    J_("Report bugs to https://sourceforge.net/projects/ccide/forums/forum/395422.") 
     RC = 0;
     exit (0);
 }
