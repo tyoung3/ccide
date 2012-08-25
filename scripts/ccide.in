@@ -48,20 +48,19 @@ Usage() {
 EOF
 }
 
-
 if [ -z "$CCIDEW" ]; then
-	if [ -x $BINDIR/ccidew.exe ]; then 	
-		CCIDEW=$BINDIR/ccidew.exe
-	elif [ -x ./ccidew.exe ]; then
-		CCIDEW=`pwd`/ccidew.exe
+	if [ -x ../src/ccidew ]; then	
+		CCIDEW=`pwd`/../src/ccidew
 	elif [ -x ../src/ccidew.exe ]; then	
 		CCIDEW=`pwd`/../src/ccidew.exe
-	elif [ -x $BINDIR/ccidew ]; then 	
-		CCIDEW=$BINDIR/ccidew
+	elif [ -x ./ccidew.exe ]; then
+		CCIDEW=`pwd`/ccidew.exe
 	elif [ -x ./ccidew ]; then
 		CCIDEW=`pwd`/ccidew
-	elif [ -x ../src/ccidew ]; then	
-		CCIDEW=`pwd`/../src/ccidew
+	elif [ -x $BINDIR/ccidew ]; then 	
+		CCIDEW=$BINDIR/ccidew
+	elif [ -x $BINDIR/ccidew.exe ]; then 	
+		CCIDEW=$BINDIR/ccidew.exe
 	else
 		Die Cannot file bin/ccidew
 	fi

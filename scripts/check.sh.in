@@ -7,10 +7,10 @@ CWD=`pwd`
 [ -x ../src/ccidew.exe ] && CCIDEW=$CWD/../src/ccidew.exe
 [ -x src/ccidew.exe ] && CCIDEW=$CWD/src/ccidew.exe
 
-pushd @top_srcdir@
-TWD=`pwd`
-popd
-
+#pushd 
+#TWD=`pwd`
+#popd
+TWD=@top_srcdir@ 
 
 Debug() {
 	echo "DEBUG: $*" 
@@ -37,11 +37,11 @@ Die() {
 
 Success() {
         NS=$(( $NS + 1 ))
-        echo -e "               \033[0;32;32m ****  $* Success!	**** \033[0;32;39m"
+        echo -e "               \033[0;32;32m ****  $* Success!	 \033[0;32;39m"
 }
 
 Fail() {
-        echo -e "               \033[0;32;31m ????  $* Failed   ????\033[0;32;39m"
+        echo -e "               \033[0;32;31m ????  $* Failed  \033[0;32;39m"
         NFAIL=$(($NFAIL+1))
 }
 
@@ -80,6 +80,29 @@ CheckExpand() {
 TestCase() {
 	CASE=$1
 	[ -z $1 ] && CASE=calc
+	X=`ls $TDIR/$CASE*.d`
+	touch $X
+	TOPT=
+	OPT=
+	for Y in $X; do
+		Z=`basename $Y .d`
+		[ -f $TDIR/$Z.opt ] && . $TDIR/$Z.opt   
+		$MAKE -i OPT="$OPT" $Z && CheckExpand $Z $TDIR/$Z.r  
+	done
+	TINPUT=`ls $TDIR/$CASE*.X 2>/dev/null`
+	if [ $? == 0 ]; then 
+		T=`basename $TINPUT .X`  	\
+		&& $MAKE $CASE 			\
+		&& X=$CASE 			\
+		&& TestIt			\
+		&& Success "Test $T" 		\
+		|| Fail "Test" $T  
+	fi
+}
+
+CheckGen() {
+	CASE=$1
+	[ -z $1 ] && CASE=calc
 	TINPUT=`ls $TDIR/$CASE*.X` || Die Cannot find $TDIR/$CASE*.X
 	T=`basename $TINPUT .X`
 	X=`ls $TDIR/$CASE*.d`
@@ -89,9 +112,10 @@ TestCase() {
 	for Y in $X; do
 		Z=`basename $Y .d`
 		[ -f $TDIR/$Z.opt ] && . $TDIR/$Z.opt   && # echo Sourced TDIR/$Z.opt 
-		$MAKE -i OPT="$OPT" $Z && CheckExpand $Z $TDIR/$Z.r  
+		# $MAKE -i OPT="$OPT" $Z && CheckExpand $Z $TDIR/$Z.r  
+		$MAKE -i OPT="$OPT" $Z 
 	done
-	$MAKE $CASE && X=$CASE && TestIt
+	$MAKE $CASE 
 }
 
 Discard() {
@@ -224,8 +248,8 @@ GetTranslations() {
 }
 
 VERSION=@VERSION@-@RELEASE@
-[ -d ../tests ] && pushd ../tests 
-[ -d ./tests  ] && pushd ./tests
+[ -d ../tests ] && pushd ../tests  >/dev/null
+[ -d ./tests  ] && pushd ./tests  >/dev/null
 #[ -f @top_srcdir@/tests/threeway.X ] || echo cannot find @top_srcdir@/tests/threeway.X 
 
 TDIR=@top_srcdir@/tests
@@ -242,16 +266,22 @@ case $1 in
 	mkam)shift; MakeAM $*;;
 	mkin)shift; MakeIn $*;;
 	mkright)shift;	MakeRight $*;;
+	checkgen)shift; [ -z $1 ] && Usage 
+	   	for T in $*; do 
+			CheckGen $T 	\
+			&& Success "Gen $T" 	\
+			|| Fail "Gen $T"  
+	  	done
+	        Summarize
+		;;
 	*) 	[ -z $1 ] && Usage 
 		# MALLOC_CHECK clutters up make check too much with this msg:   malloc: using debugging hooks
 		# ?? [ -z $MALLOC_CHECK_ ] && export MALLOC_CHECK_=3;  # Slower, but message and abort on error. 
-		$MAKE -i -s check_help  		\
-			&& Success "Test help" 	\
-			|| Fail "Test" help  
+		#$MAKE -i -s check_help  		\
+		#	&& Success "Test help" 	\
+		#	|| Fail "Test" help  
 	   	for T in $*; do 
-			TestCase $T 	\
-			&& Success "Test $T" 	\
-			|| Fail "Test" $T  
+			TestCase $T 
 	  	done
 	        Summarize
 	   ;;

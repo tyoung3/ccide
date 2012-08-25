@@ -1,13 +1,17 @@
-2012-08-15 
+2012-08-23 
 	0.6.5-1
+		.  Fixed bug in which duplicate condition stubs can go undetected.
+		,  Changed Usage function to display environment variables, exit conditions, and bug reporting.
+		.  Fixed ccide script to call ccidew and exit 0, instead of exit 1 on --help option.
+		.  Fixed check.sh[.in] to verify generation and execution separately.
+		.  Added 'help', 'errors', and 'undo' to tests, increasing coverage.
 		.  Fixed condition stub NEWGROUP for -L BASH. 
-		   Action stub NEWGROUP not implememented for GOTOless languages.
 		.  Fixed stray right parenthesis in generated bash programs.
 		.  Added -g(--gotoless) option for languages, like JavaScript, wo/GOTO statement.
+		   Action stub NEWGROUP not implememented for GOTOless languages.
 		.  Added Vietamese, vi.po, file.
 		.  Added Russian,   ru.po, file.
 		.  Added German,    de.po, file.
-		.  Show environment variables in USAGE
 
 2012-08-14
 	0.6.4-1

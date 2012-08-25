@@ -3,18 +3,18 @@
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
-   	Ccide is free software: you can redistribute it and/or modify
+   	ccide is free software: you can redistribute it and/or modify
    	it under the terms of the GNU General Public License as published by
     	the Free Software Foundation, either version 3 of the License, or
    	(at your option) any later version.
 
-    	Ccide is distributed in the hope that it will be useful,
+    	ccide is distributed in the hope that it will be useful,
     	but WITHOUT ANY WARRANTY; without even the implied warranty of
     	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     	GNU General Public License for more details.
 
     	You should have received a copy of the GNU General Public License
-    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	along with ccide.  If not, see <http://www.gnu.org/licenses/> or
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
@@ -32,18 +32,18 @@
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
-   	Ccide is free software: you can redistribute it and/or modify
+   	ccide is free software: you can redistribute it and/or modify
    	it under the terms of the GNU General Public License as published by
     	the Free Software Foundation, either version 3 of the License, or
    	(at your option) any later version.
 
-    	Ccide is distributed in the hope that it will be useful,
+    	cide is distributed in the hope that it will be useful,
     	but WITHOUT ANY WARRANTY; without even the implied warranty of
     	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     	GNU General Public License for more details.
 
     	You should have received a copy of the GNU General Public License
-    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	along with cide.  If not, see <http://www.gnu.org/licenses/> or
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
@@ -303,6 +303,7 @@ int lineno = 0 ;
 */
 void warning2( char *s, char *t)
 {
+    if(quiet) return;
     syslog( LOGP, "%s: %s", progname, s) ;
 
     if (t)
@@ -472,7 +473,7 @@ static void SetLang(char *s) {
         //   N  -  -  -  -  -  -  -  -  -  Y  - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
         //   N  -  -  -  -  -  -  -  -  -  -  Y | strcmp(s,"JS")==0    || strcmp(s,"js")==0 || strcmp(s,"JAVASCRIPT")==0   
         //  __________________________________________________________________________________________
-        //   -  X  -  -  -  -  -  -  -  -  -  - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
+        //   -  X  -  -  -  -  -  -  -  -  -  - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();exit(1);
         //   -  -  X  -  -  -  -  -  -  -  -  - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");usegoto=0;
         //   -  -  -  X  -  -  -  -  -  -  -  - | lang=QB; 
         //   -  -  -  -  X  -  -  -  -  -  -  - | lang=VB; 
@@ -542,7 +543,7 @@ static void SetLang(char *s) {
         	    usegoto=0; // For GOTOless languages
         	    break;
         	case 11:	//	Rule  2 
-        	    printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
+        	    printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();exit(1);
         	    break;
         	case  8:	//	Rule  8 
         	    break;
@@ -550,7 +551,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
 
     }  /* End if onone */
 }
@@ -593,7 +594,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
 
 }
 
@@ -659,7 +660,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
 
 }
 
@@ -715,6 +716,7 @@ int main( int argc, char **argv) {
   	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-n)||Argis(--noinlinecode)
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - | Argis(-p)||Argis(--prefix)
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  -  - | Argis(-q)||Argis(--quote)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y | Argis(-k)||Argis(--quiet)
   	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-s)||Argis(--skeleton)
   	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-t)||Argis(--trace)
   	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - | Argis(-u)||Argis(--undo)
@@ -739,16 +741,16 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  -  - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - | SetPrefix(argv[narg+1]); narg++;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - | usegoto=0;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X | quiet=1;
   	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  -  -  - | exit(0); 
   	//END_TABLE:  	
   	//GENERATED_CODE: FOR TABLE_4.
-  	//WARNING: Dropping rule 19 in table 4. 
-  	//	18 Rules, 17 conditions, and 19 actions.
-  	//	Table 4 rule order = 11 1 13 15 9 18 2 12 14 3 17 16 4 5 6 7 10 8 
-  	 {	unsigned long CCIDE_table4_yes[18]={   1UL,   2UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,4096UL,8192UL,16384UL,32768UL,65536UL,   0UL};
+  	//	19 Rules, 18 conditions, and 20 actions.
+  	//	Table 4 rule order = 11 1 13 15 9 18 2 12 14 3 17 16 19 4 5 6 7 10 8 
+  	 {	unsigned long CCIDE_table4_yes[19]={   1UL,   2UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,2048UL,4096UL,8192UL,16384UL,32768UL,65536UL,131072UL,   0UL};
 
 
-  		switch(CCIDEFindRuleYes(18,
+  		switch(CCIDEFindRuleYes(19,
   			  (Argis(-a)||Argis(--actiondupes))
   			| (Argis(-b)||Argis(--blanktime))<<1
   			| (Argis(-c)||Argis(--columnsize))<<2
@@ -761,23 +763,27 @@ int main( int argc, char **argv) {
   			| (Argis(-n)||Argis(--noinlinecode))<<9
   			| (Argis(-p)||Argis(--prefix))<<10
   			| (Argis(-q)||Argis(--quote))<<11
-  			| (Argis(-s)||Argis(--skeleton))<<12
-  			| (Argis(-t)||Argis(--trace))<<13
-  			| (Argis(-u)||Argis(--undo))<<14
-  			| (Argis(-V)||Argis(--version))<<15
-  			| (Argis(-x)||Argis(--extrarule))<<16
+  			| (Argis(-k)||Argis(--quiet))<<12
+  			| (Argis(-s)||Argis(--skeleton))<<13
+  			| (Argis(-t)||Argis(--trace))<<14
+  			| (Argis(-u)||Argis(--undo))<<15
+  			| (Argis(-V)||Argis(--version))<<16
+  			| (Argis(-x)||Argis(--extrarule))<<17
   			  ,CCIDE_table4_yes)) {
-  		case 17:	//	Rule  8 
+  		case 18:	//	Rule  8 
   		    Usage();
   		    exit(0);
   		    break;
-  		case 15:	//	Rule  7 
+  		case 16:	//	Rule  7 
   		    ShowCopyright();
   		    exit(0);
   		    break;
-  		case 12:	//	Rule  4 
+  		case 13:	//	Rule  4 
   		    if(GenSkeleton(argv[narg+1])) narg++;
   		    exit(0);
+  		    break;
+  		case 12:	//	Rule 19 
+  		    quiet=1;
   		    break;
   		case  5:	//	Rule 18 
   		    usegoto=0;
@@ -803,17 +809,17 @@ int main( int argc, char **argv) {
   		case  0:	//	Rule 11 
   		    DupeActionIsAnError=0;
   		    break;
-  		case 16:	//	Rule 10 
+  		case 17:	//	Rule 10 
   		    strcat(xstring, "- ");
   		    break;
   		case  4:	//	Rule  9 
   		    checkequal=0;     // Do Not check for '='.
   		    break;
-  		case 14:	//	Rule  6 
+  		case 15:	//	Rule  6 
   		    noinline=1;
   		    donotgenerate=1;
   		    break;
-  		case 13:	//	Rule  5 
+  		case 14:	//	Rule  5 
   		    yydebug=1;
   		    break;
   		case  9:	//	Rule  3 
@@ -827,7 +833,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Tue 21 Aug 2012 02:35:15 PM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Fri 24 Aug 2012 04:04:45 PM EDT 
 
 
 	narg++;

@@ -92,16 +92,23 @@ extern char bfr[BFRSIZE];
         printf((const char*) "%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
 		lws, pComment, (A), pEcomment);	\
 	RC=1;
+#define ERROR2(F,A) sprintf(bfr,(const char*)F,A); 	\
+	yyerror(bfr); 				\
+        printf((const char*) "\n%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
+		lws, pComment, bfr, pEcomment);	\
+	RC=1;
 #define ERROR3(F,A,B) sprintf(bfr,(const char*)F,A,B); 	\
 	yyerror(bfr); 				\
-        printf((const char*) "%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
+        printf((const char*) "\n%s%sERROR: %s %s\n",	/* Flawfinder: ignore */	\
 		lws, pComment, bfr, pEcomment);	\
 	RC=1;
 
 #define WARN3(F,A,B) sprintf(bfr,(const char*)F,A,B); 	\
-	warning(bfr); 				\
-        printf((const char*) "%s%sWARNING: %s %s\n",		\
-		lws, pComment, bfr, pEcomment);	
+	if(!quiet)  {					\
+		warning(bfr); 				\
+        	printf((const char*) "%s%sWARNING: %s %s\n",	\
+			lws, pComment, bfr, pEcomment);		\
+	}	
 
 	/* ********************  Macros *********************/
 
@@ -145,6 +152,7 @@ extern int nbrtables;
 extern int ccide_newgroup;
 extern int noinline;	   /* 1=do not generate inline code */
 extern int m4out;	   /* 1=Generate M4 code instead of C code */
+extern int quiet;    	   /* 1=do not generate warning type messages   */
 extern int donotgenerate;  /* 1=do not generate any code */
 extern int usegoto;  	   /* 1=GOTO optimization is enabled. */
 extern int notimestamp;    /* 1=do not generate timestamp 		*/

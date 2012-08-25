@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.4pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-08-22 11:28-0400\n"
+"POT-Creation-Date: 2012-08-24 16:23-0400\n"
 "PO-Revision-Date: 2012-08-15 19:51+0200\n"
 "Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -58,21 +58,21 @@ msgstr "%i prekoračuje najveći broj radnji %i."
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i prekoračuje najveći broj uvjeta %i."
 
-#: src/ccideparse.c:1870
+#: src/ccideparse.c:1871
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i pravila, umjesto %i."
 
-#: src/ccideparse.c:1883
+#: src/ccideparse.c:1884
 msgid "Prefix longer than space allows."
 msgstr "Prefiks je dulji od dozvoljenog."
 
-#: src/ccideparse.c:1904
+#: src/ccideparse.c:1905
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "Prefiks sadrži nedozvoljene znakove."
 
-#: src/ccideparse.c:1932
+#: src/ccideparse.c:1933
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -81,59 +81,67 @@ msgstr ""
 "CCIDE/FATAL: Znak za razdvajanje %s ne može biti jednak QUOTE=(%s,%s) ili "
 "SUBSTITUTION=(%s,%s) \n"
 
-#: src/ccideparse.c:1944
+#: src/ccideparse.c:1945
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "NULL znak za razdvajanje\n"
 
-#: src/ccideparse.c:2086
+#: src/ccideparse.c:2087
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr "CCIDE/PARSE: Žao mi je, programski jezik %s još nije podržan.\n"
 
-#: src/ccideparse.c:2224
+#: src/ccideparse.c:2225
 msgid "Binding gettext"
 msgstr "Povezujem gettext"
 
-#: src/ccideparse.c:2227
+#: src/ccideparse.c:2228
 msgid "Getting textdomain"
 msgstr "Dohvaćam tekstualnu domenu"
 
-#: src/ccideparse.c:2242
+#: src/ccideparse.c:2243
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Parametar %i je predugačak.\n"
 
-#: src/ccidemain.c:183
+#: src/ccidemain.c:184
 #, c-format
 msgid "Cannot find case value for rule %i%s\n"
 msgstr "Ne mogu pronaći vrijednost slučaja za pravilo %i%s\n"
 
-#: src/ccidemain.c:662
+#: src/ccidemain.c:330
 #, c-format
-msgid "Rule %i conflicts with rule %2i\n"
+msgid "Dropping rule %i in table %i."
+msgstr ""
+
+#: src/ccidemain.c:661
+#, fuzzy, c-format
+msgid "Rule %i conflicts with rule %2i"
 msgstr "Pravilo %i je u konfliktu s pravilom %2i\n"
 
-#: src/ccidemain.c:699
+#: src/ccidemain.c:698
 #, c-format
 msgid "Rules %2i and  %2i overlap.\n"
 msgstr "Pravila %2i i %2i se preklapaju.\n"
 
-#: src/ccidemain.c:772
+#: src/ccidemain.c:771
 msgid "Allocating leading white space"
 msgstr "Alociram vodeću prazninu"
 
-#: src/ccidemain.c:821
+#: src/ccidemain.c:818
 #, c-format
-msgid "%s '=' error in condition expression %i"
-msgstr "%s „=” greška u izrazu uvjeta %i"
+msgid " '=' probably should be '==' in condition stub %i"
+msgstr ""
 
-#: src/ccidemain.c:847
+#: src/ccidemain.c:845
 #, c-format
 msgid "%s is the same as condition %i"
 msgstr "%s je isti kao uvjet %i"
 
-#: src/ccidemain.c:935
+#: src/ccidemain.c:933
 #, c-format
 msgid "%s is the same as action %i"
 msgstr "%s je isti kao radnja %i"
+
+#~ msgid "%s '=' error in condition expression %i"
+#~ msgstr "%s „=” greška u izrazu uvjeta %i"

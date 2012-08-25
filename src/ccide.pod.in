@@ -249,6 +249,8 @@ necessary, to avoid syntax problems with quotes.
 
 B<-g|--gotoless>   Eliminate GOTO statements.  ccide optimizes some complex switch expressions using GOTO statements.  This option will elminate GOTO optimization.  Languages, such as JavaScript, which disallow GOTO, automatically invoke this option.
 
+B<-k|--quiet>		The --quiet option causes ccide to bypass issuing warning messages.  Empty rules and actions will be silently dropped.
+
 B<-l|--localtime>	The B<-l>(--localtime) option causes ccide to use local time
 instead of UTC on timestamps.
 

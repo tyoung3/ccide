@@ -3,25 +3,25 @@
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
-   	Ccide is free software: you can redistribute it and/or modify
+   	ccide is free software: you can redistribute it and/or modify
    	it under the terms of the GNU General Public License as published by
     	the Free Software Foundation, either version 3 of the License, or
    	(at your option) any later version.
 
-    	Ccide is distributed in the hope that it will be useful,
+    	ccide is distributed in the hope that it will be useful,
     	but WITHOUT ANY WARRANTY; without even the implied warranty of
     	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     	GNU General Public License for more details.
 
     	You should have received a copy of the GNU General Public License
-    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	along with ccide.  If not, see <http://www.gnu.org/licenses/> or
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 
 /* ccidemain.c:  decision table generation and checking 
- * N.B.  Ccidemain.c is generated from ccidemain.c.d by ccide.
+ * N.B.  ccidemain.c is generated from ccidemain.c.d by ccide.
  */
 
 
@@ -91,6 +91,7 @@ int ccide_newgroup = 0;		/* Default state for NEWGROUP 			*/
 int m4out = 0;			/* 1 = generate m4 code, rather than C code. 	*/
 int noinline = 0;		/* 1 = do not generate inline code. 		*/
 int notimestamp = 0;		/* 1 = bypass timestamps. 			*/
+int quiet = 0;			/* 1 = do not issue warnings. 			*/
 int uselocaltime = 0;		/* 1 = local time in timestamps. 		*/
 int donotgenerate = 0;		/* 1 = do not generate any code. 		*/
 int usegoto = 1;		/* 1 = GOTO optimization in effect. 		*/
@@ -296,12 +297,10 @@ RuleSeq (const void *a, const void *b)
     return -1;  		/* Rule x+1 before rule y+1 */   
   if (ca < cb)
     return 1;		/* Rule y+1 before rule x+1 */
-
-  /*  Unreachable in theory. */
-
   if (x < y)		
     return -1;		/* Rule x+1 before rule y+1 */
 
+  	/*  Unreachable in theory?  Not reached in testing. */
   return 1;		/* Rule y+1 before rule x+1 */
 }
 
@@ -616,7 +615,7 @@ CompareRules (int r1, int r2)
 
   if (diff == 0)
     {
-      ERROR3 (_("Rule %i conflicts with rule %2i\n"), remap[r1], remap[r2]);
+      ERROR3 (_("Rule %i conflicts with rule %2i"), remap[r1], remap[r2]);
     }
 }
 
@@ -760,9 +759,7 @@ ClearTable ()
 }
 
 	/* Check for lonely equal sign in condition expression. */
-void
-CheckEqual (char *cstub, int ncond)
-{
+static void CheckEqual (char *cstub, int ncond) {
   char *c1 = cstub;
 
   while (checkequal && (*c1 != 0))
@@ -775,8 +772,9 @@ CheckEqual (char *cstub, int ncond)
 	    }
 	  else
 	    {
-	      ERROR3 (_("%s '=' error in condition expression %i"),
-		      cstub, ncond + 1);
+	      ERROR2(_(" '=' probably should be '==' in condition stub %i"),
+		      ncond + 1);
+	      break;	
 	    }
 	}
       c1++;
@@ -795,13 +793,13 @@ SetCSTUB (int ncond, char *cstub)
     c1++;
 
   ccide.conccideable[ncond] = c1;
-  CheckEqual (cstub, ncond);
+  CheckEqual (c1, ncond);
 
   for (i = 0; i < ncond; i++)
     {
-      if (strcmp (cstub, ccide.conccideable[i]) == 0)
+      if (strcmp (c1, ccide.conccideable[i]) == 0)
 	{
-	  ERROR3 (_("%s is the same as condition %i"), cstub, i + 1);
+	  ERROR3 (_("%s is the same as condition %i"), c1, i + 1);
 	}
     }
 }
@@ -1807,7 +1805,7 @@ ShowOrder (int nrules, int map[])
 static void
 ShowRuleOrder (int nrules)
 {
-  if (showruleorder)
+  if (showruleorder && !quiet)
     {
       if (m4out)
 	{;

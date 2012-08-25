@@ -211,7 +211,6 @@ static STATE DoOperator() {
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_3.
 	//	12 Rules, 8 conditions, and 4 actions.
-	//	Table 3 rule order = 3 4 5 6 7 8 9 10 11 12 1 2 
 	 {	unsigned long CCIDE_table3_yes[12]={  10UL,  18UL,  34UL,  66UL, 130UL,  12UL,  20UL,  36UL,  68UL, 132UL,   1UL,   0UL};
 
 	CCIDE_TABLE_3:
@@ -268,11 +267,7 @@ static void ParseInput() {
 	//   -  X  X  -  X  -  X  X  X  - |goto $@;
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_4.
-	//WARNING: Dropping rule 10 in table 4. 
-	//WARNING: Dropping rule 4 in table 4. 
-	//WARNING: Dropping rule 1 in table 4. 
 	//	7 Rules, 8 conditions, and 8 actions.
-	//	Table 4 rule order = 3 5 6 7 8 9 2 
 	 {	unsigned long CCIDE_table4_yes[7]={   6UL,  10UL,  18UL,  34UL,  66UL, 130UL,   1UL};
 
 	CCIDE_TABLE_4:
@@ -360,7 +355,6 @@ int main(int argc, char **argv) {
 	//   -  X | goto $@;
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_6.
-	//WARNING: Dropping rule 1 in table 6. 
 	//	1 Rules, 1 conditions, and 2 actions.
 
 	CCIDE_TABLE_6:	if( (token==SEPARATOR) )  {

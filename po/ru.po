@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.4pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-08-22 11:28-0400\n"
+"POT-Creation-Date: 2012-08-24 16:23-0400\n"
 "PO-Revision-Date: 2012-08-17 18:31+0400\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <gnu@mx.ru>\n"
@@ -58,21 +58,21 @@ msgstr "%i превышает максимальное количество де
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i превышает максимальное количество условий %i."
 
-#: src/ccideparse.c:1870
+#: src/ccideparse.c:1871
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i правил вместо %i."
 
-#: src/ccideparse.c:1883
+#: src/ccideparse.c:1884
 msgid "Prefix longer than space allows."
 msgstr "Префикс длиннее, чем разрешённое пространство."
 
-#: src/ccideparse.c:1904
+#: src/ccideparse.c:1905
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "В префиксе содержатся недопустимые символы."
 
-#: src/ccideparse.c:1932
+#: src/ccideparse.c:1933
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -81,59 +81,67 @@ msgstr ""
 "CCIDE/FATAL: Разделитель %s не совпадает с QUOTE=(%s,%s) или SUBSTITUTION=(%"
 "s,%s)\n"
 
-#: src/ccideparse.c:1944
+#: src/ccideparse.c:1945
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "Разделитель NULL\n"
 
-#: src/ccideparse.c:2086
+#: src/ccideparse.c:2087
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr "CCIDE/PARSE: Язык программирования %s пока не поддерживается.\n"
 
-#: src/ccideparse.c:2224
+#: src/ccideparse.c:2225
 msgid "Binding gettext"
 msgstr "Привязка gettext"
 
-#: src/ccideparse.c:2227
+#: src/ccideparse.c:2228
 msgid "Getting textdomain"
 msgstr "Получение textdomain"
 
-#: src/ccideparse.c:2242
+#: src/ccideparse.c:2243
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Параметр %i слишком длинный.\n"
 
-#: src/ccidemain.c:183
+#: src/ccidemain.c:184
 #, c-format
 msgid "Cannot find case value for rule %i%s\n"
 msgstr "Не удалось найти значение case для правила %i%s\n"
 
-#: src/ccidemain.c:662
+#: src/ccidemain.c:330
 #, c-format
-msgid "Rule %i conflicts with rule %2i\n"
+msgid "Dropping rule %i in table %i."
+msgstr ""
+
+#: src/ccidemain.c:661
+#, fuzzy, c-format
+msgid "Rule %i conflicts with rule %2i"
 msgstr "Правило %i конфликтует с правилом %2i\n"
 
-#: src/ccidemain.c:699
+#: src/ccidemain.c:698
 #, c-format
 msgid "Rules %2i and  %2i overlap.\n"
 msgstr "Правила %2i и %2i перекрываются.\n"
 
-#: src/ccidemain.c:772
+#: src/ccidemain.c:771
 msgid "Allocating leading white space"
 msgstr "Выделяет начальное пустое пространство"
 
-#: src/ccidemain.c:821
+#: src/ccidemain.c:818
 #, c-format
-msgid "%s '=' error in condition expression %i"
-msgstr "%s '=' ошибка в выражении условия %i"
+msgid " '=' probably should be '==' in condition stub %i"
+msgstr ""
 
-#: src/ccidemain.c:847
+#: src/ccidemain.c:845
 #, c-format
 msgid "%s is the same as condition %i"
 msgstr "%s тоже, что и условие %i"
 
-#: src/ccidemain.c:935
+#: src/ccidemain.c:933
 #, c-format
 msgid "%s is the same as action %i"
 msgstr "%s тоже, что и действие %i"
+
+#~ msgid "%s '=' error in condition expression %i"
+#~ msgstr "%s '=' ошибка в выражении условия %i"

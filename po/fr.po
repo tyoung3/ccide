@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.4pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-08-22 11:28-0400\n"
+"POT-Creation-Date: 2012-08-24 16:23-0400\n"
 "PO-Revision-Date: 2012-08-15 20:38+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -57,21 +57,21 @@ msgstr "%i dépasse le nombre maximum d'actions %i"
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i dépasse le nombre maximum de conditions %i."
 
-#: src/ccideparse.c:1870
+#: src/ccideparse.c:1871
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i règles au lieu de %i."
 
-#: src/ccideparse.c:1883
+#: src/ccideparse.c:1884
 msgid "Prefix longer than space allows."
 msgstr "Préfixe plus long que l'espace alloué."
 
-#: src/ccideparse.c:1904
+#: src/ccideparse.c:1905
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "Préfixe contient des caractères illégaux."
 
-#: src/ccideparse.c:1932
+#: src/ccideparse.c:1933
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -80,61 +80,69 @@ msgstr ""
 "CCIDE/FATAL: Le délimiteur %s ne peut pas être égal à QUOTE=(%s,%s) ou à "
 "SUBSTITUTION=(%s,%s)\n"
 
-#: src/ccideparse.c:1944
+#: src/ccideparse.c:1945
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "Délimiteur nul\n"
 
-#: src/ccideparse.c:2086
+#: src/ccideparse.c:2087
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr ""
 "CCIDE/ANALYSE: Désolé, le langage de programmation %s n'est pas encore "
 "supporté.\n"
 
-#: src/ccideparse.c:2224
+#: src/ccideparse.c:2225
 msgid "Binding gettext"
 msgstr "Liaison à gettext"
 
-#: src/ccideparse.c:2227
+#: src/ccideparse.c:2228
 msgid "Getting textdomain"
 msgstr "Obtention de textdomain"
 
-#: src/ccideparse.c:2242
+#: src/ccideparse.c:2243
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Paramètre %i est trop long.\n"
 
-#: src/ccidemain.c:183
+#: src/ccidemain.c:184
 #, c-format
 msgid "Cannot find case value for rule %i%s\n"
 msgstr "Ne peut trouver la valeur du cas pour la règle %i%s\n"
 
-#: src/ccidemain.c:662
+#: src/ccidemain.c:330
 #, c-format
-msgid "Rule %i conflicts with rule %2i\n"
+msgid "Dropping rule %i in table %i."
+msgstr ""
+
+#: src/ccidemain.c:661
+#, fuzzy, c-format
+msgid "Rule %i conflicts with rule %2i"
 msgstr "La règle %i est en conflit avec la règle %2i\n"
 
-#: src/ccidemain.c:699
+#: src/ccidemain.c:698
 #, c-format
 msgid "Rules %2i and  %2i overlap.\n"
 msgstr "Les règles %2i et %2i se chevauchent.\n"
 
-#: src/ccidemain.c:772
+#: src/ccidemain.c:771
 msgid "Allocating leading white space"
 msgstr "Alloue les espaces de début"
 
-#: src/ccidemain.c:821
+#: src/ccidemain.c:818
 #, c-format
-msgid "%s '=' error in condition expression %i"
-msgstr "%s « = » erreur dans l'expression de la condition %i"
+msgid " '=' probably should be '==' in condition stub %i"
+msgstr ""
 
-#: src/ccidemain.c:847
+#: src/ccidemain.c:845
 #, c-format
 msgid "%s is the same as condition %i"
 msgstr "%s est la même que la condition %i"
 
-#: src/ccidemain.c:935
+#: src/ccidemain.c:933
 #, c-format
 msgid "%s is the same as action %i"
 msgstr "%s est la même que l'action %i"
+
+#~ msgid "%s '=' error in condition expression %i"
+#~ msgstr "%s « = » erreur dans l'expression de la condition %i"

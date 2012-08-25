@@ -141,7 +141,6 @@ static TYPE GetType() {
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_2.
 	//	3 Rules, 2 conditions, and 5 actions.
-	//	Table 2 rule order = 2 3 1 
 	 {	unsigned long CCIDE_table2_yes[3]={   2UL,   0UL,   1UL};
 		unsigned long CCIDE_table2_no[3]= {   1UL,   3UL,   0UL};
 
@@ -183,9 +182,6 @@ TYPE GetToken() {
 	//   -  -  -  - | goto $@;
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_3.
-	//WARNING: Dropping rule 4 in table 3. 
-	//WARNING: Dropping rule 3 in table 3. 
-	//WARNING: Dropping rule 2 in table 3. 
 	//	1 Rules, 4 conditions, and 6 actions.
 
 	CCIDE_TABLE_3:	if( (s==2) )  {
@@ -213,7 +209,6 @@ TYPE GetToken() {
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_4.
 	//	6 Rules, 5 conditions, and 11 actions.
-	//	Table 4 rule order = 5 6 1 2 3 4 
 	 {	unsigned long CCIDE_table4_yes[6]={   8UL,  24UL,   1UL,   2UL,   4UL,   0UL};
 		unsigned long CCIDE_table4_no[6]= {  16UL,   0UL,   0UL,   0UL,   0UL,   0UL};
 
@@ -275,9 +270,7 @@ int main() {
 	//   X  X  X  - | goto $@;
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_5.
-	//WARNING: Dropping rule 4 in table 5. 
 	//	3 Rules, 4 conditions, and 5 actions.
-	//	Table 5 rule order = 2 3 1 
 	 {	unsigned long CCIDE_table5_yes[3]={  14UL,   6UL,   1UL};
 
 	CCIDE_TABLE_5:

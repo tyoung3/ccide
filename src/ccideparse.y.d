@@ -3,18 +3,18 @@
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
-   	Ccide is free software: you can redistribute it and/or modify
+   	ccide is free software: you can redistribute it and/or modify
    	it under the terms of the GNU General Public License as published by
     	the Free Software Foundation, either version 3 of the License, or
    	(at your option) any later version.
 
-    	Ccide is distributed in the hope that it will be useful,
+    	ccide is distributed in the hope that it will be useful,
     	but WITHOUT ANY WARRANTY; without even the implied warranty of
     	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     	GNU General Public License for more details.
 
     	You should have received a copy of the GNU General Public License
-    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	along with ccide.  If not, see <http://www.gnu.org/licenses/> or
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
@@ -32,18 +32,18 @@
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
-   	Ccide is free software: you can redistribute it and/or modify
+   	ccide is free software: you can redistribute it and/or modify
    	it under the terms of the GNU General Public License as published by
     	the Free Software Foundation, either version 3 of the License, or
    	(at your option) any later version.
 
-    	Ccide is distributed in the hope that it will be useful,
+    	cide is distributed in the hope that it will be useful,
     	but WITHOUT ANY WARRANTY; without even the implied warranty of
     	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     	GNU General Public License for more details.
 
     	You should have received a copy of the GNU General Public License
-    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+    	along with cide.  If not, see <http://www.gnu.org/licenses/> or
     	write to the Free Software Foundation, Inc., 51 Franklin St, 
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
@@ -303,6 +303,7 @@ int lineno = 0 ;
 */
 void warning2( char *s, char *t)
 {
+    if(quiet) return;
     syslog( LOGP, "%s: %s", progname, s) ;
 
     if (t)
@@ -472,7 +473,7 @@ static void SetLang(char *s) {
         //   N  -  -    -   -  -  -  -  -  -  Y - | strcmp(s,"C++")==0   || strcmp(s,"c++")==0 
         //   N  -  -    -   -  -  -  -  -  -  - Y | strcmp(s,"JS")==0    || strcmp(s,"js")==0 || strcmp(s,"JAVASCRIPT")==0   
         //  __________________________________________________________________________________________
-        //   -  X  -    -   -  -  -  -  -  -  - - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();
+        //   -  X  -    -   -  -  -  -  -  -  - - | printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();exit(1);
         //   -  -  X    -   -  -  -  -  -  -  - - | lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");usegoto=0;
         //   -  -  -    X   -  -  -  -  -  -  - - | lang=QB; 
         //   -  -  -    -   X  -  -  -  -  -  - - | lang=VB; 
@@ -583,6 +584,7 @@ int main( int argc, char **argv) {
   	//   -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-n)||Argis(--noinlinecode)
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  - - | Argis(-p)||Argis(--prefix)
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  Y  -  - - | Argis(-q)||Argis(--quote)
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - Y | Argis(-k)||Argis(--quiet)
   	//   -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-s)||Argis(--skeleton)
   	//   -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-t)||Argis(--trace)
   	//   -  -  -  -  -  Y  -  -  -  -  -  -  -  -  -  -  -  - - | Argis(-u)||Argis(--undo)
@@ -607,6 +609,7 @@ int main( int argc, char **argv) {
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  -  - - | SetQdelimit(argv[narg+1],argv[narg+2]); narg+=2;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X  - - | SetPrefix(argv[narg+1]); narg++;
   	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  X - | usegoto=0;
+  	//   -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - X | quiet=1;
   	//   -  -  -  X  -  -  X  X  -  -  -  -  -  -  -  -  -  - - | exit(0); 
   	//END_TABLE:  	
 

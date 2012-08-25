@@ -32,9 +32,9 @@ am__fastdepGCJ_FALSE = #
 am__fastdepGCJ_TRUE = 
 
 #Programs built with 'make check'
-check_PROGRAMS = if2rpn$(EXEEXT)
+# check_PROGRAMS = if2rpn$(EXEEXT)
 
-if2rpn_SOURCES = if2rpn.h if2rpn.c if2rpnq.c if2rpntok.c
+#if2rpn_SOURCES = if2rpn.h if2rpn.c if2rpnq.c if2rpntok.c
 
 if2rpn.txt:
 	cp ${srcdir}/if2rpn.txt .
@@ -44,23 +44,29 @@ EXTRA_DIST = if2rpn.txt
 DISTCLEANFILES = Makefile
 
 TEST_CASES = 	\
-       bin2dec	\
-       bonus    \
-       ccidetime\
-       depeter  \
-       elev	\
-       ex1	\
-       ex4	\
-       fourway	\
-       hcond	\
-       huge1	\
-       huge2	\
-       if2rpn	\
-       simple	\
-       skel	\
-       threeway	\
-       hw	\
-       tryit	 
+        bin2dec	\
+        bonus    \
+        ccidetime\
+        depeter  \
+        elev	\
+	errors  \
+        ex1	\
+        ex4	\
+        fourway	\
+	quadrants3 \
+        hcond	\
+	help	\
+        huge1	\
+        huge2	\
+        if2rpn	\
+        simple	\
+        skel	\
+        threeway\
+        hw	\
+        tryit	\
+	undo	\
+	version 
+
 
 #%.r : %.r.in 
 #	rm -f $@ $@.tmp
@@ -99,7 +105,8 @@ TEST_CASES = 	\
 %: %.vb
 	(echo  "#!/bin/bash"; echo "echo stub for $@")   > $@
 	chmod a+x $@
-	# echo   Add commands to compile VB here.  
+
+# echo   Add commands to compile VB here.  
 
 %: %.java 
 	${GCJ} --main=$@ $(GCJFLAGS) $< -o $@ 
@@ -117,18 +124,12 @@ testhuge2:	huge2
 
 check_help:
 	$(top_srcdir)/scripts/ccide --help 2>&1 > /tmp/help.X
-	diff help.X /tmp/help.X								\
-	&& echo -e "               \033[0;32;32m **** --help Success! **** \033[0;32;39m"	\
-	||  echo -e "               \033[0;32;31m ???? --help Failed   ????\033[0;32;39m"  
+	diff help.X /tmp/help.X								
 
-check_cases:	if2rpn$(EXEEXT)
+check_cases:	
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
-check:	check_cases check_help
-
-#check_old:	 testcases
-#	[ -x $(top_srcdir)/scripts/ccide ] || chmod a+x $(top_srcdir)/scripts/ccide
-#	$(top_srcdir)/scripts/check.sh 
+check:	check_cases 
 
 
 clean-local:
