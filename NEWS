@@ -1,0 +1,14 @@
+Version 0.6.5-1 (August 26, 2012)
+	-  Fixed failure to detect duplicate condition stubs.
+	-  Fixed stray right parenthesis in generated bash programs.
+	-  Added support for mingw.
+	-  Added Vietamese, Russion, Polish and German .po files.
+	-  Removed compile/execute steps from tests, as no longer necessary.   
+	-  Fixed check.sh[.in] to verify generation and execution separately.
+	-  ccide man page copyright changed from GPL to GNU Free Documentation License.
+	-  Changed 'Usage' function to display environment variables, exit conditions, and bug reporting.
+	-  Fixed ccide script to call ccidew and exit 0, instead of exit 1 on --help option.
+	-  Added 'help', 'errors', and 'undo' to tests, increasing test coverage.
+	-  Fixed condition stub NEWGROUP for -L BASH. 
+	-  Added -g(--gotoless) option for languages, like JavaScript, wo/GOTO statement.
+	-  Action stub NEWGROUP not implememented for GOTOless languages.
