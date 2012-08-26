@@ -187,15 +187,6 @@ MakeAM() {
 			MakeEntry "	$TDIR/$TINPUT"	
 			T=`basename $TINPUT .X`
 			[ -f $T.h ] && MakeEntry "	$TDIR/$T.h "
-			#for D in ${T}*.opt; do
-			#	[ -f $D ] && MakeEntry "	$TDIR/$D "
-			#done
-			#for D in $T*.d; do
-			#	MakeEntry "	$TDIR/$D "
-			#done
-			#for R in $T*.r; do
-			#	MakeEntry "	$TDIR/$R "
-			#done
 	done		   
 	for TINPUT in *.r; do
 			MakeEntry "	$TDIR/$TINPUT"	

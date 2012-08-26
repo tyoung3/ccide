@@ -52,7 +52,6 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-target_triplet = @target@
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -82,12 +81,15 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CHOST = @CHOST@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
+DEBUG_FALSE = @DEBUG_FALSE@
+DEBUG_TRUE = @DEBUG_TRUE@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DESCR = @DESCR@
@@ -100,6 +102,7 @@ EXEEXT = @EXEEXT@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GMSGFMT = @GMSGFMT@
 GMSGFMT_015 = @GMSGFMT_015@
+HOST = @HOST@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
@@ -126,6 +129,8 @@ MAINT = @MAINT@
 MAINTAINER_MODE_FALSE = @MAINTAINER_MODE_FALSE@
 MAINTAINER_MODE_TRUE = @MAINTAINER_MODE_TRUE@
 MAKEINFO = @MAKEINFO@
+MINGW_FALSE = @MINGW_FALSE@
+MINGW_TRUE = @MINGW_TRUE@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
@@ -143,7 +148,6 @@ RELEASE = @RELEASE@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-TARGET = @TARGET@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
@@ -192,11 +196,7 @@ program_transform_name = @program_transform_name@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
-target = @target@
 target_alias = @target_alias@
-target_cpu = @target_cpu@
-target_os = @target_os@
-target_vendor = @target_vendor@
 
 #    	You should have received a copy of the GNU General Public License
 #    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
@@ -205,7 +205,6 @@ target_vendor = @target_vendor@
 # ----------------------------------------------- end of legal stuff ---------------------- #
 GCJ = gcj
 # AM_CFLAGS = -lmcheck
-# CFLAGS = 
 # AM_CFLAGS =  -g --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS  -DRELEASE=\"${RELEASE}\"
 CCIDE = $(top_srcdir)/scripts/ccide
 CCIDEW = $(top_srcdir)/src/ccidew$(EXEEXT)
@@ -237,7 +236,7 @@ TEST_CASES = \
         threeway\
         tryit	\
 	undo	\
-	version 
+	version    
 
 all: all-am
 
@@ -391,19 +390,10 @@ uninstall-am: uninstall-info-am
 	uninstall-am uninstall-info-am
 
 
-#Programs built with 'make check'
-# check_PROGRAMS = if2rpn$(EXEEXT)
-
-#if2rpn_SOURCES = if2rpn.h if2rpn.c if2rpnq.c if2rpntok.c
+all: dosunixset
 
 if2rpn.txt:
-	cp ${srcdir}/if2rpn.txt .
-
-#%.r : %.r.in 
-#	rm -f $@ $@.tmp
-#	srcdir=''; \
-#		test -f ./$@.in || srcdir=$(srcdir)/; \
-#		$(edit) $${srcdir}$@.in >$@    
+	cp ${srcdir}/if2rpn.txt ./
 
 %: %.cpp 
 	${CXX} -g $(CXXFLAGS) $< -o $@ 
@@ -454,15 +444,19 @@ testhuge2:	huge2
 
 check_help:
 	$(top_srcdir)/scripts/ccide --help 2>&1 > /tmp/help.X
-	diff help.X /tmp/help.X								
+	diff help.X /tmp/help.X							
 
-check_cases:	
+dosunixset: 
+@MINGW_TRUE@	unix2dos * && touch $@ && unix2dos ../m4/*.m4 && touch $@
+@MINGW_FALSE@	touch $@
+
+check_cases:  
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
-check:	check_cases 
+check:	dosunixset check_cases 
 
 clean-local:
-	rm -f testcases *~
+	rm -f testcases *~ dosunixset
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

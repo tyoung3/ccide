@@ -51,7 +51,7 @@ CCIDE_DIR=$(distdir)
 ##automake standard names:
 bin_PROGRAMS = ccidew
  
-ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c cciderunx.c ccideinline.c ccidemain.h  $(srcdir)/ccide.pod  ccide.h parse.h gettext.h
+ccidew_SOURCES = ccideparse.y ccidelex.l ccidemain.c ccidemain.c.d cciderunx.c ccideinline.c ccidemain.h  $(srcdir)/ccide.pod  ccide.h parse.h gettext.h
 
 #Bison Flags  ( -y added by autoconf )
 AM_YFLAGS = -d -l -v

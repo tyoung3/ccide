@@ -2,6 +2,7 @@
 TODO:
 	. The config.sub and other such infrastructure files are stale. Get the latest versions.
 	. Make RPM depend on gettext if, and only if, so configured.
+	     . Fix ccide.spec file for gettext.
 		. Add .po files to rpm 
 		. Issue: rsync -Lrtvz  translationproject.org::tp/latest/ccide/  po   
 			for new dist.

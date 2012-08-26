@@ -8,9 +8,9 @@ AC_INIT([ccide],[0.6.5],[ccide@twyoung.com])
 AC_CONFIG_SRCDIR([src/ccidemain.h])
 AC_CONFIG_HEADERS([src/ccideconfig.h])
 
-TARGET=$target_cpu-$target_os
+HOST=$host_cpu-$host_os
 AM_MAINTAINER_MODE(TRUE)
-AC_CANONICAL_TARGET([])
+AC_CANONICAL_HOST([])
 AM_INIT_AUTOMAKE([ccide], [0.6.5])
 
 RELEASE=1	
@@ -50,8 +50,10 @@ AC_PROG_RANLIB
 
 # Checks for header files.
 AC_FUNC_ALLOCA
-AC_HEADER_STDC
+AC_HEADER_STDC 
+AC_HEADER_STDBOOL
 AC_CHECK_HEADERS([libintl.h limits.h malloc.h stddef.h stdlib.h string.h sys/time.h unistd.h])
+AC_CHECK_HEADERS([locale.h]) 
 
 # additional header checks
 AC_HEADER_TIME
@@ -63,6 +65,7 @@ AC_CHECK_HEADERS([assert.h], [], [],
    ]])
 
 # Checks for library functions.
+AC_CHECK_FUNCS([setlocale])
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC 
 AC_FUNC_STRFTIME 
@@ -86,7 +89,7 @@ AC_REPLACE_FUNCS([__builtin_popcount strdup] )
 AC_SUBST(RELEASE)
 AC_SUBST(LIBVER)
 AC_SUBST(LIBCCIDE)
-AC_SUBST(TARGET)
+AC_SUBST(HOST)
 AC_SUBST(DESCR)
 AC_SUBST(LONG_DESCR)
 
@@ -101,6 +104,33 @@ AC_PATH_PROG(M4, m4)
 
 # Req'd for builds: disp_pkg.mk  extra_dist.mk:  Built by scripts/check.sh mkam
 
+# Conditions for makefiles:
+
+case $host_os in
+  *linux*)
+        AC_SUBST([CHOST],[LINUX])
+        ;;
+   *mingw*)
+        AC_SUBST([CHOST],[MINGW])
+        ;;
+    *)
+        AC_SUBST([CHOST],[QQ])
+        ;;
+esac
+
+AM_CONDITIONAL([MINGW], [test $CHOST = MINGW] )
+
+#AM_CONDITIONAL([CCIDE_USENLS],[test ${USE_NLS} = yes] )
+#AC_SUBST([CCIDE_USENLS])
+
+AC_ARG_ENABLE([debug],
+     [  --enable-debug    Turn on debugging],
+     [case "${enableval}" in
+       yes) debug=true ;;
+       no)  debug=false ;;
+       *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+     esac],[debug=false])
+     AM_CONDITIONAL([DEBUG], [test x$debug = xtrue])
 
 #  ############Generation############################
 AC_CONFIG_FILES([autogen.sh ], [chmod +x autogen.sh]) 
