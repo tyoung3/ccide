@@ -84,7 +84,7 @@ distclean-local:
 
 clean-local:    
 	rm -f *~  *.log *.output  ccidelex.c ccideparse.c 	\
-	*.gcov *.gcda *.gcno					\
+	*.gcov *.gcda *.gcno *.flaws				\
 	*.output ccideparse.c ccidelex.c  *.o ccidew  y.output
 	
 ${PACKAGE}.1:	${PACKAGE}.pod

@@ -47,6 +47,7 @@ TEST_CASES = 	\
         elev	\
 	errors  \
         ex1	\
+	ex2	\
         ex4	\
         fourway	\
         hcond	\
@@ -60,6 +61,8 @@ TEST_CASES = 	\
         skel	\
         threeway\
         tryit	\
+	t5	\
+	t6	\
 	undo	\
 	version    
 
@@ -75,6 +78,12 @@ TEST_CASES = 	\
 %.cpp: %.cpp.d 
 	${CCIDE} -L C++  -b ${OPT} < ${srcdir}/$< > $@ 
 
+%.qb: %.qb.d 
+	${CCIDE} -L QB -b ${OPT} < ${srcdir}/$< > $@ 
+
+%.bas: %.bas.d 
+	${CCIDE} -L BASIC -b ${OPT} < ${srcdir}/$< > $@ 
+
 %.vb: %.vb.d 
 	${CCIDE} -L VB -b ${OPT} < ${srcdir}/$< > $@ 
 
@@ -86,6 +95,9 @@ TEST_CASES = 	\
 
 %.bbl: %.bbl.d 
 	${CCIDE} -a -m4  -b ${OPT}  < ${srcdir}/$< > $@ 
+
+%.ex: %.ex.d 
+	${CCIDE} -L EX -b ${OPT}  < ${srcdir}/$< > $@ 
 
 %: %.bash
 	ln -sf $< $@
@@ -114,7 +126,6 @@ check_help:
 	$(top_srcdir)/scripts/ccide --help 2>&1 > /tmp/help.X
 	diff help.X /tmp/help.X							
 
-
 dosunixset: 
 if MINGW
 	unix2dos * && touch $@ && unix2dos ../m4/*.m4 && touch $@
@@ -125,9 +136,12 @@ endif
 check_cases:  
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
-check:	dosunixset check_cases 
+check:	dosunixset check_cases
+
+distclean-local: 
+	rm -f dosunixset
 
 clean-local:
-	rm -f testcases *~ dosunixset
+	rm -f testcases *~ dosunixset *.o
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 

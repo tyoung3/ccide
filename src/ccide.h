@@ -24,6 +24,12 @@
 
 #include "ccideconfig.h"
 
+/* Define equal condition to eliminate '=' errors in conditionals: */
+#define AEQ(A,B,C,D,E) (A)==((B)=C(D,E))   
+#define ISA_SUBSTR(A,B) AEQ(NULL,(A),strstr, c1, (B) )
+// EX:  if(IS_SUBSTR(s1,svar1) )  // s1 = return from strstr  
+//      if ((s1 = strstr (c1, svar1)) == NULL)
+
 typedef unsigned int CCIDE_BIT; 
 extern int ccide_group;
 extern int CCIDEFindRule(int nbrrules, unsigned long, unsigned long yes[], unsigned long no[]);

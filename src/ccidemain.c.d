@@ -911,14 +911,14 @@ int lqt1 = 2;
 char *qt2 = "]]";		/* m4 right quote */
 int lqt2 = 2;
 
-	/* Replace all occurances of svar2 with table entry point. */
+	/* Replace all occurences of svar2 with table entry point. */
 char *
 ExpVar2 (char *c1)
 {
   char *s1, *s2, *s3;
   static char bufs2[BFRSIZE];
 
-  if ((s1 = strstr (c1, svar2)) == NULL)
+  if(ISA_SUBSTR(s1,svar2) )  // s1 equals return from strstr  
     {
       return c1;
     }
@@ -949,7 +949,7 @@ SetASTUBscan (int nactions, char *c1)
   static char bufs[BFRSIZE];
 
   DISPLAY (SetASTUBscan);	/* if yydebug */
-  if ((s1 = strstr (c1, svar1)) == NULL)
+  if(ISA_SUBSTR(s1,svar1) )  /* s1 gets return from strstr */
     {
       SetASTUB (nactions, c1);
       return 1;
@@ -957,9 +957,7 @@ SetASTUBscan (int nactions, char *c1)
 
   for (a = 0; a < substitute; a++)
     {
-      while (numbers[i++] == -1)
-	{
-	}
+      while (numbers[i++] == -1) {}
       s2 = bufs;
       s3 = c1;
       s1 = strstr (s3, svar1);
@@ -1041,7 +1039,7 @@ SetCSTUBscan (int ncond, char *c1)
   char *c3, *s1, *s2, *s3;
   static char bufs[BFRSIZE];
 
-  if ((s1 = strstr (c1, svar1)) == NULL)
+  if(ISA_SUBSTR(s1,svar1) )    /* s1 gets return from strstr */
     {
       SetCSTUB (ncond, Strdup (c1));
       return 1;

@@ -31,8 +31,10 @@ http://github.com/tyoung3/ccide or http://ccide.sourceforge.net/ for more inform
 ccide is part of the GNU project: http://www.gnu.org/gnu/thegnuproject.html.
 
 Install Note:
-	Normal procedure is configure, make [check], install. 
-	Use './configure --disable-nls'  if NLS support is not wanted or available.
+	Normal procedure is configure, make, [make check], make install (as root). 
+	Use './configure --disable-nls'  if NLS support is not wanted or unavailable.
+	For mingw something like './configure -disable-nls --prefix=c:/mingw' is 
+        probably what you want (but see below).
 
 	To rebuild from scratch, run the './autogen.sh' script in the installation
 	directory(contains Makefile.am, etc.) and run './configure' and 'make'.  
@@ -42,9 +44,10 @@ Install Note:
 
 	Running 'make install' will install ccide without package management.	
 	'make uninstall' will undo 'make install'.
+	You can build an rpm by running 'make rpm' then install the rpm, as root: 'sudo rpm -Uvh .../RPMS/*/ccide*rpm'.    
 	
 	On Windows systems, you will want to do something like
 	'make DESTDIR=/mingw install' to install.
-
-	You can build an rpm by running 'make rpm' then install the rpm, as root: 'sudo rpm -Uvh ccide*rpm'.    
+	The ...mingw.tar.gz tarball is preconfigured with './configure --disable-nls --prefix=c:/mingw && make'. 
+	ccidew.exe should work properly, but there is no ccide.bat script, as yet, to replace the ccide bash script.
 	
