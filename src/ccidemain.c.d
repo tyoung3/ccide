@@ -1708,7 +1708,7 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
     printf
       ("%s%s_ENDIF()\n%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s%s%s",
        lws, pPrefix, lws, pComment, qt1, nbrtables, VERSION, RELEASE,
-       GetTimeStamp (), pEcomment, qt2);
+       GetTimeStamp (), qt2, pEcomment);
   else
     GenEnd ();
 }

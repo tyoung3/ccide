@@ -36,6 +36,8 @@ m4_define(^^^CCIDE_CASE%%%,^^^($2) CCIDE_COMMENT(^^^	Rule $3%%%)%%%)m4_dnl
 m4_define(^^^CCIDE_CASE_BEGIN%%%,^^^($2%%%)m4_dnl
 m4_define(^^^CCIDE_CASE_END%%%,^^^)CCIDE_COMMENT(^^^       Rule $1%%%)%%%)m4_dnl
 m4_define(^^^CCIDE_IF%%%,^^^if [[ %%%)m4_dnl
+m4_define(^^^CCIDE_ELSE%%%,^^^else
+%%%)m4_dnl
 m4_define(^^^CCIDE_ENDIF%%%,^^^fi%%%)m4_dnl
 m4_define(^^^CCIDE_SAND%%%,^^^ && %%%)m4_dnl
 m4_define(^^^CCIDE_TRUE%%%,^^^( $1 )%%%)m4_dnl

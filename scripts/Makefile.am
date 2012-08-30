@@ -45,8 +45,11 @@ ccideQQQ: ccide.in Makefile
 	chmod a-w $@.tmp
 	mv $@.tmp $@
 
-ccide: ccide.d 
-	ccide -c 4 -L BASH < ccide.d > ccide
+ccide:	ccide.m4
+	/usr/bin/m4 -P ../m4/ccide-BASH.m4 ccide.m4   > ccide
+
+ccide.m4: ccide.d 
+	../src/ccidew -c 4 -L BASH < ccide.d > ccide.m4
 
 install: all
 
