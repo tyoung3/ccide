@@ -119,6 +119,7 @@ case $host_os in
 esac
 
 AM_CONDITIONAL([MINGW], [test $CHOST = MINGW] )
+AM_CONDITIONAL(DEBUG, test "$enable_debug" = yes)
 
 #AM_CONDITIONAL([CCIDE_USENLS],[test ${USE_NLS} = yes] )
 #AC_SUBST([CCIDE_USENLS])
@@ -135,6 +136,7 @@ AC_ARG_ENABLE([debug],
 #  ############Generation############################
 AC_CONFIG_FILES([autogen.sh ], [chmod +x autogen.sh]) 
 AC_CONFIG_FILES([scripts/check.sh], [chmod +x scripts/check.sh]) 
+AC_CONFIG_FILES([scripts/ccide.d], [chmod +x scripts/ccide.d]) 
 
 AC_CONFIG_FILES([Makefile
 		 ccide.spec 

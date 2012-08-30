@@ -35,7 +35,8 @@ all:  ccide check.sh
 
 # See http://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Installation-Directory-Variables.html#Installation-Directory-Variables
 # for explanation.
-ccide: ccide.in Makefile 
+
+ccideQQQ: ccide.in Makefile 
 	rm -f $@ $@.tmp
 	srcdir=''; \
 		test -f ./$@.in || srcdir=$(srcdir)/; \
@@ -43,6 +44,9 @@ ccide: ccide.in Makefile
 	chmod +x $@.tmp
 	chmod a-w $@.tmp
 	mv $@.tmp $@
+
+ccide: ccide.d 
+	ccide -c 4 -L BASH < ccide.d > ccide
 
 install: all
 

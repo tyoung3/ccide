@@ -10611,6 +10611,16 @@ else
 fi
 
 
+
+if test "$enable_debug" = yes; then
+  DEBUG_TRUE=
+  DEBUG_FALSE='#'
+else
+  DEBUG_TRUE='#'
+  DEBUG_FALSE=
+fi
+
+
 #AM_CONDITIONAL([CCIDE_USENLS],[test ${USE_NLS} = yes] )
 #AC_SUBST([CCIDE_USENLS])
 
@@ -10642,6 +10652,8 @@ fi
           ac_config_files="$ac_config_files autogen.sh"
 
           ac_config_files="$ac_config_files scripts/check.sh"
+
+          ac_config_files="$ac_config_files scripts/ccide.d"
 
 
                                                                                                               ac_config_files="$ac_config_files Makefile ccide.spec disp_pkg.mk extra_dist.mk CYGWIN-PATCHES/setup.hint scripts/Makefile po/Makefile.in po/Makefile src/Makefile src/ccide.pod tests/Makefile"
@@ -10776,6 +10788,13 @@ if test -z "${MINGW_TRUE}" && test -z "${MINGW_FALSE}"; then
   { { echo "$as_me:$LINENO: error: conditional \"MINGW\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 echo "$as_me: error: conditional \"MINGW\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${DEBUG_TRUE}" && test -z "${DEBUG_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"DEBUG\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"DEBUG\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -11239,6 +11258,7 @@ do
   # Handling of arguments.
   "autogen.sh" ) CONFIG_FILES="$CONFIG_FILES autogen.sh" ;;
   "scripts/check.sh" ) CONFIG_FILES="$CONFIG_FILES scripts/check.sh" ;;
+  "scripts/ccide.d" ) CONFIG_FILES="$CONFIG_FILES scripts/ccide.d" ;;
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "ccide.spec" ) CONFIG_FILES="$CONFIG_FILES ccide.spec" ;;
   "disp_pkg.mk" ) CONFIG_FILES="$CONFIG_FILES disp_pkg.mk" ;;
@@ -11677,6 +11697,7 @@ s,@INSTALL@,$ac_INSTALL,;t t
   case $ac_file in
     autogen.sh ) chmod +x autogen.sh ;;
     scripts/check.sh ) chmod +x scripts/check.sh ;;
+    scripts/ccide.d ) chmod +x scripts/ccide.d ;;
   esac
 done
 _ACEOF

@@ -37,7 +37,13 @@ man_MANS = ccide.1
 
 CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub 
 
+# DEBUG set in configure.ac if --enable-debug specified in ./configure.
+if DEBUG
+AM_CFLAGS = -g -DDEBUG -O0 --coverage --pedantic -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\"
+else
 AM_CFLAGS = -g --pedantic -DNDEBUG -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\" 
+endif
+
 DEBUG =   
 ELEV=elev
 CCIDE=${PACKAGE}

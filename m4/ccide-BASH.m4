@@ -1,60 +1,60 @@
-ifelse(
+m4_ifelse(
   File ccide-BASH.m4
-dnl  	ccide - C Language Decision Table Code Generator 
-dnl	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
-dnl
-dnl   	This file is part of ccide, the C Language Decision Table Code Generator.
-dnl
-dnl   	Ccide is free software: you can redistribute it and/or modify
-dnl   	it under the terms of the GNU General Public License as published by
-dnl    	the Free Software Foundation, either version 3 of the License, or
-dnl   	(at your option) any later version.
-dnl
-dnl    	Ccide is distributed in the hope that it will be useful,
-dnl    	but WITHOUT ANY WARRANTY; without even the implied warranty of
-dnl    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-dnl    	GNU General Public License for more details.
-dnl
-dnl    	You should have received a copy of the GNU General Public License
-dnl    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
-dnl    	write to the Free Software Foundation, Inc., 51 Franklin St, 
-dnl    	Fifth Floor, Boston, MA 02110-1301 USA.
+m4_dnl  	ccide - C Language Decision Table Code Generator 
+m4_dnl	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+m4_dnl
+m4_dnl   	This file is part of ccide, the C Language Decision Table Code Generator.
+m4_dnl
+m4_dnl   	Ccide is free software: you can redistribute it and/or modify
+m4_dnl   	it under the terms of the GNU General Public License as published by
+m4_dnl    	the Free Software Foundation, either version 3 of the License, or
+m4_dnl   	(at your option) any later version.
+m4_dnl
+m4_dnl    	Ccide is distributed in the hope that it will be useful,
+m4_dnl    	but WITHOUT ANY WARRANTY; without even the implied warranty of
+m4_dnl    	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+m4_dnl    	GNU General Public License for more details.
+m4_dnl
+m4_dnl    	You should have received a copy of the GNU General Public License
+m4_dnl    	along with Ccide.  If not, see <http://www.gnu.org/licenses/> or
+m4_dnl    	write to the Free Software Foundation, Inc., 51 Franklin St, 
+m4_dnl    	Fifth Floor, Boston, MA 02110-1301 USA.
   Convert text w/embedded macros to BASH script output.
   USAGE:
 	m4 ccide-BASH.m4 ba.sh.m4 > ba.sh
-)dnl
-changequote(^^^, %%%)dnl
-define(^^^CCIDE_SWITCH%%%, ^^^$2
-	CcideFindRule $1 $CCIDE;	case $CCIDE in%%%)dnl
-define(^^^CCIDE_SWITCH_YES%%%, ^^^$2
+)m4_dnl
+m4_changequote(^^^, %%%)m4_dnl
+m4_define(^^^CCIDE_SWITCH%%%, ^^^$2
+	CcideFindRule $1 $CCIDE;	case $CCIDE in%%%)m4_dnl
+m4_define(^^^CCIDE_SWITCH_YES%%%, ^^^$2
 	CcideFindRuleYes $1 $CCIDE;	case $CCIDE in
-%%%)dnl
-define(^^^CCIDE_END_SWITCH%%%,^^^esac%%%)dnl
-define(^^^CCIDE_SWITCHX%%%,^^^switch($1) %%%)dnl
-define(^^^CCIDE_END_COND%%%,^^^%%%)dnl
-define(^^^CCIDE_CASE%%%,^^^($2) CCIDE_COMMENT(^^^	Rule $3%%%)%%%)dnl
-define(^^^CCIDE_CASE_BEGIN%%%,^^^($2%%%)dnl
-define(^^^CCIDE_CASE_END%%%,^^^)CCIDE_COMMENT(^^^       Rule $1%%%)%%%)dnl
-define(^^^CCIDE_IF%%%,^^^if [[ %%%)dnl
-define(^^^CCIDE_ENDIF%%%,^^^fi%%%)dnl
-define(^^^CCIDE_SAND%%%,^^^ && %%%)dnl
-define(^^^CCIDE_TRUE%%%,^^^( $1 )%%%)dnl
-define(^^^CCIDE_FALSE%%%,^^^!( $1 )%%%)dnl
-define(^^^CCIDE_ENDCOND%%%,^^^ ]]; then%%%)dnl
-define(^^^CCIDE_ACTION%%%,^^^$1;%%%)dnl
-define(^^^CCIDE_BREAK%%%,^^^;;%%%)dnl
-define(^^^CCIDE_COND%%%,^^^ifelse($1, ^^^0%%%,^^^($2)%%%,^^^| ($2)<<$1%%%)%%%)dnl
-define(^^^CCIDE_LABEL%%%,^^^# $1:%%%)dnl
-dnl  No %%%goto%%% in BASH. define(^^^CCIDE_GOTO%%%,^^^goto $1;%%%)dnl
-define(^^^CCIDE_BEGIN_BLOCK%%%,^^^{%%%)dnl
-define(^^^CCIDE_END_BLOCK%%%,^^^}%%%)dnl
-define(^^^CCIDE_COMMENT%%%,^^^#$1%%%)dnl
-define(^^^CCIDE_END_TABLE%%%,^^^CCIDE_COMMENT(^^^GENERATED_CODE:%%%) %%%)dnl
-define(^^^CCIDE_TABLE_YES%%%,
-^^^CCIDE_YES=(shift(shift($@)))%%%)dnl
-define(^^^CCIDE_TABLE_NO%%%,
-^^^CCIDE_NO=(shift(shift($@)))%%%)dnl
-define(^^^CCIDE_INLINECODE%%%,
+%%%)m4_dnl
+m4_define(^^^CCIDE_END_SWITCH%%%,^^^esac%%%)m4_dnl
+m4_define(^^^CCIDE_SWITCHX%%%,^^^switch($1) %%%)m4_dnl
+m4_define(^^^CCIDE_END_COND%%%,^^^%%%)m4_dnl
+m4_define(^^^CCIDE_CASE%%%,^^^($2) CCIDE_COMMENT(^^^	Rule $3%%%)%%%)m4_dnl
+m4_define(^^^CCIDE_CASE_BEGIN%%%,^^^($2%%%)m4_dnl
+m4_define(^^^CCIDE_CASE_END%%%,^^^)CCIDE_COMMENT(^^^       Rule $1%%%)%%%)m4_dnl
+m4_define(^^^CCIDE_IF%%%,^^^if [[ %%%)m4_dnl
+m4_define(^^^CCIDE_ENDIF%%%,^^^fi%%%)m4_dnl
+m4_define(^^^CCIDE_SAND%%%,^^^ && %%%)m4_dnl
+m4_define(^^^CCIDE_TRUE%%%,^^^( $1 )%%%)m4_dnl
+m4_define(^^^CCIDE_FALSE%%%,^^^!( $1 )%%%)m4_dnl
+m4_define(^^^CCIDE_ENDCOND%%%,^^^ ]]; then%%%)m4_dnl
+m4_define(^^^CCIDE_ACTION%%%,^^^$1;%%%)m4_dnl
+m4_define(^^^CCIDE_BREAK%%%,^^^;;%%%)m4_dnl
+m4_define(^^^CCIDE_COND%%%,^^^m4_ifelse($1, ^^^0%%%,^^^($2)%%%,^^^| ($2)<<$1%%%)%%%)m4_dnl
+m4_define(^^^CCIDE_LABEL%%%,^^^# $1:%%%)m4_dnl
+m4_dnl  No %%%goto%%% in BASH. m4_define(^^^CCIDE_GOTO%%%,^^^goto $1;%%%)m4_dnl
+m4_define(^^^CCIDE_BEGIN_BLOCK%%%,^^^{%%%)m4_dnl
+m4_define(^^^CCIDE_END_BLOCK%%%,^^^}%%%)m4_dnl
+m4_define(^^^CCIDE_COMMENT%%%,^^^#$1%%%)m4_dnl
+m4_define(^^^CCIDE_END_TABLE%%%,^^^CCIDE_COMMENT(^^^GENERATED_CODE:%%%) %%%)m4_dnl
+m4_define(^^^CCIDE_TABLE_YES%%%,
+^^^CCIDE_YES=(m4_shift(m4_shift($@)))%%%)m4_dnl
+m4_define(^^^CCIDE_TABLE_NO%%%,
+^^^CCIDE_NO=(m4_shift(m4_shift($@)))%%%)m4_dnl
+m4_define(^^^CCIDE_INLINECODE%%%,
 ^^^#GENERATED_CODE:
 #
 #ccide-BASH.m4
@@ -81,8 +81,8 @@ function CcideFindRuleYes() {             # Return rule number
         done
 }
 #
-#END_GENERATED_CODE:%%%)dnl
-dnl
-divert(-1)dnl
-divert(0)dnl
-dnl
+#END_GENERATED_CODE:%%%)m4_dnl
+m4_dnl
+m4_divert(-1)m4_dnl
+m4_divert(0)m4_dnl
+m4_dnl

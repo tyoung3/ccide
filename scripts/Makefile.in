@@ -60,7 +60,7 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = scripts
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/check.sh.in
+	$(srcdir)/ccide.d.in $(srcdir)/check.sh.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
 	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
@@ -72,7 +72,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/ccideconfig.h
-CONFIG_CLEAN_FILES = check.sh
+CONFIG_CLEAN_FILES = check.sh ccide.d
 SOURCES =
 DIST_SOURCES =
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -248,6 +248,8 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 check.sh: $(top_builddir)/config.status $(srcdir)/check.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
+ccide.d: $(top_builddir)/config.status $(srcdir)/ccide.d.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 uninstall-info-am:
 tags: TAGS
 TAGS:
@@ -334,7 +336,8 @@ all:  ccide check.sh
 
 # See http://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Installation-Directory-Variables.html#Installation-Directory-Variables
 # for explanation.
-ccide: ccide.in Makefile 
+
+ccideQQQ: ccide.in Makefile 
 	rm -f $@ $@.tmp
 	srcdir=''; \
 		test -f ./$@.in || srcdir=$(srcdir)/; \

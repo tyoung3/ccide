@@ -33,23 +33,28 @@ Die() {
 	exit 1
 }
 
-if [ -z "$CCIDEW" ]; then
-	if [ -x ../src/ccidew ]; then	
-		CCIDEW=`pwd`/../src/ccidew
-	elif [ -x ../src/ccidew.exe ]; then	
-		CCIDEW=`pwd`/../src/ccidew.exe
-	elif [ -x ./ccidew.exe ]; then
-		CCIDEW=`pwd`/ccidew.exe
-	elif [ -x ./ccidew ]; then
-		CCIDEW=`pwd`/ccidew
-	elif [ -x $BINDIR/ccidew ]; then 	
-		CCIDEW=$BINDIR/ccidew
-	elif [ -x $BINDIR/ccidew.exe ]; then 	
-		CCIDEW=$BINDIR/ccidew.exe
-	else
-		Die Cannot find bin/ccidew
-	fi
-fi
+#CCIDE_INLINE_CODE:
+
+#DECISION_TABLE:
+#    Y   Y   Y   Y   Y   Y   Y   Y | -z "$CCIDEW" 
+#    Y   -   -   -   -   -   -   - | -x ../src/ccidew 
+#    -   Y   -   -   -   -   -   - | -x ../src/ccidew.exe 
+#    -   -   Y   -   -   -   -   - | -x ./ccidew.exe 
+#    -   -   -   Y   -   -   -   - | -x ./ccidew   
+#    -   -   -   -   Y   -   -   - | -x $BINDIR/ccidew  
+#    -   -   -   -   -   Y   -   - | -x $BINDIR/ccidew.exe  
+#___________________________________________________________
+#    X   -   -   -   -   -   -   - | CCIDEW=`pwd`/../src/ccidew
+#    -   X   -   -   -   -   -   - | CCIDEW=`pwd`/../src/ccidew.exe
+#    -   -   X   -   -   -   -   - | CCIDEW=`pwd`/ccidew.exe
+#    -   -   -   X   -   -   -   - | CCIDEW=`pwd`/ccidew
+#    -   -   -   -   X   -   -   - | CCIDEW=$BINDIR/ccidew
+#    -   -   -   -   -   X   -   - | CCIDEW=$BINDIR/ccidew.exe
+#    -   -   -   -   -   -   X   - | Die Cannot find bin/ccidew
+#END_TABLE:
+
+
+
 
 #   Set m4 directory...  	
 CWD=`pwd`
@@ -61,7 +66,7 @@ CWD=`pwd`
 while [[ $# > 0 ]]; do
 	if [[ ("$1" == "-L") ]]; then
                 CCIDELANG=`echo $2|tr [:lower:] [:upper:]`
-		shift
+		^^^shift%%%
 	elif [[ ("$1" == "-m4") ]] ; then
 		CCIDE_M4="yes"
 	elif [[ ("$1" == "--help") ]] ; then
@@ -73,7 +78,7 @@ while [[ $# > 0 ]]; do
 	else
 		WC="$WC $1"
 	fi
-	shift
+	^^^shift%%%
 done
 
 if [ "$CCIDE_M4" == "yes"  ]; then
@@ -105,7 +110,7 @@ fi
 
 if [ "$CCIDELANG" == "C++" ];  then
 	$CCIDEW -L $CCIDELANG $WC	\
-	| @M4@ "$M4DIR/ccide-$CCIDELANG.m4" "-"
+	| @M4@ -P "$M4DIR/ccide-$CCIDELANG.m4" "-"
 	exit $?
 fi
 
@@ -116,11 +121,11 @@ fi
 
 if [ "$CCIDELANG" == "EX" ];  then
 	$CCIDEW -L $CCIDELANG $WC	\
-	| @M4@ "$M4DIR/ccide-$CCIDELANG.m4" "-"
+	| @M4@ -P "$M4DIR/ccide-$CCIDELANG.m4" "-"
 	exit $?
 fi
 
 $CCIDEW -m4 $DELIM -L $CCIDELANG $WC 	\
-	| @M4@ "$M4DIR/ccide-$CCIDELANG.m4" "-"
+	| @M4@ -P "$M4DIR/ccide-$CCIDELANG.m4" "-"
 
 exit $?

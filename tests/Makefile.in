@@ -222,6 +222,7 @@ TEST_CASES = \
         elev	\
 	errors  \
         ex1	\
+	ex2	\
         ex4	\
         fourway	\
         hcond	\
@@ -235,6 +236,8 @@ TEST_CASES = \
         skel	\
         threeway\
         tryit	\
+	t5	\
+	t6	\
 	undo	\
 	version    
 
@@ -340,7 +343,7 @@ clean-am: clean-generic clean-local mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic
+distclean-am: clean-am distclean-generic distclean-local
 
 dvi: dvi-am
 
@@ -381,13 +384,13 @@ ps-am:
 uninstall-am: uninstall-info-am
 
 .PHONY: all all-am check check-am clean clean-generic clean-local \
-	distclean distclean-generic distdir dvi dvi-am html html-am \
-	info info-am install install-am install-data install-data-am \
-	install-exec install-exec-am install-info install-info-am \
-	install-man install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am uninstall \
-	uninstall-am uninstall-info-am
+	distclean distclean-generic distclean-local distdir dvi dvi-am \
+	html html-am info info-am install install-am install-data \
+	install-data-am install-exec install-exec-am install-info \
+	install-info-am install-man install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
+	pdf-am ps ps-am uninstall uninstall-am uninstall-info-am
 
 
 all: dosunixset
@@ -407,6 +410,12 @@ if2rpn.txt:
 %.cpp: %.cpp.d 
 	${CCIDE} -L C++  -b ${OPT} < ${srcdir}/$< > $@ 
 
+%.qb: %.qb.d 
+	${CCIDE} -L QB -b ${OPT} < ${srcdir}/$< > $@ 
+
+%.bas: %.bas.d 
+	${CCIDE} -L BASIC -b ${OPT} < ${srcdir}/$< > $@ 
+
 %.vb: %.vb.d 
 	${CCIDE} -L VB -b ${OPT} < ${srcdir}/$< > $@ 
 
@@ -418,6 +427,9 @@ if2rpn.txt:
 
 %.bbl: %.bbl.d 
 	${CCIDE} -a -m4  -b ${OPT}  < ${srcdir}/$< > $@ 
+
+%.ex: %.ex.d 
+	${CCIDE} -L EX -b ${OPT}  < ${srcdir}/$< > $@ 
 
 %: %.bash
 	ln -sf $< $@
@@ -453,10 +465,13 @@ dosunixset:
 check_cases:  
 	$(top_srcdir)/scripts/check.sh  ${TEST_CASES}
 
-check:	dosunixset check_cases 
+check:	dosunixset check_cases
+
+distclean-local: 
+	rm -f dosunixset
 
 clean-local:
-	rm -f testcases *~ dosunixset
+	rm -f testcases *~ dosunixset *.o
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
