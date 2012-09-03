@@ -39,7 +39,7 @@ CYGWIN_TARBALL= $(distdir).tar.bz2
 CYGWIN_SOURCE_TARBALL= $(distdir)-src.tar.bz2
 
 # DIST_SUBDIRS = lib src tests examples CYGWIN-PATCHES 
-SUBDIRS = scripts src po tests 
+SUBDIRS = src scripts po tests 
 
 # Required for 'make clean', etc.: 
 DIST_SUBDIRS = scripts src po tests

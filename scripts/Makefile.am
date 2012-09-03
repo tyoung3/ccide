@@ -46,11 +46,11 @@ ccideQQQ: ccide.in Makefile
 	mv $@.tmp $@
 
 ccide:	ccide.m4
-	/usr/bin/m4 -P ../m4/ccide-BASH.m4 ccide.m4   > ccide
+	/usr/bin/m4 -P $(top_srcdir)/m4/ccide-BASH.m4 ccide.m4   > ccide
 	chmod a+x ccide
 
 ccide.m4: ccide.d 
-	../src/ccidew -c 4 -L BASH < ccide.d > ccide.m4
+	$(top_srcdir)/src/ccidew -c 4 -L BASH < ccide.d > ccide.m4
 
 install: all
 
@@ -67,7 +67,7 @@ distclean-local:
 	rm -f Makefile  ccide
 
 clean-local:
-	rm -f *~ 
+	rm -f *~  ccide.m4
 
 .PHONY: check distdir distclean test 
 

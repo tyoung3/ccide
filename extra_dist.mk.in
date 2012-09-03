@@ -1,10 +1,10 @@
 # scripts/check.sh.  Generated from check.sh.in by configure. 
-EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLog CYGWIN-PATCHES/setup.hint.in scripts/ccide.in \
+EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLog CYGWIN-PATCHES/setup.hint.in scripts/ccide.d.in \
 	src/Makefile.in  src/ccide.pod.in src/ccideconfig.h.in \
 	src/ccidemain.h src/ccide.h src/gettext.h src/parse.h $(srcdir)/src/ccidelex.l \
 	src/ccideinline.c  src/ccidelex.c  src/ccidemain.c  src/ccideparse.c src/ccideparse.y  src/cciderunx.c \
 	tests/f1 tests/f2 tests/f3 tests/f4 tests/if2rpn.txt tests/tryit.txt tests/Makefile \
-	scripts/check.sh scripts/Makefile scripts/Makefile.in scripts/ccide.in scripts/check.sh.in \
+	scripts/check.sh scripts/Makefile scripts/Makefile.in scripts/ccide.d.in scripts/check.sh.in \
 	po/Makefile.in.in po/Makevars po/ccide.pot po/Makevars \
 	src/ccideparse.y.d
 	src/ccidemain.c.d

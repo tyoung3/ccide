@@ -213,7 +213,7 @@ GCJFLAGS = -g -O2
 am__fastdepGCJ_FALSE = #
 am__fastdepGCJ_TRUE = 
 EXTRA_DIST = if2rpn.txt
-DISTCLEANFILES = Makefile
+DISTCLEANFILES = Makefile 
 TEST_CASES = \
         bin2dec	\
         bonus    \
@@ -471,7 +471,7 @@ distclean-local:
 	rm -f dosunixset
 
 clean-local:
-	rm -f testcases *~ dosunixset *.o
+	rm -f testcases *~ dosunixset *.o ex2.qb t6.ex 
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

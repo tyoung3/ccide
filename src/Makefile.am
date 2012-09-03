@@ -42,7 +42,7 @@ CONFIG_LINKS = INSTALL install-sh missing mkinstalldirs config.guess config.sub
 if DEBUG
 AM_CFLAGS = -g -DDEBUG -O0 --coverage --pedantic -Wall -Wformat-security -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror -DRELEASE=\"${RELEASE}\"
 else
-AM_CFLAGS = -g --pedantic -Wall -Wformat-security -DNDEBUG -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS -Werror  -DRELEASE=\"${RELEASE}\" 
+AM_CFLAGS = -g --pedantic -Wall -Wformat-security -DNDEBUG -std=c99 -D_POSIX_C_SOURCE=200112L -DSTDC_HEADERS   -DRELEASE=\"${RELEASE}\" 
 endif
 
 DEBUG =   
@@ -74,10 +74,10 @@ AM_YFLAGS = -d -l -v
 #	ccidew -u   < $< > $@  
 
 %.c : %.c.d 
-	ccide -c 3 < $< > $@
+	./ccidew -c 3 < $< > $@
 
 %.y : %.y.d 
-	ccide -c 3 < $< > $@
+	./ccidew -c 3 < $< > $@
 
 # mostlyclean-local, clean-local, distclean-local, or maintainer-clean-local
 

@@ -37,7 +37,7 @@ if2rpn.txt:
 
 EXTRA_DIST = if2rpn.txt
 
-DISTCLEANFILES = Makefile
+DISTCLEANFILES = Makefile 
 
 TEST_CASES = 	\
         bin2dec	\
@@ -142,6 +142,6 @@ distclean-local:
 	rm -f dosunixset
 
 clean-local:
-	rm -f testcases *~ dosunixset *.o
+	rm -f testcases *~ dosunixset *.o ex2.qb t6.ex 
 	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
 
