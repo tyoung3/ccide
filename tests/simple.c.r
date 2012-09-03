@@ -79,16 +79,16 @@ main() {
 
 		/* N.B.: abort() is never executed.*/
 	/*DECISION_TABLE:				*/
-	/*   2  3  4 | swvar[c2][c3] == $$			
-	/*   -  -  - | abort()				
+	/*   2  3  4 | swvar[c2][c3] == $$			*/
+	/*   -  -  - | abort()				*/
         /*  _____ | _______             		*/
-	/*   -  -  - | abort()				
-	/*   -  -  X | a1();				
-	/*   1  2  3 | printf("Rule: %i\n", $$ );		
-	/*   -  X  X | a2();				
-	/*   X  X  - |NEWGROUP
+	/*   -  -  - | abort()				*/
+	/*   -  -  X | a1();				*/
+	/*   1  2  3 | printf("Rule: %i\n", $$ );		*/
+	/*   -  X  X | a2();				*/
+	/*   X  X  - |NEWGROUP		*/
         /*END_TABLE:					*/
-	/*GENERATED_CODE: FOR TABLE_1.
+	/*GENERATED_CODE: FOR TABLE_1.*/
 	/*	3 Rules, 3 conditions, and 7 actions.*/
 	/*	Table 1 rule order = 1 2 3 */
 	 {	unsigned long CCIDE_table1_yes[3]={   1UL,   2UL,   4UL};

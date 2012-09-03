@@ -104,7 +104,9 @@ char pPrefix[MAXPREFIX+1] = "CCIDE";	/* Generated code prefix 		*/
 char pPrefixLc[MAXPREFIX+1] = "ccide";	/* Lower case generated code prefix 	*/
 char *pComment = "/*";		/* Comment start 				*/
 char *pEcomment = "*/";		/* Comment end   				*/
-
+char *M4Ecomment = ")";		/* M4Comment end   				*/
+char *M4Comment = "";		/*						*/
+	  				
 	/* ******************** Decision Table Structure ******************** */
 typedef struct
 {
@@ -1339,8 +1341,8 @@ GenEnd ()
 {
   if (m4out)
     printf ("%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s %s%s",
-	    lws, pComment, qt1, nbrtables, VERSION, RELEASE, GetTimeStamp (),
-	    qt2, pEcomment);
+	    lws, M4Comment, qt1, nbrtables, VERSION, RELEASE, GetTimeStamp (),
+	    qt2, M4Ecomment);
   else
     printf ("%s}\n%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s %s",
 	    lws, lws, pComment, nbrtables, VERSION, RELEASE, GetTimeStamp (),
@@ -1368,13 +1370,22 @@ GenerateCases (int nactions, int nrules)
   while ((*c1 == ' ') || (*c1 == '\t'))
     c1++;
 
+ if(ccide_newgroup) {
   if (lang == EX)
-    printf ("%s %s_BEGIN_BLOCK() label \"%s_TABLE_%i\"\n%s ", lws, pPrefix, pPrefix,
-	    nbrtables, lws);
-  else if (lang == C)
+    printf ("%s %s_BEGIN_BLOCK() label \"%s_TABLE_%i\"\n%s ", lws, pPrefix, pPrefix,nbrtables, lws);
+  else if ( (lang == C))
     printf ("%s { %s_TABLE_%i:", lws, pPrefix, nbrtables);
   else
     printf ("%s %s_BEGIN_BLOCK() %s_TABLE_%i:", lws, pPrefix, pPrefix, nbrtables);
+ } else {
+  if (lang == EX)
+    printf ("%s %s_BEGIN_BLOCK() \n%s ", lws, pPrefix, lws);
+  else if ( (lang != C))
+    printf ("%s %s_BEGIN_BLOCK() ", lws, pPrefix);
+  else 
+    printf ("%s { ", lws);
+ }  /* End if ccide_newgroup */
+
 
   if (m4out)
     {
@@ -1384,7 +1395,8 @@ GenerateCases (int nactions, int nrules)
 	printf (" %s_SWITCHX(%s%s%s)\n", pPrefix, qt1, c1, qt2);
     }
   else
-    {
+    { 
+      // printf ("%s{ switch(%s) {\t\n",lws, c1);
       printf (" switch(%s) {\t\n", c1);
     }
 
@@ -1631,7 +1643,7 @@ GenerateLabel ()
 void
 GenerateIfElseRule (int nrules, int nconds, int nactions)
 {
-  int i, c, r = 0;
+  int i, c;
   char *s;
   char sand[80] = "";
 
@@ -1707,8 +1719,8 @@ GenerateIfElseRule (int nrules, int nconds, int nactions)
   if (m4out)
     printf
       ("%s%s_ENDIF()\n%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s%s%s",
-       lws, pPrefix, lws, pComment, qt1, nbrtables, VERSION, RELEASE,
-       GetTimeStamp (), qt2, pEcomment);
+       lws, pPrefix, lws, M4Comment, qt1, nbrtables, VERSION, RELEASE,
+       GetTimeStamp (), qt2, M4Ecomment);
   else
     GenEnd ();
 }
@@ -1781,8 +1793,8 @@ GenerateSingleRule (int nconds, int nactions)
   if (m4out)
     printf
       ("%s%s_ENDIF()\n%s%s%sEND_GENERATED_CODE: FOR TABLE_%i, by ccide-%s-%s %s%s%s",
-       lws, pPrefix, lws, pComment, qt1, nbrtables, VERSION, RELEASE,
-       GetTimeStamp (), pEcomment, qt2);
+       lws, pPrefix, lws, M4Comment, qt1, nbrtables, VERSION, RELEASE,
+       GetTimeStamp (), qt2, M4Ecomment);
   else
     GenEnd ();
 }
@@ -1807,10 +1819,10 @@ ShowRuleOrder (int nrules)
     {
       if (m4out)
 	{;
-	  printf ("%s%s%s\tTable %i rule order = ", lws, pComment, qt1,
+	  printf ("%s%s%s\tTable %i rule order = ", lws, M4Comment, qt1,
 		  nbrtables);
 	  ShowOrder (nrules, remap);
-	  printf ("%s%s\n", qt2, pEcomment);
+	  printf ("%s%s\n", qt2, M4Ecomment);
 	}
       else
 	{
@@ -1841,12 +1853,12 @@ Generate (int nconds, int nactions, int nrules)
   if (m4out)
     {
       printf ("%s%s%sGENERATED_CODE: FOR TABLE_%i.%s%s\n",
-	      lws, pComment, qt1, nbrtables, qt2, pEcomment);
+	      lws, M4Comment, qt1, nbrtables, qt2, M4Ecomment);
     }
   else
     {
-      printf ("%s%sGENERATED_CODE: FOR TABLE_%i.\n",
-	      lws, pComment, nbrtables);
+      printf ("%s%sGENERATED_CODE: FOR TABLE_%i.%s\n",
+	      lws, pComment, nbrtables, pEcomment);
     }
   ncwords = (nbrcond - 1) / INTBITS + 1;
   nawords = (nactions - 1) / INTBITS + 1;
@@ -1857,8 +1869,8 @@ Generate (int nconds, int nactions, int nrules)
   if (m4out)
     {
       printf ("%s%s%s\t%i Rules, %i conditions, and %i actions.%s%s\n",
-	      lws, pComment, qt1, nrules - ndrop, nconds, nactions, qt2,
-	      pEcomment);
+	      lws, M4Comment, qt1, nrules - ndrop, nconds, nactions, qt2,
+	      M4Ecomment);
     }
   else
     {
@@ -1867,41 +1879,40 @@ Generate (int nconds, int nactions, int nrules)
     }
 
 #ifdef ThisProgramCanHandleDefaultCases
-  /*DECISION_TABLE:                                               */
-  /*  Y - - - | nbrcstubs==1                                      */
-  /*  Y - - - | nconds<=(nrules-ndrop)                            */
-  /*  - - N Y | nconds==1                                         */
-  /*  Y - - N | switchable                                        */
-  /*  N Y N N | (nrules-ndrop)==1                                 */
-  /*  Y - Y Y | (nrules-ndrop)>0                                  */
-  /*  - - - Y | (nrules-ndrop)<3                                  */
-  /* ------------------------------------------------------------- */
-  /*  X - - - | GenerateCases(nactions, nrules-ndrop);            */
-  /*  - X - - | GenerateSingleRule(nconds,nactions);              */
-  /*  - - - X | GenerateIfElseRule(nrules-ndrop,nconds,nactions); */
-  /*  - - X - | ShowRuleOrder(nrules-ndrop);                      */
-  /*  - - X - | GenerateFindRule(nconds,nactions,nrules-ndrop);   */
-  /*END_TABLE:                                                    */
+  //DECISION_TABLE:                                                
+  //  Y - - - | nbrcstubs==1                                       
+  //  Y - - - | nconds<=(nrules-ndrop)                             
+  //  - - N Y | nconds==1                                          
+  //  Y - - N | switchable                                         
+  //  N Y N N | (nrules-ndrop)==1                                  
+  //  Y - Y Y | (nrules-ndrop)>0                                   
+  //  - - - Y | (nrules-ndrop)<3                                   
+  // -------------------------------------------------------------  
+  //  X - - - | GenerateCases(nactions, nrules-ndrop);             
+  //  - X - - | GenerateSingleRule(nconds,nactions);               
+  //  - - - X | GenerateIfElseRule(nrules-ndrop,nconds,nactions);  
+  //  - - X - | ShowRuleOrder(nrules-ndrop);                       
+  //  - - X - | GenerateFindRule(nconds,nactions,nrules-ndrop);    
+  //END_TABLE:                                                     
 
 
 
 #else
-  /*DECISION_TABLE:                                       */
-  /*  Y - - | nbrcstubs==1                                */
-  /*  Y - - | nconds==(nrules-ndrop)                      */
-  /*  Y - - | CanDoSwitch()                               */
-  /*  N Y N | (nrules-ndrop)==1                   */
-  /*  Y - Y | (nrules-ndrop)>0                            */
-  /* ---------------------                                */
-  /*  X - - | GenerateCases(nactions, nrules-ndrop);      */
-  /*  - X - | GenerateSingleRule(nconds,nactions);        */
-  /*  - - X | ShowRuleOrder(nrules-ndrop);                        */
-  /*  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop); */
-  /*END_TABLE:                                            */
-
-
+  //DECISION_TABLE:                                        
+  //  Y - - | nbrcstubs==1                                 
+  //  Y - - | nconds==(nrules-ndrop)                       
+  //  Y - - | CanDoSwitch()                                
+  //  N Y N | (nrules-ndrop)==1                    
+  //  Y - Y | (nrules-ndrop)>0                             
+  // ---------------------                                 
+  //  X - - | GenerateCases(nactions, nrules-ndrop);       
+  //  - X - | GenerateSingleRule(nconds,nactions);         
+  //  - - X | ShowRuleOrder(nrules-ndrop);                         
+  //  - - X | GenerateFindRule(nconds,nactions,nrules-ndrop); 
+  //END_TABLE:                                             
 
 #endif /* End if defined: ThisProgramCanHandleDefaultCases */
+
   logLabel = FALSE;
   switchable = 0;		/* Assume unswitchable for next table. */
 }

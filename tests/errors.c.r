@@ -82,14 +82,14 @@ main() {
 
 		/* N.B.: abort() is never executed.*/
 	/*DECISION_TABLE:				*/
-	/*   Y  N  Y  N | swvar[c2][c3] == 2		*/		
-	/*   N  N  N  Y | swvar[c3][c4] == 1		*/	
+	/*   Y  N  Y  N | swvar[c2][c3] == 2		*/
+	/*   N  N  N  Y | swvar[c3][c4] == 1		*/
         /*______________________________________________*/
-	/*   -  -  -  - | abort()			*/	
-	/*   -  -  X  - | a1();				
-	/*   -  X  X  - | a2();				
+	/*   -  -  -  - | abort()			*/
+	/*   -  -  X  - | a1();				*/
+	/*   -  X  X  - | a2();				*/
         /*END_TABLE:					*/
-	/*GENERATED_CODE: FOR TABLE_1.
+	/*GENERATED_CODE: FOR TABLE_1.*/
 	/*WARNING: Dropping rule 4 in table 1. */
 
 	/*ERROR: Rule 1 conflicts with rule  3 */
@@ -100,8 +100,8 @@ main() {
 
 
 		switch(CCIDEFindRule(3,
-			  (swvar[c2][c3] == 2		*/)
-			| (swvar[c3][c4] == 1		*/)<<1
+			  (swvar[c2][c3] == 2)
+			| (swvar[c3][c4] == 1)<<1
 			  ,CCIDE_table1_yes, CCIDE_table1_no)) {
 		case  2:	/*	Rule  3 */
 		    a1();
@@ -116,13 +116,13 @@ main() {
 
 
 	/*DECISION_TABLE:				*/
-	/*   -  Y  -  N | swvar[c2][c3] == 2		*/	
-	/*   Y  N  -  N | swvar[c3][c4] == 1		*/	
+	/*   -  Y  -  N | swvar[c2][c3] == 2		*/
+	/*   Y  N  -  N | swvar[c3][c4] == 1		*/
         /*______________________________________________*/
-	/*   X  -  X  X | a1();				
-	/*   X  X  X  - | a2();				
+	/*   X  -  X  X | a1();				*/
+	/*   X  X  X  - | a2();				*/
         /*END_TABLE:					*/
-	/*GENERATED_CODE: FOR TABLE_2.
+	/*GENERATED_CODE: FOR TABLE_2.*/
 
 	/*ERROR: Rules  1 and   3 overlap.
  */
@@ -133,8 +133,8 @@ main() {
 
 
 		switch(CCIDEFindRule(4,
-			  (swvar[c2][c3] == 2		*/)
-			| (swvar[c3][c4] == 1		*/)<<1
+			  (swvar[c2][c3] == 2)
+			| (swvar[c3][c4] == 1)<<1
 			  ,CCIDE_table2_yes, CCIDE_table2_no)) {
 		case  2:	/*	Rule  1 */
 		case  3:	/*	Rule  3 */
@@ -150,42 +150,42 @@ main() {
 	/*END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.5-1  */
 
 	/*DECISION_TABLE:				*/
-	/*   -  Y  N  N | swvar[c1][c2] == 2		
-	/*   Y  N  Y  N | swvar[c3][c4] == 1		
-	/*   Y  N  Y  N | swvar[c1][c2] == 2		
+	/*   -  Y  N  N | swvar[c1][c2] == 2		*/
+	/*   Y  N  Y  N | swvar[c3][c4] == 1		*/
+	/*   Y  N  Y  N | swvar[c1][c2] == 2		*/
 	/*ERROR: swvar[c1][c2] == 2 is the same as condition 1 */
 
         /*______________________________________________*/
-	/*   X  -  X  X | a1();				
-	/*   X  X  X  - | a2();				
+	/*   X  -  X  X | a1();				*/
+	/*   X  X  X  - | a2();				*/
 	/* END_TABLE:*/
 
 	/* DECISION_TABLE:*/
-	/*   -YNN | swvar[c1][c2] == 2		
+	/*   -YNN | swvar[c1][c2] == 2		*/
 	/*ERROR: 1 règles au lieu de 4. */
 
-	/* YNYN | swvar[c3][c4] == 1		
+	/* YNYN | swvar[c3][c4] == 1		*/
 	/*ERROR: 0 règles au lieu de 4. */
 
-	/* YNYN | swvar[c1][c2] == 2		
+	/* YNYN | swvar[c1][c2] == 2		*/
 	/*ERROR: swvar[c1][c2] == 2 is the same as action 3 */
 
 	/*ERROR: 0 règles au lieu de 4. */
 
 	/* ______________________________________________*/
-	/*   X  -  X  X | a1();				
+	/*   X  -  X  X | a1();				*/
 	/*ERROR: a1(); is the same as action 1 */
 
-	/*   X  X  X  - | a2();				
+	/*   X  X  X  - | a2();				*/
 	/*ERROR: a2(); is the same as action 2 */
 
-	/*   -  X  -  - | a1();				
+	/*   -  X  -  - | a1();				*/
 	/*ERROR: a1(); is the same as action 1 */
 
 	/*ERROR: a1(); is the same as action 6 */
 
         /*END_TABLE:					*/
-	/*GENERATED_CODE: FOR TABLE_3.
+	/*GENERATED_CODE: FOR TABLE_3.*/
 	/*	4 Rules, 3 conditions, and 8 actions.*/
 	/*	Table 3 rule order = 2 3 4 1 */
 	 {	unsigned long CCIDE_table3_yes[4]={   1UL,   6UL,   0UL,   6UL};
@@ -218,13 +218,13 @@ main() {
 	/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.5-1  */
 
 	/*DECISION_TABLE:				*/
-	/*   -  Y  N  N | swvar[c2][c3] == 2		*/	
-	/*   Y  N  Y  N | swvar[c3][c4] = 1		*/	
+	/*   -  Y  N  N | swvar[c2][c3] == 2		*/
+	/*   Y  N  Y  N | swvar[c3][c4] = 1		*/
 	/*ERROR:  '=' probably should be '==' in condition stub 2 */
 
         /*______________________________________________*/
-	/*   X  -  X  X | a1();				
-	/*   X  X  X  - | a2();				
+	/*   X  -  X  X | a1();				*/
+	/*   X  X  X  - | a2();				*/
 	/* END_TABLE:
 return0	; 
 }

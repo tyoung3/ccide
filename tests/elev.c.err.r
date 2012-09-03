@@ -1,18 +1,18 @@
 Starting parse
 Entering state 0
-Reducing stack by rule 22 (line 289):
+Reducing stack by rule 22 (line 291):
 -> $$ = nterm DECISION_TABLE ()
 Stack now 0
 Entering state 1
 Reading a token: Next token is token TSTART ()
 Shifting token TSTART ()
 Entering state 3
-Reducing stack by rule 20 (line 263):
+Reducing stack by rule 20 (line 265):
    $1 = token TSTART ()
 -> $$ = nterm start ()
 Stack now 0 1
 Entering state 4
-Reducing stack by rule 16 (line 255):
+Reducing stack by rule 16 (line 257):
 -> $$ = nterm condition_statements ()
 Stack now 0 1 4
 Entering state 5
@@ -100,7 +100,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -200,7 +200,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -300,7 +300,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -420,7 +420,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -540,7 +540,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -660,7 +660,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -780,7 +780,7 @@ End SetNbrRules
 -> $$ = nterm condition_statement ()
 Stack now 0 1 4 5
 Entering state 8
-Reducing stack by rule 17 (line 256):
+Reducing stack by rule 17 (line 258):
    $1 = nterm condition_statements ()
    $2 = nterm condition_statement ()
 -> $$ = nterm condition_statements ()
@@ -789,7 +789,7 @@ Entering state 5
 Reading a token: Next token is token START_ACTIONS ()
 Shifting token START_ACTIONS ()
 Entering state 6
-Reducing stack by rule 18 (line 259):
+Reducing stack by rule 18 (line 261):
 -> $$ = nterm action_statements ()
 Stack now 0 1 4 5 6
 Entering state 9
@@ -899,7 +899,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -911,7 +911,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1023,7 +1023,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1035,7 +1035,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1127,7 +1127,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1148,7 +1148,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1235,7 +1235,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1253,7 +1253,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1365,7 +1365,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1377,7 +1377,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1489,7 +1489,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1501,7 +1501,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1613,7 +1613,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1625,7 +1625,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1737,7 +1737,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1749,7 +1749,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1861,7 +1861,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1873,7 +1873,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -1985,7 +1985,7 @@ Entering state 18
 Reading a token: Next token is token PSTUB ()
 Shifting token PSTUB ()
 Entering state 24
-Reducing stack by rule 15 (line 247):
+Reducing stack by rule 15 (line 249):
    $1 = nterm actions ()
    $2 = token PSTUB ()
 SetASTUBscan
@@ -1997,7 +1997,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -2084,7 +2084,7 @@ Entering state 18
 Reading a token: Next token is token NEWGROUP ()
 Shifting token NEWGROUP ()
 Entering state 25
-Reducing stack by rule 14 (line 233):
+Reducing stack by rule 14 (line 234):
    $1 = nterm actions ()
    $2 = token NEWGROUP ()
 SetASTUBn
@@ -2105,7 +2105,7 @@ End SetNbrRules
 -> $$ = nterm action_statement ()
 Stack now 0 1 4 5 6 9
 Entering state 19
-Reducing stack by rule 19 (line 260):
+Reducing stack by rule 19 (line 262):
    $1 = nterm action_statements ()
    $2 = nterm action_statement ()
 -> $$ = nterm action_statements ()
@@ -2114,12 +2114,12 @@ Entering state 9
 Reading a token: Next token is token TEND ()
 Shifting token TEND ()
 Entering state 17
-Reducing stack by rule 21 (line 267):
+Reducing stack by rule 21 (line 269):
    $1 = token TEND ()
 -> $$ = nterm end ()
 Stack now 0 1 4 5 6 9
 Entering state 20
-Reducing stack by rule 23 (line 290):
+Reducing stack by rule 23 (line 292):
    $1 = nterm DECISION_TABLE ()
    $2 = nterm start ()
    $3 = nterm condition_statements ()

@@ -39,6 +39,10 @@ m4_define(^^^CCIDE_IF%%%,^^^if [[ %%%)m4_dnl
 m4_define(^^^CCIDE_ELSE%%%,^^^else
 %%%)m4_dnl
 m4_define(^^^CCIDE_ENDIF%%%,^^^fi%%%)m4_dnl
+m4_define(^^^CCIDE_DIE%%%,^^^function Die() {
+	^^^echo "$0/DIE: $*"%%%
+	exit 1
+}%%%)m4_dnl
 m4_define(^^^CCIDE_SAND%%%,^^^ && %%%)m4_dnl
 m4_define(^^^CCIDE_TRUE%%%,^^^( $1 )%%%)m4_dnl
 m4_define(^^^CCIDE_FALSE%%%,^^^!( $1 )%%%)m4_dnl

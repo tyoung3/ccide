@@ -113,7 +113,7 @@ TYPE GetToken(){
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_1.
 	//	11 Rules, 11 conditions, and 11 actions.
-	 { CCIDE_TABLE_1: switch(instate) {	
+	 {  switch(instate) {	
 		case 11:		//  Rule 11  
 		    SET(EMPTY);
 		    break;

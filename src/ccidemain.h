@@ -160,7 +160,8 @@ extern int uselocaltime;   /* 1=local time instead of UTC in timestamp 	*/
 extern int checkequal;     /* 0=bypasss checking for '=' in cond stub. 	*/
 extern int changequote;	   /* 1=issue m4 changequote macro 		*/
 extern char bufs[4096];
-extern char *M4Comment;	   /* // for C++ code, else CCIDE_COMMENT() 	*/
+extern char *M4Comment;	   /* // for M4 code, else CCIDE_COMMENT() 	*/
+extern char *M4Ecomment;   /* // for M4 code, else CCIDE_COMMENT() 	*/
 extern char *pComment;     /*  for C, // for C++, ... 			*/
 extern char *pEcomment;    /*  for C, // for C++, ... 			*/
 

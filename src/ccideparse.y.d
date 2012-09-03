@@ -207,7 +207,7 @@ actions:   /* Null */
 
 condition_statement: conds PSTUB 
         {
-	    printf(" %s|%s", xstring, $2);
+	    printf(" %s|%s%s", xstring, $2,pEcomment);
 	    if(logCond) {
 		nconds+=SetCSTUBscan( nconds, StripTrail($2) );
 		logCond = FALSE;
@@ -216,7 +216,8 @@ condition_statement: conds PSTUB
 	    substitute=0; 
 	}
 	| conds NEWGROUP {
-	    printf(" %s|NEWGROUP\t\t", xstring );
+	    //printf(" %s|NEWGROUP\t\t", xstring );
+	    printf(" %s|NEWGROUP\t\t%s", xstring,pEcomment );
 	    if(logCond) {
 		if(lang==EX)
 			sprintf(pGroup, "%s_group = %s", pPrefixLc, svar1);
@@ -231,7 +232,8 @@ condition_statement: conds PSTUB
 
 action_statement:  
 	actions NEWGROUP {
-	    printf(" %s|NEWGROUP", xstring);
+	    // printf(" %s|NEWGROUP", xstring); 
+	    printf(" %s|NEWGROUP\t\t%s", xstring,pEcomment);
 	    if(usegoto) {
 		ccide_newgroup=1;
 		SetASTUBn( nactions, nrules );
@@ -245,8 +247,8 @@ action_statement:
 	}
 	|
 	actions PSTUB {
-		/* printf(" %s|%s%s", xstring, $2,pEcomment); */
-		printf(" %s|%s", xstring, $2);
+	        printf(" %s|%s%s", xstring, $2,pEcomment);
+		// printf(" %s|%s", xstring, $2);
 		nactions += SetASTUBscan( nactions, ExpVar2(StripTrail($2)) );
 		substitute=0;
 		SetNbrRules(nrules);
@@ -340,10 +342,9 @@ static void SetNbrRules(int n) {
         */
 static void SetPrefix(char *s) {
 	char *s1, *s2;
-	const char *const_1={_("Prefix longer than space allows.")};
 
 	if(strlen(s) > MAXPREFIX) {
-		fprintf(stderr,const_1);  
+		fprintf(stderr,_("Prefix longer than space allows."));
 		return;
 	}
 
@@ -388,7 +389,7 @@ static void SetColumn(char *s) {
 /** Ensure delimiters are orthogonal. 
  */ 
 int DelimitCheck(char *s1, char *s2) {
-	if( strcmp(s1,s2) == 0 ) {
+	if( (strcmp(s1,s2)==0) && checkequal) {
 		fprintf(stderr,_("CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,%s) \n"),
 			s1,qt1,qt2,svar1,svar2); 
 		return 1;
@@ -458,7 +459,7 @@ static char *AddPfx(char *s1, char *s2) {
 static void SetLang(char *s) {
 	int onone=1;
 
-    if(onone) {     /* Disallow multiple language settings */
+    if(onone) {     /* Disallow multiple language settings. LANG=C is default */
     onone=0;
         //DECISION_TABLE:
         //   N  -  -    -   -  -  Y  -  -  -  - - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
@@ -485,7 +486,14 @@ static void SetLang(char *s) {
 	//   -  -  X    -   -  -  -  -  X  -  - X | usegoto=0; // For GOTOless languages
         //   -  -  -    -   -  -  -  -  -  -  - - | lang=CC;  
         //   X  -  -    -   -  X  -  -  X  X  - - | SetQdelimit("`","\'");     
-        //   X  -  X    X   X  X  X  -  X  -  - - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        //   X  -  X    X   X  X  -  -  X  -  - - | m4out=1;     
+        //   X  -  X    X   X  X  -  -  -  -  - - | pComment=AddPfx(pPrefix,"_COMMENT(");  
+        //   -  -  X    X   X  X  -  -  X  -  - - | pEcomment=""; 
+        //   -  -  -    -   -  -  -  -  -  -  - - | pEcomment=")"; 
+        //   -  -  -    -   -  -  -  -  X  -  - - | pComment="//"; 
+        //   X  -  X    X   X  X  -  -  X  -  - - | M4Comment=AddPfx(pPrefix,"_COMMENT("); 
+        //   X  -  X    X   X  X  -  -  X  -  - - | M4Ecomment=")";
+        //   -  -  -    -   -  -  -  -  -  -  - - | M4Ecomment="";
         //END_TABLE:
 
     }  /* End if onone */

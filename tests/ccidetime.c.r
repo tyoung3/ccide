@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 //   N  - | count>max
 //-----------------
 //   X  - | count++;
-//   1  - |NEWGROUP
+//   1  - |NEWGROUP		
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //WARNING: Dropping rule 2 in table 1. 

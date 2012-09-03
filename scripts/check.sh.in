@@ -69,12 +69,12 @@ TestIt() {
 	[ -x $X.exe ] && X=$X.exe
 	[ -z $TIN ] && TIN=/dev/null 
 	./$X $TOPT  < $TIN >$X.output 	\
-	&& diff -q $TDIR/$T.X $X.output  >/dev/null
+	&& diff -b -q $TDIR/$T.X $X.output  >/dev/null
 
 }
 
 CheckExpand() {
-	diff $* && Success "Generate $1" 	\
+	diff -b $* >/dev/null && Success "Generate $1" 	\
 			|| Fail "Generate" $1  
 }
 
@@ -140,7 +140,7 @@ Discard() {
 				qb|QB)$PGM 		$OPT -L QB 	< $T.d 2> $T.err > $T;;
 				*)Die Cannot handle $TINPUT $T;;
 			esac   
-			diff -q $T $T.r >/dev/null 			\
+			diff -b -q $T $T.r >/dev/null 			\
 			  	&& MakeIt $T $SFX 2>&1 >$T.make.out	\
 			  	&& Success "$DESC generate"		\
 			  	|| Fail "$DESC generate"
@@ -234,14 +234,27 @@ MakeIn() {
 	done
 }
 
-MakeRight() {
+MakeRightBK1() {
 	for T in $*; do 
 		Z=`ls $TDIR/$T*.d`
 		for W in $Z; do
 			X=`basename $W`
 			SFX=`echo $X|cut -f2 -d.`
 			Y=`basename $X .d `
-			Z=`basename $X .$SFX`
+			# Z=`basename $X .$SFX`
+			cp -avp $TDIR/$Y $Y.r 
+		done
+	done
+}
+
+MakeRight() {
+	for T in $*; do 
+		Z=`ls $TDIR/$T*.r`
+		for W in $Z; do
+			X=`basename $W`
+			SFX=`echo $X|cut -f2 -d.`
+			Y=`basename $X .r `
+			#Z=`basename $Y .$SFX`
 			cp -avp $TDIR/$Y $Y.r 
 		done
 	done

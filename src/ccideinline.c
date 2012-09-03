@@ -32,7 +32,7 @@
 #define J_(L) printf("%s %c",_(L),'\n');
 #define J(L) printf("%s %c",L,'\n');
 
-char *slang = "";		/* D/T file source language: C, C++, etc. /*
+char *slang = "";		/* D/T file source language: C, C++, etc. */
 
 /** Print 'Generated Code' message.
  */
@@ -50,11 +50,11 @@ GenInLineCode (char *s)
       printf ("%s_INLINECODE()\n", pPrefix);
       if (changequote)
 	{
-	  printf ("%sGENERATED_CODE: %s\n", pComment, pEcomment);
+	  printf ("%sGENERATED_CODE: %s\n", M4Comment, M4Ecomment);
 	  printf (_
 		  ("%s_COMMENT(%s Substitution strings are: %s and %s%s)\n"),
 		  pPrefix, qt1, svar1, svar2, qt2);
-	  printf ("%sEND_GENERATED_CODE: %s\n", pComment, pEcomment);
+	  printf ("%sEND_GENERATED_CODE: %s\n", M4Comment, M4Ecomment);
 	}
       return;
     }

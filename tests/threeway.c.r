@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 //  -------  -----------
 //   1  3  3  2 |WriteFromFile($$);
 //   1  3  3  2 |ReadFile($$);  
-//   X  X  X  X |NEWGROUP
+//   X  X  X  X |NEWGROUP		
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_1.
 //	4 Rules, 4 conditions, and 7 actions.
@@ -202,7 +202,7 @@ CCIDE_TABLE_1:
 //-------------------------------------
 //   1  2  1  2  3  1  3  2  3 |WriteFromFile($$);
 //   1  2  1  2  3  1  3  2  3 |ReadFile($$);
-//   X  X  X  X  X  X  X  X  X |NEWGROUP
+//   X  X  X  X  X  X  X  X  X |NEWGROUP		
 //END_TABLE:
 //GENERATED_CODE: FOR TABLE_2.
 //	9 Rules, 9 conditions, and 7 actions.

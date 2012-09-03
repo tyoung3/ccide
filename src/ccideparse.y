@@ -207,7 +207,7 @@ actions:   /* Null */
 
 condition_statement: conds PSTUB 
         {
-	    printf(" %s|%s", xstring, $2);
+	    printf(" %s|%s%s", xstring, $2,pEcomment);
 	    if(logCond) {
 		nconds+=SetCSTUBscan( nconds, StripTrail($2) );
 		logCond = FALSE;
@@ -216,7 +216,8 @@ condition_statement: conds PSTUB
 	    substitute=0; 
 	}
 	| conds NEWGROUP {
-	    printf(" %s|NEWGROUP\t\t", xstring );
+	    //printf(" %s|NEWGROUP\t\t", xstring );
+	    printf(" %s|NEWGROUP\t\t%s", xstring,pEcomment );
 	    if(logCond) {
 		if(lang==EX)
 			sprintf(pGroup, "%s_group = %s", pPrefixLc, svar1);
@@ -231,7 +232,8 @@ condition_statement: conds PSTUB
 
 action_statement:  
 	actions NEWGROUP {
-	    printf(" %s|NEWGROUP", xstring);
+	    // printf(" %s|NEWGROUP", xstring); 
+	    printf(" %s|NEWGROUP\t\t%s", xstring,pEcomment);
 	    if(usegoto) {
 		ccide_newgroup=1;
 		SetASTUBn( nactions, nrules );
@@ -245,8 +247,8 @@ action_statement:
 	}
 	|
 	actions PSTUB {
-		/* printf(" %s|%s%s", xstring, $2,pEcomment); */
-		printf(" %s|%s", xstring, $2);
+	        printf(" %s|%s%s", xstring, $2,pEcomment);
+		// printf(" %s|%s", xstring, $2);
 		nactions += SetASTUBscan( nactions, ExpVar2(StripTrail($2)) );
 		substitute=0;
 		SetNbrRules(nrules);
@@ -340,10 +342,9 @@ static void SetNbrRules(int n) {
         */
 static void SetPrefix(char *s) {
 	char *s1, *s2;
-	const char *const_1={_("Prefix longer than space allows.")};
 
 	if(strlen(s) > MAXPREFIX) {
-		fprintf(stderr,const_1);  
+		fprintf(stderr,_("Prefix longer than space allows."));
 		return;
 	}
 
@@ -388,7 +389,7 @@ static void SetColumn(char *s) {
 /** Ensure delimiters are orthogonal. 
  */ 
 int DelimitCheck(char *s1, char *s2) {
-	if( strcmp(s1,s2) == 0 ) {
+	if( (strcmp(s1,s2)==0) && checkequal) {
 		fprintf(stderr,_("CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,%s) \n"),
 			s1,qt1,qt2,svar1,svar2); 
 		return 1;
@@ -458,7 +459,7 @@ static char *AddPfx(char *s1, char *s2) {
 static void SetLang(char *s) {
 	int onone=1;
 
-    if(onone) {     /* Disallow multiple language settings */
+    if(onone) {     /* Disallow multiple language settings. LANG=C is default */
     onone=0;
         //DECISION_TABLE:
         //   N  -  -  -  -  -  Y  -  -  -  -  - | strcmp(s,"BASIC")==0 || strcmp(s,"basic")==0
@@ -485,10 +486,17 @@ static void SetLang(char *s) {
         //   -  -  X  -  -  -  -  -  X  -  -  X | usegoto=0; // For GOTOless languages
         //   -  -  -  -  -  -  -  -  -  -  -  - | lang=CC;  
         //   X  -  -  -  -  X  -  -  X  X  -  - | SetQdelimit("`","\'");     
-        //   X  -  X  X  X  X  X  -  X  -  -  - | m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        //   X  -  X  X  X  X  -  -  X  -  -  - | m4out=1;     
+        //   X  -  X  X  X  X  -  -  -  -  -  - | pComment=AddPfx(pPrefix,"_COMMENT(");  
+        //   -  -  X  X  X  X  -  -  X  -  -  - | pEcomment=""; 
+        //   -  -  -  -  -  -  -  -  -  -  -  - | pEcomment=")"; 
+        //   -  -  -  -  -  -  -  -  X  -  -  - | pComment="//"; 
+        //   X  -  X  X  X  X  -  -  X  -  -  - | M4Comment=AddPfx(pPrefix,"_COMMENT("); 
+        //   X  -  X  X  X  X  -  -  X  -  -  - | M4Ecomment=")";
+        //   -  -  -  -  -  -  -  -  -  -  -  - | M4Ecomment="";
         //END_TABLE:
         //GENERATED_CODE: FOR TABLE_1.
-        //	12 Rules, 11 conditions, and 13 actions.
+        //	12 Rules, 11 conditions, and 20 actions.
         //	Table 1 rule order = 1 7 3 4 10 9 5 6 8 11 12 2 
          {	unsigned long CCIDE_table1_yes[12]={   0UL,   1UL,   4UL,   8UL,  16UL,  32UL,  64UL, 128UL, 256UL, 512UL,1024UL,   0UL};
         	unsigned long CCIDE_table1_no[12]= {2047UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL,   0UL};
@@ -510,29 +518,53 @@ static void SetLang(char *s) {
         	case  5:	//	Rule  9 
         	    lang=JAVA;
         	    usegoto=0; // For GOTOless languages
-        	    goto CCIDE_case1_0;
+        	    SetQdelimit("`","\'");
+        	    m4out=1;
+        	    pEcomment="";
+        	    pComment="//";
+        	    M4Comment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Ecomment=")";
+        	    break;
         	case  7:	//	Rule  6 
         	    lang=EX;	 // euphoria
-        	CCIDE_case1_0: case  0:	//	Rule  1 
         	    SetQdelimit("`","\'");
-        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        	    m4out=1;
+        	    pComment=AddPfx(pPrefix,"_COMMENT(");
+        	    pEcomment="";
+        	    M4Comment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Ecomment=")";
         	    break;
         	case  2:	//	Rule  3 
         	    lang=BASH; slang=s;SetQdelimit("^^^", "%%%");SetDelimit("/::","@@/");usegoto=0;
         	    usegoto=0; // For GOTOless languages
-        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
-        	    break;
-        	case  1:	//	Rule  7 
-        	    lang=BASIC;
-        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        	    m4out=1;
+        	    pComment=AddPfx(pPrefix,"_COMMENT(");
+        	    pEcomment="";
+        	    M4Comment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Ecomment=")";
         	    break;
         	case  6:	//	Rule  5 
         	    lang=VB;
-        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        	    m4out=1;
+        	    pComment=AddPfx(pPrefix,"_COMMENT(");
+        	    pEcomment="";
+        	    M4Comment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Ecomment=")";
         	    break;
         	case  3:	//	Rule  4 
         	    lang=QB;
-        	    m4out=1;   pComment=AddPfx(pPrefix,"_COMMENT(");   pEcomment=")";
+        	    m4out=1;
+        	    pComment=AddPfx(pPrefix,"_COMMENT(");
+        	    pEcomment="";
+        	    M4Comment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Ecomment=")";
+        	    break;
+        	case  0:	//	Rule  1 
+        	    SetQdelimit("`","\'");
+        	    m4out=1;
+        	    pComment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Comment=AddPfx(pPrefix,"_COMMENT(");
+        	    M4Ecomment=")";
         	    break;
         	case  4:	//	Rule 10 
         	    lang=CS;
@@ -541,6 +573,9 @@ static void SetLang(char *s) {
         	case 10:	//	Rule 12 
         	    lang=JS;
         	    usegoto=0; // For GOTOless languages
+        	    break;
+        	case  1:	//	Rule  7 
+        	    lang=BASIC;
         	    break;
         	case 11:	//	Rule  2 
         	    printf(_("CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"), s); Usage();exit(1);
@@ -551,7 +586,7 @@ static void SetLang(char *s) {
         	    break;
         	} // End Switch
         }
-        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
+        //END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.4-1 Mon 03 Sep 2012 09:30:18 AM EDT 
 
     }  /* End if onone */
 }
@@ -594,7 +629,7 @@ static void PrintC(char c) {
 		    break;
 	 }
 	}
-	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.4-1 Mon 03 Sep 2012 09:30:18 AM EDT 
 
 }
 
@@ -660,7 +695,7 @@ static void PrintNum(long n) {
 		    break;
 		} // End Switch
 	}
-	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
+	//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.4-1 Mon 03 Sep 2012 09:30:18 AM EDT 
 
 }
 
@@ -833,7 +868,7 @@ int main( int argc, char **argv) {
   		    break;
   		} // End Switch
   	}
-  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Sat 25 Aug 2012 09:50:37 AM EDT 
+  	//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.4-1 Mon 03 Sep 2012 09:30:18 AM EDT 
 
 
 	narg++;

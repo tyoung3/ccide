@@ -48,7 +48,7 @@ A$ = INPUT$
 'END_TABLE:
 rem 
 rem 
-  CCIDE_TABLE_1: Select Case A$  {
+   Select Case A$  {
 	CCIDE_1_"4": case "4":	rem 
 	    PRINT 4
 	CCIDE_1_"3": case "3":	rem 

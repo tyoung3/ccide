@@ -95,9 +95,9 @@ class hw {
 		//   -  X  - | System.out.println("Got B!");
 		//   -  -  X | System.out.println("Got C!");
 		//END_TABLE:
-		//GENERATED_CODE: FOR TABLE_1.
-		//	3 Rules, 3 conditions, and 3 actions.
-		//	Table 1 rule order = 1 2 3 
+		/*GENERATED_CODE: FOR TABLE_1.*/
+		/*	3 Rules, 3 conditions, and 3 actions.*/
+		/*	Table 1 rule order = 1 2 3 */
 		 {	int[] CCIDE_table1_yes=new int[] {1, 2, 4};
 
 
@@ -112,7 +112,7 @@ class hw {
 			    System.out.println("Got A!");
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.5-1  
+		/*END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.5-1  */
 	}
 
 	for (int i = 0; i < args.length; i++) {
@@ -128,9 +128,9 @@ class hw {
 		//   -  X  - | System.out.println("B: Got B!");
 		//   -  -  X | System.out.println("B: Got C!");
 		//END_TABLE:
-		//GENERATED_CODE: FOR TABLE_2.
-		//	3 Rules, 4 conditions, and 3 actions.
-		//	Table 2 rule order = 2 1 3 
+		/*GENERATED_CODE: FOR TABLE_2.*/
+		/*	3 Rules, 4 conditions, and 3 actions.*/
+		/*	Table 2 rule order = 2 1 3 */
 		 {	int[] CCIDE_table2_yes=new int[] {2, 1, 4};
 		int[] CCIDE_table2_no=new int[] {12, 8, 8};
 
@@ -146,7 +146,7 @@ class hw {
 			    System.out.println("B: Got A!");
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.5-1  
+		/*END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.5-1  */
 	}
 
 	for (int i = 0; i < args.length; i++) {
@@ -157,12 +157,12 @@ class hw {
 		//  _ |_________________________
 		//   X | System.out.println("C: Got E!");
 		//END_TABLE:
-		//GENERATED_CODE: FOR TABLE_3.
-		//	1 Rules, 1 conditions, and 1 actions.
+		/*GENERATED_CODE: FOR TABLE_3.*/
+		/*	1 Rules, 1 conditions, and 1 actions.*/
 		if(E.compareTo(args[i]) == 0) {
 		   System.out.println("C: Got E!");
 		}
-		//END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.5-1 
+		/*END_GENERATED_CODE: FOR TABLE_3, by ccide-0.6.5-1 */
 	}
 	   while(state<4) {
 		//DECISION_TABLE:
@@ -171,9 +171,9 @@ class hw {
 		//   0  1  2  3 | System.out.println("State=$$");
 		//   1  2  3  4 | state = $$;
 		//END_TABLE:
-		//GENERATED_CODE: FOR TABLE_4.
-		//	4 Rules, 4 conditions, and 8 actions.
-		 { CCIDE_TABLE_4: switch(state ) {
+		/*GENERATED_CODE: FOR TABLE_4.*/
+		/*	4 Rules, 4 conditions, and 8 actions.*/
+		 {  switch(state ) {
 			/*CCIDE_4_3: */ case 3:	/*	Rule 4*/
 			    System.out.println("State=3");
 			    state = 4;
@@ -191,7 +191,7 @@ class hw {
 			    state = 1;
 			    break;
 		 } } /* End Switch*/ 
-		//END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.5-1  
+		/*END_GENERATED_CODE: FOR TABLE_4, by ccide-0.6.5-1  */
 	   }  // End while state<4
 
 	   for (int j = 0; j < args.length; j++) {
@@ -202,9 +202,9 @@ class hw {
 		//   0  1  2  3 | System.out.println("State=$$");
 		//   1  2  3  4 | state = $$;
 		//END_TABLE:
-		//GENERATED_CODE: FOR TABLE_5.
-		//	4 Rules, 5 conditions, and 8 actions.
-		//	Table 5 rule order = 1 2 3 4 
+		/*GENERATED_CODE: FOR TABLE_5.*/
+		/*	4 Rules, 5 conditions, and 8 actions.*/
+		/*	Table 5 rule order = 1 2 3 4 */
 		 {	int[] CCIDE_table5_yes=new int[] {17, 2, 4, 8};
 		int[] CCIDE_table5_no=new int[] {0, 16, 0, 0};
 
@@ -227,7 +227,7 @@ class hw {
 			    state = 1;
 			    break;
 			} } /* End Switch*/
-		//END_GENERATED_CODE: FOR TABLE_5, by ccide-0.6.5-1  
+		/*END_GENERATED_CODE: FOR TABLE_5, by ccide-0.6.5-1  */
 	   }  // End for j=...	
     }		
 }

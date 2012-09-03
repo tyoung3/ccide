@@ -38,18 +38,18 @@ main() {
 
 		/* N.B.: abort() is never executed.*/
 	/*DECISION_TABLE:				*/
-	/*   Y  N  Y N | swvar[c2][c3] == 2		*/		
-	/*   N  N  N Y | swvar[c3][c4] == 1		*/	
+	/*   Y  N  Y N | swvar[c2][c3] == 2		*/
+	/*   N  N  N Y | swvar[c3][c4] == 1		*/
         /*______________________________________________*/
-	/*   -  -  - - | abort()			*/	
+	/*   -  -  - - | abort()			*/
 	/*   -  -  X - | a1();				*/
 	/*   -  X  X - | a2();				*/
         /*END_TABLE:					*/
 
 
 	/*DECISION_TABLE:				*/
-	/*   -  Y  -  N | swvar[c2][c3] == 2		*/	
-	/*   Y  N  -  N | swvar[c3][c4] == 1		*/	
+	/*   -  Y  -  N | swvar[c2][c3] == 2		*/
+	/*   Y  N  -  N | swvar[c3][c4] == 1		*/
         /*______________________________________________*/
 	/*   X  -  X  X | a1();				*/
 	/*   X  X  X  - | a2();				*/
@@ -62,7 +62,7 @@ main() {
         /*______________________________________________*/
 	/*   X  -  X  X | a1();				*/
 	/*   X  X  X  - | a2();				*/
-        /*END_TABLE:					*/				 
+        /*END_TABLE:					*/		 
 
 	/*DECISION_TABLE:				*/
 	/*   -  Y  N  N | swvar[c1][c2] == 2		*/
@@ -75,8 +75,8 @@ main() {
         /*END_TABLE:					*/
 
 	/*DECISION_TABLE:				*/
-	/*   -  Y  N  N | swvar[c2][c3] == 2		*/	
-	/*   Y  N  Y  N | swvar[c3][c4] = 1		*/	
+	/*   -  Y  N  N | swvar[c2][c3] == 2		*/
+	/*   Y  N  Y  N | swvar[c3][c4] = 1		*/
         /*______________________________________________*/
 	/*   X  -  X  X | a1();				*/
 	/*   X  X  X  - | a2();				*/

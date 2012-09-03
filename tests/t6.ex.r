@@ -83,12 +83,12 @@ end function
 	state = 4
 
         /*DECISION_TABLE:		*/
-        /*   1  2  3 | ccide_group == $$	
+        /*   1  2  3 | ccide_group == $$	*/
         /*  _______________		*/
-        /*   X  -  - | puts(1,"1.\n")	
-        /*   -  X  - | puts(1,"2.Hello\n") 
-        /*   -  -  X | puts(1,"3.World\n")	
-        /*   2  3  4 |NEWGROUP
+        /*   X  -  - | puts(1,"1.\n")	*/
+        /*   -  X  - | puts(1,"2.Hello\n") */
+        /*   -  -  X | puts(1,"3.World\n")	*/
+        /*   2  3  4 |NEWGROUP		*/
         /*END_TABLE:			*/
         /*GENERATED_CODE: FOR TABLE_1.*/
         /*	3 Rules, 3 conditions, and 7 actions.*/
@@ -110,14 +110,14 @@ end function
         /*END_GENERATED_CODE: FOR TABLE_1, by ccide-0.6.5-1  */
 
         /*DECISION_TABLE:       	*/
-        /*   Y  N  Y | state = 4		
-        /*   1  5  6 |NEWGROUP		
+        /*   Y  N  Y | state = 4		*/
+        /*   1  5  6 |NEWGROUP		*/
         /* __________________		*/
-        /*   X  -  - | puts(1,"4.\n")	
-        /*   -  X  - | puts(1,"5.Goodbye\n") 
-        /*   -  -  X | puts(1,"6.World\n")	
-        /*   5  4  6 | state=$$		
-        /*   5  6  7 |NEWGROUP
+        /*   X  -  - | puts(1,"4.\n")	*/
+        /*   -  X  - | puts(1,"5.Goodbye\n") */
+        /*   -  -  X | puts(1,"6.World\n")	*/
+        /*   5  4  6 | state=$$		*/
+        /*   5  6  7 |NEWGROUP		*/
         /*END_TABLE:			*/
         /*GENERATED_CODE: FOR TABLE_2.*/
         /*	3 Rules, 4 conditions, and 10 actions.*/
@@ -150,17 +150,17 @@ end function
         /*END_GENERATED_CODE: FOR TABLE_2, by ccide-0.6.5-1  */
 
         /*DECISION_TABLE:       	*/
-        /*   Y  -  - | state = 6		
-        /*   -  Y  - | state = 7		
-        /*   -  -  Y | state = 8		
-        /*   1  8  9 |NEWGROUP		
+        /*   Y  -  - | state = 6		*/
+        /*   -  Y  - | state = 7		*/
+        /*   -  -  Y | state = 8		*/
+        /*   1  8  9 |NEWGROUP		*/
         /* __________________		*/
-        /*   X  -  - | puts(1,"7.\n")	
-        /*   -  X  - | puts(1,"8.Goodbye") 
-        /*   -  X  - | puts(1," cruel\n")	
-        /*   -  -  X | puts(1,"9.World\n")	
-        /*   7  8  9 | state=$$		
-        /*   8  9  0 |NEWGROUP
+        /*   X  -  - | puts(1,"7.\n")	*/
+        /*   -  X  - | puts(1,"8.Goodbye") */
+        /*   -  X  - | puts(1," cruel\n")	*/
+        /*   -  -  X | puts(1,"9.World\n")	*/
+        /*   7  8  9 | state=$$		*/
+        /*   8  9  0 |NEWGROUP		*/
         /*END_TABLE:			*/
         /*GENERATED_CODE: FOR TABLE_3.*/
         /*	3 Rules, 6 conditions, and 11 actions.*/

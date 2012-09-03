@@ -11,5 +11,5 @@ ccide: Error in line 70: a1(); is the same as action 1 near ' a1();				'. Start 
 ccide: Error in line 71: a2(); is the same as action 2 near ' a2();				'. Start State=5
 ccide: Error in line 72: a1(); is the same as action 1 near ' a1();				'. Start State=5
 ccide: Error in line 72: a1(); is the same as action 6 near ' a1();				'. Start State=5
-ccide: Error in line 78:  '=' probably should be '==' in condition stub 2 near ' swvar[c3][c4] = 1		*/	'. Start State=7
+ccide: Error in line 78:  '=' probably should be '==' in condition stub 2 near ' swvar[c3][c4] = 1		'. Start State=7
 ccide: Error in line 81: syntax error near ''. Start State=5

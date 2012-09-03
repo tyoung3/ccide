@@ -28,10 +28,7 @@ BINDIR="@prefix@/bin"
 PKGDATADIR=@pkgdatadir@
 LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB JS"
 
-Die() {
-	echo "$0/DIE: $*"
-	exit 1
-}
+CCIDE_DIE
 
 #CCIDE_INLINE_CODE:
 
@@ -78,6 +75,7 @@ while [[ $# > 0 ]]; do
 	#END_TABLE:
 	shift
 done
+
 #DECISION_TABLE:
 #  Y  -  -  -    | "$CCIDE_M4" == "yes"
 #  -  Y  -  -    | "$CCIDELANG" == "C" 
@@ -95,10 +93,12 @@ done
 [ -f $M4DIR/ccide-${CCIDELANG}.m4 ] || Die Cannot find $M4DIR/ccide-${CCIDELANG}.m4
 
 #DECISION_TABLE:
-#  Y    -  | "$CCIDELANG" == "BASH"
+#  Y  -  N  | "$CCIDELANG" == "BASH"
+#  -  Y  -  | "$CCIDELANG" == "EX"
 #__________________________________________
-#  X    -  | DELIM="-d '[[' ']]'" 
-#  X    X  | $CCIDEW -L $CCIDELANG $WC | @M4@ -P "$M4DIR/ccide-$CCIDELANG.m4" "-"
+#  X  -  -  | DELIM="-d '[[' ']]'" 
+#  -  X  X  | $CCIDEW            -L $CCIDELANG $WC | @M4@ -P "$M4DIR/ccide-$CCIDELANG.m4" "-"
+#  X  -  -  | $CCIDEW -m4 $DELIM -L $CCIDELANG $WC | @M4@ -P "$M4DIR/ccide-$CCIDELANG.m4" "-"
 #END_TABLE:
 
  

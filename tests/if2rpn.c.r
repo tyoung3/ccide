@@ -137,7 +137,7 @@ static STATE DoRightParen() {
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_1.
 	//	8 Rules, 7 conditions, and 5 actions.
-	 { CCIDE_TABLE_1: switch(TOS) {	
+	 {  switch(TOS) {	
 		case 4:		//  Rule  1  
 		    Pop();
 		    return 2;
@@ -173,7 +173,7 @@ static STATE FindLeft() {
 	//END_TABLE:
 	//GENERATED_CODE: FOR TABLE_2.
 	//	3 Rules, 3 conditions, and 4 actions.
-	 { CCIDE_TABLE_2: switch(TOS) {	
+	 {  switch(TOS) {	
 		case 4:		//  Rule  2  
 		    return 2;
 		    break;
@@ -320,7 +320,7 @@ static void ParseInput() {
 	    //END_TABLE:
 	    //GENERATED_CODE: FOR TABLE_5.
 	    //	9 Rules, 8 conditions, and 5 actions.
-	     { CCIDE_TABLE_5: switch(TOS) {	
+	     {  switch(TOS) {	
 	    	case 2:		//  Rule  2  
 	    	case 7:		//  Rule  4  
 	    	case 8:		//  Rule  5  
