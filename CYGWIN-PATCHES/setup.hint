@@ -1,0 +1,299 @@
+#setup.hint
+
+# Each package must be submitted with a file called setup.hint. This
+# file is used for information that cannot be inferred just from the
+# context of the file name or package name. Lines in setup.hint will
+# consist of one of the following:
+
+# This is a  comment
+
+# Not required anymore. @ ccide
+sdesc: C Language Decision Table Code Generator
+ldesc: Ccide reads a source code file containingembedded decision tables from STDIN, analyzes and expands each of thetables. All statements not within a decision table are copied unchangedto STDOUT, generating a compilable C source module. Erratic side effectsare avoided by evaluating all condition expressions exactly once and byperforming evaluations and actions in the original sequence.
+
+##skip:
+##curr: 
+##prev: 
+##test: 
+category: Devel
+#  Devel: CodeGenerator ??
+
+##requires: package[ package...]
+##external-source: package
+##		End of setup.hint 
+
+
+##  -------------   Packaging comments (from www.cygwin.org)  -------------
+
+
+## Binary packages are extracted in /, include all file paths from the root in your archive, e.g.:
+##
+##  usr/bin/boffo.exe
+##  usr/share/boffo/boffo.dat
+##  etc...
+##
+## # The package is configured using (at a minimum) the following paths:
+##
+##   --prefix=/usr
+##   --sysconfdir=/etc
+##   --libexecdir=/usr/sbin
+##   --localstatedir=/var
+##   --datadir=/usr/share
+##   --mandir=/usr/share/man
+##   --infodir=/usr/share/info
+##
+##
+## All executables in your binary package are stripped (run 'strip' on
+## them). Some makefiles have a install-strip command you can use to do
+## this automatically when you setup your 'installed' tree.
+
+## Source packages are extracted in /usr/src. See the Package Source
+## section for more information.
+
+## In your binary package, include a file
+## /usr/share/doc/Cygwin/foo-vendor-suffix.README containing (at a
+## minimum) the information needed for an end user to recreate the
+## package. This includes CFLAGS settings, configure parameters, etc.
+
+## In your binary package include a directory /usr/share/doc/foo-vendor/
+## that includes any binary-relevant vendor documentation, such as
+## ChangeLog's, copyright licence's, README's etc.
+
+## If you are not creating your package from an installed virtual root, be
+## sure to check that the file permissions are appropriate.
+
+## If you have any 'info' documention in your package, run install-info as
+## part of your post-install script
+
+## If the package has any global settings (ie in files in /etc) that are
+## notoverrideable on a per user basis (sshd, as a daemon, is an example of
+## this) do not include the relevant config files in your package. Instead
+## include in your post-install script to install the settings files. Be
+## sure that if you would overwrite an already present file that the user is
+## offered the choice of keeping their own or overwriting with your
+## defaults.#
+
+
+
+    *
+
+## Ensure that your package handles binary only systems, textmode only
+## systems, and hybrid systems correctly.
+
+## Package Source
+
+## There are two accepted ways to package the source code for cygwin
+## packages.  Method One
+
+## Source packages are extracted underneath /usr/src (so your -src
+## tarball should not include /usr/src). On extraction, the tar file
+## should put the sources in a directory with the same name as the
+## package tar ball minus the -src.tar.bz2 part:
+
+##   boffo-1.0-1/Makefile.in
+##   boffo-1.0-1/README
+##   boffo-1.0-1/configure
+##   boffo-1.0-1/configure.in
+##   etc...
+
+## Ensure that your package handles binary only systems, textmode
+## only systems, and hybrid systems correctly.
+
+## Package Source
+
+## There are two accepted ways to package the source code for cygwin
+## packages. Method One
+
+## Source packages are extracted underneath /usr/src (so your -src
+## tarball should not include /usr/src). On extraction, the tar file
+## should put the sources in a directory with the same name as the
+## package tar ball minus the -src.tar.bz2 part:
+
+## boffo-1.0-1/Makefile.in
+## boffo-1.0-1/README
+## boffo-1.0-1/configure
+## boffo-1.0-1/configure.in
+##   etc...
+
+## In your source package include the same foo-vendor-suffix.README as
+## used in the binary package.
+
+## Your source package already be patched with any necessary cygwin
+## specific changes. The user should be able to just ./configure; make;
+## and go.
+
+## Include a single file foo-vendor-release.patch in your source
+## package, that when applied (in reverse: 'patch -R') will remove all
+## the patches you've applied to the package, leaving it as the vendor
+## distributes it. This file should extract as :
+## /usr/src/foo-vendor-release.patch (that is, since setup.exe extracts
+## everything into /usr/src, the patch should be a "top level" member of
+## the -src tarball.)
+
+## Optionally, this patch could also unpack inside the source tree:
+
+##   boffo-1.0-1/README
+##   boffo-1.0-1/configure
+##   boffo-1.0-1/CYGWIN-PATCHES/boffo-1.0-1.patch
+##   etc...
+
+## Method Two In a packaging technique inspired by rpms and debs, you
+## may create a -src tarball which simply contains:
+
+##     1.  foo-vendor.tar.[gz|bz2]: The original source tarball, exactly
+##     as downloaded from the original vendor.
+
+##     2.  foo-vendor-release.patch: the patch file as described in
+##     Method One, above.
+
+##      3. foo-vendor-release.sh: A build script that drives the entire
+##      unpacking, configuration, build, and packaging (binary and -src)
+##      process.
+
+## You can adapt this generic readme file for script-driven -src
+## packages.
+
+## Here is an example build script which can be adapted for your
+## package. By carefully modifying the details of this script, it can
+## create the binary and -src packages for you, once you've finished
+## porting your package. How? See the Initial packaging procedure below.
+## But first, a few facts:
+
+## The buildscript will autodetect the package name, vendor version, and
+## release number from its own filename.
+
+##       When the buildscript is used to compile the package, all
+##       building occurs within a hidden subdirectory inside the source
+##       tree: boffo-1.0/.build/
+
+##       To create the binary package, the script redirects 'make
+##       install' into a hidden subdirectory boffo-1.0/.inst/, creating
+##       a faux tree boffo-1.0/.inst/usr/bin, etc. This faux tree is
+##       tar'ed up into the new binary package.
+
+##       To create the -src package, the script generates a patch file,
+##       and copies the original tarball, the patch, and the script into
+##       yet another hidden subdirectory boffo-1.0/.sinst/. The contents
+##       of this subdirectory are tar'ed up into the new -src package.
+
+##       Sometimes, you will find that a package cannot build outside of
+##       its source directory. In this case, the script must recreate
+##       the source tree within the .build subdirectory. The jbigkit
+##       -src package uses GNU shtool's mkshadow to do this.
+
+##       generic-build-script is not a one-size-fits-all solution. It
+##       must be customized for your package.
+
+
+## Initial packaging procedure, script-based
+
+##       Suppose you've got your boffo package ported to cygwin. It took
+##       some work, but it now builds and runs. Further, suppose that
+##       the boffo-1.0.tar.bz2 file that you downloaded from the boffo
+##       homepage unpacks into boffo-1.0/, so you've been doing all of
+##       your work in ~/sources/boffo-1.0/. That's good.
+
+##       Place a copy of boffo-1.0.tar.bz2 in ~/source copy
+##       generic-build-script into ~/sources/ and rename it
+##       boffo-1.0-1.sh. Carefully adapt this script for your purposes.
+##       However, it should auto detect most of what it needs to know:
+##       the package name, vendor version, release number, etc.
+
+##       Clean up inside your ~/sources/boffo-1.0/ directory -- make
+##       sure that no files which are generated during the build process
+##       are lying around. Usually, a 'make distclean' will do the
+##       trick, but not always.
+
+## Ensure that you've put any cygwin-specific readme files, setup.hint
+## files, etc, into ~/sources/boffo-1.0/CYGWIN-PATCHES/. You can adapt
+## this generic readme file for this purpose. The build script expects
+## that the cygwin-specific README file will be named
+## .../CYGWIN-PATCHES/<package>.README. In this example, it would be
+## stored as ~/sources/boffo-1.0/CYGWIN-PATCHES/boffo.README. The build
+## script will ensure that it gets installed as
+## /usr/share/doc/Cygwin/boffo-1.0.README Prepare the staging location
+## for the -src package (yes, do the -src package first): From the
+## directory above your boffo-1.0 tree (e.g. ~/sources/ in our example)
+## execute './boffo-1.0-1.sh mkdirs'
+
+## Create the -src package: './boffo-1.0-1.sh spkg'
+
+## Now, let's go somewhere else and unpack this new -src package:
+
+##   cd /tmp
+##   tar xvjf ~/sources/boffo-1.0-1-src.tar.bz2
+
+## Finally, rebuild the whole thing (you're still in /tmp):
+
+##   ./boffo-1.0-1.sh all
+
+## (Or, you may want to do each step in 'all' manually: prep, conf,
+## build, (check), install, strip, pkg, spkg, finish.
+
+## Submitting a package
+
+## So you've got a package you want to submit. Follow the following
+## checklist before emailing cygwin-apps@cygwin.com and you'll almost
+## certainly save time.
+
+##    1. Propose on cygwin-apps@cygwin.com that you are interested in
+##    becoming a package maintainer for package foo. Some packages
+##    cannot be distributed via cygwin's setup due to vendor licence
+##    limitations. Other packages may not be appropriate for cygwin.
+##    This step will save time if, for some reason we cannot accept the
+##    package.
+
+##    2. If this is a new package, post a complete setup.hint file as
+##    part of your proposal. Include this file in the text of your
+##    message so that it can be commented on. Do not submit it as an
+##    attachment.
+
+##    3. Do you have the time to maintain the package? Packages without
+##    active maintainers are pulled from the distribution. Generally
+##    speaking the time commitment is relatively low, simply subscribe
+##    to cygwin at cygwin dot com. We'd prefer if you read the
+##    non-digest mode since prompt response to packaging issues is a
+##    plus. When a bug in your package is reported in the cygwin mailing
+##    list, address the bug (if it's a cygwin-only bug) or pass back to
+##    the vendor. When a solution exists, create an updated package with
+##    the fix in it, and send a notification that you need the package
+##    uploaded to cygwin-apps. Note that you are not expected to be a
+##    helpdesk for the package - the users should be pointed to the
+##    vendors lists if you've determined that the bug is not a
+##    cygwin-related bug.
+
+##    4. Look in the debian package list and identify the section that
+##    your package is present in there - if it's available via debian.
+##    If it's not, have a look and take a sensible guess.
+
+##    5. Create setup.hint file following the documentation on this web
+##    page. Opinion on whether to mark your initial version as a Test
+##    version is currently mixed. If you have doubts about the stability
+##    of your initial offering you may decide to mark it as Test. Then,
+##    once the package has no major bug reports from users, a current
+##    package may be introduced. Otherwise, it is perfectly acceptable
+##    to forgo the Test designation in your first release.
+
+##    6. If possible, place the package files in a web accessible
+##    http/ftp site somewhere.
+
+##    7. Announce on cygwin-apps@cygwin.com that you have the package
+##    ready for uploading. Add the URLs to all package files to your
+##    mail or, if you can't provide it on a web page, someone with
+##    upload privileges will contact you to get access to the package
+##    files to upload them to sources.redhat.com for you.
+
+##    8. Delete your temporary copy once they have been uploaded to
+##    sources.redhat.com.
+
+## 9. Announce via cygwin-announce@cygwin.com that the new package, is
+## available for experimentation. Use a recent cygwin-announce message
+## from one of the core maintainers as a template for your announcement.
+
+##      Once sent, your message will be reviewed by one of the
+##      cygwin-announce moderators and, once approved, will be
+##      automatically forwarded to the cygwin mailing list with an
+##      [ANNOUNCEMENT] prepended to the subject.
+
+## NOTE: On any major version upgrade, you may want to mark the release 
+## as Test. 

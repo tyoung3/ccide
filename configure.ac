@@ -4,16 +4,16 @@
 # ? PACKAGE_URL
 
 AC_PREREQ(2.59)
-AC_INIT([ccide],[0.6.5],[ccide@twyoung.com])
+AC_INIT([ccide],[0.7.0],[ccide@twyoung.com])
 AC_CONFIG_SRCDIR([src/ccidemain.h])
 AC_CONFIG_HEADERS([src/ccideconfig.h])
 
 HOST=$host_cpu-$host_os
 AM_MAINTAINER_MODE(TRUE)
 AC_CANONICAL_HOST([])
-AM_INIT_AUTOMAKE([ccide], [0.6.5])
+AM_INIT_AUTOMAKE([ccide], [0.7.0])
 
-RELEASE=1	
+RELEASE=0	
 LIBVER=0
 LIBCCIDE=libccide
 DESCR="C Language Decision Table Code Generator"

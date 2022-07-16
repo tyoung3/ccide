@@ -26,7 +26,7 @@ Debug() {
 
 export CCIDEW=$CCIDEW
 export CCIDE_M4DIR=$CCIDE_M4DIR
-echo CCIDEW=$CCIDEW  m4dir=$CCIDE_M4DIR
+echo CCIDEW=$CCIDEW  m4dir=$CCIDE_M4DIR USE_NLS=@USE_NLS@
 OPT="-b "
 #MAKE="make -s -B -i --no-print-directory"
 MAKE="make -s  -i --no-print-directory"
@@ -88,7 +88,8 @@ TestCase() {
 	for Y in $X; do
 		Z=`basename $Y .d`
 		[ -f $TDIR/$Z.opt ] && . $TDIR/$Z.opt  
-		[ "$LANG" == "$CCIDELANG" ] || export LANG=$CCIDELANG  
+		[ "$LANG" == "$CCIDELANG" ] || export LANG=$CCIDELANG 
+		[ "@USE_NLS@" == "yes" ] || export LANG=en_US.UTF-8
 		$MAKE -i OPT="$OPT" $Z && CheckExpand $Z $TDIR/$Z.r  
 		[ -f $TDIR/$Z.err.r ]  && CheckExpand $Z.err $TDIR/$Z.err.r
 	done

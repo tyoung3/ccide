@@ -1,0 +1,323 @@
+Grammar
+
+    0 $accept: DECISION_TABLE $end
+
+    1 cond: YES
+    2     | NO
+    3     | DONT_CARE
+
+    4 conds: %empty
+    5      | conds cond
+    6      | conds NUMBER
+
+    7 act: ACT
+    8    | DONT_CARE
+
+    9 actions: %empty
+   10        | actions act
+   11        | actions NUMBER
+
+   12 condition_statement: conds PSTUB
+   13                    | conds NEWGROUP
+
+   14 action_statement: actions NEWGROUP
+   15                 | actions PSTUB
+
+   16 condition_statements: %empty
+   17                     | condition_statements condition_statement
+
+   18 action_statements: %empty
+   19                  | action_statements action_statement
+
+   20 start: TSTART
+
+   21 end: TEND
+
+   22 DECISION_TABLE: %empty
+   23               | DECISION_TABLE start condition_statements START_ACTIONS action_statements end
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    YES <ival> (258) 1
+    NO <ival> (259) 2
+    DONT_CARE <ival> (260) 3 8
+    ACT <ival> (261) 7
+    NUMBER <ival> (262) 6 11
+    PSTUB <string> (263) 12 15
+    TEND (264) 21
+    NEWGROUP (265) 13 14
+    START_ACTIONS (266) 23
+    TSTART (267) 20
+
+
+Nonterminals, with rules where they appear
+
+    $accept (13)
+        on left: 0
+    cond <ival> (14)
+        on left: 1 2 3
+        on right: 5
+    conds (15)
+        on left: 4 5 6
+        on right: 5 6 12 13
+    act <ival> (16)
+        on left: 7 8
+        on right: 10
+    actions (17)
+        on left: 9 10 11
+        on right: 10 11 14 15
+    condition_statement (18)
+        on left: 12 13
+        on right: 17
+    action_statement (19)
+        on left: 14 15
+        on right: 19
+    condition_statements (20)
+        on left: 16 17
+        on right: 17 23
+    action_statements (21)
+        on left: 18 19
+        on right: 19 23
+    start (22)
+        on left: 20
+        on right: 23
+    end (23)
+        on left: 21
+        on right: 23
+    DECISION_TABLE (24)
+        on left: 22 23
+        on right: 0 23
+
+
+State 0
+
+    0 $accept: • DECISION_TABLE $end
+
+    $default  reduce using rule 22 (DECISION_TABLE)
+
+    DECISION_TABLE  go to state 1
+
+
+State 1
+
+    0 $accept: DECISION_TABLE • $end
+   23 DECISION_TABLE: DECISION_TABLE • start condition_statements START_ACTIONS action_statements end
+
+    $end    shift, and go to state 2
+    TSTART  shift, and go to state 3
+
+    start  go to state 4
+
+
+State 2
+
+    0 $accept: DECISION_TABLE $end •
+
+    $default  accept
+
+
+State 3
+
+   20 start: TSTART •
+
+    $default  reduce using rule 20 (start)
+
+
+State 4
+
+   23 DECISION_TABLE: DECISION_TABLE start • condition_statements START_ACTIONS action_statements end
+
+    $default  reduce using rule 16 (condition_statements)
+
+    condition_statements  go to state 5
+
+
+State 5
+
+   17 condition_statements: condition_statements • condition_statement
+   23 DECISION_TABLE: DECISION_TABLE start condition_statements • START_ACTIONS action_statements end
+
+    START_ACTIONS  shift, and go to state 6
+
+    $default  reduce using rule 4 (conds)
+
+    conds                go to state 7
+    condition_statement  go to state 8
+
+
+State 6
+
+   23 DECISION_TABLE: DECISION_TABLE start condition_statements START_ACTIONS • action_statements end
+
+    $default  reduce using rule 18 (action_statements)
+
+    action_statements  go to state 9
+
+
+State 7
+
+    5 conds: conds • cond
+    6      | conds • NUMBER
+   12 condition_statement: conds • PSTUB
+   13                    | conds • NEWGROUP
+
+    YES        shift, and go to state 10
+    NO         shift, and go to state 11
+    DONT_CARE  shift, and go to state 12
+    NUMBER     shift, and go to state 13
+    PSTUB      shift, and go to state 14
+    NEWGROUP   shift, and go to state 15
+
+    cond  go to state 16
+
+
+State 8
+
+   17 condition_statements: condition_statements condition_statement •
+
+    $default  reduce using rule 17 (condition_statements)
+
+
+State 9
+
+   19 action_statements: action_statements • action_statement
+   23 DECISION_TABLE: DECISION_TABLE start condition_statements START_ACTIONS action_statements • end
+
+    TEND  shift, and go to state 17
+
+    $default  reduce using rule 9 (actions)
+
+    actions           go to state 18
+    action_statement  go to state 19
+    end               go to state 20
+
+
+State 10
+
+    1 cond: YES •
+
+    $default  reduce using rule 1 (cond)
+
+
+State 11
+
+    2 cond: NO •
+
+    $default  reduce using rule 2 (cond)
+
+
+State 12
+
+    3 cond: DONT_CARE •
+
+    $default  reduce using rule 3 (cond)
+
+
+State 13
+
+    6 conds: conds NUMBER •
+
+    $default  reduce using rule 6 (conds)
+
+
+State 14
+
+   12 condition_statement: conds PSTUB •
+
+    $default  reduce using rule 12 (condition_statement)
+
+
+State 15
+
+   13 condition_statement: conds NEWGROUP •
+
+    $default  reduce using rule 13 (condition_statement)
+
+
+State 16
+
+    5 conds: conds cond •
+
+    $default  reduce using rule 5 (conds)
+
+
+State 17
+
+   21 end: TEND •
+
+    $default  reduce using rule 21 (end)
+
+
+State 18
+
+   10 actions: actions • act
+   11        | actions • NUMBER
+   14 action_statement: actions • NEWGROUP
+   15                 | actions • PSTUB
+
+    DONT_CARE  shift, and go to state 21
+    ACT        shift, and go to state 22
+    NUMBER     shift, and go to state 23
+    PSTUB      shift, and go to state 24
+    NEWGROUP   shift, and go to state 25
+
+    act  go to state 26
+
+
+State 19
+
+   19 action_statements: action_statements action_statement •
+
+    $default  reduce using rule 19 (action_statements)
+
+
+State 20
+
+   23 DECISION_TABLE: DECISION_TABLE start condition_statements START_ACTIONS action_statements end •
+
+    $default  reduce using rule 23 (DECISION_TABLE)
+
+
+State 21
+
+    8 act: DONT_CARE •
+
+    $default  reduce using rule 8 (act)
+
+
+State 22
+
+    7 act: ACT •
+
+    $default  reduce using rule 7 (act)
+
+
+State 23
+
+   11 actions: actions NUMBER •
+
+    $default  reduce using rule 11 (actions)
+
+
+State 24
+
+   15 action_statement: actions PSTUB •
+
+    $default  reduce using rule 15 (action_statement)
+
+
+State 25
+
+   14 action_statement: actions NEWGROUP •
+
+    $default  reduce using rule 14 (action_statement)
+
+
+State 26
+
+   10 actions: actions act •
+
+    $default  reduce using rule 10 (actions)

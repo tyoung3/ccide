@@ -1,3 +1,10 @@
+2012-09-04
+	0.6.6-1
+		.  Fixed problems with '*/' comments. 
+		.  Added Finish,  fi.po file.
+		.  Added .exe suffix for mingw 
+		.  Added CS make to tests/Makefile
+
 2012-08-26
 	0.6.5-1
 		.  Added support for mingw.  

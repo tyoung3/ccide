@@ -307,7 +307,7 @@ ShowCopyright ()
 {
 
   printf
-    ("    ccidew version %s-%s, Copyright (C) 2002-2004,2010,2012 Thomas W. Young, e-mail ccide@twyoung.com\n",
+    ("    ccidew version %s-%s, Copyright (C) 2002-2004,2010,2012,2022 Thomas W. Young, e-mail ccide@twyoung.com\n",
      VERSION, RELEASE);
 
   printf ("    %s comes with ABSOLUTELY NO WARRANTY.", PACKAGE);

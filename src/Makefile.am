@@ -1,7 +1,7 @@
 # src/Makefile
 
 #  	ccide - C Language Decision Table Code Generator 
-#	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+#	Copyright (C) 2002-2004,2010,2012,2022;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
 #    	This file is part of ccide, the C Language Decision Table Code Generator.
 
@@ -71,13 +71,13 @@ AM_YFLAGS = -d -l -v
 
 # Creates a circular dependency, but this is how it was done.   Put in another Makefile?
 #%.c.d : %.c 
-#	ccidew -u   < $< > $@  
+#	ccidew$(EXEEXT) -u   < $< > $@  
 
 %.c : %.c.d 
-	./ccidew -c 3 < $< > $@
+	./ccidew$(EXEEXT) -c 3 < $< > $@
 
 %.y : %.y.d 
-	./ccidew -c 3 < $< > $@
+	./ccidew$(EXEEXT) -c 3 < $< > $@
 
 # mostlyclean-local, clean-local, distclean-local, or maintainer-clean-local
 
@@ -92,7 +92,7 @@ distclean-local:
 clean-local:    
 	rm -f *~  *.log *.output  ccidelex.c ccideparse.c 	\
 	*.gcov *.gcda *.gcno *.flaws				\
-	*.output ccideparse.c ccidelex.c  *.o ccidew  y.output
+	*.output ccideparse.c ccidelex.c  *.o ccidew$(EXEEXT)  y.output
 	
 ${PACKAGE}.1:	${PACKAGE}.pod
 	/usr/bin/pod2man --section=1						\
@@ -116,4 +116,4 @@ ${CCIDE}lex.c: ${PARSE}.h ${MAIN}.h  $(srcdir)/${CCIDE}lex.l
 ${CCIDE}lex.o: ${PARSE}.h ${MAIN}.h ${CCIDE}lex.c ${CCIDE}.h 
 
 installcheck-local:
-	echo `ccidew -V` 
+	echo `ccidew$(EXEEXT) -V` 
