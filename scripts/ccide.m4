@@ -91,7 +91,7 @@ CCIDE=0
 	    CCIDE_ACTION(^^^CCIDEW=`pwd`/../src/ccidew%%%)
 	    CCIDE_BREAK()
 	CCIDE_END_SWITCH()
-CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_1, by ccide-0.7.0-0 Sat 16 Jul 2022 10:03:02 AM EDT %%%)
+CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_1, by ccide-0.7.0-0 Sat 16 Jul 2022 02:33:31 PM EDT %%%)
 
 
 #   Set m4 directory...  	
@@ -147,7 +147,7 @@ while [[ $# > 0 ]]; do
 		    CCIDE_ACTION(^^^CCIDELANG=`echo $2|tr [:lower:] [:upper:]`; shift%%%)
 		    CCIDE_BREAK()
 		CCIDE_END_SWITCH()
-	CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_2, by ccide-0.7.0-0 Sat 16 Jul 2022 10:03:02 AM EDT %%%)
+	CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_2, by ccide-0.7.0-0 Sat 16 Jul 2022 02:33:31 PM EDT %%%)
 	shift
 done
 
@@ -193,7 +193,7 @@ CCIDE=0
 	    CCIDE_ACTION(^^^exit $?%%%)
 	    CCIDE_BREAK()
 	CCIDE_END_SWITCH()
-CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_3, by ccide-0.7.0-0 Sat 16 Jul 2022 10:03:02 AM EDT %%%)
+CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_3, by ccide-0.7.0-0 Sat 16 Jul 2022 02:33:31 PM EDT %%%)
 
 
 [ -f $M4DIR/ccide-${CCIDELANG}.m4 ] || Die Cannot find $M4DIR/ccide-${CCIDELANG}.m4
@@ -229,7 +229,7 @@ CCIDE=0
 	    CCIDE_ACTION(^^^$CCIDEW            -L $CCIDELANG $WC | /usr/bin/m4 -P "$M4DIR/ccide-$CCIDELANG.m4" "-"%%%)
 	    CCIDE_BREAK()
 	CCIDE_END_SWITCH()
-CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_4, by ccide-0.7.0-0 Sat 16 Jul 2022 10:03:02 AM EDT %%%)
+CCIDE_COMMENT(^^^END_GENERATED_CODE: FOR TABLE_4, by ccide-0.7.0-0 Sat 16 Jul 2022 02:33:31 PM EDT %%%)
 
  
 exit $?

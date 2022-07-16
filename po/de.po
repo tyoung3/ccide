@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.5pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-09-03 11:15-0400\n"
+"POT-Creation-Date: 2022-07-16 13:56-0400\n"
 "PO-Revision-Date: 2012-08-29 23:15+0002\n"
 "Last-Translator: Jakob Kramer <jakob.kramer@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -37,41 +37,41 @@ msgstr "%s Gerüstprogramm generiert von ccide-%s.%s %s \n"
 msgid "%sEnd of Skeleton Program.%s\n"
 msgstr "%sEnde des Gerüstprogramms.%s\n"
 
-#: src/ccideparse.c:1570
+#: src/ccideparse.c:1376
 msgid "NEWGROUP not supported for GOTOless languages."
 msgstr "NEWGROUP wird für Sprachen ohne GOTO nicht unterstützt."
 
-#: src/ccideparse.c:1597
+#: src/ccideparse.c:1400
 #, c-format
 msgid "%i exceeds the maximum number of rules  %i."
 msgstr "%i überschreitet die maximale Regelanzahl %i."
 
-#: src/ccideparse.c:1602
+#: src/ccideparse.c:1405
 #, c-format
 msgid "%i exceeds the maximum number of actions %i."
 msgstr "%i überschreitet die maximale Aktionsanzahl %i."
 
-#: src/ccideparse.c:1607
+#: src/ccideparse.c:1410
 #, c-format
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i überschreitet die maximale Bedingungsanzahl %i."
 
-#: src/ccideparse.c:1873
+#: src/ccideparse.c:1653
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i statt %i Regeln."
 
-#: src/ccideparse.c:1888
+#: src/ccideparse.c:1668
 #, c-format
 msgid "Prefix longer than space allows."
 msgstr "Der Präfix ist zu lang."
 
-#: src/ccideparse.c:1906
+#: src/ccideparse.c:1686
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "Der Präfix beinhaltet ungültige Zeichen."
 
-#: src/ccideparse.c:1934
+#: src/ccideparse.c:1714
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -80,27 +80,27 @@ msgstr ""
 "CCIDE/FATAL: Trennzeichen %s kann nicht mit einem QUOTE=(%s,%s) oder einer "
 "SUBSTITUTION=(%s,%s) übereinstimmen.\n"
 
-#: src/ccideparse.c:1946
+#: src/ccideparse.c:1726
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "NULL-Trennzeichen\n"
 
-#: src/ccideparse.c:2122
+#: src/ccideparse.c:1902
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr ""
 "CCIDE/PARSE: Entschuldigung, die Programmiersprache %s wird noch nicht "
 "unterstützt.\n"
 
-#: src/ccideparse.c:2260
+#: src/ccideparse.c:2040
 msgid "Binding gettext"
 msgstr "Gettext wird gebunden."
 
-#: src/ccideparse.c:2263
+#: src/ccideparse.c:2043
 msgid "Getting textdomain"
 msgstr "Textbereich wird geholt."
 
-#: src/ccideparse.c:2278
+#: src/ccideparse.c:2058
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Parameter %i ist zu lang.\n"

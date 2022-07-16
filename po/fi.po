@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.5pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-09-03 11:15-0400\n"
+"POT-Creation-Date: 2022-07-16 13:56-0400\n"
 "PO-Revision-Date: 2012-09-01 16:33+0200\n"
 "Last-Translator: Jorma Karvonen <karvonen.jorma@gmail.com>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -39,41 +39,41 @@ msgstr "%s-kehysohjelma, jonka on tuottanut ccide-%s.%s %s \n"
 msgid "%sEnd of Skeleton Program.%s\n"
 msgstr "%sKehysohjelman loppu.%s\n"
 
-#: src/ccideparse.c:1570
+#: src/ccideparse.c:1376
 msgid "NEWGROUP not supported for GOTOless languages."
 msgstr "NEWGROUP ei tueta ohjelmointikielissä, joissa ei ole GOTO-käskyä."
 
-#: src/ccideparse.c:1597
+#: src/ccideparse.c:1400
 #, c-format
 msgid "%i exceeds the maximum number of rules  %i."
 msgstr "%i ylittää sääntöjen enimmäismäärän %i."
 
-#: src/ccideparse.c:1602
+#: src/ccideparse.c:1405
 #, c-format
 msgid "%i exceeds the maximum number of actions %i."
 msgstr "%i ylittää toimintojen enimmäismäärän %i."
 
-#: src/ccideparse.c:1607
+#: src/ccideparse.c:1410
 #, c-format
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i ylittää ehtojen enimmäismäärän %i."
 
-#: src/ccideparse.c:1873
+#: src/ccideparse.c:1653
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i sääntöä, eikä %i."
 
-#: src/ccideparse.c:1888
+#: src/ccideparse.c:1668
 #, c-format
 msgid "Prefix longer than space allows."
 msgstr "Etuliite pitempi kuin tila sallii."
 
-#: src/ccideparse.c:1906
+#: src/ccideparse.c:1686
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "Etuliite sisältää laittomia merkkejä."
 
-#: src/ccideparse.c:1934
+#: src/ccideparse.c:1714
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -82,25 +82,25 @@ msgstr ""
 "CCIDE/FATAL: Erotin %s ei voi olla sama kuin QUOTE=(%s,%s) tai "
 "SUBSTITUTION=(%s,%s) \n"
 
-#: src/ccideparse.c:1946
+#: src/ccideparse.c:1726
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "NULL-erotin\n"
 
-#: src/ccideparse.c:2122
+#: src/ccideparse.c:1902
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr "CCIDE/PARSE: Ohjelmointikieltä %s ei vielä tueta.\n"
 
-#: src/ccideparse.c:2260
+#: src/ccideparse.c:2040
 msgid "Binding gettext"
 msgstr "Sidotaan gettext"
 
-#: src/ccideparse.c:2263
+#: src/ccideparse.c:2043
 msgid "Getting textdomain"
 msgstr "Haetaan textdomain"
 
-#: src/ccideparse.c:2278
+#: src/ccideparse.c:2058
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Parametri %i on liian pitkä.\n"

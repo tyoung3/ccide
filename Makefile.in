@@ -138,9 +138,8 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/ccideconfig.h
-CONFIG_CLEAN_FILES = autogen.sh scripts/check.sh scripts/ccide.d \
-	ccide.spec disp_pkg.mk extra_dist.mk CYGWIN-PATCHES/setup.hint \
-	scripts/Makefile
+CONFIG_CLEAN_FILES = autogen.sh ccide.spec disp_pkg.mk extra_dist.mk \
+	CYGWIN-PATCHES/setup.hint
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -228,12 +227,10 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/autogen.sh.in \
 	$(srcdir)/ccide.spec.in $(srcdir)/disp_pkg.mk \
 	$(srcdir)/disp_pkg.mk.in $(srcdir)/extra_dist.mk \
 	$(srcdir)/extra_dist.mk.in \
-	$(top_srcdir)/CYGWIN-PATCHES/setup.hint.in \
-	$(top_srcdir)/scripts/Makefile.in \
-	$(top_srcdir)/scripts/ccide.d.in \
-	$(top_srcdir)/scripts/check.sh.in ABOUT-NLS AUTHORS COPYING \
-	ChangeLog INSTALL NEWS README.md TODO.md compile config.guess \
-	config.rpath config.sub depcomp install-sh missing ylwrap
+	$(top_srcdir)/CYGWIN-PATCHES/setup.hint.in ABOUT-NLS AUTHORS \
+	COPYING ChangeLog INSTALL NEWS README TODO compile \
+	config.guess config.rpath config.sub depcomp install-sh \
+	missing ylwrap
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -624,10 +621,6 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 $(am__aclocal_m4_deps):
 autogen.sh: $(top_builddir)/config.status $(srcdir)/autogen.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-scripts/check.sh: $(top_builddir)/config.status $(top_srcdir)/scripts/check.sh.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-scripts/ccide.d: $(top_builddir)/config.status $(top_srcdir)/scripts/ccide.d.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 ccide.spec: $(top_builddir)/config.status $(srcdir)/ccide.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 disp_pkg.mk: $(top_builddir)/config.status $(srcdir)/disp_pkg.mk.in
@@ -635,8 +628,6 @@ disp_pkg.mk: $(top_builddir)/config.status $(srcdir)/disp_pkg.mk.in
 extra_dist.mk: $(top_builddir)/config.status $(srcdir)/extra_dist.mk.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 CYGWIN-PATCHES/setup.hint: $(top_builddir)/config.status $(top_srcdir)/CYGWIN-PATCHES/setup.hint.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-scripts/Makefile: $(top_builddir)/config.status $(top_srcdir)/scripts/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-dist_binSCRIPTS: $(dist_bin_SCRIPTS)
 	@$(NORMAL_INSTALL)
