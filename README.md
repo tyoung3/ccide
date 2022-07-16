@@ -1,7 +1,7 @@
 
-	  	ccide - C Language Decision Table Code Generator 
+#	  	ccide-0.7.0 - C Language Decision Table Code Generator 
 
-	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+	Copyright (C) 2002-2004,2010,2012,2022;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
@@ -50,4 +50,10 @@ Install Note:
 	'make DESTDIR=/mingw install' to install.
 	The ...mingw.tar.gz tarball is preconfigured with './configure --disable-nls --prefix=c:/mingw && make'. 
 	ccidew.exe should work properly, but there is no ccide.bat script, as yet, to replace the ccide bash script.
-	
+
+
+## Release Notes<a name="releasnotes"/>
+### 0.7.0
+  * Rebuilt on Ubuntu/Jammy
+  * TODO to TODO.md
+  * Added several .po files 
