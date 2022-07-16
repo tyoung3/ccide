@@ -1,7 +1,7 @@
 # ccide Toplevel Makefile
 
 #  	ccide - C Language Decision Table Code Generator 
-#	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+#	Copyright (C) 2002-2004,2010,2012,2022;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
 #    	This file is part of ccide, the C Language Decision Table Code Generator.
 
@@ -125,5 +125,3 @@ MAINTAINERCLEANFILES =   \
   ccide.spec		
 
 ACLOCAL_AMFLAGS = -I m4
-
-# EXTRA_DIST = config.rpath

@@ -351,12 +351,12 @@ ccide:	ccide.m4
 	chmod a+x ccide
 
 ccide.m4: ccide.d 
-	$(top_srcdir)/src/ccidew -c 4 -L BASH < ccide.d > ccide.m4
+	$(top_srcdir)/src/ccidew$(EXEEXT) -c 4 -L BASH < ccide.d > ccide.m4
 
 install: all
 
 installcheck: all
-	echo Verify ccide/ccidew version.
+	echo Verify ccide/ccidew$(EXEEXT) version.
 
 install-strip:  all
 

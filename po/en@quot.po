@@ -1,7 +1,7 @@
 # English translations for ccide package.
-# Copyright (C) 2012 Thomas W. Young, ccide@twyoung.com
+# Copyright (C) 2022 Thomas W. Young, ccide@twyoung.com
 # This file is distributed under the same license as the ccide package.
-# Automatically generated, 2012.
+# Automatically generated, 2022.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation
@@ -27,12 +27,13 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ccide 0.6.5\n"
+"Project-Id-Version: ccide 0.6.6\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-09-03 10:23-0400\n"
-"PO-Revision-Date: 2012-09-03 10:23-0400\n"
+"POT-Creation-Date: 2012-09-03 11:15-0400\n"
+"PO-Revision-Date: 2012-09-03 11:15-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
