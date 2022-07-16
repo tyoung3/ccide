@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccide 0.6.5pre1\n"
 "Report-Msgid-Bugs-To: ccide@twyoung.com\n"
-"POT-Creation-Date: 2012-09-03 11:15-0400\n"
+"POT-Creation-Date: 2022-07-16 13:56-0400\n"
 "PO-Revision-Date: 2012-08-29 13:19+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
@@ -39,41 +39,41 @@ msgstr "%s Каркас програми, створений за допомог
 msgid "%sEnd of Skeleton Program.%s\n"
 msgstr "%sКінець каркасу програми.%s\n"
 
-#: src/ccideparse.c:1570
+#: src/ccideparse.c:1376
 msgid "NEWGROUP not supported for GOTOless languages."
 msgstr "Для мов без GOTO не передбачено підтримки NEWGROUP."
 
-#: src/ccideparse.c:1597
+#: src/ccideparse.c:1400
 #, c-format
 msgid "%i exceeds the maximum number of rules  %i."
 msgstr "%i перевищує максимальну кількість правил, %i."
 
-#: src/ccideparse.c:1602
+#: src/ccideparse.c:1405
 #, c-format
 msgid "%i exceeds the maximum number of actions %i."
 msgstr "%i перевищує максимальну кількість дій, %i."
 
-#: src/ccideparse.c:1607
+#: src/ccideparse.c:1410
 #, c-format
 msgid "%i exceeds the maximum number of conditions %i."
 msgstr "%i перевищує максимальну кількість умов, %i."
 
-#: src/ccideparse.c:1873
+#: src/ccideparse.c:1653
 #, c-format
 msgid "%i rules, instead of %i."
 msgstr "%i правил, замість %i."
 
-#: src/ccideparse.c:1888
+#: src/ccideparse.c:1668
 #, c-format
 msgid "Prefix longer than space allows."
 msgstr "Розмір префікса перевищує відведене на нього місце."
 
-#: src/ccideparse.c:1906
+#: src/ccideparse.c:1686
 #, c-format
 msgid "Prefix contains invalid characters."
 msgstr "У префіксі містяться некоректні символи."
 
-#: src/ccideparse.c:1934
+#: src/ccideparse.c:1714
 #, c-format
 msgid ""
 "CCIDE/FATAL: Delimiter %s cannot equal a QUOTE=(%s,%s) or a SUBSTITUTION=(%s,"
@@ -82,26 +82,26 @@ msgstr ""
 "CCIDE/FATAL: роздільник %s не може дорівнювати QUOTE=(%s,%s) або "
 "SUBSTITUTION=(%s,%s) \n"
 
-#: src/ccideparse.c:1946
+#: src/ccideparse.c:1726
 #, c-format
 msgid "NULL Delimiter\n"
 msgstr "NULL-роздільник\n"
 
-#: src/ccideparse.c:2122
+#: src/ccideparse.c:1902
 #, c-format
 msgid "CCIDE/PARSE: Sorry, %s programming language is not supported, yet.\n"
 msgstr ""
 "CCIDE/PARSE: вибачте, підтримки мови програмування %s ще не передбачено.\n"
 
-#: src/ccideparse.c:2260
+#: src/ccideparse.c:2040
 msgid "Binding gettext"
 msgstr "Прив’язування до gettext"
 
-#: src/ccideparse.c:2263
+#: src/ccideparse.c:2043
 msgid "Getting textdomain"
 msgstr "Отримання текстового домену"
 
-#: src/ccideparse.c:2278
+#: src/ccideparse.c:2058
 #, c-format
 msgid "Parameter %i is too long.\n"
 msgstr "Параметр %i є надто довгим.\n"
