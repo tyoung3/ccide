@@ -29,8 +29,6 @@ uname -v = #202206141358~1655919116~22.04~1db9e34 SMP PREEMPT Wed Jun 22 19
 
 PATH: /home/tyoung3/go/bin/
 PATH: /home/tyoung3/bin/
-PATH: /home/tyoung3/go/bin/
-PATH: /home/tyoung3/bin/
 PATH: /home/tyoung3/.local/bin/
 PATH: /home/tyoung3/bin/
 PATH: /usr/local/sbin/
@@ -657,7 +655,7 @@ configure:9053: $? = 0
 configure:9066: result: none needed
 configure:9081: checking for library containing yywrap
 configure:9111: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/cc4kpF6j.o: in function `main':
+/usr/bin/ld: /tmp/cc3k90Ka.o: in function `main':
 /usr/local/src/ccide/conftest.c:52: undefined reference to `yywrap'
 collect2: error: ld returned 1 exit status
 configure:9111: $? = 1
@@ -1081,7 +1079,7 @@ configure:10435: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:83:6: warning: conflicting types for built-in function '__builtin_popcount'; expected 'int(unsigned int)' [-Wbuiltin-declaration-mismatch]
    83 | char __builtin_popcount ();
       |      ^~~~~~~~~~~~~~~~~~
-/usr/bin/ld: /tmp/cckXROiD.o: in function `main':
+/usr/bin/ld: /tmp/cc4D0UdL.o: in function `main':
 /usr/local/src/ccide/conftest.c:94: undefined reference to `__builtin_popcount'
 collect2: error: ld returned 1 exit status
 configure:10435: $? = 1

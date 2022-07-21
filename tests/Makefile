@@ -551,6 +551,9 @@ if2rpn.txt:
 %.ex: %.ex.d 
 	${CCIDE} -L EX -b ${OPT}  < ${srcdir}/$< > $@ 
 
+%.go: %.go.d 
+	${CCIDE} -L GO -b ${OPT}  < ${srcdir}/$< > $@ 
+
 %.cs: %.cs.d 
 	${CCIDE} -L CS -b ${OPT}  < ${srcdir}/$< > $@ 
 
@@ -595,7 +598,7 @@ distclean-local:
 
 clean-local:
 	rm -f testcases *~ dosunixset *.o ex2.qb t6.ex *.cs
-	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb 
+	rm -f *~ *.scan *.log ${TEST_CASES} *.make.out *.output *.err *.c *.bash *.cpp  testcases *.java  *.vb *.go
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

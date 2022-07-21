@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #  	ccide - C Language Decision Table Code Generator 
-#	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+#	Copyright (C) 2002-2004,2010,2012,2022;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
 #    	This file is part of ccide, the C Language Decision Table Code Generator.
 
@@ -26,7 +26,7 @@
 CCIDELANG=C
 BINDIR="@prefix@/bin"
 PKGDATADIR=@pkgdatadir@
-LANGSX="BASH BASIC C CH CC C++ CS EX JAVA QB VB JS"
+LANGSX="BASH BASIC C CH CC C++ CS EX GO JAVA JS QB VB"
 
 CCIDE_DIE
 

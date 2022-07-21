@@ -49,7 +49,7 @@ ccide:	ccide.m4
 	/usr/bin/m4 -P $(top_srcdir)/m4/ccide-BASH.m4 ccide.m4   > ccide
 	chmod a+x ccide
 
-ccide.m4: ccide.d 
+ccide.m4: ccide.d  ../m4/ccide-BASH.m4
 	$(top_srcdir)/src/ccidew -c 4 -L BASH < ccide.d > ccide.m4
 
 install: all

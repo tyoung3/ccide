@@ -1,7 +1,8 @@
+/* THISIS: simple.go.d */
 package main
 
 /*  	ccide - C Language Decision Table Code Generator 
-	Copyright (C) 2002-2004,2010,2012;  Thomas W. Young, e-mail:  ccide@twyoung.com
+	Copyright (C) 2002-2004,2010,2012,2022;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
     	This file is part of ccide, the C Language Decision Table Code Generator.
 
@@ -21,19 +22,17 @@ package main
     	Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/* THISIS: simple.go.d */
-
 import "fmt"
 
 /*CCIDE_INLINE_CODE:*/
-func a1() int {return 1} 
-func a2() int {return 2} 
-func a3() int {return 3}  
 
-func main()  {
-	c2:=2;c3:=2;c4:=0 
-	var swvar[3][3] int
-	//={{2,3,4},{3,4,2},{4,3,0}} int 
+func a1(n int) int {return n+1}
+func a2(n int) int {return n+2}
+func a3(n int) int {return n+3}
+
+func main() {
+	c2:=2;c3:=2;c4:=0  
+	swvar[3][3]:={{2,3,4},{3,4,2},{4,3,0}} 
 
 		/* N.B.: abort() is never executed.*/
 	/*DECISION_TABLE:				*/
@@ -41,9 +40,9 @@ func main()  {
         /*  - - - | abort()				*/
         /*  _____ | _______             		*/
         /*  - - - | abort()				*/
-        /*  - - X | a1();				*/
+        /*  - - X | a1(swvar[c2][c3]);				*/
         /*  1 2 3 | printf("Rule: %i\n", $$ );		*/
-        /*  - X X | a2();				*/
+        /*  - X X | a2(swvar[c2][c3]);				*/
         /*  X X - |NEWGROUP  	Must be last row	*/
         /*END_TABLE:					*/
 
@@ -52,9 +51,12 @@ func main()  {
 	//-ny|c2
 	//ny-|c3
 	//---|--
-	//--x|a3();
-	//x-x|a1();
-	//xx-|a2();
+	//--x|a3(swvar[c2][c3]);
+	//x-x|a1(swvar[c2][c3]);
+	//xx-|a2(swvar[c2][c3]);
 	//END_TABLE:
-	  
+
+
+
+	return 0;
 }

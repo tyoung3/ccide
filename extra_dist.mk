@@ -24,6 +24,7 @@ EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLo
 	./tests/if2rpn.X \
 	./tests/if2rpn.h  \
 	./tests/quadrants3.X \
+	./tests/simple2.X \
 	./tests/simple.X \
 	./tests/skel.X \
 	./tests/threeway.X \
@@ -54,8 +55,8 @@ EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLo
 	./tests/learn.ex.r \
 	./tests/quadrants3.cpp.r \
 	./tests/rqb2html.bas.r \
+	./tests/simple2.go.r \
 	./tests/simple.c.r \
-	./tests/simple.go.r \
 	./tests/skel.c.r \
 	./tests/t5.cs.r \
 	./tests/t6.ex.r \
@@ -76,8 +77,8 @@ EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLo
 	./tests/if2rpn.c.opt \
 	./tests/learn.ex.opt \
 	./tests/rqb2html.bas.opt \
+	./tests/simple2.go.opt \
 	./tests/simple.c.opt \
-	./tests/simple.go.opt \
 	./tests/skel.c.opt \
 	./tests/t5.cs.opt \
 	./tests/t6.ex.opt \
@@ -108,8 +109,8 @@ EXTRA_DIST = autogen.sh src/ccide.1 ccide.spec src/ccidew ccide.spec.in ChangeLo
 	./tests/learn.ex.d \
 	./tests/quadrants3.cpp.d \
 	./tests/rqb2html.bas.d \
+	./tests/simple2.go.d \
 	./tests/simple.c.d \
-	./tests/simple.go.d \
 	./tests/skel.c.d \
 	./tests/t5.cs.d \
 	./tests/t6.ex.d \
