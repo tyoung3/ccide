@@ -38,10 +38,10 @@ Copyright (C) 2002-2004,2010,2012,2022; Thomas W. Young, e-mail:  ccide@twyoung.
 // ?? typedef unsigned int CCIDE_BIT;
 var ccide_group int = 1
 
-func CcideRuleLow(*r, nbrrules int) bool {
+func CcideRuleLow(r *int, nbrrules int) bool {
 	r=r+1
-	if {r < nbrrules} return 1
-	return 0;
+	if (r < nbrrules) {return }
+	return false;
 }
 
 func CcideFindRule(               /* Return rule number */
@@ -49,8 +49,33 @@ func CcideFindRule(               /* Return rule number */
         r := 0;
         nstate := UINT_MAX ^ ccide_table;
 
-        while (
-		( (yes[r] & nstate) || (no[r]  & ccide_table) ) && (CcideRuleLow(&r, nbrrules )) {};
+///DECISION_TABLE:
+// 1  1  1 | NEWGROUP		
+// Y  -  - | yes[r] & nstate  
+// -  Y  - | no[r]  & ccide_table  
+// Y  Y  - | r+1 < nbrrules  
+// ________|______________________  
+// X  X  X | r=r+1
+// -  -  0 | NEWGROUP		
+//END_TABLE: 
+/*GENERATED_CODE: FOR TABLE_1.*/
+/*	3 Rules, 4 conditions, and 4 actions.*/
+/*	Table 1 rule order = 1 2 3 */
+ {	CCIDE_table1_yes := [...]uint{11, 13, 1}
+	ccide_group:=1;
+
+CCIDE_TABLE_1:
+	switch(CcideFindRuleYes(3,
+		  (ccide_group == 1)| (yes[r] & nstate)<<1| (no[r]  & ccide_table)<<2| (r+1 < nbrrules)<<3,
+		  CCIDE_table1_yes)) {
+	CCIDE_1_0: case 0:	/*	Rule 1*/
+	CCIDE_1_1: case 1:	/*	Rule 2*/
+	    r=r+1
+	    goto CCIDE_TABLE_1;
+	CCIDE_1_2: case 2:	/*	Rule 3*/
+	    r=r+1
+	} /* End Switch*/
+/*END_GENERATED_CODE: FOR TABLE_1, by ccide-0.7.0-0 Wed 20 Jul 2022 10:35:43 AM EDT */
 
         return r;
 }

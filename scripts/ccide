@@ -121,7 +121,7 @@ function CcideFindRuleYes() {             # Return rule number
 	    CCIDEW=`pwd`/../src/ccidew;
 	    ;;
 	esac
-#END_GENERATED_CODE: FOR TABLE_1, by ccide-0.7.0-0 Sun 17 Jul 2022 12:29:49 PM EDT 
+#END_GENERATED_CODE: FOR TABLE_1, by ccide-0.7.0-0 Sun 07 Aug 2022 10:47:21 AM EDT 
 
 
 #   Set m4 directory...  	
@@ -178,7 +178,7 @@ while [[ $# > 0 ]]; do
 		    CCIDELANG=`echo $2|tr [:lower:] [:upper:]`; shift;
 		    ;;
 		esac
-	#END_GENERATED_CODE: FOR TABLE_2, by ccide-0.7.0-0 Sun 17 Jul 2022 12:29:49 PM EDT 
+	#END_GENERATED_CODE: FOR TABLE_2, by ccide-0.7.0-0 Sun 07 Aug 2022 10:47:21 AM EDT 
 	shift
 done
 
@@ -225,7 +225,7 @@ done
 	    exit $?;
 	    ;;
 	esac
-#END_GENERATED_CODE: FOR TABLE_3, by ccide-0.7.0-0 Sun 17 Jul 2022 12:29:49 PM EDT 
+#END_GENERATED_CODE: FOR TABLE_3, by ccide-0.7.0-0 Sun 07 Aug 2022 10:47:21 AM EDT 
 
 
 [ -f $M4DIR/ccide-${CCIDELANG}.m4 ] || Die Cannot find $M4DIR/ccide-${CCIDELANG}.m4
@@ -262,7 +262,7 @@ CCIDE=0
 	    $CCIDEW            -L $CCIDELANG $WC | /usr/bin/m4 -P "$M4DIR/ccide-$CCIDELANG.m4" "-";
 	    ;;
 	esac
-#END_GENERATED_CODE: FOR TABLE_4, by ccide-0.7.0-0 Sun 17 Jul 2022 12:29:49 PM EDT 
+#END_GENERATED_CODE: FOR TABLE_4, by ccide-0.7.0-0 Sun 07 Aug 2022 10:47:21 AM EDT 
 
  
 exit $?
