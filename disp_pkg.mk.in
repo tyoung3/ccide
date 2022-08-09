@@ -7,7 +7,6 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	tests/f1 tests/f2 tests/f3 tests/f4 tests/if2rpn.txt tests/tryit.txt tests/Makefile \
 	scripts/check.sh scripts/Makefile scripts/Makefile.in scripts/ccide.d.in scripts/check.sh.in \
 	po/Makefile.in.in po/Makevars po/ccide.pot po/Makevars \
-	./tests/babble.X \
 	./tests/bin2dec.X \
 	./tests/bonus.X \
 	./tests/calc.X \
@@ -22,12 +21,9 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	./tests/hw.X \
 	./tests/if2rpn.X \
 	./tests/if2rpn.h  \
-	./tests/quadrants3.X \
 	./tests/simple.X \
-	./tests/skel.X \
 	./tests/threeway.X \
 	./tests/tryit.X \
-	./tests/babble.bbl.r \
 	./tests/bin2dec.c.r \
 	./tests/bonus.cpp.r \
 	./tests/calc.c.r \
@@ -50,9 +46,7 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	./tests/if2rpn.c.r \
 	./tests/if2rpnq.c.r \
 	./tests/if2rpntok.c.r \
-	./tests/learn.ex.r \
 	./tests/quadrants3.cpp.r \
-	./tests/rqb2html.bas.r \
 	./tests/simple.c.r \
 	./tests/skel.c.r \
 	./tests/t5.cs.r \
@@ -61,7 +55,6 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	./tests/tryit.cpp.r \
 	./tests/undo.c.r \
 	./tests/version.c.r \
-	./tests/babble.bbl.opt \
 	./tests/bin2dec.c.opt \
 	./tests/elev.c.opt \
 	./tests/errors.c.opt \
@@ -72,9 +65,6 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	./tests/huge2.c.opt \
 	./tests/hw.java.opt \
 	./tests/if2rpn.c.opt \
-	./tests/learn.ex.opt \
-	./tests/rqb2html.bas.opt \
-	./tests/simple.c.opt \
 	./tests/skel.c.opt \
 	./tests/t5.cs.opt \
 	./tests/t6.ex.opt \
@@ -82,7 +72,6 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	./tests/tryit.cpp.opt \
 	./tests/undo.c.opt \
 	./tests/version.c.opt \
-	./tests/babble.bbl.d \
 	./tests/bin2dec.c.d \
 	./tests/bonus.cpp.d \
 	./tests/calc.c.d \
@@ -102,9 +91,7 @@ dist_pkgdata_DATA = m4/ccide-C.m4  m4/ccide-CC.m4 m4/ccide-C++.m4\
 	./tests/if2rpn.c.d \
 	./tests/if2rpnq.c.d \
 	./tests/if2rpntok.c.d \
-	./tests/learn.ex.d \
 	./tests/quadrants3.cpp.d \
-	./tests/rqb2html.bas.d \
 	./tests/simple.c.d \
 	./tests/skel.c.d \
 	./tests/t5.cs.d \
