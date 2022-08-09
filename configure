@@ -3667,7 +3667,7 @@ are avoided by evaluating all condition expressions exactly once and by\
 performing evaluations and actions in the original sequence."
 
 # Conformance checks:
-#you need to add an explicit invocation of ‘AC_GNU_SOURCE’ in the configure.ac file - after ‘AC_PROG_CC’ but before ‘AM_GNU_GETTEXT’, most #likely very close to the ‘AC_PROG_CC’ invocation. This is necessary because of ordering restrictions imposed by GNU autoconf.
+#you need to add an explicit invocation of ‘AC_USE_SYSTEM_EXTENSIONS’ in the configure.ac file - after ‘AC_PROG_CC’ but before ‘AM_GNU_GETTEXT’, most #likely very close to the ‘AC_PROG_CC’ invocation. This is necessary because of ordering restrictions imposed by GNU autoconf.
 #  Localization
 
 
@@ -5088,7 +5088,6 @@ then :
   printf "%s\n" "#define _XOPEN_SOURCE 500" >>confdefs.h
 
 fi
-
 
 
 mkdir_p="$MKDIR_P"
@@ -9535,6 +9534,9 @@ printf "%s\n" "#define STACK_DIRECTION $ac_cv_c_stack_direction" >>confdefs.h
 
 fi
 
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for grep that handles long lines and -e" >&5
 printf %s "checking for grep that handles long lines and -e... " >&6; }
 if test ${ac_cv_path_GREP+y}
@@ -9603,9 +9605,6 @@ fi
 printf "%s\n" "$ac_cv_path_GREP" >&6; }
  GREP="$ac_cv_path_GREP"
 
-
-# Autoupdate added the next two lines to ensure that your configure
-# script's behavior did not change.  They are probably safe to remove.
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for egrep" >&5
 printf %s "checking for egrep... " >&6; }
@@ -10576,7 +10575,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # Uncomment POSIX for mingw ??
-# AC_ISC_POSIX
+# AC_SEARCH_LIBS([strerror],[cposix])
 
 # Extract the first word of "echo", so it can be a program name with args.
 set dummy echo; ac_word=$2

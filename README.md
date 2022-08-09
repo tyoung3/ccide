@@ -1,5 +1,4 @@
-
-#	  	ccide-0.7.0 - C Language Decision Table Code Generator 
+# CCIDE-0.7.0 -- Decision Table Code Generator
 
 	Copyright (C) 2002-2004,2010,2012,2022;  Thomas W. Young, e-mail:  ccide@twyoung.com
 
@@ -22,6 +21,8 @@
  
 
 See the accompanying file, COPYING, for terms of use.  
+## NOTE: Master branch may be broken while work on Golang proceeds. 
+
   
 Ccide generates compilable code in a number of languages(including JAVA, C/C++, BASH script, and Euphoria; from a source language file containing one or more commented decision tables.  Decision tables are easier to read than traditional if-then-else structures, thereby helping to prevent logic errors.
  

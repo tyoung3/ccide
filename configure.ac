@@ -3,7 +3,7 @@
 
 # ? PACKAGE_URL
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.71])
 AC_INIT([ccide],[0.7.0],[ccide@twyoung.com])
 AC_CONFIG_SRCDIR([src/ccidemain.h])
 AC_CONFIG_HEADERS([src/ccideconfig.h])
@@ -26,9 +26,9 @@ are avoided by evaluating all condition expressions exactly once and by\
 performing evaluations and actions in the original sequence."
 
 # Conformance checks:
-#you need to add an explicit invocation of ‘AC_GNU_SOURCE’ in the configure.ac file - after ‘AC_PROG_CC’ but before ‘AM_GNU_GETTEXT’, most #likely very close to the ‘AC_PROG_CC’ invocation. This is necessary because of ordering restrictions imposed by GNU autoconf. 
+#you need to add an explicit invocation of ‘AC_USE_SYSTEM_EXTENSIONS’ in the configure.ac file - after ‘AC_PROG_CC’ but before ‘AM_GNU_GETTEXT’, most #likely very close to the ‘AC_PROG_CC’ invocation. This is necessary because of ordering restrictions imposed by GNU autoconf. 
 #  Localization 
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
 # AM_INTL_SUBDIR([intl])
@@ -50,13 +50,34 @@ AC_PROG_RANLIB
 
 # Checks for header files.
 AC_FUNC_ALLOCA
-AC_HEADER_STDC 
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+ 
 AC_HEADER_STDBOOL
 AC_CHECK_HEADERS([libintl.h limits.h malloc.h stddef.h stdlib.h string.h sys/time.h unistd.h])
 AC_CHECK_HEADERS([locale.h]) 
 
 # additional header checks
-AC_HEADER_TIME
+m4_warn([obsolete],
+[Update your code to rely only on HAVE_SYS_TIME_H,
+then remove this warning and the obsolete code below it.
+All current systems provide time.h; it need not be checked for.
+Not all systems provide sys/time.h, but those that do, all allow
+you to include it and time.h simultaneously.])dnl
+AC_CHECK_HEADERS_ONCE([sys/time.h])
+# Obsolete code to be removed.
+if test $ac_cv_header_sys_time_h = yes; then
+  AC_DEFINE([TIME_WITH_SYS_TIME],[1],[Define to 1 if you can safely include both <sys/time.h>
+	     and <time.h>.  This macro is obsolete.])
+fi
+# End of obsolete code.
+
 
 AC_CHECK_HEADERS([assert.h], [], [],
    [[#ifdef HAVE_ASSERT_H
@@ -97,7 +118,7 @@ AC_PREFIX_PROGRAM(m4)
 AC_LANG([C])
 
 # Uncomment POSIX for mingw ??
-# AC_ISC_POSIX
+# AC_SEARCH_LIBS([strerror],[cposix])
 
 AC_PATH_PROG(ECHO, echo)
 AC_PATH_PROG(M4, m4)
